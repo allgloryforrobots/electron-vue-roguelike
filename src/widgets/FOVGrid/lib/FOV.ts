@@ -1,4 +1,4 @@
-import { MapType } from "../types/GridTypes";
+import { MapType } from "../../Grid";
 
 export class FOVCalculator {
     private map: MapType;

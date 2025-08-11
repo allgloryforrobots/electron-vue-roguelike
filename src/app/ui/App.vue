@@ -1,13 +1,12 @@
 <template>
   <Grid v-if="map" :map="map"/>
-  <FOVGrig v-if="fovMap" :map="fovMap"/>
+  <FOVGrid v-if="fovMap" :map="fovMap"/>
 </template>
 
 <script setup lang="ts">
+import { FOVCalculator, FOVGrid } from '@/widgets/FOVGrid';
 import { Grid } from '@/widgets/Grid'
-import { FOVCalculator } from '@/widgets/Grid/lib/FOV';
-import { MapGenerator } from '@/widgets/Grid/lib/GridGeneration';
-import FOVGrig from '@/widgets/Grid/ui/FOVGrig.vue';
+import { MapGenerator } from '@/widgets/Grid';
 import { ref } from 'vue';
   const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const generatedMap = generator.generateMap();
