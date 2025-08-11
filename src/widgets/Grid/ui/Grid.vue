@@ -17,17 +17,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { MapGenerator } from '../lib/GridGeneration';
+import { MapType } from '../lib/GridGeneration';
 import Cell from './Cell.vue';
 
-const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
-const generatedMap = generator.generateMap();
-const map = ref();
-map.value = generatedMap;
+defineProps<{
+  map: MapType;
+}>();
 </script>
 
-<style>
+<style scoped>
 .map-container {
   display: flex;
   flex-direction: column;

@@ -1,11 +1,16 @@
 <template>
-  <Grid />
+  <Grid v-if="map" :map="map"/>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Grid } from '@/widgets/Grid'
+import { MapGenerator } from '@/widgets/Grid/lib/GridGeneration';
+import { ref } from 'vue';
+  const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
+  const generatedMap = generator.generateMap();
+  const map = ref();
+  map.value = generatedMap;
 </script>
-
 <style>
 #app {
   position: fixed;

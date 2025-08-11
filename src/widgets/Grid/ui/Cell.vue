@@ -24,7 +24,7 @@ defineProps<{
 }>();
 </script>
 
-<style>
+<style scoped>
 .map-cell {
   width: 20px;
   height: 20px;

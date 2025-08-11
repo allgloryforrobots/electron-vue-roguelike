@@ -5,6 +5,8 @@ interface IMapGeneratorOptions {
     clusterDensity: number;
 }
 
+export type MapType = Array<TerrainsTypesEnum[]>;
+
 export enum TerrainsTypesEnum {
     GRASS = 0,
     SINGLE_TREE = 1,
@@ -16,7 +18,7 @@ export class MapGenerator {
     height: number;
     treeDensity: number;
     clusterDensity: number;
-    map: Array<TerrainsTypesEnum[]>;
+    map: MapType;
 
     constructor(options: IMapGeneratorOptions) {
       // Параметры карты
