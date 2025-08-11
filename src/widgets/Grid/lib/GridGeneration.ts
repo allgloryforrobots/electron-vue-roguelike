@@ -1,17 +1,5 @@
-interface IMapGeneratorOptions {
-    width: number;
-    height: number;
-    treeDensity: number;
-    clusterDensity: number;
-}
-
-export type MapType = Array<TerrainsTypesEnum[]>;
-
-export enum TerrainsTypesEnum {
-    GRASS = 0,
-    SINGLE_TREE = 1,
-    CLUSTER_TREE = 2
-}
+import { IMapGeneratorOptions, TerrainsTypesEnum } from "../types/GridTypes";
+import type { MapType } from "../types/GridTypes";
 
 export class MapGenerator {
     width: number;
@@ -181,7 +169,3 @@ export class MapGenerator {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }
-
-// Пример использования:
-// const generator = new MapGenerator({ width: 50, height: 30 });
-// const generatedMap = generator.generateMap();

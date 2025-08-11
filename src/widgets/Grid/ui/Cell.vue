@@ -15,7 +15,8 @@
 </template>
 
 <script lang="ts" setup>
-import { TerrainsTypesEnum } from '../lib/GridGeneration';
+import { TerrainsTypesEnum } from '../types/GridTypes';
+
 
 defineProps<{
   x: number;

@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { MapType } from '../lib/GridGeneration';
+import { MapType } from '../types/GridTypes';
 import Cell from './Cell.vue';
 
 defineProps<{
