@@ -1,171 +1,183 @@
+interface IMapGeneratorOptions {
+    width: number;
+    height: number;
+    treeDensity: number;
+    clusterDensity: number;
+}
+
+export enum TerrainsTypesEnum {
+    GRASS = 0,
+    SINGLE_TREE = 1,
+    CLUSTER_TREE = 2
+}
+
 export class MapGenerator {
-  // Константы типов местности
-  static TERRAIN_TYPES = {
-    GRASS: 0,
-    SINGLE_TREE: 1,
-    CLUSTER_TREE: 2
-  };
+    width: number;
+    height: number;
+    treeDensity: number;
+    clusterDensity: number;
+    map: Array<TerrainsTypesEnum[]>;
 
-  constructor(options = {}) {
-    // Параметры карты
-    this.width = options.width || 50;
-    this.height = options.height || 30;
-    this.map = [];
+    constructor(options: IMapGeneratorOptions) {
+      // Параметры карты
+      this.width = options.width || 50;
+      this.height = options.height || 30;
+      this.map = [];
 
-    // Параметры генерации
-    this.treeDensity = options.treeDensity || 0.05; // 5% карты - одиночные деревья
-    this.clusterDensity = options.clusterDensity || 0.008; // 0.8% карты - кластеры
-  }
-
-  // Инициализация пустой карты
-  initEmptyMap() {
-    this.map = Array(this.height).fill().map(() => 
-      Array(this.width).fill(MapGenerator.TERRAIN_TYPES.GRASS)
-    );
-  }
-
-  // Основной метод генерации карты
-  generateMap() {
-    this.initEmptyMap();
-    this.generateSingleTrees();
-    this.generateTreeClusters();
-    this.addPaths();
-    return this.map;
-  }
-
-  // Генерация одиночных деревьев
-  generateSingleTrees() {
-    const treeCount = Math.floor(this.width * this.height * this.treeDensity);
-    
-    for (let i = 0; i < treeCount; i++) {
-      const x = this.getRandomInt(0, this.width - 1);
-      const y = this.getRandomInt(0, this.height - 1);
-      
-      if (this.isCellEmpty(x, y)) {
-        this.map[y][x] = MapGenerator.TERRAIN_TYPES.SINGLE_TREE;
-        
-        // 30% chance добавить соседние деревья
-        if (Math.random() < 0.3) {
-          this.addAdjacentTrees(x, y, this.getRandomInt(1, 2));
-        }
-      }
+      // Параметры генерации
+      this.treeDensity = options.treeDensity || 0.05; // 5% карты - одиночные деревья
+      this.clusterDensity = options.clusterDensity || 0.008; // 0.8% карты - кластеры
     }
-  }
 
-  // Генерация кластеров деревьев
-  generateTreeClusters() {
-    const clusterCount = Math.floor(this.width * this.height * this.clusterDensity);
-    
-    for (let i = 0; i < clusterCount; i++) {
-      const centerX = this.getRandomInt(5, this.width - 6);
-      const centerY = this.getRandomInt(5, this.height - 6);
-      const clusterSize = this.getRandomInt(3, 7);
-      
-      // Ядро кластера
-      for (let j = 0; j < clusterSize; j++) {
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 0.5 + Math.random() * 2.5;
-        const x = Math.round(centerX + Math.cos(angle) * distance);
-        const y = Math.round(centerY + Math.sin(angle) * distance);
-        
-        if (this.isInBounds(x, y)) {
-          this.map[y][x] = MapGenerator.TERRAIN_TYPES.CLUSTER_TREE;
-        }
-      }
-      
-      // Ореол вокруг кластера
-      this.addClusterHalo(centerX, centerY);
+    // Инициализация пустой карты
+    initEmptyMap() {
+      this.map = Array(this.height).fill([]).map(() => 
+        Array(this.width).fill(TerrainsTypesEnum.GRASS)
+      );
     }
-  }
 
-  // Добавление ореола вокруг кластера
-  addClusterHalo(x, y) {
-    const haloSize = this.getRandomInt(2, 4);
-    
-    for (let dy = -haloSize; dy <= haloSize; dy++) {
-      for (let dx = -haloSize; dx <= haloSize; dx++) {
-        if ((dx !== 0 || dy !== 0) && Math.random() < 0.4) {
-          const nx = x + dx;
-          const ny = y + dy;
+    // Основной метод генерации карты
+    generateMap() {
+      this.initEmptyMap();
+      this.generateSingleTrees();
+      this.generateTreeClusters();
+      this.addPaths();
+      return this.map;
+    }
+
+    // Генерация одиночных деревьев
+    generateSingleTrees() {
+      const treeCount = Math.floor(this.width * this.height * this.treeDensity);
+      
+      for (let i = 0; i < treeCount; i++) {
+        const x = this.getRandomInt(0, this.width - 1);
+        const y = this.getRandomInt(0, this.height - 1);
+        
+        if (this.isCellEmpty(x, y)) {
+          this.map[y][x] = TerrainsTypesEnum.SINGLE_TREE;
           
-          if (this.isInBounds(nx, ny) && this.isCellEmpty(nx, ny)) {
-            this.map[ny][nx] = MapGenerator.TERRAIN_TYPES.CLUSTER_TREE;
+          // 30% chance добавить соседние деревья
+          if (Math.random() < 0.3) {
+            this.addAdjacentTrees(x, y, this.getRandomInt(1, 2));
           }
         }
       }
     }
-  }
 
-  // Добавление соседних деревьев
-  addAdjacentTrees(x, y, count) {
-    const directions = [
-      [-1, -1], [0, -1], [1, -1],
-      [-1, 0],           [1, 0],
-      [-1, 1],  [0, 1],  [1, 1]
-    ];
-    
-    for (let i = 0; i < count; i++) {
-      const [dx, dy] = directions[this.getRandomInt(0, directions.length - 1)];
-      const nx = x + dx;
-      const ny = y + dy;
+    // Генерация кластеров деревьев
+    generateTreeClusters() {
+      const clusterCount = Math.floor(this.width * this.height * this.clusterDensity);
       
-      if (this.isInBounds(nx, ny) && this.isCellEmpty(nx, ny)) {
-        this.map[ny][nx] = MapGenerator.TERRAIN_TYPES.SINGLE_TREE;
+      for (let i = 0; i < clusterCount; i++) {
+        const centerX = this.getRandomInt(5, this.width - 6);
+        const centerY = this.getRandomInt(5, this.height - 6);
+        const clusterSize = this.getRandomInt(3, 7);
+        
+        // Ядро кластера
+        for (let j = 0; j < clusterSize; j++) {
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 0.5 + Math.random() * 2.5;
+          const x = Math.round(centerX + Math.cos(angle) * distance);
+          const y = Math.round(centerY + Math.sin(angle) * distance);
+          
+          if (this.isInBounds(x, y)) {
+            this.map[y][x] = TerrainsTypesEnum.CLUSTER_TREE;
+          }
+        }
+        
+        // Ореол вокруг кластера
+        this.addClusterHalo(centerX, centerY);
       }
     }
-  }
 
-  // Добавление тропинок
-  addPaths() {
-    const pathCount = this.getRandomInt(2, 5);
-    
-    for (let i = 0; i < pathCount; i++) {
-      const startX = this.getRandomInt(5, this.width - 6);
-      const startY = this.getRandomInt(5, this.height - 6);
-      const endX = this.getRandomInt(5, this.width - 6);
-      const endY = this.getRandomInt(5, this.height - 6);
+    // Добавление ореола вокруг кластера
+    addClusterHalo(x: number, y: number) {
+      const haloSize = this.getRandomInt(2, 4);
       
-      this.createPath(startX, startY, endX, endY);
-    }
-  }
-
-  // Создание тропинки
-  createPath(startX, startY, endX, endY) {
-    let x = startX;
-    let y = startY;
-    
-    while (Math.abs(x - endX) > 2 || Math.abs(y - endY) > 2) {
-      // Очищаем клетку и вокруг
-      for (let dy = -1; dy <= 1; dy++) {
-        for (let dx = -1; dx <= 1; dx++) {
-          if (this.isInBounds(x + dx, y + dy)) {
-            this.map[y + dy][x + dx] = MapGenerator.TERRAIN_TYPES.GRASS;
+      for (let dy = -haloSize; dy <= haloSize; dy++) {
+        for (let dx = -haloSize; dx <= haloSize; dx++) {
+          if ((dx !== 0 || dy !== 0) && Math.random() < 0.4) {
+            const nx = x + dx;
+            const ny = y + dy;
+            
+            if (this.isInBounds(nx, ny) && this.isCellEmpty(nx, ny)) {
+              this.map[ny][nx] = TerrainsTypesEnum.CLUSTER_TREE;
+            }
           }
         }
       }
+    }
+
+    // Добавление соседних деревьев
+    addAdjacentTrees(x: number, y: number, count: number) {
+      const directions = [
+        [-1, -1], [0, -1], [1, -1],
+        [-1, 0],           [1, 0],
+        [-1, 1],  [0, 1],  [1, 1]
+      ];
       
-      // Двигаемся к цели
-      if (Math.random() < 0.6) {
-        x += x < endX ? 1 : -1;
-      }
-      if (Math.random() < 0.6) {
-        y += y < endY ? 1 : -1;
+      for (let i = 0; i < count; i++) {
+        const [dx, dy] = directions[this.getRandomInt(0, directions.length - 1)];
+        const nx = x + dx;
+        const ny = y + dy;
+        
+        if (this.isInBounds(nx, ny) && this.isCellEmpty(nx, ny)) {
+          this.map[ny][nx] = TerrainsTypesEnum.SINGLE_TREE;
+        }
       }
     }
-  }
 
-  // Вспомогательные методы
-  isCellEmpty(x, y) {
-    return this.map[y][x] === MapGenerator.TERRAIN_TYPES.GRASS;
-  }
+    // Добавление тропинок
+    addPaths() {
+      const pathCount = this.getRandomInt(2, 5);
+      
+      for (let i = 0; i < pathCount; i++) {
+        const startX = this.getRandomInt(5, this.width - 6);
+        const startY = this.getRandomInt(5, this.height - 6);
+        const endX = this.getRandomInt(5, this.width - 6);
+        const endY = this.getRandomInt(5, this.height - 6);
+        
+        this.createPath(startX, startY, endX, endY);
+      }
+    }
 
-  isInBounds(x, y) {
-    return x >= 0 && x < this.width && y >= 0 && y < this.height;
-  }
+    // Создание тропинки
+    createPath(startX: number, startY: number, endX: number, endY: number) {
+      let x = startX;
+      let y = startY;
+      
+      while (Math.abs(x - endX) > 2 || Math.abs(y - endY) > 2) {
+        // Очищаем клетку и вокруг
+        for (let dy = -1; dy <= 1; dy++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            if (this.isInBounds(x + dx, y + dy)) {
+              this.map[y + dy][x + dx] = TerrainsTypesEnum.GRASS;
+            }
+          }
+        }
+        
+        // Двигаемся к цели
+        if (Math.random() < 0.6) {
+          x += x < endX ? 1 : -1;
+        }
+        if (Math.random() < 0.6) {
+          y += y < endY ? 1 : -1;
+        }
+      }
+    }
 
-  getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+    // Вспомогательные методы
+    isCellEmpty(x: number, y: number) {
+      return this.map[y][x] === TerrainsTypesEnum.GRASS;
+    }
+
+    isInBounds(x: number, y: number) {
+      return x >= 0 && x < this.width && y >= 0 && y < this.height;
+    }
+
+    getRandomInt(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 }
 
 // Пример использования:

@@ -10,14 +10,14 @@
         :key="x" 
         class="map-cell"
         :class="{
-          'grass': cell === MapGenerator.TERRAIN_TYPES.GRASS,
-          'tree': cell === MapGenerator.TERRAIN_TYPES.SINGLE_TREE,
-          'tree-cluster': cell === MapGenerator.TERRAIN_TYPES.CLUSTER_TREE
+          'grass': cell === TerrainsTypesEnum.GRASS,
+          'tree': cell === TerrainsTypesEnum.SINGLE_TREE,
+          'tree-cluster': cell === TerrainsTypesEnum.CLUSTER_TREE
         }"
         :title="`${x},${y}`"
       >
-        <span v-if="cell === MapGenerator.TERRAIN_TYPES.SINGLE_TREE">🌲</span>
-        <span v-if="cell === MapGenerator.TERRAIN_TYPES.CLUSTER_TREE">🌳</span>
+        <span v-if="cell === TerrainsTypesEnum.SINGLE_TREE">🌲</span>
+        <span v-if="cell === TerrainsTypesEnum.CLUSTER_TREE">🌳</span>
       </div>
     </div>
   </div>
@@ -25,8 +25,8 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
-import { MapGenerator } from '../lib/GridGeneration'
-const generator = new MapGenerator({ width: 50, height: 30 });
+import { MapGenerator, TerrainsTypesEnum } from '../lib/GridGeneration'
+const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
 const generatedMap = generator.generateMap();
 const map = ref([]);
 map.value = generatedMap;
