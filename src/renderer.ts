@@ -29,6 +29,5 @@
 import { createApp } from 'vue';
 import App from './app/ui/App.vue';
 import './app/styles/index.css';
-console.log('👋 This message is being logged by "renderer.ts", included via Vite');
 
 createApp(App).mount('#app');

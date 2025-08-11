@@ -13,7 +13,8 @@
     "resolveJsonModule": true,
     "paths": {
       "@/*": ["src/*"],
-    }
+    },
+    "strict": true
   },
   "exclude": ["node_modules", "dist"]
 }
