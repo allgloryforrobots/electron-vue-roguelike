@@ -17,8 +17,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
-import { MapGenerator, TerrainsTypesEnum } from '../lib/GridGeneration';
+import { ref } from 'vue';
+import { MapGenerator } from '../lib/GridGeneration';
 import Cell from './Cell.vue';
 
 const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
