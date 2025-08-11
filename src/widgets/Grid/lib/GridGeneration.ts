@@ -21,8 +21,8 @@ export class MapGenerator {
 
     // Инициализация пустой карты
     initEmptyMap() {
-      this.map = Array(this.height).fill([]).map(() => 
-        Array(this.width).fill(TerrainsTypesEnum.GRASS)
+      this.map = Array.from({ length: this.height }, () => 
+        Array.from({ length: this.width }, () => ({ type: TerrainsTypesEnum.GRASS }))
       );
     }
 
@@ -44,7 +44,7 @@ export class MapGenerator {
         const y = this.getRandomInt(0, this.height - 1);
         
         if (this.isCellEmpty(x, y)) {
-          this.map[y][x] = TerrainsTypesEnum.SINGLE_TREE;
+          this.map[y][x] = { type: TerrainsTypesEnum.SINGLE_TREE };
           
           // 30% chance добавить соседние деревья
           if (Math.random() < 0.3) {
@@ -70,8 +70,8 @@ export class MapGenerator {
           const x = Math.round(centerX + Math.cos(angle) * distance);
           const y = Math.round(centerY + Math.sin(angle) * distance);
           
-          if (this.isInBounds(x, y)) {
-            this.map[y][x] = TerrainsTypesEnum.CLUSTER_TREE;
+          if (this.isInBounds(x, y) && this.isCellEmpty(x, y)) {
+            this.map[y][x] = { type: TerrainsTypesEnum.CLUSTER_TREE };
           }
         }
         
@@ -91,7 +91,7 @@ export class MapGenerator {
             const ny = y + dy;
             
             if (this.isInBounds(nx, ny) && this.isCellEmpty(nx, ny)) {
-              this.map[ny][nx] = TerrainsTypesEnum.CLUSTER_TREE;
+              this.map[ny][nx] = { type: TerrainsTypesEnum.CLUSTER_TREE };
             }
           }
         }
@@ -112,7 +112,7 @@ export class MapGenerator {
         const ny = y + dy;
         
         if (this.isInBounds(nx, ny) && this.isCellEmpty(nx, ny)) {
-          this.map[ny][nx] = TerrainsTypesEnum.SINGLE_TREE;
+          this.map[ny][nx] = { type: TerrainsTypesEnum.SINGLE_TREE };
         }
       }
     }
@@ -141,7 +141,7 @@ export class MapGenerator {
         for (let dy = -1; dy <= 1; dy++) {
           for (let dx = -1; dx <= 1; dx++) {
             if (this.isInBounds(x + dx, y + dy)) {
-              this.map[y + dy][x + dx] = TerrainsTypesEnum.GRASS;
+              this.map[y + dy][x + dx] = { type: TerrainsTypesEnum.GRASS };
             }
           }
         }
@@ -158,7 +158,7 @@ export class MapGenerator {
 
     // Вспомогательные методы
     isCellEmpty(x: number, y: number) {
-      return this.map[y][x] === TerrainsTypesEnum.GRASS;
+      return this.map[y][x].type === TerrainsTypesEnum.GRASS;
     }
 
     isInBounds(x: number, y: number) {

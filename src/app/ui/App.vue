@@ -10,6 +10,7 @@ import { ref } from 'vue';
   const generatedMap = generator.generateMap();
   const map = ref();
   map.value = generatedMap;
+  console.log(map)
 </script>
 <style>
 #app {

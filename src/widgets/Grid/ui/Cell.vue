@@ -3,25 +3,25 @@
         :key="x" 
         class="map-cell"
         :class="{
-          'grass': cell === TerrainsTypesEnum.GRASS,
-          'tree': cell === TerrainsTypesEnum.SINGLE_TREE,
-          'tree-cluster': cell === TerrainsTypesEnum.CLUSTER_TREE
+          'grass': cell.type === TerrainsTypesEnum.GRASS,
+          'tree': cell.type === TerrainsTypesEnum.SINGLE_TREE,
+          'tree-cluster': cell.type === TerrainsTypesEnum.CLUSTER_TREE
         }"
         :title="`${x},${y}`"
       >
-        <span v-if="cell === TerrainsTypesEnum.SINGLE_TREE">🌲</span>
-        <span v-if="cell === TerrainsTypesEnum.CLUSTER_TREE">🌳</span>
+        <span v-if="cell.type === TerrainsTypesEnum.SINGLE_TREE">🌲</span>
+        <span v-if="cell.type === TerrainsTypesEnum.CLUSTER_TREE">🌳</span>
       </div>
 </template>
 
 <script lang="ts" setup>
-import { TerrainsTypesEnum } from '../types/GridTypes';
+import { ICell, TerrainsTypesEnum } from '../types/GridTypes';
 
 
 defineProps<{
   x: number;
   y: number;
-  cell: TerrainsTypesEnum;
+  cell: ICell;
 }>();
 </script>
 

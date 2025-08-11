@@ -5,7 +5,11 @@ export interface IMapGeneratorOptions {
     clusterDensity: number;
 }
 
-export type MapType = Array<TerrainsTypesEnum[]>;
+export type MapType = Array<ICell[]>;
+
+export interface ICell {
+    type: TerrainsTypesEnum;
+}
 
 export enum TerrainsTypesEnum {
     GRASS = 0,
