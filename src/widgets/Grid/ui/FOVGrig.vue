@@ -5,23 +5,22 @@
       :key="y" 
       class="map-row"
     >
-        <Cell 
+        <FOVCell 
             v-for="(cell, x) in row" 
             :key="`${x}${y}`" 
             :x="x"
             :y="y"
-            :cell="cell"
+            :visible="cell"
         />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { MapType } from '../types/GridTypes';
-import Cell from './Cell.vue';
+import FOVCell from './FOVCell.vue';
 
 defineProps<{
-  map: MapType;
+  map: boolean[][];
 }>();
 </script>
 
