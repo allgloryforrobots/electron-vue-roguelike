@@ -1,0 +1,55 @@
+@import url('/node_modules/@fortawesome/fontawesome-free/css/all.css');
+
+:root {
+  --background-color: #1a1a1a;
+  --background-color-medium: #191514;
+  --border-color: #382F27;
+  --text-color: #AEA08B;
+  --hover-color: #3A3B38;
+
+  --accent-color-1: #D4A373; /* золотистый оттенок */
+  --accent-color-2: #F0D9B5; /* светлый золотисто-бежевый */
+  --accent-color-3: #D1603D; /* терракотовый */
+  --accent-color-4: #A8442C; /* насыщенный красный коричневый */
+  --accent-color-5: #497A78; /* мягкий тёмный бирюзовый */
+  --accent-color-6: #79A29E; /* приглушённый светлый бирюзовый */
+  --accent-color-7: #FFFFFF;
+  --accent-color-8: #8C6D49; /* глубокий янтарный */
+
+  --navbar-height: 75px;
+}
+
+@font-face {
+  font-family: 'Skyhook';
+  src: url('@/shared/assets/fonts/Skyhook.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color-medium);
+  color: var(--text-color);
+  user-select: none;
+  ::selection {
+    background: var(--border-color)
+  }
+
+  cursor: url('@/shared/assets/cursors/cursor09_gb_20.png'), auto;
+}
+
+#app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 5px 20px;
+  display: flex;
+  flex-direction: column;
+}
+

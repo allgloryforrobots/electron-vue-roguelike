@@ -1,13 +1,17 @@
 <template>
-  <Grid v-if="map" :map="map"/>
-  <FOVGrid v-if="fovMap" :map="fovMap"/>
+  <!-- <Grid v-if="map" :map="map"/>
+  <FOVGrid v-if="fovMap" :map="fovMap"/> -->
+  <RouterView />
 </template>
 
 <script setup lang="ts">
-import { FOVCalculator, FOVGrid } from '@/widgets/FOVGrid';
-import { Grid } from '@/widgets/Grid'
-import { MapGenerator } from '@/widgets/Grid';
-import { onMounted, onUnmounted, ref } from 'vue';
+  import ExamplesPage from '@/pages/ExamplesPage/ui/ExamplesPage.vue';
+  import { FOVCalculator, FOVGrid } from '@/widgets/FOVGrid';
+  import { Grid } from '@/widgets/Grid';
+  import { MapGenerator } from '@/widgets/Grid';
+  import { onMounted, onUnmounted, ref } from 'vue';
+  import { useRouter, RouterView } from 'vue-router';
+  const router = useRouter();
   const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const generatedMap = generator.generateMap();
   const map = ref();
@@ -50,10 +54,8 @@ import { onMounted, onUnmounted, ref } from 'vue';
         return; // Игнорируем другие клавиши
     }
 
-    console.log(1)
     // Проверяем, что новые координаты в пределах карты и клетка проходима
     if (isPassable(newX, newY)) {
-    console.log(2)
       playerX.value = newX;
       playerY.value = newY;
       fovMap.value = fov.value?.calculateFOV(playerX.value, playerY.value, 12);
@@ -62,6 +64,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown);
+  // router.push({ name: 'examples' })
 });
 
 onUnmounted(() => {
@@ -69,7 +72,7 @@ onUnmounted(() => {
 });
 
 </script>
-<style>
+<style scoped>
 #app {
   position: fixed;
   top: 0;
