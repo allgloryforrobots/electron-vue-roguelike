@@ -16,7 +16,7 @@ $border-color: #382F27;
   background-color: var(--accent-color-8);
   color: #fff;
   padding: 10px 15px;
-  font-size: 14px;
+  font-size: 16px;
   transition: all 0.3s;
   text-align: center;
   word-wrap: break-word;
@@ -27,7 +27,7 @@ $border-color: #382F27;
   position: relative;
   outline: 1px solid rgba(#8C6D49, 0.3);
   outline-offset: 3px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 
   &::before {
     content: '';
@@ -44,6 +44,7 @@ $border-color: #382F27;
 
   &:hover {
     outline: 1px solid rgba(#8C6D49, 0.5);
+    background-color: var(--accent-color-1);
   }
 
   &:active {

@@ -28,7 +28,6 @@
 
 import { createApp } from 'vue';
 import App from './app/ui/App.vue';
-import './app/styles/index.css';
 import './app/styles/main.css';
 import router from './app/router';
 

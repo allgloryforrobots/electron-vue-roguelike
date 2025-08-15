@@ -17,6 +17,8 @@
   --accent-color-8: #8C6D49; /* глубокий янтарный */
 
   --navbar-height: 75px;
+
+  --cell-size: 75px;
 }
 
 @font-face {
@@ -52,4 +54,5 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 
