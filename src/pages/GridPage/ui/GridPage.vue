@@ -31,19 +31,27 @@
     
     switch(event.key) {
       case 'ArrowUp':
+      case 'w':
+      case 'W':
         newY -= 1;
         break;
       case 'ArrowDown':
+      case 's':
+      case 'S':
         newY += 1;
         break;
       case 'ArrowLeft':
+      case 'a':
+      case 'A':
         newX -= 1;
         break;
       case 'ArrowRight':
+      case 'd':
+      case 'D':
         newX += 1;
         break;
       default:
-        return; // Игнорируем другие клавиши
+        return;
     }
 
     // Проверяем, что новые координаты в пределах карты и клетка проходима
@@ -64,6 +72,7 @@
 </script>
 
 <template>
+  <!-- <BattlersGrid v-if="map" :map="map"/> -->
   <Grid v-if="map" :map="map"/>
   <FOVGrid v-if="fovMap" :map="fovMap"/>
 </template>

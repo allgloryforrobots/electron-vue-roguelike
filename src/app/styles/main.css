@@ -18,7 +18,8 @@
 
   --navbar-height: 75px;
 
-  --cell-size: 75px;
+  --cell-size: 20px;
+  --grid-row-length: 50;
 }
 
 @font-face {

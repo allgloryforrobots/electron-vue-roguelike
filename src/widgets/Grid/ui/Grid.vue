@@ -1,18 +1,14 @@
 <template>
-  <div class="map-container">
-    <div 
-      v-for="(row, y) in map" 
-      :key="y" 
-      class="map-row"
-    >
-        <Cell 
-            v-for="(cell, x) in row" 
-            :key="`${x}${y}`" 
-            :x="x"
-            :y="y"
-            :cell="cell"
-        />
-    </div>
+  <div class="map-grid">
+    <template v-for="(row, y) in map" >
+      <Cell 
+        v-for="(cell, x) in row"
+        :key="`${x}-${y}`" 
+        :x="x"
+        :y="y"
+        :cell="cell"
+      />
+    </template>
   </div>
 </template>
 
@@ -25,18 +21,17 @@
   }>();
 </script>
 
-<style scoped>
-  .map-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+<style>
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-row-length), var(--cell-size));
+    grid-auto-columns: var(--cell-size);
+    grid-auto-rows: var(--cell-size);
     position: fixed;
     top: 0;
     left: 0;
-  }
-
-  .map-row {
-    display: flex;
+    width: 100%;
+    height: 100%;
   }
 
   .background_brown-earth {
