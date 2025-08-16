@@ -2,11 +2,13 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import { WelcomePage } from '@/pages/WelcomePage';
 import { ExamplesPage } from '@/pages/ExamplesPage';
 import { MainMenuPage } from '@/pages/MainMenuPage';
+import GridPage from '@/pages/GridPage/ui/GridPage.vue';
 
 export const ROUTES = {
   WELCOME: '/welcome',
   EXAMPLES: '/examples',
-  MAIN_MENU: '/'
+  MAIN_MENU: '/',
+  GRID: '/grid'
 }
 
 const router = createRouter({
@@ -26,6 +28,11 @@ const router = createRouter({
       path: ROUTES.EXAMPLES,
       name: 'examples',
       component: ExamplesPage,
+    },
+    {
+      path: ROUTES.GRID,
+      name: 'grid',
+      component: GridPage,
     },
   ],
 })

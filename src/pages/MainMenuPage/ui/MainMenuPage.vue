@@ -7,8 +7,12 @@
 	import Container from '@/shared/ui/Container/ui/Container.vue'
 	const router = useRouter()
 
-	function handleButtonClick() {
-		router.push(ROUTES.EXAMPLES)
+	function newGame() {
+		router.push(ROUTES.WELCOME)
+	}
+
+  function continueGame() {
+		router.push(ROUTES.GRID)
 	}
 
 	const closeApp = () => {
@@ -20,24 +24,24 @@
 
 <template>
   <div class="center-block">
-    <Container :gap="100">
+    <Container>
        <HeaderComponent>
         Rise of Underdog: The Chosen One has long been dead
       </HeaderComponent>
 
-      <ButtonElement :onClick="handleButtonClick">
+      <ButtonElement :onClick="newGame">
         Новая игра
       </ButtonElement>
 
-	  <ButtonElement :onClick="handleButtonClick">
+      <ButtonElement :onClick="continueGame">
         Продолжить
       </ButtonElement>
 
-	  <ButtonElement :onClick="handleButtonClick">
+      <ButtonElement :onClick="newGame">
         Настройки
       </ButtonElement>
 
-	  <ButtonElement :onClick="closeApp">
+      <ButtonElement :onClick="closeApp">
         Выйти
       </ButtonElement>
     </Container>
@@ -48,7 +52,7 @@
 
 <style scoped lang="scss">
   .center-block {
-    margin: 100px auto 0 auto;
+    margin: 20% auto 25% auto;
     width: 700px;
     display: flex;
     flex-direction: column;
