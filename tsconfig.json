@@ -13,6 +13,7 @@
     "resolveJsonModule": true,
     "paths": {
       "@/*": ["src/*"],
+      "@/shared/*": ["src/shared/*"]
     },
     "strict": true
   },

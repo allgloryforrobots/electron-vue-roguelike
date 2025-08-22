@@ -1,7 +1,6 @@
 <script setup lang="ts">
 	import { useRouter } from 'vue-router'
 	import Header from '@/shared/ui/Header/Header.vue'
-	import Frame from '@/shared/ui/Frame/Frame.vue'
 	import Button from '@/shared/ui/Button/Button.vue'
 	import { ROUTES } from '@/app/router'
 	import Container from '@/shared/ui/Container/ui/Container.vue'
