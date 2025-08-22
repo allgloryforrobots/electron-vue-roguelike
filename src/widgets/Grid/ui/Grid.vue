@@ -7,12 +7,21 @@
         :x="x"
         :y="y"
         :cell="cell"
-      />
+        :class="{
+          'grass': cell.type === TerrainsTypesEnum.GRASS,
+          'tree': cell.type === TerrainsTypesEnum.SINGLE_TREE,
+          'tree-cluster': cell.type === TerrainsTypesEnum.CLUSTER_TREE
+        }"
+      >
+        <template v-if="cell.type === TerrainsTypesEnum.SINGLE_TREE">🌲</template>
+        <template v-if="cell.type === TerrainsTypesEnum.CLUSTER_TREE">🌳</template>
+      </Cell>
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { ICell, TerrainsTypesEnum } from '../types/GridTypes';
   import { MapType } from '../types/GridTypes';
   import Cell from './Cell.vue';
 
