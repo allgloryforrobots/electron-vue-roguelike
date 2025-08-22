@@ -1,8 +1,9 @@
 <template>
   <div class="map-grid">
       <Cell 
-        :x="1"
-        :y="1"
+        :x="playerX"
+        :y="playerY"
+        :style="cellStyle"
       >
         🧙‍♂️
       </Cell>
@@ -10,10 +11,19 @@
 </template>
 
 <script lang="ts" setup>
+  import { CONSTANTS } from '@/shared/constants/constants';
+  import { computed } from 'vue';
 
-// defineProps<{
-//   map: boolean[][];
-// }>();
+  const props = defineProps<{
+    playerX: number;
+    playerY: number;
+  }>();
+
+  const cellStyle = computed(() => ({
+    position: 'absolute',
+    left: `${props.playerX * CONSTANTS.CELL_SIZE}px`,
+    top: `${props.playerY * CONSTANTS.CELL_SIZE}px`
+  }));
 </script>
 
 <style scoped>

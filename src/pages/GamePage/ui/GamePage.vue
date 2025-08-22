@@ -76,7 +76,7 @@
 <template>
   <Navbar />
   <Grid v-if="map" :map="map"/>
-  <BattlersGrid v-if="map"/>
+  <BattlersGrid v-if="map" :playerX="playerX" :playerY="playerY"/>
   <FOVGrid v-if="fovMap" :map="fovMap"/>
 </template>
 
