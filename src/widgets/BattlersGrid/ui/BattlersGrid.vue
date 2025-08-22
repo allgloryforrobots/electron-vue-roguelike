@@ -11,7 +11,7 @@
 <script lang="ts" setup>
   import { CONSTANTS } from '@/shared/constants/constants';
   import { computed, CSSProperties } from 'vue';
-  import { usePlayerStore } from '@/features/Player';
+  import { usePlayerStore } from '@/entities/Player';
 
   const playerStore = usePlayerStore();
 

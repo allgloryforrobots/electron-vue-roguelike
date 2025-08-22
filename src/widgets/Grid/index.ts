@@ -1,7 +1,6 @@
 import Grid from "./ui/Grid.vue";
-import { MapGenerator } from "./lib/GridGeneration";
-import type { MapType } from "./types/GridTypes";
-import { TerrainsTypesEnum } from "./types/GridTypes";
+import type { MapType } from "../../features/mapGeneration/types/GridTypes";
+import { TerrainsTypesEnum } from "../../features/mapGeneration/types/GridTypes";
 export {
     Grid,
     MapGenerator,
