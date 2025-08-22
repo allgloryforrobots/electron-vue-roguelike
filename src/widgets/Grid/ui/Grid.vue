@@ -28,10 +28,10 @@
     grid-auto-columns: var(--cell-size);
     grid-auto-rows: var(--cell-size);
     position: fixed;
-    top: 0;
+    top: var(--navbar-height);
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - var(--navbar-height));
   }
 
   .background_brown-earth {

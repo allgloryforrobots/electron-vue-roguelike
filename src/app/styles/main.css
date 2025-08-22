@@ -17,7 +17,7 @@
   --accent-color-8: #8C6D49; /* глубокий янтарный */
 
   --navbar-height: 75px;
-
+  --gap: 10px;
   --cell-size: 20px;
   --grid-row-length: 50;
 }
@@ -51,7 +51,6 @@ body {
   right: 0;
   bottom: 0;
   margin: 0;
-  padding: 5px 20px;
   display: flex;
   flex-direction: column;
 }

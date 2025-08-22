@@ -2,6 +2,7 @@
   import { FOVCalculator, FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
   import { MapGenerator } from '@/widgets/Grid';
+  import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref } from 'vue';
 
   const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
@@ -72,6 +73,7 @@
 </script>
 
 <template>
+  <Navbar />
   <!-- <BattlersGrid v-if="map" :map="map"/> -->
   <Grid v-if="map" :map="map"/>
   <FOVGrid v-if="fovMap" :map="fovMap"/>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ListElement from '@/shared/ui/ListElement/ListElement.vue'
+  import ListElement from '@/shared/ui/ListElement/ListElement.vue'
 </script>
 
 <template>
@@ -40,13 +40,13 @@ import ListElement from '@/shared/ui/ListElement/ListElement.vue'
 </template>
 
 <style scoped lang="scss">
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  gap: 10px;
-  width: 900px;
-  height: var(--navbar-height);
-  align-items: center;
-}
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: --gap;
+    width: 100%;
+    height: var(--navbar-height);
+    align-items: center;
+  }
 </style>
