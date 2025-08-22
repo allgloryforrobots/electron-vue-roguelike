@@ -13,11 +13,7 @@
   const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const generatedMap = generator.generateMap();
   const map = ref();
-  const fov = ref();
-  const fovMap = ref();
   map.value = generatedMap;
-  fov.value = new FOVCalculator(map.value);
-  fovMap.value = fov.value.calculateFOV(playerStore.playerX, playerStore.playerY, 12);
 
   // Функция проверки проходимости клетки
   const isPassable = (x: number, y: number): boolean => {
@@ -58,7 +54,6 @@
     if (isPassable(newX, newY)) {
       playerStore.setPlayerX(newX);
       playerStore.setPlayerY(newY);
-      fovMap.value = fov.value?.calculateFOV(playerStore.playerX, playerStore.playerY, 12);
     }
   };
 
@@ -75,7 +70,7 @@
   <Navbar />
   <Grid v-if="map" :map="map"/>
   <BattlersGrid v-if="map"/>
-  <FOVGrid v-if="fovMap" :map="fovMap"/>
+  <FOVGrid v-if="map" :map="map"/>
 </template>
 
 <style scoped lang="scss">

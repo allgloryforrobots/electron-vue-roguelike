@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ICell, TerrainsTypesEnum } from '../../../features/mapGeneration/types/GridTypes';
+  import { TerrainsTypesEnum } from '../../../features/mapGeneration/types/GridTypes';
   import { MapType } from '../../../features/mapGeneration/types/GridTypes';
   import Cell from './Cell.vue';
 
