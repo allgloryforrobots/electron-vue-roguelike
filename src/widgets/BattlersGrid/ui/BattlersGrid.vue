@@ -1,25 +1,23 @@
 <template>
   <div class="map-grid">
-      <Cell 
-        :x="playerX"
-        :y="playerY"
+      <div 
         :style="cellStyle"
       >
         🧙‍♂️
-      </Cell>
+      </div>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { CONSTANTS } from '@/shared/constants/constants';
-  import { computed } from 'vue';
+  import { computed, CSSProperties } from 'vue';
 
   const props = defineProps<{
     playerX: number;
     playerY: number;
   }>();
 
-  const cellStyle = computed(() => ({
+  const cellStyle = computed<CSSProperties>(() => ({
     position: 'absolute',
     left: `${props.playerX * CONSTANTS.CELL_SIZE}px`,
     top: `${props.playerY * CONSTANTS.CELL_SIZE}px`
