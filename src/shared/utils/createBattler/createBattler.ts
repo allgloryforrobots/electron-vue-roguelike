@@ -133,6 +133,8 @@ export class Battler {
     concentration  = 0;
     // артефакты
     artifacts = 0;
+    // тактика
+    tactics = 0;
     
     // медвежатник
     safecracker = 0;
@@ -147,8 +149,23 @@ export class Battler {
 
     // зачарование
     enchantment = 0;
-    // ремесло
-    craft = 0;
+    // кузнечное дело
+    blacksmithing = 0;
+    // кожевничество
+    leatherworking = 0;
+    // cтолярное дело
+    woodworking = 0;
+    // ювелирное дело
+    jewelry_making = 0;
+    // поварское дело
+    cooking = 0;
+    // дрессировка животных 
+    animal_training = 0;
+    // фермерство
+    farming = 0;
+    // секс
+    sex = 0;
+
     // ловушки (создание, обезвреживание)
     traps = 0;
     // алхимия (бомбы, яды, фармацевтика)
@@ -161,6 +178,8 @@ export class Battler {
     resource_extraction = 0;
     // охота
     hunting = 0;
+    // картография
+    cartography = 0;
 
     // биомантия
     biomancy = 0;
