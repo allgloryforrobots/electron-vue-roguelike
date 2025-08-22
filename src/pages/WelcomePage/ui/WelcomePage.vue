@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import HeaderComponent from '@/shared/ui/HeaderComponent/HeaderComponent.vue'
-import FrameComponent from '@/shared/ui/FrameComponent/FrameComponent.vue'
-import ButtonElement from '@/shared/ui/ButtonElement/ButtonElement.vue'
+import Header from '@/shared/ui/Header/Header.vue'
+import Frame from '@/shared/ui/Frame/Frame.vue'
+import Button from '@/shared/ui/Button/Button.vue'
 import { ROUTES } from '@/app/router'
 const router = useRouter()
 
@@ -13,19 +13,19 @@ function handleButtonClick() {
 
 <template>
   <div class="center-block">
-    <HeaderComponent>
+    <Header>
       Добро пожаловать в мир Иффры
-    </HeaderComponent>
+    </Header>
 
-    <FrameComponent>
+    <Frame>
       Твой путь будет тернистым. Смерть окончательна, а решения - бесповоротны. Мир не прощает ошибок, а за каждым поворотом таиться опасность.
       Тебя никто не будет вести за руку к победе, а ее цена будет огромной.
       Тебе придется много думать и сталкиваться с непреодолимыми трудностями. Все, как в жизни.
-    </FrameComponent>
+    </Frame>
 
-    <ButtonElement :onClick="handleButtonClick">
+    <Button :onClick="handleButtonClick">
       Принять вызов
-    </ButtonElement>
+    </Button>
   </div>
 
 </template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 	import { useRouter } from 'vue-router'
-	import HeaderComponent from '@/shared/ui/HeaderComponent/HeaderComponent.vue'
-	import FrameComponent from '@/shared/ui/FrameComponent/FrameComponent.vue'
-	import ButtonElement from '@/shared/ui/ButtonElement/ButtonElement.vue'
+	import Header from '@/shared/ui/Header/Header.vue'
+	import Frame from '@/shared/ui/Frame/Frame.vue'
+	import Button from '@/shared/ui/Button/Button.vue'
 	import { ROUTES } from '@/app/router'
 	import Container from '@/shared/ui/Container/ui/Container.vue'
 	const router = useRouter()
@@ -25,25 +25,25 @@
 <template>
   <div class="center-block">
     <Container>
-       <HeaderComponent>
+       <Header>
         Rise of Underdog: The Chosen One has long been dead
-      </HeaderComponent>
+      </Header>
 
-      <ButtonElement :onClick="newGame">
+      <Button :onClick="newGame">
         Новая игра
-      </ButtonElement>
+      </Button>
 
-      <ButtonElement :onClick="continueGame">
+      <Button :onClick="continueGame">
         Продолжить
-      </ButtonElement>
+      </Button>
 
-      <ButtonElement :onClick="newGame">
+      <Button :onClick="newGame">
         Настройки
-      </ButtonElement>
+      </Button>
 
-      <ButtonElement :onClick="closeApp">
+      <Button :onClick="closeApp">
         Выйти
-      </ButtonElement>
+      </Button>
     </Container>
    
   </div>

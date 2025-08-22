@@ -8,27 +8,27 @@ import { computed, defineProps } from 'vue'
     },
   })
 
-const inputClass = computed(() => [
-  "input-field",
+const InputtClass = computed(() => [
+  "Inputt-field",
   props.variant,
 ])
 </script>
 
 <template>
-  <div class="input-container">
-    <input type="text" id="input" :class="inputClass" placeholder="..." />
+  <div class="Inputt-container">
+    <Inputt type="text" id="Inputt" :class="InputtClass" placeholder="..." />
   </div>
 </template>
 
 <style scoped lang="scss">
-.input-container {
+.Inputt-container {
   position: relative;
   display: inline-block;
   width: 300px;
   margin: 20px;
 }
 
-.input-field {
+.Inputt-field {
   width: 100%;
   padding: 8px 12px;
   border: 1px solid var(--accent-color-8);
