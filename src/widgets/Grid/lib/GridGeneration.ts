@@ -22,7 +22,7 @@ export class MapGenerator {
     // Инициализация пустой карты
     initEmptyMap() {
       this.map = Array.from({ length: this.height }, () => 
-        Array.from({ length: this.width }, () => ({ type: TerrainsTypesEnum.GRASS }))
+        Array.from({ length: this.width }, () => ({ type: TerrainsTypesEnum.EMPTY }))
       );
     }
 
@@ -141,7 +141,7 @@ export class MapGenerator {
         for (let dy = -1; dy <= 1; dy++) {
           for (let dx = -1; dx <= 1; dx++) {
             if (this.isInBounds(x + dx, y + dy)) {
-              this.map[y + dy][x + dx] = { type: TerrainsTypesEnum.GRASS };
+              this.map[y + dy][x + dx] = { type: TerrainsTypesEnum.EMPTY };
             }
           }
         }
@@ -158,7 +158,7 @@ export class MapGenerator {
 
     // Вспомогательные методы
     isCellEmpty(x: number, y: number) {
-      return this.map[y][x].type === TerrainsTypesEnum.GRASS;
+      return this.map[y][x].type === TerrainsTypesEnum.EMPTY;
     }
 
     isInBounds(x: number, y: number) {

@@ -8,7 +8,7 @@
         :y="y"
         :cell="cell"
         :class="{
-          'grass': cell.type === TerrainsTypesEnum.GRASS,
+          'grass': cell.type === TerrainsTypesEnum.EMPTY,
           'tree': cell.type === TerrainsTypesEnum.SINGLE_TREE,
           'tree-cluster': cell.type === TerrainsTypesEnum.CLUSTER_TREE
         }"

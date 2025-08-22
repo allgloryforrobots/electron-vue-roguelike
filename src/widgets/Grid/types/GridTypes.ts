@@ -12,7 +12,7 @@ export interface ICell {
 }
 
 export enum TerrainsTypesEnum {
-    GRASS = 0,
+    EMPTY = 0,
     SINGLE_TREE = 1,
     CLUSTER_TREE = 2
 }

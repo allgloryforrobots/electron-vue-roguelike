@@ -5,6 +5,7 @@
   import { MapGenerator } from '@/widgets/Grid';
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref } from 'vue';
+  import { TerrainsTypesEnum } from '@/widgets/Grid';
 
   const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const generatedMap = generator.generateMap();
@@ -22,9 +23,7 @@
   // Функция проверки проходимости клетки
   const isPassable = (x: number, y: number): boolean => {
     if (!map.value) return false;
-    // Предполагаем, что 0 - проходимая клетка, 1 - непроходимая (стена/препятствие)
-    // Настройте это условие в соответствии с вашей системой обозначений
-    return map.value[y] !== undefined && map.value[y][x] !== undefined //&& map.value[y][x] === 0;
+    return map.value?.[y]?.[x]?.type === TerrainsTypesEnum.EMPTY;
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
