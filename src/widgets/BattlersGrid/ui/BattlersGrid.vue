@@ -11,16 +11,14 @@
 <script lang="ts" setup>
   import { CONSTANTS } from '@/shared/constants/constants';
   import { computed, CSSProperties } from 'vue';
+  import { usePlayerStore } from '@/features/Player';
 
-  const props = defineProps<{
-    playerX: number;
-    playerY: number;
-  }>();
+  const playerStore = usePlayerStore();
 
   const cellStyle = computed<CSSProperties>(() => ({
     position: 'absolute',
-    left: `${props.playerX * CONSTANTS.CELL_SIZE}px`,
-    top: `${props.playerY * CONSTANTS.CELL_SIZE}px`
+    left: `${playerStore.playerX * CONSTANTS.CELL_SIZE}px`,
+    top: `${playerStore.playerY * CONSTANTS.CELL_SIZE}px`
   }));
 </script>
 

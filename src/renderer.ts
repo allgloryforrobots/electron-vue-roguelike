@@ -26,11 +26,14 @@
  * ```
  */
 
-import { createApp } from 'vue';
-import App from './app/ui/App.vue';
-import './app/styles/main.css';
-import router from './app/router';
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './app/ui/App.vue'
+import './app/styles/main.css'
+import router from './app/router'
 
-const app = createApp(App);
-app.use(router);
-app.mount('#app');
+const pinia = createPinia()
+const app = createApp(App)
+app.use(pinia)
+app.use(router)
+app.mount('#app')

@@ -6,19 +6,18 @@
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref } from 'vue';
   import { TerrainsTypesEnum } from '@/widgets/Grid';
+  import { usePlayerStore } from '@/features/Player';
+
+  const playerStore = usePlayerStore();
 
   const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const generatedMap = generator.generateMap();
   const map = ref();
   const fov = ref();
   const fovMap = ref();
-
-  const playerX = ref(0);
-  const playerY = ref(0);
-
   map.value = generatedMap;
   fov.value = new FOVCalculator(map.value);
-  fovMap.value = fov.value.calculateFOV(playerX.value, playerY.value, 12);
+  fovMap.value = fov.value.calculateFOV(playerStore.playerX, playerStore.playerY, 12);
 
   // Функция проверки проходимости клетки
   const isPassable = (x: number, y: number): boolean => {
@@ -27,8 +26,8 @@
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    let newX = playerX.value;
-    let newY = playerY.value;
+    let newX = playerStore.playerX;
+    let newY = playerStore.playerY;
     
     switch(event.key) {
       case 'ArrowUp':
@@ -57,9 +56,9 @@
 
     // Проверяем, что новые координаты в пределах карты и клетка проходима
     if (isPassable(newX, newY)) {
-      playerX.value = newX;
-      playerY.value = newY;
-      fovMap.value = fov.value?.calculateFOV(playerX.value, playerY.value, 12);
+      playerStore.setPlayerX(newX);
+      playerStore.setPlayerY(newY);
+      fovMap.value = fov.value?.calculateFOV(playerStore.playerX, playerStore.playerY, 12);
     }
   };
 
@@ -75,7 +74,7 @@
 <template>
   <Navbar />
   <Grid v-if="map" :map="map"/>
-  <BattlersGrid v-if="map" :playerX="playerX" :playerY="playerY"/>
+  <BattlersGrid v-if="map"/>
   <FOVGrid v-if="fovMap" :map="fovMap"/>
 </template>
 
