@@ -11,6 +11,7 @@
       >
         <span v-if="cell.type === TerrainsTypesEnum.SINGLE_TREE">🌲</span>
         <span v-if="cell.type === TerrainsTypesEnum.CLUSTER_TREE">🌳</span>
+        <slot />
       </div>
 </template>
 
@@ -27,8 +28,8 @@ defineProps<{
 
 <style scoped>
 .map-cell {
-  width: 20px;
-  height: 20px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   display: flex;
   align-items: center;
   justify-content: center;

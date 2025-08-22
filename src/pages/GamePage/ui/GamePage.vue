@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { FOVCalculator, FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
+  import { BattlersGrid } from '@/widgets/BattlersGrid';
   import { MapGenerator } from '@/widgets/Grid';
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref } from 'vue';
@@ -74,8 +75,8 @@
 
 <template>
   <Navbar />
-  <!-- <BattlersGrid v-if="map" :map="map"/> -->
   <Grid v-if="map" :map="map"/>
+  <BattlersGrid v-if="map"/>
   <FOVGrid v-if="fovMap" :map="fovMap"/>
 </template>
 
