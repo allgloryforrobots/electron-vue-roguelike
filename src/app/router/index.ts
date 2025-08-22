@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import { WelcomePage } from '@/pages/WelcomePage';
 import { ExamplesPage } from '@/pages/ExamplesPage';
 import { MainMenuPage } from '@/pages/MainMenuPage';
-import GridPage from '@/pages/GridPage/ui/GridPage.vue';
+import GamePage from '@/pages/GamePage/ui/GamePage.vue';
 
 export const ROUTES = {
   WELCOME: '/welcome',
@@ -32,7 +32,7 @@ const router = createRouter({
     {
       path: ROUTES.GRID,
       name: 'grid',
-      component: GridPage,
+      component: GamePage,
     },
   ],
 })
