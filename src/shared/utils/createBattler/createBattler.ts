@@ -269,3 +269,17 @@ export class Battler {
     }
 
 }
+
+// class Mage extends Battler {
+//     constructor(options: IOptions) {
+//         super(options);
+//         this.gift = 100;
+//     }
+// }
+
+// class Arnold extends Mage {
+//     constructor(options: IOptions) {
+//         super(options);
+//         this.agility = 100;
+//     }
+// }
