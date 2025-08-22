@@ -8,23 +8,23 @@ export class Battler {
     // -- первичные характеристики
 
     // телосложение
-    constitution = 10;
+    constitution = 0;
     // проворство
-    agility = 10;
+    agility = 0;
 
     // восприятие
-    perception = 10;
+    perception = 0;
     // дар
-    gift = 10;
+    gift = 0;
     // интеллект
-    intelligence = 10;
+    intelligence = 0;
 
     // эмпатия
-    empathy = 10;
+    empathy = 0;
     // психика
-    psyche = 10;
+    psyche = 0;
     // внешность
-    appearance = 10;
+    appearance = 0;
 
     // -- константы
 
@@ -33,161 +33,158 @@ export class Battler {
     // бонус к защите при блоке щитом
     shieldBonus = 20;
     // бонус к защите при парированием оружием
-    parryBonus = 10;
+    parryBonus = 0;
 
     // -- навыки
 
     // боевые искусства
-    martial_arts = 10;
+    martial_arts = 0;
     // ножевой бой
-    knife = 10;
+    knife = 0;
     // короткие клинки
-    short_blades = 10;
+    short_blades = 0;
     // длинные клинки
-    long_blades = 10;
+    long_blades = 0;
     // булава и цеп
-    mace_and_flail = 10;
+    mace_and_flail = 0;
     // секиры
-    axes = 10;
+    axes = 0;
     // древковое
-    pole = 10;
+    pole = 0;
     // броски и праща
-    throws_and_slings = 10;
+    throws_and_slings = 0;
 
     // экзотическое оружие (духовая трубка с дротиками, нунчаки и т.д.)
-    exotic_weapons = 10;
+    exotic_weapons = 0;
     // конный бой
-    horse_fight = 10;
+    horse_fight = 0;
     // критический удар
-    critical_hit = 10;
+    critical_hit = 0;
     // два оружия
-    dual_wield = 10;
+    dual_wield = 0;
     // атака в полете
-    attack_in_flight = 10;
+    attack_in_flight = 0;
     // ниндзюцу (атаки через врагов или из заднего ряда)
-    ninjutsu = 10;
+    ninjutsu = 0;
 
     // лук
-    bow = 10;
+    bow = 0;
     // арбалет
-    crossbow = 10;
+    crossbow = 0;
     // огнестрельное
-    firearm = 10;
+    firearm = 0;
     // тяжелое оружие (гранатомет, баллиста, пушка с ядрами)
-    heavy_weapons = 10;
+    heavy_weapons = 0;
 
     // щит
-    shield = 10;
+    shield = 0;
     // парирование
-    parry = 10;
+    parry = 0;
     // уклонение
-    evasion=  10;
+    evasion=  0;
     // легкая броня
-    light_armor = 10;
+    light_armor = 0;
     // тяжелая броня
-    heavy_armor = 10;
+    heavy_armor = 0;
     // бездоспешный бой
-    unarmored_combat = 10;
+    unarmored_combat = 0;
 
     // плавание
-    swimming = 10;
+    swimming = 0;
     // скалолазание
-    climbing = 10;
+    climbing = 0;
     // акробатика
-    acrobatics = 10;
+    acrobatics = 0;
     // атлетика
-    athletics = 10;
+    athletics = 0;
     // скрытность
-    stealth = 10;
+    stealth = 0;
     // разведка
-    scouting = 10;
+    scouting = 0;
     // аугментации
-    augmentations = 10;
-
+    augmentations = 0;
 
     // решительность
-    resolve = 10;
+    resolve = 0;
     // запугивание
-    intimidation = 10;
+    intimidation = 0;
     // блеф
-    bluff = 10;
+    bluff = 0;
     // дипломатия
-    diplomacy = 10;
+    diplomacy = 0;
     // манипулирование
-    manipulation = 10;
+    manipulation = 0;
     // соблазнение
-    seduction = 10;
-
+    seduction = 0;
+    // психология
+    psychology = 0;
 
     // исполнение
-    performance = 10;
+    performance = 0;
     // расследование
-    investigation = 10;
+    investigation = 0;
     // медицина
-    medicine = 10;
+    medicine = 0;
     // знание (умение писать, языки, лор)
-    knowledge = 10;
+    knowledge = 0;
     // торговля
-    trade = 10;
+    trade = 0;
     // концентрация
-    concentration  = 10;
+    concentration  = 0;
     // артефакты
-    artifacts = 10;
+    artifacts = 0;
     
     // медвежатник
-    safecracker = 10;
+    safecracker = 0;
     // кража
-    steal = 10;
+    steal = 0;
     // инфомантия
-    infomantia = 10;
+    infomantia = 0;
     // азартные игры
-    gambling = 10;
+    gambling = 0;
+    // пилотирование
+    piloting = 0;
 
     // зачарование
-    enchantment = 10;
+    enchantment = 0;
     // ремесло
-    craft = 10;
+    craft = 0;
     // ловушки (создание, обезвреживание)
-    traps = 10;
+    traps = 0;
     // алхимия (бомбы, яды, фармацевтика)
-    alchemy = 10;
+    alchemy = 0;
     // переписывание свитков
-    rewriting_the_scrolls = 10;
+    rewriting_the_scrolls = 0;
     // гербология
-    herbology = 10;
+    herbology = 0;
     // добыча ресурсов
-    resource_extraction = 10;
+    resource_extraction = 0;
     // охота
-    hunting = 10;
+    hunting = 0;
 
+    // биомантия
+    biomancy = 0;
+    // криптомагия
+    cryptomagic = 0;
+    // белая магия 
+    white_magic = 0;
+    // псионика
+    psionics = 0;
+    // черная магия
+    black_magic = 0;
+    // дикая магия
+    wild_magic = 0;
 
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-    // 
-     = 10;
-
-
-
+    // оружейник
+    gunsmith = 0;
+    // механика
+    mechanics = 0;
+    // электрика
+    electrics = 0;
+    // металлургия
+    metallurgy = 0;
+    // импланты
+    implants = 0;
     
     constructor(options: IOptions) {
         this.id = crypto.randomUUID();
