@@ -50,29 +50,27 @@ export interface IOptions {
     wild_magic?: number;
 }
 
+enum RACES {
+    HUMAN = 'human'
+}
+
+// const RACE_TRANSLATIONS = {
+//     [RACES.HUMAN]: {
+//         en: 'Human',
+//         ru: 'Человек'
+//     }
+// } as const;
+
+enum CLASSES {
+    ROGUE = 'rogue'
+}
+
+enum PROFESSIONS {
+    NOPE = 'nope'
+}
+
 export class Battler {
     id: string;
-
-    // -- первичные характеристики
-
-    // телосложение
-    constitution = 0;
-    // проворство
-    agility = 0;
-
-    // восприятие
-    perception = 0;
-    // дар
-    gift = 0;
-    // интеллект
-    intelligence = 0;
-
-    // эмпатия
-    empathy = 0;
-    // психика
-    psyche = 0;
-    // внешность
-    appearance = 0;
 
     // -- константы
 
@@ -83,7 +81,68 @@ export class Battler {
     // бонус к защите при парированием оружием
     parryBonus = 0;
 
+    // -- общее
+
+    level = 1;
+    race = RACES.HUMAN;
+    characterClass = CLASSES.ROGUE; // бродяга
+    profession = PROFESSIONS.NOPE;
+
+    // -- сопротивления
+
+    // сопротивление огню
+    fire_resistance = 0;
+    // сопротивление  холоду
+    cold_resistance = 0;
+    // сопротивление электричеству
+    electricity_resistance = 0;
+    // сопротивление яду
+    poison_resistance = 0;
+    // сопротивление кислоте
+    acid_resistance = 0;
+    // сопротивление дробящему
+    crushing_resistance = 0;
+    // сопротивление колющему (+стрелы)
+    piercing_resistance = 0;
+    // сопротивление режущему
+    cutting_resistance = 0;
+    // сопротивление магии
+    magic_resistance = 0;
+    // сопротивление ментальным эффектам
+    psi_resistance = 0;
+    // сопротивление физическим эффектам
+    phis_resistance = 0;
+
+    // -- первичные характеристики
+
+    // телосложение
+    constitution = 0;
+    // проворство
+    agility = 0;
+    // восприятие
+    perception = 0;
+    // дар
+    gift = 0;
+    // интеллект
+    intelligence = 0;
+    // эмпатия
+    empathy = 0;
+    // психика
+    psyche = 0;
+    // внешность
+    appearance = 0;
+
+    // -- вторичные характеристики
+    // боеспособность
+    get max_combat_capability(): {
+
+    }
+
+    combat_capability_base = 0;
+    current_combat_capability  = this.max_combat_capability;
+
     // -- спецнавыки
+
     // Прочная шкура (телосложение)
     tough_skin = 0;
     // Быстрая реакция (проворство) 
@@ -288,14 +347,47 @@ export class Battler {
 
 }
 
-// class Mage extends Battler {
-//     constructor(options: IOptions) {
-//         super(options);
-//         this.gift = 100;
-//     }
-// }
+class NPC extends Battler {
+    constructor(options: IOptions) {
+        super(options);
+    }
 
-// class Arnold extends Mage {
+    setLevel(level: number) {
+        
+    }
+}
+
+class HumanNPC extends NPC {
+    constructor(options: IOptions) {
+        super(options);
+    }
+
+    setLevel(level: number) {
+        super.setLevel(level);
+    }
+}
+
+class MageNPC extends HumanNPC {
+    constructor(options: IOptions) {
+        super(options);
+    }
+
+    setLevel(level: number) {
+        super.setLevel(level);
+    }
+}
+
+class WhiteMageNPC extends MageNPC {
+    constructor(options: IOptions) {
+        super(options);
+    }
+
+    setLevel(level: number) {
+        super.setLevel(level);
+    }
+}
+
+// class Arnold extends NPC {
 //     constructor(options: IOptions) {
 //         super(options);
 //         this.agility = 100;
