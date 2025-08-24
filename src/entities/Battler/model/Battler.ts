@@ -2,18 +2,24 @@ import { generateStats } from "./Stats";
 
 type StatsType = ReturnType<typeof generateStats>;
 
+interface IClassOptions {
+    name: string;
+    codename: string;
+}
+
 export class Battler {
     id = crypto.randomUUID();
     stats: StatsType;
-
-    // -- общее
-
+    name: string;
+    codename: string;
     level = 1;
     race = null;
-    character_class = null; // бродяга
+    character_class = null;
     profession = null;
     
-    constructor() {
+    constructor(options: IClassOptions) {
+        this.name = options.name;
+        this.codename = options.codename;
         this.stats = generateStats();
     }
 
@@ -30,8 +36,7 @@ export class Battler {
 }
 
 function RaceElf() {
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    return function <T extends { new (...args: any[]): {} }>(constructor: T) {
+    return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
             constructor(...args: any[]) {
                 super(...args);
@@ -46,8 +51,7 @@ function RaceElf() {
 }
 
 function ClassMage() {
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    return function <T extends { new (...args: any[]): {} }>(constructor: T) {
+    return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
             constructor(...args: any[]) {
                 super(...args);
@@ -63,9 +67,12 @@ function ClassMage() {
 @RaceElf()
 @ClassMage()
 class ElfMage extends Battler {
-    constructor() {
-        super();
+    constructor(options: IClassOptions) {
+        super(options);
     }
 }
 
-export const elf = new ElfMage();
+export const elf = new ElfMage({
+    name: 'elf',
+    codename: 'elf'
+});
