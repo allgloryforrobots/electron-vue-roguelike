@@ -142,8 +142,12 @@ export class Pathfinder {
   // Визуализация пути на карте (тесты)
 	static visualizePath(map: MapType, path: { x: number; y: number }[]) {
 
-		const visualizeMap = structuredClone(map);
-		
+		const visualizeMap = JSON.parse(JSON.stringify(map));
+    
+    visualizeMap.flat().forEach((element: { isPath: boolean; }) => {
+      element.isPath = false;
+    });
+
 		for (const point of path) {
 			visualizeMap[point.y][point.x].isPath = true;
 		}
@@ -151,19 +155,3 @@ export class Pathfinder {
 		return visualizeMap;
 	}
 }
-
-//   watchEffect(() => {
-// 	// Ищем путь
-// 	const result = Pathfinder.findPath(this.map, playerStore.playerX, playerStore.playerY, 45, 25);
-
-// 	if (result.success) {
-// 		console.log(`Путь найден! Длина: ${result.steps} шагов`);
-// 		console.log('Координаты пути:', result.path);
-		
-// 		// Визуализируем путь
-// 		const mapWithPath = generator.visualizePath(result.path);
-// 		map.value = mapWithPath;
-// 	} else {
-// 		console.log('Путь не найден');
-// 	}
-//   });
