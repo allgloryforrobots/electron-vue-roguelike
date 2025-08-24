@@ -15,23 +15,21 @@
   const map = ref();
   map.value = generatedMap;
 
-  watchEffect(() => {
-	// Ищем путь
-	const result = generator.findPath(playerStore.playerX, playerStore.playerY, 45, 25);
+//   watchEffect(() => {
+// 	// Ищем путь
+// 	const result = generator.findPath(playerStore.playerX, playerStore.playerY, 45, 25);
 
-	if (result.success) {
-		console.log(`Путь найден! Длина: ${result.steps} шагов`);
-		console.log('Координаты пути:', result.path);
+// 	if (result.success) {
+// 		console.log(`Путь найден! Длина: ${result.steps} шагов`);
+// 		console.log('Координаты пути:', result.path);
 		
-		// Визуализируем путь
-		const mapWithPath = generator.visualizePath(result.path);
-		map.value = mapWithPath;
-		console.log('Путь не найден');
-
-	} else {
-		console.log('Путь не найден');
-	}
-  });
+// 		// Визуализируем путь
+// 		const mapWithPath = generator.visualizePath(result.path);
+// 		map.value = mapWithPath;
+// 	} else {
+// 		console.log('Путь не найден');
+// 	}
+//   });
 
   // Функция проверки проходимости клетки
   const isPassable = (x: number, y: number): boolean => {
