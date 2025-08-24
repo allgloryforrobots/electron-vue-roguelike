@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ICell, TerrainsTypesEnum } from '../../../shared/utils/mapGeneration/types/GridTypes';
+  import { ICell, TerrainsTypesEnum } from '../../../entities/Map/types/GridTypes';
 
   defineProps<{
     x: number;

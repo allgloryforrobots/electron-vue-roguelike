@@ -75,17 +75,17 @@ export class Battler {
     // -- константы
 
     // базовый шанс попадания
-    attackBase = 60;
+    attack_base = 60;
     // бонус к защите при блоке щитом
-    shieldBonus = 20;
+    shield_bonus = 20;
     // бонус к защите при парированием оружием
-    parryBonus = 0;
+    parry_bonus = 0;
 
     // -- общее
 
     level = 1;
     race = RACES.HUMAN;
-    characterClass = CLASSES.ROGUE; // бродяга
+    character_class = CLASSES.ROGUE; // бродяга
     profession = PROFESSIONS.NOPE;
 
     // -- сопротивления
@@ -132,14 +132,38 @@ export class Battler {
     // внешность
     appearance = 0;
 
-    // -- вторичные характеристики
-    // боеспособность
-    get max_combat_capability(): {
-
+    /**
+     * @param stat характеристика или навык
+     * @return модификатор (процент)
+     */
+    getStatPercentModifier(stat: number): number {
+        return Math.floor(stat / 10);
     }
 
-    combat_capability_base = 0;
-    current_combat_capability  = this.max_combat_capability;
+    /**
+     * @param stat характеристика или навык
+     * @return модификатор (целочисленное)
+     */
+    getStatValueModifier(stat: number): number {
+        return Math.floor(stat / 30);
+    }
+
+    /**
+     * @return модификатор уровня (целочисленное)
+     */
+    getLevelValueModifier(): number {
+        return Math.floor(this.level / 3);
+    }
+
+    // -- вторичные характеристики
+    // боеспособность (5 +5 +5)
+    get max_combat_capability(): number {
+        return this.combat_capability_base + 
+            this.getStatValueModifier(this.constitution) + 
+            this.getLevelValueModifier();
+    }
+    combat_capability_base = 5;
+    current_combat_capability = this.max_combat_capability;
 
     // -- спецнавыки
 
@@ -336,7 +360,7 @@ export class Battler {
     }
 
     hitChance() {
-        const attack = this.attackBase + this.constitution;
+        const attack = this.attack_base + this.constitution;
         return attack;
     }
 
@@ -353,7 +377,7 @@ class NPC extends Battler {
     }
 
     setLevel(level: number) {
-        
+        // super.setLevel(level);
     }
 }
 

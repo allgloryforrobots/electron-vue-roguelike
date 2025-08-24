@@ -2,7 +2,7 @@
   import { FOVCalculator, FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
   import { BattlersGrid } from '@/widgets/BattlersGrid';
-  import { MapGenerator } from '@/shared/utils/mapGeneration';
+  import { MapGenerator } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref } from 'vue';
   import { TerrainsTypesEnum } from '@/widgets/Grid';
