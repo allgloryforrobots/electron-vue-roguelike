@@ -49,7 +49,6 @@ class Stat {
 class Characteristic extends Stat {
     constructor(options: IStatOptions) {
         super(options);
-        this.self_value = 10;
     }
 }
 
