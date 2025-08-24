@@ -2,7 +2,7 @@
   import {  FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
   import { BattlersGrid } from '@/widgets/BattlersGrid';
-  import { MapHandler } from '@/entities/Map';
+  import { MapGenerator } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref } from 'vue';
   import { TerrainsTypesEnum } from '@/widgets/Grid';
@@ -10,9 +10,9 @@
 
   const playerStore = usePlayerStore();
 
-  const mapHandler = new MapHandler({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
+  const mapGenerator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const map = ref();
-  map.value = mapHandler.generateMap();
+  map.value = mapGenerator.generateMap();
 
   // Функция проверки проходимости клетки
   const isPassable = (x: number, y: number): boolean => {

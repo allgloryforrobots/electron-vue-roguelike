@@ -1,4 +1,4 @@
-export interface IMapHandlerOptions {
+export interface IMapGeneratorOptions {
     width: number;
     height: number;
     treeDensity: number;

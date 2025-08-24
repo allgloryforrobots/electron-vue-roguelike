@@ -137,4 +137,33 @@ export class Pathfinder {
     // Путь не найден
     return { path: [], success: false, steps: 0 };
   }
+
+
+  // Визуализация пути на карте (тесты)
+	static visualizePath(map: MapType, path: { x: number; y: number }[]) {
+
+		const visualizeMap = structuredClone(map);
+		
+		for (const point of path) {
+			visualizeMap[point.y][point.x].isPath = true;
+		}
+		
+		return visualizeMap;
+	}
 }
+
+//   watchEffect(() => {
+// 	// Ищем путь
+// 	const result = Pathfinder.findPath(this.map, playerStore.playerX, playerStore.playerY, 45, 25);
+
+// 	if (result.success) {
+// 		console.log(`Путь найден! Длина: ${result.steps} шагов`);
+// 		console.log('Координаты пути:', result.path);
+		
+// 		// Визуализируем путь
+// 		const mapWithPath = generator.visualizePath(result.path);
+// 		map.value = mapWithPath;
+// 	} else {
+// 		console.log('Путь не найден');
+// 	}
+//   });

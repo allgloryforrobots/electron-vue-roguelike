@@ -1,15 +1,14 @@
-import { IMapHandlerOptions, TerrainsTypesEnum } from "../types/GridTypes";
-import type { MapType, PathfindingResult } from "../types/GridTypes";
-import { Pathfinder } from "./pathfinder";
+import { IMapGeneratorOptions, TerrainsTypesEnum } from "../types/GridTypes";
+import type { MapType } from "../types/GridTypes";
 
-export class MapHandler {
+export class MapGenerator {
     width: number;
     height: number;
     treeDensity: number;
     clusterDensity: number;
     map: MapType;
 
-    constructor(options: IMapHandlerOptions) {
+    constructor(options: IMapGeneratorOptions) {
       // Параметры карты
       this.width = options.width || 50;
       this.height = options.height || 30;
@@ -170,39 +169,4 @@ export class MapHandler {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-
-	// Метод для поиска пути
-	findPath(startX: number, startY: number, endX: number, endY: number): PathfindingResult {
-		return Pathfinder.findPath(this.map, startX, startY, endX, endY);
-	}
-
-	// Визуализация пути на карте (тесты)
-	visualizePath(path: { x: number; y: number }[]) {
-
-		const visualizeMap = structuredClone(this.map);
-		
-		for (const point of path) {
-			if (this.isInBounds(point.x, point.y)) {
-				visualizeMap[point.y][point.x].isPath = true;
-			}
-		}
-		
-		return visualizeMap;
-	}
 }
-
-//   watchEffect(() => {
-// 	// Ищем путь
-// 	const result = generator.findPath(playerStore.playerX, playerStore.playerY, 45, 25);
-
-// 	if (result.success) {
-// 		console.log(`Путь найден! Длина: ${result.steps} шагов`);
-// 		console.log('Координаты пути:', result.path);
-		
-// 		// Визуализируем путь
-// 		const mapWithPath = generator.visualizePath(result.path);
-// 		map.value = mapWithPath;
-// 	} else {
-// 		console.log('Путь не найден');
-// 	}
-//   });
