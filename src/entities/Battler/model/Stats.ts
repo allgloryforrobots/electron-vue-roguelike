@@ -81,6 +81,7 @@ export function generateStats() {
     const sanity = new Characteristic({ name: "Рассудок", codename: "sanity" });
     const energy = new Characteristic({ name: "Энергия", codename: "energy" });
     const mana = new Characteristic({ name: "Мана", codename: "mana" });
+    const actionPoints = new Characteristic({ name: "Очки действия", codename: "actionPoints" });
 
     // Сопротивления
     const fire_resistance = new Resist({ name: "Сопротивление огню", codename: "fire_resistance" });
@@ -346,13 +347,22 @@ export function generateStats() {
         movePoints: 2,
         // база под любые целочисленные значения (HP, MP, энергия)
         baseValueModifier: 3,
+        // энергии тратиться на атаку тяжелым оружием
+        heavyWeaponAttackEnergyCost: 0.5,
+        // энергии тратиться на атаку оружием типа одноручного меча
+        middleWeaponAttackEnergyCost: 0.25,
+        // энергии тратиться на атаку кинжалом, кулаками
+        lightWeaponAttackEnergyCost: 0.1,
+        // энергии тратиться на прохождение 1 клетки в тяжелой броне
+        heavyArmorMovementEnergyCost: 0.1
     }
 
     const secondaryCharacteristics = {
         combat_capability,
         sanity,
         energy,
-        mana
+        mana,
+        actionPoints
     }
 
     return {

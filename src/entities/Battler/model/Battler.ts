@@ -1,7 +1,5 @@
 import { generateStats } from "./Stats";
 
-type StatsType = ReturnType<typeof generateStats>;
-
 interface IClassOptions {
     name: string;
     codename: string;
@@ -36,7 +34,7 @@ export class Battler {
     get combatCapability() {
         const value = this.stats.secondaryCharacteristics.combat_capability.getValue() + 
             this.stats.characteristics.constitution.getStatValueModifier();
-        return value;
+        return value > 0;
     }
 
     // рассудок
@@ -57,6 +55,13 @@ export class Battler {
     get mana() {
         const value = this.stats.secondaryCharacteristics.mana.getValue() + 
             this.stats.characteristics.gift.getStatValueModifier();
+        return value;
+    }
+
+    // очки действия
+    get actionPoints() {
+        const value = this.stats.secondaryCharacteristics.actionPoints.getValue() + 
+            this.stats.characteristics.agility.getStatValueModifier();
         return value;
     }
 
