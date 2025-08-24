@@ -18,15 +18,15 @@ class Stat {
         this.codename = options.codename;
     }
 
-    modifySelfValue(modifier: number) {
+    changeSelfValue(modifier: number) {
         this.self_value += modifier;
     }
 
-    setTempModifier(modifier: number) {
+    changeTempModifier(modifier: number) {
         this.temp_modifiers += modifier;
     }
 
-    setEquipModifier(modifier: number) {
+    changeEquipModifier(modifier: number) {
         this.equip_modifiers += modifier;
     }
 
@@ -44,6 +44,7 @@ class Stat {
     getStatValueModifier(): number {
         return Math.floor(this.getValue() / 30);
     }
+
 }
 
 class Characteristic extends Stat {
@@ -74,6 +75,12 @@ export function generateStats() {
     const empathy = new Characteristic({ name: "Эмпатия", codename: "empathy" });
     const psyche = new Characteristic({ name: "Психика", codename: "psyche" });
     const appearance = new Characteristic({ name: "Внешность", codename: "appearance" });
+
+    // Второстепенные характеристики
+    const combat_capability = new Characteristic({ name: "Боеспособность", codename: "combat_capability" });
+    const sanity = new Characteristic({ name: "Рассудок", codename: "sanity" });
+    const energy = new Characteristic({ name: "Энергия", codename: "energy" });
+    const mana = new Characteristic({ name: "Мана", codename: "mana" });
 
     // Сопротивления
     const fire_resistance = new Resist({ name: "Сопротивление огню", codename: "fire_resistance" });
@@ -330,15 +337,27 @@ export function generateStats() {
 
     const constants = {
         // базовый шанс попадания
-        attack_base: 60,
+        attackBase: 60,
         // бонус к защите при блоке щитом
-        shield_bonus: 20,
+        shieldBonus: 20,
         // бонус к защите при парированием оружием
-        parry_bonus: 10,
+        parryBonus: 10,
+        // сколько клеток может пройти (либо развернуться на 90) бесплатно
+        movePoints: 2,
+        // база под любые целочисленные значения (HP, MP, энергия)
+        baseValueModifier: 3,
+    }
+
+    const secondaryCharacteristics = {
+        combat_capability,
+        sanity,
+        energy,
+        mana
     }
 
     return {
         characteristics,
+        secondaryCharacteristics,
         resists,
         skills,
         constants

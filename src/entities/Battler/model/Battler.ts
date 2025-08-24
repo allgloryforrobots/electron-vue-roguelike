@@ -9,7 +9,7 @@ interface IClassOptions {
 
 export class Battler {
     id = crypto.randomUUID();
-    stats: StatsType;
+    stats = generateStats();
     name: string;
     codename: string;
     level = 1;
@@ -20,17 +20,44 @@ export class Battler {
     constructor(options: IClassOptions) {
         this.name = options.name;
         this.codename = options.codename;
-        this.stats = generateStats();
     }
 
     hitChance() {
-        const attack = this.stats.constants.attack_base + this.stats.characteristics.constitution.getValue();
-        return attack;
+        const attack = this.stats.constants.attackBase + this.stats.characteristics.perception.getValue();
+        return attack < 0 ? attack : 0;
     }
 
     defenceChance() {
         const defence = this.stats.characteristics.agility.getValue();
-        return defence;
+        return defence < 0 ? defence : 0;
+    }
+
+    // боеспособность
+    get combatCapability() {
+        const value = this.stats.secondaryCharacteristics.combat_capability.getValue() + 
+            this.stats.characteristics.constitution.getStatValueModifier();
+        return value;
+    }
+
+    // рассудок
+    get sanity() {
+        const value = this.stats.secondaryCharacteristics.sanity.getValue() + 
+            this.stats.characteristics.psyche.getStatValueModifier();
+        return value;
+    }
+
+    // энергия
+    get energy() {
+        const value = this.stats.secondaryCharacteristics.energy.getValue() + 
+            this.stats.characteristics.constitution.getStatValueModifier();
+        return value;
+    }
+
+    // мана
+    get mana() {
+        const value = this.stats.secondaryCharacteristics.mana.getValue() + 
+            this.stats.characteristics.gift.getStatValueModifier();
+        return value;
     }
 
 }
@@ -41,9 +68,9 @@ function RaceElf() {
             constructor(...args: any[]) {
                 super(...args);
                 if (this instanceof Battler) {
-                    this.stats.characteristics.agility.modifySelfValue(60);
-                    this.stats.characteristics.perception.modifySelfValue(20);
-                    this.stats.skills.bow.modifySelfValue(15);
+                    this.stats.characteristics.agility.changeSelfValue(60);
+                    this.stats.characteristics.perception.changeSelfValue(20);
+                    this.stats.skills.bow.changeSelfValue(15);
                 }
             }
         };
@@ -56,8 +83,8 @@ function ClassMage() {
             constructor(...args: any[]) {
                 super(...args);
                 if (this instanceof Battler) {
-                    this.stats.characteristics.intelligence.modifySelfValue(60);
-                    this.stats.skills.wild_magic.modifySelfValue(15);
+                    this.stats.characteristics.intelligence.changeSelfValue(60);
+                    this.stats.skills.wild_magic.changeSelfValue(15);
                 }
             }
         };
