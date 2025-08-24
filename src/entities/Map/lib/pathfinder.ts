@@ -155,3 +155,17 @@ export class Pathfinder {
 		return visualizeMap;
 	}
 }
+
+// тест в app
+// watchEffect(() => {
+// 	// Ищем путь
+// 	const result = Pathfinder.findPath(map.value, playerStore.playerX, playerStore.playerY, 45, 25);
+
+// 	if (result.success) {
+// 		// Визуализируем путь
+// 		const mapWithPath = Pathfinder.visualizePath(map.value, result.path);
+// 		map.value = mapWithPath;
+// 	} else {
+// 		console.log('Путь не найден');
+// 	}
+// });

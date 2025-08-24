@@ -4,29 +4,15 @@
   import { BattlersGrid } from '@/widgets/BattlersGrid';
   import { MapGenerator } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
-  import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
   import { TerrainsTypesEnum } from '@/widgets/Grid';
   import { usePlayerStore } from '@/entities/Player';
-import { Pathfinder } from '@/entities/Map/lib/pathfinder';
 
   const playerStore = usePlayerStore();
 
   const mapGenerator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const map = ref();
   map.value = mapGenerator.generateMap();
-
-watchEffect(() => {
-	// Ищем путь
-	const result = Pathfinder.findPath(map.value, playerStore.playerX, playerStore.playerY, 45, 25);
-
-	if (result.success) {
-		// Визуализируем путь
-		const mapWithPath = Pathfinder.visualizePath(map.value, result.path);
-		map.value = mapWithPath;
-	} else {
-		console.log('Путь не найден');
-	}
-});
 
   // Функция проверки проходимости клетки
   const isPassable = (x: number, y: number): boolean => {
