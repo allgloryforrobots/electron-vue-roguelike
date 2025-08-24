@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import { FOVCalculator, FOVGrid } from '@/widgets/FOVGrid';
+  import {  FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
   import { BattlersGrid } from '@/widgets/BattlersGrid';
   import { MapGenerator } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
-  import { onMounted, onUnmounted, ref } from 'vue';
+  import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
   import { TerrainsTypesEnum } from '@/widgets/Grid';
   import { usePlayerStore } from '@/entities/Player';
 
@@ -14,6 +14,24 @@
   const generatedMap = generator.generateMap();
   const map = ref();
   map.value = generatedMap;
+
+  watchEffect(() => {
+	// Ищем путь
+	const result = generator.findPath(playerStore.playerX, playerStore.playerY, 45, 25);
+
+	if (result.success) {
+		console.log(`Путь найден! Длина: ${result.steps} шагов`);
+		console.log('Координаты пути:', result.path);
+		
+		// Визуализируем путь
+		const mapWithPath = generator.visualizePath(result.path);
+		map.value = mapWithPath;
+		console.log('Путь не найден');
+
+	} else {
+		console.log('Путь не найден');
+	}
+  });
 
   // Функция проверки проходимости клетки
   const isPassable = (x: number, y: number): boolean => {

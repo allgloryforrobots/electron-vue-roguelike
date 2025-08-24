@@ -10,7 +10,9 @@
         :class="{
           'grass': cell.type === TerrainsTypesEnum.EMPTY,
           'tree': cell.type === TerrainsTypesEnum.SINGLE_TREE,
-          'tree-cluster': cell.type === TerrainsTypesEnum.CLUSTER_TREE
+          'tree-cluster': cell.type === TerrainsTypesEnum.CLUSTER_TREE,
+          // только для тестов алгоритма нахождения пути
+          'test-red': cell.isPath
         }"
       >
         <template v-if="cell.type === TerrainsTypesEnum.SINGLE_TREE">🌲</template>

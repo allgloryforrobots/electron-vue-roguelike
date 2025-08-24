@@ -1,5 +1,6 @@
 import { IMapGeneratorOptions, TerrainsTypesEnum } from "../types/GridTypes";
-import type { MapType } from "../types/GridTypes";
+import type { MapType, PathfindingResult } from "../types/GridTypes";
+import { Pathfinder } from "./pathfinder";
 
 export class MapGenerator {
     width: number;
@@ -168,4 +169,24 @@ export class MapGenerator {
     getRandomInt(min: number, max: number) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+
+
+	// Метод для поиска пути
+	findPath(startX: number, startY: number, endX: number, endY: number): PathfindingResult {
+		return Pathfinder.findPath(this.map, startX, startY, endX, endY);
+	}
+
+	// Визуализация пути на карте (тесты)
+	visualizePath(path: { x: number; y: number }[]) {
+
+		const visualizeMap = structuredClone(this.map);
+		
+		for (const point of path) {
+			if (this.isInBounds(point.x, point.y)) {
+				visualizeMap[point.y][point.x].isPath = true;
+			}
+		}
+		
+		return visualizeMap;
+	}
 }
