@@ -1,1 +1,1 @@
-export { MapGenerator } from "./lib/mapGeneration";
+export { MapHandler } from "./lib/mapGeneration";

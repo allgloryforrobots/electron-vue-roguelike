@@ -2,34 +2,17 @@
   import {  FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
   import { BattlersGrid } from '@/widgets/BattlersGrid';
-  import { MapGenerator } from '@/entities/Map';
+  import { MapHandler } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
-  import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
   import { TerrainsTypesEnum } from '@/widgets/Grid';
   import { usePlayerStore } from '@/entities/Player';
 
   const playerStore = usePlayerStore();
 
-  const generator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
-  const generatedMap = generator.generateMap();
+  const mapHandler = new MapHandler({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const map = ref();
-  map.value = generatedMap;
-
-//   watchEffect(() => {
-// 	// Ищем путь
-// 	const result = generator.findPath(playerStore.playerX, playerStore.playerY, 45, 25);
-
-// 	if (result.success) {
-// 		console.log(`Путь найден! Длина: ${result.steps} шагов`);
-// 		console.log('Координаты пути:', result.path);
-		
-// 		// Визуализируем путь
-// 		const mapWithPath = generator.visualizePath(result.path);
-// 		map.value = mapWithPath;
-// 	} else {
-// 		console.log('Путь не найден');
-// 	}
-//   });
+  map.value = mapHandler.generateMap();
 
   // Функция проверки проходимости клетки
   const isPassable = (x: number, y: number): boolean => {
