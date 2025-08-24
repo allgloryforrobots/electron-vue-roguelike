@@ -18,7 +18,7 @@ class Stat {
         this.codename = options.codename;
     }
 
-    setSelfValue(modifier: number) {
+    modifySelfValue(modifier: number) {
         this.self_value += modifier;
     }
 

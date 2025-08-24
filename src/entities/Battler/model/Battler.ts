@@ -29,35 +29,43 @@ export class Battler {
 
 }
 
-function ModifyStat(statPath: string, value: number) {
+function RaceElf() {
     // eslint-disable-next-line @typescript-eslint/ban-types
     return function <T extends { new (...args: any[]): {} }>(constructor: T) {
         return class extends constructor {
             constructor(...args: any[]) {
                 super(...args);
                 if (this instanceof Battler) {
-                    const path = statPath.split('.');
-                    let target: any = this.stats;
-                    
-                    for (let i = 0; i < path.length - 1; i++) {
-                        target = target[path[i]];
-                    }
-                    
-                    const finalProp = path[path.length - 1];
-                    if (target[finalProp] && typeof target[finalProp].setSelfValue === 'function') {
-                        target[finalProp].setSelfValue(value);
-                    }
+                    this.stats.characteristics.agility.modifySelfValue(60);
+                    this.stats.characteristics.perception.modifySelfValue(20);
+                    this.stats.skills.bow.modifySelfValue(15);
                 }
             }
         };
     };
 }
 
-@ModifyStat('skills.mechanics', 20)
-class Mage extends Battler {
+function ClassMage() {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    return function <T extends { new (...args: any[]): {} }>(constructor: T) {
+        return class extends constructor {
+            constructor(...args: any[]) {
+                super(...args);
+                if (this instanceof Battler) {
+                    this.stats.characteristics.intelligence.modifySelfValue(60);
+                    this.stats.skills.wild_magic.modifySelfValue(15);
+                }
+            }
+        };
+    };
+}
+
+@RaceElf()
+@ClassMage()
+class ElfMage extends Battler {
     constructor() {
         super();
     }
 }
 
-export const mage = new Mage();
+export const elf = new ElfMage();

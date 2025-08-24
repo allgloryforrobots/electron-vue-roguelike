@@ -3,7 +3,9 @@
 </template>
 
 <script setup lang="ts">
-  import { RouterView } from 'vue-router';
+  import { elf } from '@/entities/Battler/model/Battler';
+import { RouterView } from 'vue-router';
+  console.log(elf)
 </script>
 
 <style scoped>
