@@ -5,7 +5,7 @@
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref, watch } from 'vue';
   import { usePlayerStore } from '@/entities/Player';
-  import { elf } from '@/entities/Battler/model/Battler';
+  import { player } from '@/entities/Battler/model/Battler';
   import { moveBattler } from '../lib/movement';
   import { EnemyGenerator } from '@/features/EnemyGenerator';
 
@@ -27,7 +27,7 @@
   watch(
     () => [playerStore.playerX, playerStore.playerY],
     (newCoords, oldCoords) => {
-      moveBattler(map.value, elf, newCoords, oldCoords);
+      moveBattler(map.value, player, newCoords, oldCoords);
     },
     { immediate: true }
   );

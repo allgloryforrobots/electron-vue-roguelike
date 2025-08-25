@@ -1,3 +1,4 @@
+import { EnemiesDecorator, Fraction, PlayerDecorator } from "@/entities/Fraction";
 import { generateStats } from "./Stats";
 
 interface IClassOptions {
@@ -15,6 +16,7 @@ export class Battler {
     character_class = null;
     profession = null;
     image = "🧙‍♂️";
+    faction?: Fraction;
     
     constructor(options: IClassOptions) {
         this.name = options.name;
@@ -68,7 +70,19 @@ export class Battler {
 
 }
 
-function RaceElf() {
+function FractionDecorator(faction: Fraction) {
+    return function <T extends new (...args: any[]) => object>(constructor: T) {
+        return class extends constructor {
+            faction: Fraction = faction;
+            
+            constructor(...args: any[]) {
+                super(...args);
+            }
+        };
+    };
+}
+
+function RaceElfDecorator() {
     return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
             constructor(...args: any[]) {
@@ -83,7 +97,7 @@ function RaceElf() {
     };
 }
 
-function ClassMage() {
+function ClassMageDecorator() {
     return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
             constructor(...args: any[]) {
@@ -97,15 +111,28 @@ function ClassMage() {
     };
 }
 
-@RaceElf()
-@ClassMage()
+@RaceElfDecorator()
+@ClassMageDecorator()
+@EnemiesDecorator()
 class ElfMage extends Battler {
     constructor(options: IClassOptions) {
         super(options);
     }
 }
 
-export const elf = new ElfMage({
+export const enemy = new ElfMage({
     name: 'elf',
     codename: 'elf'
+});
+
+@PlayerDecorator()
+class Player extends Battler {
+    constructor(options: IClassOptions) {
+        super(options);
+    }
+}
+
+export const player = new Player({
+    name: 'player',
+    codename: 'player'
 });

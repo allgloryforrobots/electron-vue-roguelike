@@ -1,6 +1,6 @@
 // EnemyGenerator.ts
 import { Battler } from "@/entities/Battler";
-import { elf } from "@/entities/Battler/model/Battler";
+import { enemy } from "@/entities/Battler/model/Battler";
 import type { MapType } from "@/entities/Map";
 import { TerrainsTypesEnum } from "@/entities/Map";
 
@@ -189,11 +189,11 @@ export class EnemyGenerator {
   }
 
   private createSingleEnemy(): Battler {
-    return elf;
+    return enemy;
   }
 
   private createSquadMember(): Battler {
-    return elf;
+    return enemy;
   }
 
   private shuffleArray<T>(array: T[]): T[] {
