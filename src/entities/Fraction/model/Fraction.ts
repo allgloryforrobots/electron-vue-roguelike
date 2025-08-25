@@ -24,7 +24,7 @@ export const Player = new Fraction("Игрок", "player"); // абстракт�
 export function PlayerDecorator() {
     return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
-            faction: Fraction = Player;
+            fraction: Fraction = Player;
             
             constructor(...args: any[]) {
                 super(...args);
@@ -36,7 +36,7 @@ export function PlayerDecorator() {
 export function EnemiesDecorator() {
     return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
-            faction: Fraction = Enemies;
+            fraction: Fraction = Enemies;
             
             constructor(...args: any[]) {
                 super(...args);

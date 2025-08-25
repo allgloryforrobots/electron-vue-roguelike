@@ -16,11 +16,16 @@ export class Battler {
     character_class = null;
     profession = null;
     image = "🧙‍♂️";
-    faction?: Fraction;
+    fraction?: Fraction;
     
     constructor(options: IClassOptions) {
         this.name = options.name;
         this.codename = options.codename;
+    }
+
+    isAlly(target: Battler & { faction?: Fraction }): boolean {
+        if (!this.fraction?.codename) return false;
+        return this.fraction?.codename === target.faction?.codename;
     }
 
     hitChance() {
@@ -68,18 +73,6 @@ export class Battler {
         return value;
     }
 
-}
-
-function FractionDecorator(faction: Fraction) {
-    return function <T extends new (...args: any[]) => object>(constructor: T) {
-        return class extends constructor {
-            faction: Fraction = faction;
-            
-            constructor(...args: any[]) {
-                super(...args);
-            }
-        };
-    };
 }
 
 function RaceElfDecorator() {
