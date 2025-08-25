@@ -1,1 +1,1 @@
-export type { Battler } from './model/Battler';
+export { Battler } from './model/Battler';

@@ -1,10 +1,11 @@
+import { Battler } from "@/entities/Battler";
 import { IMapGeneratorOptions, TerrainsTypesEnum } from "../types/GridTypes";
 import type { ICellOptions, MapType } from "../types/GridTypes";
-
 
 export class Cell {
   id: string;
   type: TerrainsTypesEnum;
+  battlers: Battler[] = [];
 
   // только для тестов алгоритма нахождения пути
   isPath?: boolean
