@@ -39,8 +39,8 @@ export class Pathfinder {
     const getMoveCost = (cell: PathfindingCell): number => {
 
       // клетка занята юнитом
-      if (cell.battlers.length) {
-        return 20; 
+      if (cell.battler) {
+        return 10; 
       }
 
       switch (cell.type) {
@@ -160,6 +160,13 @@ export class Pathfinder {
 		
 		return visualizeMap;
 	}
+  // Функция проверки проходимости клетки
+  static isPassable = (x: number, y: number, map: MapType): boolean => {
+    if (!map) return false;
+    const cell = map?.[y]?.[x];
+    if (!cell) return false;
+    return cell.type === TerrainsTypesEnum.EMPTY && !cell.battler;
+  };
 }
 
 // тест в app

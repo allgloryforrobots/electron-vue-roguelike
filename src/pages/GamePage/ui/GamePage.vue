@@ -1,19 +1,20 @@
 <script setup lang="ts">
   import {  FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
-  import { MapGenerator } from '@/entities/Map';
+  import { MapGenerator, Pathfinder } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref, watch } from 'vue';
   import { usePlayerStore } from '@/entities/Player';
   import { elf } from '@/entities/Battler/model/Battler';
-import { TerrainsTypesEnum } from '@/entities/Map/types/GridTypes';
-import { moveBattler } from '../lib/movement';
+  import { moveBattler } from '../lib/movement';
 
   const playerStore = usePlayerStore();
 
   const mapGenerator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const map = ref();
   map.value = mapGenerator.generateMap();
+
+  map.value[2][2].battler = elf;
 
   watch(
     () => [playerStore.playerX, playerStore.playerY],
@@ -25,12 +26,6 @@ import { moveBattler } from '../lib/movement';
 
   playerStore.playerX = 1; 
   playerStore.playerY = 1;
-
-  // Функция проверки проходимости клетки
-  const isPassable = (x: number, y: number): boolean => {
-    if (!map.value) return false;
-    return map.value?.[y]?.[x]?.type === TerrainsTypesEnum.EMPTY;
-  };
 
   const handleKeyDown = (event: KeyboardEvent) => {
     let newX = playerStore.playerX;
@@ -62,7 +57,7 @@ import { moveBattler } from '../lib/movement';
     }
 
     // Проверяем, что новые координаты в пределах карты и клетка проходима
-    if (isPassable(newX, newY)) {
+    if (Pathfinder.isPassable(newX, newY, map.value)) {
       playerStore.setPlayerX(newX);
       playerStore.setPlayerY(newY);
     }
