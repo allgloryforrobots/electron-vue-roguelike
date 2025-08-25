@@ -1,0 +1,1 @@
+export type { Battler } from './model/Battler';

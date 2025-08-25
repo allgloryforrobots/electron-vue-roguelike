@@ -1,24 +1,23 @@
+import { Cell } from "../lib/MapGenerator";
+
 export interface IMapGeneratorOptions {
-    width: number;
-    height: number;
-    treeDensity: number;
-    clusterDensity: number;
+  width: number;
+  height: number;
+  treeDensity: number;
+  clusterDensity: number;
 }
 
-export type MapType = Array<ICell[]>;
+export type MapType = Array<Cell[]>;
 
-export interface ICell {
-    type: TerrainsTypesEnum;
-    // только для тестов алгоритма нахождения пути
-    isPath?: boolean
+export interface ICellOptions {
+  type: TerrainsTypesEnum;
 }
 
 export enum TerrainsTypesEnum {
-    EMPTY = 'empty',
-    SINGLE_TREE = 'singleTree',
-    CLUSTER_TREE = 'cluster_tree',
+  EMPTY = 'empty',
+  SINGLE_TREE = 'singleTree',
+  CLUSTER_TREE = 'cluster_tree',
 }
-
 
 export interface PathfindingCell {
   x: number;
