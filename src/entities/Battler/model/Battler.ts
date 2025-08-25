@@ -14,6 +14,7 @@ export class Battler {
     race = null;
     character_class = null;
     profession = null;
+    image = "🧙‍♂️";
     
     constructor(options: IClassOptions) {
         this.name = options.name;

@@ -19,13 +19,13 @@ export class Pathfinder {
         grid[y][x] = {
           x,
           y,
-          type: map[y][x].type,
           f: 0,
           g: 0,
           h: 0,
           parent: null,
           closed: false,
           opened: false,
+          ...map[y][x],
         };
       }
     }
@@ -37,6 +37,12 @@ export class Pathfinder {
 
     // Получение стоимости перемещения через клетку
     const getMoveCost = (cell: PathfindingCell): number => {
+
+      // клетка занята юнитом
+      if (cell.battlers.length) {
+        return 20; 
+      }
+
       switch (cell.type) {
         case TerrainsTypesEnum.EMPTY:
           return 1;

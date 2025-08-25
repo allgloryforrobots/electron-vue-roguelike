@@ -1,18 +1,37 @@
 <script setup lang="ts">
   import {  FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
-  import { BattlersGrid } from '@/widgets/BattlersGrid';
   import { MapGenerator } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
-  import { onMounted, onUnmounted, ref } from 'vue';
+  import { onMounted, onUnmounted, ref, watch } from 'vue';
   import { TerrainsTypesEnum } from '@/widgets/Grid';
   import { usePlayerStore } from '@/entities/Player';
+  import { elf } from '@/entities/Battler/model/Battler';
 
   const playerStore = usePlayerStore();
 
   const mapGenerator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const map = ref();
   map.value = mapGenerator.generateMap();
+
+  watch(
+    () => [playerStore.playerX, playerStore.playerY],
+    (newCoords, oldCoords) => {
+      const [newX, newY] = newCoords;
+      
+      // Проверяем, что oldCoords существует и содержит числа
+      if (oldCoords && oldCoords[0] !== undefined && oldCoords[1] !== undefined) {
+        const [oldX, oldY] = oldCoords as [number, number];
+        map.value[oldY][oldX].battler = null;
+      }
+      
+      map.value[newY][newX].battler = elf;
+    },
+    { immediate: true }
+  );
+
+  playerStore.playerX = 1; 
+  playerStore.playerY = 1;
 
   // Функция проверки проходимости клетки
   const isPassable = (x: number, y: number): boolean => {

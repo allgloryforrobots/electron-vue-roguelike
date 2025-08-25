@@ -20,6 +20,8 @@
   --gap: 10px;
   --cell-size: 20px;
   --grid-row-length: 50;
+
+  --z-battlers: 1;
 }
 
 @font-face {

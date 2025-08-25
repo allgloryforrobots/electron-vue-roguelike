@@ -3,15 +3,13 @@ import { IMapGeneratorOptions, TerrainsTypesEnum } from "../types/GridTypes";
 import type { ICellOptions, MapType } from "../types/GridTypes";
 
 export class Cell {
-  id: string;
   type: TerrainsTypesEnum;
-  battlers: Battler[] = [];
+  battler: Battler | null = null;
 
   // только для тестов алгоритма нахождения пути
-  isPath?: boolean
+  isPath?: boolean;
 
   constructor(options: ICellOptions) {
-    this.id = crypto.randomUUID();
     this.type = options.type;
   }
 }

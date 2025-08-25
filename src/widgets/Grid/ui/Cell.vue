@@ -3,17 +3,18 @@
         :key="x" 
         class="map-cell"
       >
+        <div v-if="cell.battler" class="battler">{{cell.battler.image}}</div>
         <slot />
       </div>
 </template>
 
 <script lang="ts" setup>
-  import { ICell, TerrainsTypesEnum } from '../../../entities/Map/types/GridTypes';
+import { Cell } from '@/entities/Map/lib/MapGenerator';
 
   defineProps<{
     x: number;
     y: number;
-    cell: ICell;
+    cell: Cell;
   }>();
 </script>
 
@@ -25,6 +26,19 @@
     align-items: center;
     justify-content: center;
     font-size: 16px;
+    position: relative;
+  }
+
+  .battler {
+    position: absolute;
+    z-index: var(--z-battlers);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .grass {

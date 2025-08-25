@@ -19,7 +19,7 @@ export enum TerrainsTypesEnum {
   CLUSTER_TREE = 'cluster_tree',
 }
 
-export interface PathfindingCell {
+export interface PathfindingCell extends Cell {
   x: number;
   y: number;
   type: TerrainsTypesEnum;
