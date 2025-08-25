@@ -4,9 +4,10 @@
   import { MapGenerator } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref, watch } from 'vue';
-  import { TerrainsTypesEnum } from '@/widgets/Grid';
   import { usePlayerStore } from '@/entities/Player';
   import { elf } from '@/entities/Battler/model/Battler';
+import { TerrainsTypesEnum } from '@/entities/Map/types/GridTypes';
+import { moveBattler } from '../lib/movement';
 
   const playerStore = usePlayerStore();
 
@@ -17,15 +18,7 @@
   watch(
     () => [playerStore.playerX, playerStore.playerY],
     (newCoords, oldCoords) => {
-      const [newX, newY] = newCoords;
-      
-      // Проверяем, что oldCoords существует и содержит числа
-      if (oldCoords && oldCoords[0] !== undefined && oldCoords[1] !== undefined) {
-        const [oldX, oldY] = oldCoords as [number, number];
-        map.value[oldY][oldX].battler = null;
-      }
-      
-      map.value[newY][newX].battler = elf;
+      moveBattler(map.value, elf, newCoords, oldCoords);
     },
     { immediate: true }
   );
