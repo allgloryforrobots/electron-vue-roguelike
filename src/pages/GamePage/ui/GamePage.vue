@@ -7,6 +7,7 @@
   import { usePlayerStore } from '@/entities/Player';
   import { elf } from '@/entities/Battler/model/Battler';
   import { moveBattler } from '../lib/movement';
+  import { EnemyGenerator } from '@/features/EnemyGenerator';
 
   const playerStore = usePlayerStore();
 
@@ -14,7 +15,14 @@
   const map = ref();
   map.value = mapGenerator.generateMap();
 
-  map.value[2][2].battler = elf;
+  // Генерация врагов на готовой карте
+  const enemyGenerator = new EnemyGenerator({
+    singleEnemyDensity: 0.015,
+    squadDensity: 0.003,
+    minSquadSize: 4,
+    maxSquadSize: 7
+  });
+  enemyGenerator.generateEnemies(map.value, 50, 30);
 
   watch(
     () => [playerStore.playerX, playerStore.playerY],
