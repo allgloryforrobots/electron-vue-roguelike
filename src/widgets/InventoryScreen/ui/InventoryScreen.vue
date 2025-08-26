@@ -1,7 +1,11 @@
 <template>
-    <Acsents/>
-    <Table />
-         <FullUIScreen />
+    <Container direction="horizontal">
+        <MainFrame />
+    </Container>
+
+    <!-- <Accents/>
+    <Table /> -->
+    <!-- <FullUIScreen /> -->
   <div class="inventory-screen">
     <div class="character-paperdoll">
 
@@ -87,7 +91,7 @@
                     {{ item.name }} ({{ item.constructor.name }})
                 </div> -->
 
-            <Grid />
+
         </div>
     </div>
 
@@ -107,10 +111,10 @@
     import Frame from '@/shared/ui/Frame/Frame.vue'
     import Tooltip from '@/shared/ui/Tooltip/Tooltip.vue'
     import Container from '@/shared/ui/Container/Container.vue'
-    import Grid from '@/shared/ui/Grid/Grid.vue'
     import Table from '@/shared/ui/Table/Table.vue'
-    import Acsents from '@/shared/ui/Acsents/Acsents.vue'
+    import Accents from '@/shared/ui/Accents/Accents.vue'
     import { FullUIScreen } from '@/widgets/FullUIScreen'
+    import MainFrame from '@/shared/ui/MainFrame/MainFrame.vue'
 
     const selectSlot = (slotName: string) => {
 

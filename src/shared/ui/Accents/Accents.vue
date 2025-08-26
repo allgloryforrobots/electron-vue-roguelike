@@ -110,7 +110,7 @@
 .body {
             background-color: var(--background-color);
             color: var(--text-color);
-            font-family: 'Times New Roman', serif;
+            // font-family: 'Times New Roman', serif;
             line-height: 1.6;
             padding: 20px;
             background-image: 

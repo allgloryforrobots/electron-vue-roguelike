@@ -36,8 +36,15 @@
 }
 
 body {
-  background-color: var(--background-color-medium);
+  background-color: var(--background-color);
   color: var(--text-color);
+  line-height: 1.6;
+  padding: 20px;
+  background-image: 
+      radial-gradient(circle at 25% 25%, rgba(73, 122, 120, 0.1) 0%, transparent 20%),
+      radial-gradient(circle at 75% 75%, rgba(161, 68, 44, 0.1) 0%, transparent 20%);
+
+
   user-select: none;
   ::selection {
     background: var(--border-color)

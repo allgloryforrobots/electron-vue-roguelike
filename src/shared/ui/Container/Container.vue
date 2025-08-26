@@ -34,7 +34,7 @@
         align-items: center;
     }
 
-    .direction-h {
+    .direction-horizontal {
         flex-direction: row;
     }
 </style>
