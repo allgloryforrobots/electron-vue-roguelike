@@ -1,17 +1,18 @@
+import { playerCharacter } from "@/entities/Battler";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const usePlayerStore = defineStore("player", () => {
-  const playerX = ref(1);
-  const playerY = ref(1);
+
+  const player = ref(playerCharacter);
 
   const setPlayerX = (x: number) => {
-    playerX.value = x;
+    player.value.position.x = x;
   };
 
   const setPlayerY = (y: number) => {
-    playerY.value = y;
+    player.value.position.y = y;
   };
 
-  return { playerX, playerY, setPlayerX, setPlayerY };
+  return { player, setPlayerX, setPlayerY };
 })

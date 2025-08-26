@@ -1,6 +1,7 @@
 import { EnemiesDecorator, Fraction, PlayerDecorator } from "@/entities/Fraction";
 import { generateStats } from "./Stats";
 import { IPosition } from "@/shared/types/types";
+import { Direction } from "@/widgets/FOVGrid";
 
 interface IClassOptions {
     name: string;
@@ -18,11 +19,13 @@ export class Battler {
     profession = null;
     image = "🧙‍♂️";
     fraction?: Fraction;
-    position: IPosition | null = null;
+    position: IPosition = { x: 0, y: 0 };
+    direction: Direction
     
     constructor(options: IClassOptions) {
         this.name = options.name;
         this.codename = options.codename;
+        this.direction = Direction.DOWN;
     }
 
     isAlly(target: Battler & { faction?: Fraction }): boolean {
@@ -133,7 +136,7 @@ class Player extends Battler {
     }
 }
 
-export const player = new Player({
+export const playerCharacter = new Player({
     name: 'player',
     codename: 'player'
 });

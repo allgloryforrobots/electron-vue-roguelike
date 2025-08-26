@@ -32,8 +32,8 @@
 
   watchEffect(() => {
     fovMap.value = fov.value.calculateFOVWithDirection(
-      playerStore.playerX, 
-      playerStore.playerY, 
+      playerStore.player.position.x, 
+      playerStore.player.position.y, 
       Direction.RIGHT,
       12
     );

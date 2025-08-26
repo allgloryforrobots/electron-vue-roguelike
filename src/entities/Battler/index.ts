@@ -1,1 +1,1 @@
-export { Battler } from './model/Battler';
+export { Battler, playerCharacter } from './model/Battler';

@@ -5,7 +5,6 @@
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref, watch } from 'vue';
   import { usePlayerStore } from '@/entities/Player';
-  import { player } from '@/entities/Battler/model/Battler';
   import { EnemyGenerator } from '@/features/EnemyGenerator';
 
   const playerStore = usePlayerStore();
@@ -24,19 +23,19 @@
   enemyGenerator.generateEnemies(map.value, 50, 30);
 
   watch(
-    () => [playerStore.playerX, playerStore.playerY],
+    () => [playerStore.player.position.x, playerStore.player.position.y],
     (newCoords, oldCoords) => {
-      moveBattler(map.value, player, newCoords, oldCoords);
+      moveBattler(map.value, playerStore.player, newCoords, oldCoords);
     },
     { immediate: true }
   );
 
-  playerStore.playerX = 1; 
-  playerStore.playerY = 1;
+  playerStore.player.position.x = 1; 
+  playerStore.player.position.y = 1;
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    let newX = playerStore.playerX;
-    let newY = playerStore.playerY;
+    let newX = playerStore.player.position.x;
+    let newY = playerStore.player.position.y;
     
     switch(event.key) {
       case 'ArrowUp':

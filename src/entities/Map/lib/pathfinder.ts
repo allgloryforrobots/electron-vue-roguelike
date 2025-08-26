@@ -172,7 +172,7 @@ export class Pathfinder {
 // тест в app
 // watchEffect(() => {
 // 	// Ищем путь
-// 	const result = Pathfinder.findPath(map.value, playerStore.playerX, playerStore.playerY, 45, 25);
+// 	const result = Pathfinder.findPath(map.value, playerStore.player.position.x, playerStore.player.position.y, 45, 25);
 
 // 	if (result.success) {
 // 		// Визуализируем путь
