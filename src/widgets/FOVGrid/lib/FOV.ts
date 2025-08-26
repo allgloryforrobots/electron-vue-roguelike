@@ -1,4 +1,4 @@
-import { MapType } from "../../Grid";
+import { MapType, TerrainsTypesEnum } from "@/entities/Map";
 
 export class FOVCalculator {
     private map: MapType;
@@ -74,7 +74,8 @@ export class FOVCalculator {
 
     private isOpaque(x: number, y: number): boolean {
         // Типы 1 и 2 - деревья и другие препятствия
-        return this.map[y][x].type === 1 || this.map[y][x].type === 2;
+        const cellType = this.map[y][x].type;
+        return cellType === TerrainsTypesEnum.CLUSTER_TREE || cellType === TerrainsTypesEnum.SINGLE_TREE;
     }
 
     private isInBounds(x: number, y: number): boolean {
