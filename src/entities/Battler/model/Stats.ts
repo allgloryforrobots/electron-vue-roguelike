@@ -82,6 +82,7 @@ export function generateStats() {
     const energy = new Characteristic({ name: "Энергия", codename: "energy" });
     const mana = new Characteristic({ name: "Мана", codename: "mana" });
     const actionPoints = new Characteristic({ name: "Очки действия", codename: "actionPoints" });
+    const rangeOfVision = new Characteristic({ name: "Дальность зрения", codename: "rangeOfVision" });
 
     // Сопротивления
     const fire_resistance = new Resist({ name: "Сопротивление огню", codename: "fire_resistance" });
@@ -354,7 +355,11 @@ export function generateStats() {
         // энергии тратиться на атаку кинжалом, кулаками
         lightWeaponAttackEnergyCost: 0.1,
         // энергии тратиться на прохождение 1 клетки в тяжелой броне
-        heavyArmorMovementEnergyCost: 0.1
+        heavyArmorMovementEnergyCost: 0.1,
+        // дальность зрения днем
+        rangeOfVisionDay: 12,
+        // дальность зрения ночью
+        rangeOfVisionNight: 5,
     }
 
     const secondaryCharacteristics = {
@@ -362,7 +367,8 @@ export function generateStats() {
         sanity,
         energy,
         mana,
-        actionPoints
+        actionPoints,
+        rangeOfVision
     }
 
     return {

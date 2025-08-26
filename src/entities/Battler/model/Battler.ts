@@ -1,5 +1,6 @@
 import { EnemiesDecorator, Fraction, PlayerDecorator } from "@/entities/Fraction";
 import { generateStats } from "./Stats";
+import { IPosition } from "@/shared/types/types";
 
 interface IClassOptions {
     name: string;
@@ -17,6 +18,7 @@ export class Battler {
     profession = null;
     image = "🧙‍♂️";
     fraction?: Fraction;
+    position: IPosition | null = null;
     
     constructor(options: IClassOptions) {
         this.name = options.name;
@@ -38,11 +40,17 @@ export class Battler {
         return defence < 0 ? defence : 0;
     }
 
+    get rangeOfVision() {
+        const value = this.stats.characteristics.perception.getStatValueModifier() + 
+            this.stats.constants.rangeOfVisionDay;
+        return value;
+    }
+
     // боеспособность
     get combatCapability() {
         const value = this.stats.secondaryCharacteristics.combat_capability.getValue() + 
             this.stats.characteristics.constitution.getStatValueModifier();
-        return value > 0;
+        return value;
     }
 
     // рассудок
