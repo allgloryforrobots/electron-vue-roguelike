@@ -1,5 +1,12 @@
 import { MapType, TerrainsTypesEnum } from "@/entities/Map";
 
+export enum Direction {
+    UP = "UP",
+    DOWN = "DOWN",
+    LEFT = "LEFT",
+    RIGHT = "RIGHT"
+}
+
 export class FOVCalculator {
     private map: MapType;
     private width: number;
@@ -11,7 +18,7 @@ export class FOVCalculator {
         this.height = map.length;
     }
 
-    calculateFOV(x: number, y: number, radius = 8): boolean[][] {
+    calculateFOV(x: number, y: number, radius = 8, direction?: {dx: number, dy: number}): boolean[][] {
         const visible = Array.from({ length: this.height }, () => 
             new Array(this.width).fill(false)
         );
@@ -19,11 +26,17 @@ export class FOVCalculator {
         // Всегда видна стартовая позиция
         visible[y][x] = true;
 
+        // Если направление не указано - полный обзор 360 градусов
+        const useSector = direction !== undefined;
+        
         // Проверяем все клетки в пределах радиуса
         for (let dy = -radius; dy <= radius; dy++) {
             for (let dx = -radius; dx <= radius; dx++) {
-                // Пропускаем клетки вне радиуса и карты
+                // Пропускаем клетки вне радиуса
                 if (dx*dx + dy*dy > radius*radius) continue;
+                
+                // Если используется сектор, проверяем угол видимости
+                if (useSector && !this.isInSector(dx, dy, direction!)) continue;
                 
                 const nx = x + dx;
                 const ny = y + dy;
@@ -38,6 +51,46 @@ export class FOVCalculator {
         }
 
         return visible;
+    }
+
+    // Проверяет, находится ли точка в секторе 180 градусов от направления взгляда
+    private isInSector(dx: number, dy: number, direction: {dx: number, dy: number}): boolean {
+        // Нормализуем вектор направления
+        const dirLength = Math.sqrt(direction.dx * direction.dx + direction.dy * direction.dy);
+        const normalizedDir = {
+            dx: direction.dx / dirLength,
+            dy: direction.dy / dirLength
+        };
+
+        // Нормализуем вектор к целевой точке
+        const targetLength = Math.sqrt(dx * dx + dy * dy);
+        if (targetLength === 0) return true; // Центральная точка всегда видна
+        
+        const normalizedTarget = {
+            dx: dx / targetLength,
+            dy: dy / targetLength
+        };
+
+        // Вычисляем косинус угла между векторами
+        const dotProduct = normalizedDir.dx * normalizedTarget.dx + normalizedDir.dy * normalizedTarget.dy;
+        
+        // 180 градусов = ±90 градусов от направления, cos(90°) = 0
+        // Поэтому видимы все точки с углом ≤ 90 градусов от направления
+        return dotProduct >= 0;
+    }
+
+    // Векторные представления направлений
+    private static readonly DIRECTION_VECTORS = {
+        [Direction.UP]: { dx: 0, dy: -1 },
+        [Direction.DOWN]: { dx: 0, dy: 1 },
+        [Direction.LEFT]: { dx: -1, dy: 0 },
+        [Direction.RIGHT]: { dx: 1, dy: 0 }
+    };
+
+    // Упрощенный метод для расчета FOV с направлением
+    calculateFOVWithDirection(x: number, y: number, direction: Direction, radius = 8): boolean[][] {
+        const dirVector = FOVCalculator.DIRECTION_VECTORS[direction];
+        return this.calculateFOV(x, y, radius, dirVector);
     }
 
     private hasLineOfSight(x0: number, y0: number, x1: number, y1: number): boolean {

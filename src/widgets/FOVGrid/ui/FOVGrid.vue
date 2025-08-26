@@ -16,9 +16,9 @@
 <script lang="ts" setup>
   import { ref, watchEffect } from 'vue';
   import FOVCell from './FOVCell.vue';
-  import { FOVCalculator } from '../lib/FOV';
+  import { Direction, FOVCalculator } from '../lib/FOV';
   import { usePlayerStore } from '@/entities/Player';
-  import { MapType } from '@/widgets/Grid';
+  import { MapType } from '@/entities/Map';
 
   const playerStore = usePlayerStore();
 
@@ -31,9 +31,10 @@
   fov.value = new FOVCalculator(props.map);
 
   watchEffect(() => {
-    fovMap.value = fov.value.calculateFOV(
+    fovMap.value = fov.value.calculateFOVWithDirection(
       playerStore.playerX, 
       playerStore.playerY, 
+      Direction.RIGHT,
       12
     );
   });
