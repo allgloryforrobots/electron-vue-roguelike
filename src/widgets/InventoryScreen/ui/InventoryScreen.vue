@@ -1,5 +1,4 @@
 <template>
-    
 <!-- 
   <div class="inventory-screen">
     <div class="character-paperdoll">
@@ -96,8 +95,7 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, reactive } from 'vue'
-    import Accents from '@/shared/ui/Accents/Accents.vue'
+    import { reactive } from 'vue'
 
     const selectSlot = (slotName: string) => {
 
