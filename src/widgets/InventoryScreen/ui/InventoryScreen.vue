@@ -1,6 +1,9 @@
 <template>
     <Container direction="horizontal">
-        <MainFrame />
+        <MainFrame>
+            <Filters :active-filter="activeFilter" @filter-change="handleFilterChange" />
+            <CardGrid :filter="activeFilter" />
+        </MainFrame>    
     </Container>
 
     <!-- <Accents/>
@@ -115,6 +118,8 @@
     import Accents from '@/shared/ui/Accents/Accents.vue'
     import { FullUIScreen } from '@/widgets/FullUIScreen'
     import MainFrame from '@/shared/ui/MainFrame/MainFrame.vue'
+    import Filters from '@/shared/ui/Filters/Filters.vue'
+    import CardGrid from '@/shared/ui/Card/CardGrid.vue'
 
     const selectSlot = (slotName: string) => {
 
@@ -132,83 +137,89 @@
 
     // Состояние компонента
     const inventory = reactive({
-    slots: {
-        head: null,
-        body: null,
-        arms: null,
-        legs: null,
-        smallItems: [],
-        quickSlotA: null,
-        quickSlotB: null,
-        complect1: {
-        rightHand: null,
-        leftHand: null
+        slots: {
+            head: null,
+            body: null,
+            arms: null,
+            legs: null,
+            smallItems: [],
+            quickSlotA: null,
+            quickSlotB: null,
+            complect1: {
+            rightHand: null,
+            leftHand: null
+            },
+            complect2: {
+            rightHand: null,
+            leftHand: null
+            }
         },
-        complect2: {
-        rightHand: null,
-        leftHand: null
-        }
-    },
-    backpackItems: [
-        { name: "Меч" },
-        { name: "Двуручный меч" },
-    ]
+        backpackItems: [
+            { name: "Меч" },
+            { name: "Двуручный меч" },
+        ]
     })
+
+    const activeFilter = ref('all')
+
+    const handleFilterChange = (filter: string) => {
+        activeFilter.value = filter
+    }
 
 </script>
 
 <style scoped>
-.inventory-screen {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
+    .inventory-screen {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
 
-.slots-grid, .weapon-set, .quick-slots-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 15px;
-}
+    .slots-grid, .weapon-set, .quick-slots-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
 
-.slot:hover {
-  background-color: #e0e0e0;
-}
+    .slot:hover {
+        background-color: #e0e0e0;
+    }
 
-.slot-item {
-  margin-top: 5px;
-}
+    .slot-item {
+     margin-top: 5px;
+    }
 
-.backpack-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 8px;
-}
-
-
-.backpack-item:hover, .backpack-item.selected {
-  background-color: #e3f2fd;
-  border-color: #2196f3;
-}
-
-.item-actions {
-  grid-column: 1 / -1;
-  border: 2px solid #333;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #f5f5f5;
-}
+    .backpack-items {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 8px;
+    }
 
 
-button:hover:not(:disabled) {
-  background-color: #333;
-  color: white;
-}
+    .backpack-item:hover, .backpack-item.selected {
+        background-color: #e3f2fd;
+        border-color: #2196f3;
+    }
 
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+    .item-actions {
+        grid-column: 1 / -1;
+        border: 2px solid #333;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f5f5f5;
+    }
+
+
+    button:hover:not(:disabled) {
+        background-color: #333;
+        color: white;
+    }
+
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 </style>

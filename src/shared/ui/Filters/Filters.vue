@@ -21,17 +21,17 @@
 </script>
 
 <template>
-  <div class="filters">
-    <button
-      v-for="filter in filters"
-      :key="filter.id"
-      class="filter-btn"
-      :class="{ active: activeFilter === filter.id }"
-      @click="handleFilterClick(filter.id)"
-    >
-      {{ filter.label }}
-    </button>
-  </div>
+    <div class="filters">
+        <button
+            v-for="filter in filters"
+            :key="filter.id"
+            class="filter-btn"
+            :class="{ active: activeFilter === filter.id }"
+            @click="handleFilterClick(filter.id)"
+        >
+            {{ filter.label }}
+        </button>
+    </div>
 </template>
 
 <style scoped lang="scss">

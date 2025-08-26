@@ -1,24 +1,14 @@
 <script setup lang="ts">
-    import { ref } from 'vue'
     import MainFrameHeader from './MainFrameHeader.vue'
-    import Filters from './Filters.vue'
-    import CardGrid from './CardGrid.vue'
     import MainFrameFooter from './MainFrameFooter.vue'
-
-    const activeFilter = ref('all')
-
-    const handleFilterChange = (filter: string) => {
-        activeFilter.value = filter
-    }
 </script>
 
 <template>
-  <div class="container">
-    <MainFrameHeader />
-    <Filters :active-filter="activeFilter" @filter-change="handleFilterChange" />
-    <CardGrid :filter="activeFilter" />
-    <MainFrameFooter />
-  </div>
+    <div class="container">
+        <MainFrameHeader />
+        <slot />
+        <MainFrameFooter />
+    </div>
 </template>
 
 <style scoped lang="scss">
