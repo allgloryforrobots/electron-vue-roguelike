@@ -1,12 +1,11 @@
 <script setup lang="ts">
   import {  FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
-  import { MapGenerator, Pathfinder } from '@/entities/Map';
+  import { MapGenerator, moveBattler, Pathfinder } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref, watch } from 'vue';
   import { usePlayerStore } from '@/entities/Player';
   import { player } from '@/entities/Battler/model/Battler';
-  import { moveBattler } from '../lib/movement';
   import { EnemyGenerator } from '@/features/EnemyGenerator';
 
   const playerStore = usePlayerStore();
