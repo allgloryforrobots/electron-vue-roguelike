@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watchEffect } from 'vue';
+  import { ref, watch } from 'vue';
   import FOVCell from './FOVCell.vue';
   import { Direction, FOVCalculator } from '../lib/FOV';
   import { usePlayerStore } from '@/entities/Player';
@@ -30,14 +30,18 @@
   const fov = ref();
   fov.value = new FOVCalculator(props.map);
 
-  watchEffect(() => {
-    fovMap.value = fov.value.calculateFOVWithDirection(
-      playerStore.player.position.x, 
-      playerStore.player.position.y, 
-      Direction.RIGHT,
-      12
-    );
-  });
+  watch(
+    [() => fov.value, () => playerStore.player.position, () => playerStore.player.direction],
+    () => {
+      fovMap.value = fov.value.calculateFOVWithDirection(
+        playerStore.player.position.x, 
+        playerStore.player.position.y, 
+        playerStore.player.direction,
+        12
+      );
+    },
+    { immediate: true } // чтобы сработало сразу при создании
+);
 
 </script>
 

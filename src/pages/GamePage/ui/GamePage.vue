@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import {  FOVGrid } from '@/widgets/FOVGrid';
+  import {  Direction, FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
   import { MapGenerator, moveBattler, Pathfinder } from '@/entities/Map';
   import { Navbar } from '@/widgets/Navbar';
@@ -41,21 +41,37 @@
       case 'ArrowUp':
       case 'w':
       case 'W':
+        if (playerStore.player.direction !== Direction.UP) {
+          playerStore.player.direction = Direction.UP;
+          return;
+        }
         newY -= 1;
         break;
       case 'ArrowDown':
       case 's':
       case 'S':
+        if (playerStore.player.direction !== Direction.DOWN) {
+          playerStore.player.direction = Direction.DOWN;
+          return;
+        }
         newY += 1;
         break;
       case 'ArrowLeft':
       case 'a':
       case 'A':
+        if (playerStore.player.direction !== Direction.LEFT) {
+          playerStore.player.direction = Direction.LEFT;
+          return;
+        }
         newX -= 1;
         break;
       case 'ArrowRight':
       case 'd':
       case 'D':
+        if (playerStore.player.direction !== Direction.RIGHT) {
+          playerStore.player.direction = Direction.RIGHT;
+          return;
+        }
         newX += 1;
         break;
       default:
@@ -64,8 +80,8 @@
 
     // Проверяем, что новые координаты в пределах карты и клетка проходима
     if (Pathfinder.isPassable(newX, newY, map.value)) {
-      playerStore.setPlayerX(newX);
-      playerStore.setPlayerY(newY);
+      playerStore.player.position.x = newX;
+      playerStore.player.position.y = newY;
     }
   };
 
