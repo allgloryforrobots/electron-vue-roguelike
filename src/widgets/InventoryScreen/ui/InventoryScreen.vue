@@ -1,4 +1,7 @@
 <template>
+    <Acsents/>
+    <Table />
+         <FullUIScreen />
   <div class="inventory-screen">
     <div class="character-paperdoll">
 
@@ -74,21 +77,23 @@
         <div class="backpack">
             <h2>Рюкзак</h2>
             <div class="backpack-items">
-                <div 
-                v-for="(item, index) in inventory.backpackItems" 
-                :key="index" 
-                class="backpack-item"
-                @click="selectBackpackItem(index)"
-                :class="{ 'selected': selectedBackpackIndex === index }"
-                >
-                {{ item.name }} ({{ item.constructor.name }})
-            </div>
+                <!-- <div 
+                    v-for="(item, index) in inventory.backpackItems" 
+                    :key="index" 
+                    class="backpack-item"
+                    @click="selectBackpackItem(index)"
+                    :class="{ 'selected': selectedBackpackIndex === index }"
+                    >
+                    {{ item.name }} ({{ item.constructor.name }})
+                </div> -->
 
             <Grid />
         </div>
     </div>
 
     </div>
+
+
 </template>
 
 <script setup lang="ts">
@@ -103,6 +108,9 @@
     import Tooltip from '@/shared/ui/Tooltip/Tooltip.vue'
     import Container from '@/shared/ui/Container/Container.vue'
     import Grid from '@/shared/ui/Grid/Grid.vue'
+    import Table from '@/shared/ui/Table/Table.vue'
+    import Acsents from '@/shared/ui/Acsents/Acsents.vue'
+    import { FullUIScreen } from '@/widgets/FullUIScreen'
 
     const selectSlot = (slotName: string) => {
 
