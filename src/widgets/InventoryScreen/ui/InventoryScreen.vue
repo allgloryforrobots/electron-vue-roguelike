@@ -1,6 +1,5 @@
 <template>
-
-    <Table />
+    <FullUIScreen />
     <Container direction="horizontal">
         <MainFrame>
             <Filters :active-filter="activeFilter" @filter-change="handleFilterChange" />
@@ -10,7 +9,7 @@
 
     <!-- <Accents/>
     
-    <!-- <FullUIScreen /> -->
+
   <div class="inventory-screen">
     <div class="character-paperdoll">
 
@@ -96,11 +95,11 @@
                     {{ item.name }} ({{ item.constructor.name }})
                 </div> -->
 
-
+<!-- 
         </div>
     </div>
 
-    </div>
+    </div> -->
 
 
 </template>

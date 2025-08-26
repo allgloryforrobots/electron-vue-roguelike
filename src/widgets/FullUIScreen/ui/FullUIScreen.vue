@@ -7,137 +7,10 @@
         </div>
 
         <div class="components-grid">
-            <!-- Кнопка -->
-            <div class="component-section">
-                <h3 class="component-title">Кнопка (Button)</h3>
-                <div class="component-demo">
-                    <div class="component-row">
-                        <button class="dd-button">Обычная кнопка</button>
-                        <button class="dd-button" disabled>Неактивная</button>
-                    </div>
-                </div>
-                <div class="component-code">
-                    &lt;button class="dd-button"&gt;Текст кнопки&lt;/button&gt;<br>
-                    &lt;button class="dd-button" disabled&gt;Неактивная&lt;/button&gt;
-                </div>
-            </div>
-
-            <!-- Поле ввода -->
-            <div class="component-section">
-                <h3 class="component-title">Поле ввода (Input)</h3>
-                <div class="component-demo">
-                    <input class="dd-input" placeholder="Введите текст">
-                </div>
-                <div class="component-code">
-                    &lt;input class="dd-input" placeholder="Введите текст"&gt;
-                </div>
-            </div>
-
-            <!-- Карточка -->
-            <div class="component-section">
-                <h3 class="component-title">Карточка (Card)</h3>
-                <div class="component-demo">
-                    <div class="dd-card">
-                        <h4>Заголовок карточки</h4>
-                        <p>Содержимое карточки с описанием или другой информацией.</p>
-                    </div>
-                </div>
-                <div class="component-code">
-                    &lt;div class="dd-card"&gt;<br>
-                    &nbsp;&nbsp;&lt;h4&gt;Заголовок карточки&lt;/h4&gt;<br>
-                    &nbsp;&nbsp;&lt;p&gt;Содержимое карточки&lt;/p&gt;<br>
-                    &lt;/div&gt;
-                </div>
-            </div>
-
-            <!-- Выпадающий список -->
-            <div class="component-section">
-                <h3 class="component-title">Выпадающий список (Select)</h3>
-                <div class="component-demo">
-                    <select class="dd-select">
-                        <option>Выберите опцию</option>
-                        <option>Опция 1</option>
-                        <option>Опция 2</option>
-                        <option>Опция 3</option>
-                    </select>
-                </div>
-                <div class="component-code">
-                    &lt;select class="dd-select"&gt;<br>
-                    &nbsp;&nbsp;&lt;option&gt;Выберите опцию&lt;/option&gt;<br>
-                    &nbsp;&nbsp;&lt;option&gt;Опция 1&lt;/option&gt;<br>
-                    &nbsp;&nbsp;&lt;option&gt;Опция 2&lt;/option&gt;<br>
-                    &lt;/select&gt;
-                </div>
-            </div>
-
-            <!-- Чекбокс -->
-            <div class="component-section">
-                <h3 class="component-title">Чекбокс (Checkbox)</h3>
-                <div class="component-demo">
-                    <div class="component-row">
-                        <label>
-                            <input type="checkbox" class="dd-checkbox">
-                            Чекбокс 1
-                        </label>
-                    </div>
-                    <div class="component-row">
-                        <label>
-                            <input type="checkbox" class="dd-checkbox" checked>
-                            Выбранный чекбокс
-                        </label>
-                    </div>
-                </div>
-                <div class="component-code">
-                    &lt;label&gt;<br>
-                    &nbsp;&nbsp;&lt;input type="checkbox" class="dd-checkbox"&gt;<br>
-                    &nbsp;&nbsp;Чекбокс 1<br>
-                    &lt;/label&gt;
-                </div>
-            </div>
-
-            <!-- Радиокнопка -->
-            <div class="component-section">
-                <h3 class="component-title">Радиокнопка (Radio)</h3>
-                <div class="component-demo">
-                    <div class="component-row">
-                        <label>
-                            <input type="radio" name="radio-group" class="dd-radio">
-                            Вариант 1
-                        </label>
-                    </div>
-                    <div class="component-row">
-                        <label>
-                            <input type="radio" name="radio-group" class="dd-radio" checked>
-                            Вариант 2
-                        </label>
-                    </div>
-                </div>
-                <div class="component-code">
-                    &lt;label&gt;<br>
-                    &nbsp;&nbsp;&lt;input type="radio" name="group" class="dd-radio"&gt;<br>
-                    &nbsp;&nbsp;Вариант 1<br>
-                    &lt;/label&gt;
-                </div>
-            </div>
 
             <!-- Вкладки -->
             <div class="component-section">
-                <h3 class="component-title">Вкладки (Tabs)</h3>
-                <div class="component-demo">
-                    <div class="dd-tabs">
-                        <div class="dd-tab active">Вкладка 1</div>
-                        <div class="dd-tab">Вкладка 2</div>
-                        <div class="dd-tab">Вкладка 3</div>
-                    </div>
-                    <p>Содержимое активной вкладки</p>
-                </div>
-                <div class="component-code">
-                    &lt;div class="dd-tabs"&gt;<br>
-                    &nbsp;&nbsp;&lt;div class="dd-tab active"&gt;Вкладка 1&lt;/div&gt;<br>
-                    &nbsp;&nbsp;&lt;div class="dd-tab"&gt;Вкладка 2&lt;/div&gt;<br>
-                    &nbsp;&nbsp;&lt;div class="dd-tab"&gt;Вкладка 3&lt;/div&gt;<br>
-                    &lt;/div&gt;
-                </div>
+                
             </div>
 
             <!-- Индикатор выполнения -->
@@ -562,4 +435,9 @@
 </style>
 
 <script setup lang="ts">
+    import DDTabs  from "@/shared/ui/DDTabs/DDTabs.vue";
+    import { ref } from "vue";
+
+
+
 </script>
