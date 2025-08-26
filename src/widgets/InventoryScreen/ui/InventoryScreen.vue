@@ -1,15 +1,6 @@
 <template>
-    <FullUIScreen />
-    <Container direction="horizontal">
-        <MainFrame>
-            <Filters :active-filter="activeFilter" @filter-change="handleFilterChange" />
-            <CardGrid :filter="activeFilter" />
-        </MainFrame>    
-    </Container>
-
-    <!-- <Accents/>
     
-
+<!-- 
   <div class="inventory-screen">
     <div class="character-paperdoll">
 
@@ -106,21 +97,7 @@
 
 <script setup lang="ts">
     import { ref, reactive } from 'vue'
-    import Input from '@/shared/ui/Input/Input.vue'
-    import Button from '@/shared/ui/Button/Button.vue'
-    import IconButton from '@/shared/ui/IconButton/IconButton.vue'
-    import Header from '@/shared/ui/Header/Header.vue'
-    import ListElement from '@/shared/ui/ListElement/ListElement.vue'
-    import Bar from '@/shared/ui/Bar/Bar.vue'
-    import Frame from '@/shared/ui/Frame/Frame.vue'
-    import Tooltip from '@/shared/ui/Tooltip/Tooltip.vue'
-    import Container from '@/shared/ui/Container/Container.vue'
-    import Table from '@/shared/ui/Table/Table.vue'
     import Accents from '@/shared/ui/Accents/Accents.vue'
-    import { FullUIScreen } from '@/widgets/FullUIScreen'
-    import MainFrame from '@/shared/ui/MainFrame/MainFrame.vue'
-    import Filters from '@/shared/ui/Filters/Filters.vue'
-    import CardGrid from '@/shared/ui/Card/CardGrid.vue'
 
     const selectSlot = (slotName: string) => {
 
@@ -160,12 +137,6 @@
             { name: "Двуручный меч" },
         ]
     })
-
-    const activeFilter = ref('all')
-
-    const handleFilterChange = (filter: string) => {
-        activeFilter.value = filter
-    }
 
 </script>
 
