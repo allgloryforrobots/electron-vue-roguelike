@@ -1,4 +1,6 @@
 <template>
+
+    <Table />
     <Container direction="horizontal">
         <MainFrame>
             <Filters :active-filter="activeFilter" @filter-change="handleFilterChange" />
@@ -7,7 +9,7 @@
     </Container>
 
     <!-- <Accents/>
-    <Table /> -->
+    
     <!-- <FullUIScreen /> -->
   <div class="inventory-screen">
     <div class="character-paperdoll">
