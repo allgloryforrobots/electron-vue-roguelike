@@ -40,7 +40,7 @@
         12
       );
     },
-    { immediate: true } // чтобы сработало сразу при создании
+    { immediate: true }
 );
 
 </script>

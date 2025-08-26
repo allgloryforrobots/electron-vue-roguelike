@@ -7,7 +7,7 @@
 	const router = useRouter()
 
 	function newGame() {
-		router.push(ROUTES.WELCOME)
+		router.push(ROUTES.INVENTORY)
 	}
 
   function continueGame() {

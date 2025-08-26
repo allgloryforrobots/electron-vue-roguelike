@@ -3,12 +3,14 @@ import { WelcomePage } from '@/pages/WelcomePage';
 import { ExamplesPage } from '@/pages/ExamplesPage';
 import { MainMenuPage } from '@/pages/MainMenuPage';
 import GamePage from '@/pages/GamePage/ui/GamePage.vue';
+import { InventoryPage } from '@/pages/InventoryPage';
 
 export const ROUTES = {
   WELCOME: '/welcome',
   EXAMPLES: '/examples',
   MAIN_MENU: '/',
-  GRID: '/grid'
+  GRID: '/grid',
+  INVENTORY: '/inventory'
 }
 
 const router = createRouter({
@@ -33,6 +35,11 @@ const router = createRouter({
       path: ROUTES.GRID,
       name: 'grid',
       component: GamePage,
+    },
+    {
+      path: ROUTES.INVENTORY,
+      name: 'grid',
+      component: InventoryPage,
     },
   ],
 })

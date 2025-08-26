@@ -20,7 +20,31 @@ export class Battler {
     image = "🧙‍♂️";
     fraction?: Fraction;
     position: IPosition = { x: 0, y: 0 };
-    direction: Direction
+    direction: Direction;
+
+    inventory = {
+        slots: {
+            head: null,
+            body: null,
+            legs: null,
+            arms: null,
+
+            quickSlotA: null,
+            quickSlotB: null,
+
+            complect1: {
+                rightHand: null,
+                leftHand: null,
+            },
+
+            complect2: {
+                rightHand: null,
+                leftHand: null,
+            }
+        },
+
+        backpackItems: [],
+    }
     
     constructor(options: IClassOptions) {
         this.name = options.name;
