@@ -1,134 +1,119 @@
 <template>
-  <div class="inventory-container">
-    
-    <div class="inventory-layout">
+  <div class="inventory">
+    <div class="inventory__layout">
       <!-- Блок экипировки -->
-      <div class="equipment-section">
-        <DDHeader title="Экипировка" />
+      <div class="inventory__section">
+        <DDHeader title="Экипировка" class="inventory__header" />
         
         <!-- Отображение персонажа со слотами -->
-        <div class="character-slots">
-          <DDSubstrate class="head-slot slot" :width="50" square>
-			<i class="fa-solid fa-helmet-safety"></i>
+        <div class="inventory__slots">
+          <DDSubstrate class="inventory__slot inventory__slot--head" :width="50" square>
+            <i class="fa-solid fa-helmet-safety inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.head" 
               @item-click="handleSlotClick"
             />
           </DDSubstrate>
           
-          <DDSubstrate class="body-slot slot" :width="50" square>
-			<i class="fa-solid fa-shirt"></i>
+          <DDSubstrate class="inventory__slot inventory__slot--body" :width="50" square>
+            <i class="fa-solid fa-shirt inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.body" 
               @item-click="handleSlotClick"
             />
           </DDSubstrate>
           
-          <DDSubstrate class="arms-slot slot" :width="50" square>
-			<i class="fa-solid fa-mitten"></i>
+          <DDSubstrate class="inventory__slot inventory__slot--arms" :width="50" square>
+            <i class="fa-solid fa-mitten inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.arms" 
               @item-click="handleSlotClick"
             />
-		  </DDSubstrate>
+          </DDSubstrate>
 
-		  <DDSubstrate class="legs-slot slot" :width="50" square>
-			<i class="fa-solid fa-shoe-prints"></i>
-			<div 
+          <DDSubstrate class="inventory__slot inventory__slot--legs" :width="50" square>
+            <i class="fa-solid fa-shoe-prints inventory__slot-icon"></i>
+            <div 
               :slot="playerStore.player.inventory.slots.legs" 
               @item-click="handleSlotClick"
             />
-		  </DDSubstrate>
+          </DDSubstrate>
             
-          <DDSubstrate class="accessory-a-slot slot" :width="50" square>
-			<i class="fa-solid fa-ring"></i>
+          <DDSubstrate class="inventory__slot inventory__slot--accessory" :width="50" square>
+            <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.accessoryA" 
               @item-click="handleSlotClick"
             />
-		  </DDSubstrate>
+          </DDSubstrate>
 
-		  <DDSubstrate class="accessory-b-slot slot" :width="50" square>
-			<i class="fa-solid fa-ring"></i>
-			<div 
+          <DDSubstrate class="inventory__slot inventory__slot--accessory" :width="50" square>
+            <i class="fa-solid fa-ring inventory__slot-icon"></i>
+            <div 
               :slot="playerStore.player.inventory.slots.accessoryB" 
               @item-click="handleSlotClick"
             />
-		  </DDSubstrate>
+          </DDSubstrate>
 
           <!-- Комплекты оружия -->
-            <DDSubstrate class="right-arm-slot slot" :width="50" square>
-			  <i class="fa-solid fa-hand-fist"></i>
-              <div 
-                :slot="playerStore.player.inventory.slots.complect1.rightHand" 
-                @item-click="handleSlotClick"
-              />
-			</DDSubstrate>
-			<DDSubstrate class="left-arm-slot slot"  :width="50" square>
-			  <i class="fa-solid fa-shield"></i>
-              <div 
-                :slot="playerStore.player.inventory.slots.complect1.leftHand" 
-                @item-click="handleSlotClick"
-              />
-			</DDSubstrate>
+          <DDSubstrate class="inventory__slot inventory__slot--weapon" :width="50" square>
+            <i class="fa-solid fa-hand-fist inventory__slot-icon"></i>
+            <div 
+              :slot="playerStore.player.inventory.slots.complect1.rightHand" 
+              @item-click="handleSlotClick"
+            />
+          </DDSubstrate>
           
-          <!-- <div class="weapon-set">
-            <p>Комплект 2</p>
-            <DDSubstrate :width="50" square>
-              <div 
-                :slot="playerStore.player.inventory.slots.complect2.rightHand" 
-                @item-click="handleSlotClick"
-              />
-              <div 
-                :slot="playerStore.player.inventory.slots.complect2.leftHand" 
-                @item-click="handleSlotClick"
-              />
-            </DDSubstrate>
-          </div> -->
+          <DDSubstrate class="inventory__slot inventory__slot--weapon" :width="50" square>
+            <i class="fa-solid fa-shield inventory__slot-icon"></i>
+            <div 
+              :slot="playerStore.player.inventory.slots.complect1.leftHand" 
+              @item-click="handleSlotClick"
+            />
+          </DDSubstrate>
           
           <!-- Быстрые слоты -->
-            <DDSubstrate class="quick-slot-a slot" :width="50" square>
-				<i class="fa-solid fa-scroll"></i>
-              <div 
-                :slot="playerStore.player.inventory.slots.quickSlotA" 
-                @item-click="handleSlotClick"
-              />
-			</DDSubstrate>
-			<DDSubstrate class="quick-slot-b slot" :width="50" square>
-				<i class="fa-solid fa-scroll"></i>
-				<div 
-					:slot="playerStore.player.inventory.slots.quickSlotB" 
-					@item-click="handleSlotClick"
-              	/>
-			</DDSubstrate>
+          <DDSubstrate class="inventory__slot inventory__slot--quick" :width="50" square>
+            <i class="fa-solid fa-scroll inventory__slot-icon"></i>
+            <div 
+              :slot="playerStore.player.inventory.slots.quickSlotA" 
+              @item-click="handleSlotClick"
+            />
+          </DDSubstrate>
+          
+          <DDSubstrate class="inventory__slot inventory__slot--quick" :width="50" square>
+            <i class="fa-solid fa-scroll inventory__slot-icon"></i>
+            <div 
+              :slot="playerStore.player.inventory.slots.quickSlotB" 
+              @item-click="handleSlotClick"
+            />
+          </DDSubstrate>
         </div>
       </div>
       
       <!-- Блок инвентаря -->
-      <div class="backpack-section">
-        <DDHeader title="Рюкзак" />
-        <div class="backpack-items">
+      <div class="inventory__section">
+        <DDHeader title="Рюкзак" class="inventory__header" />
+        <div class="inventory__items">
           <div 
             v-for="(item, index) in testItems" 
             :key="index" 
-            class="backpack-item"
+            class="inventory__item"
           >
-            <div class="item-name">
-				<span class="item-icons">
-					{{ item.marker }}
-					<i class="fa-solid" :class="item.icon"></i> 
-				</span>
-				{{ item.name }}
-			</div>
+            <div class="inventory__item-name">
+              <span class="inventory__item-icons">
+                {{ item.marker }}
+                <i class="fa-solid" :class="item.icon"></i> 
+              </span>
+              {{ item.name }}
+            </div>
           </div>
         </div>
-        
       </div>
 
-		<div class="all-items">
-			<DDHeader title="Схрон" />
-		</div>
-
+      <div class="inventory__section">
+        <DDHeader title="Схрон" class="inventory__header" />
+      </div>
     </div>
   </div>
 </template>
@@ -136,13 +121,13 @@
 <script setup lang="ts">
     import { InventorySlotItemType, Item, itemIconsByType, itemTypes } from '@/entities/Item';
     import { usePlayerStore } from '@/entities/Player';
-	import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
-	import DDSubstrate from '@/shared/ui/DDSubstrate/DDSubstrate.vue';
-	
+    import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
+    import DDSubstrate from '@/shared/ui/DDSubstrate/DDSubstrate.vue';
+    
     const playerStore = usePlayerStore();
 
     const handleSlotClick = () => {
-
+      // Обработчик клика по слоту
     }
 
     const testItems = [
@@ -244,86 +229,106 @@
     ];
 </script>
 
-<style scoped>
-  .inventory-layout {
+<style scoped lang="scss">
+.inventory {
+  &__layout {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
     padding: 20px;
   }
 
-  .character-slots {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-template-rows: repeat(7, 1fr);
-	/* gap: 10px; */
-	height: 600px;
-	place-items: center; 
+  &__section {
+    /* Стили для секций инвентаря */
   }
 
-  .item-icons {
-	opacity: 0.4;
+  &__header {
+    /* Стили для заголовков секций */
   }
 
-  .slot {
-	position: relative;
-	display: grid;
-  	place-items: center; 
-
-	i {
-		position: absolute;
-		opacity: 0.1;
-	}
+  &__slots {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    height: 600px;
+    place-items: center;
   }
 
-  /* Расположение слотов на теле персонажа */
-	.head-slot {
-		grid-column: 3;
-		grid-row: 1;
-	}
-	
-	.body-slot {
-		grid-column: 3;
-		grid-row: 2;
-	}
-	
-	.arms-slot {
-		grid-column: 2;
-		grid-row: 3;
-	}
-	
-	.right-arm-slot {
-		grid-column: 1;
-		grid-row: 3;
-	}
-	
-	.left-arm-slot {
-		grid-column: 5;
-		grid-row: 3;
-	}
-	
-	.legs-slot {
-		grid-column: 3;
-		grid-row: 5;
-	}
-	
-	.accessory-a-slot {
-		grid-column: 3;
-		grid-row: 3;
-	}
-	
-	.accessory-b-slot {
-		grid-column: 4;
-		grid-row: 3;
-	}
+  &__slot {
+    position: relative;
+    display: grid;
+    place-items: center;
 
-	.quick-slot-a {
-		grid-column: 3;
-		grid-row: 4;
-	}
+    &--head {
+      grid-column: 3;
+      grid-row: 1;
+    }
 
-	.quick-slot-b {
-		grid-column: 4;
-		grid-row: 4;
-	}
+    &--body {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    &--arms {
+      grid-column: 2;
+      grid-row: 3;
+    }
+
+    &--weapon:first-of-type {
+      grid-column: 1;
+      grid-row: 3;
+    }
+
+    &--weapon:last-of-type {
+      grid-column: 5;
+      grid-row: 3;
+    }
+
+    &--legs {
+      grid-column: 3;
+      grid-row: 5;
+    }
+
+    &--accessory:first-of-type {
+      grid-column: 3;
+      grid-row: 3;
+    }
+
+    &--accessory:last-of-type {
+      grid-column: 4;
+      grid-row: 3;
+    }
+
+    &--quick:first-of-type {
+      grid-column: 3;
+      grid-row: 4;
+    }
+
+    &--quick:last-of-type {
+      grid-column: 4;
+      grid-row: 4;
+    }
+  }
+
+  &__slot-icon {
+    position: absolute;
+    opacity: 0.1;
+  }
+
+  &__items {
+    /* Стили для контейнера предметов */
+  }
+
+  &__item {
+    /* Стили для отдельного предмета */
+  }
+
+  &__item-name {
+    /* Стили для названия предмета */
+  }
+
+  &__item-icons {
+    opacity: 0.4;
+  }
+}
 </style>
