@@ -8,6 +8,9 @@ export interface IItemOptions {
     // броня рыцаря занимает слоты на все тело
     lockSlots: InventorySlotItemType[];
     itemType: ItemType;
+    icon?: string;
+    armorType?: string;
+    marker?: string;
 }
 
 export class Item {
@@ -16,6 +19,9 @@ export class Item {
     itemType: ItemType;
     lockSlots: InventorySlotItemType[];
     slot: InventorySlotItemType;
+    icon?: string;
+    armorType?: string;
+    marker?: string;
 
     constructor(options: IItemOptions) {
         this.name = options.name;
@@ -23,6 +29,9 @@ export class Item {
         this.itemType = options.itemType;
         this.slot = options.slot;
         this.lockSlots = options.lockSlots;
+        this.icon= options.icon;
+        this.armorType = options.armorType;
+        this.marker= options.marker;
     }
 }
 
@@ -35,6 +44,27 @@ class ItemType {
         this.codename = codename;
     }
 }
+
+export const itemIconsByType = {
+    heavy: {
+        helmet: "fa-helmet-safety",
+        shoulders: "fa-shield",
+        chest: "fa-chess-rook",
+        marker: "⛓"
+    },
+    medium: {
+        helmet: "fa-hat-cowboy",
+        chest: "fa-vest",
+        shield: "fa-shield-alt",
+        marker: "○"
+    },
+    light: {
+        helmet: "fa-graduation-cap",
+        chest: "fa-shirt",
+        gloves: "fa-hand",
+        marker: "△"
+    }
+};
 
 export const itemTypes = {
     // Ближний бой
@@ -87,7 +117,7 @@ export const itemTypes = {
     // Броня
     helmet: new ItemType("Шлем", "helmet"),
     armor: new ItemType("Броня", "armor"), 
-    gauntlets: new ItemType("Перчатки", "gauntlets"),
+    gloves: new ItemType("Перчатки", "gloves"),
     leggings: new ItemType("Поножи", "leggings"),
     boots: new ItemType("Сапоги", "boots"),
 
