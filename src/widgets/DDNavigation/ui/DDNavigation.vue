@@ -1,14 +1,14 @@
 <template>
   <div class="component-card">
     <div class="dd-navbar">
-      <a 
-        v-for="(item, index) in navItems" 
-        :key="index" 
-        :class="['dd-nav-item', { active: item.active }]"
-        href="#"
+      <router-link
+        v-for="(item, index) in navItems"
+        :key="index"
+        :to="item.route"
+        :class="['dd-nav-item', { active: $route.path === item.route }]"
       >
         {{ item.title }}
-      </a>
+      </router-link>
     </div>
   </div>
 </template>
@@ -16,18 +16,11 @@
 <script>
 export default {
   name: 'DDNavigation',
-  data() {
-    return {
-      navItems: [
-        { title: 'Меню', active: true },
-        { title: 'Инвентарь', active: false },
-        { title: 'Персонаж', active: false },
-        { title: 'Карта', active: false },
-        { title: 'Репутация', active: false },
-        { title: 'Заметки', active: false },
-        { title: 'Улики', active: false },
-        { title: 'Советы', active: false },
-      ]
+  props: {
+    navItems: {
+      type: Array,
+      required: true,
+      default: () => []
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <DDNavigation />
+    <DDNavigation :nav-items="navConfig"/>
     <main class="main-content">
       <router-view /> <!-- Здесь будут отображаться дочерние компоненты -->
     </main>
@@ -8,12 +8,23 @@
 </template>
 
 <script>
-import DDNavigation from '@/shared/ui/DDNavigation/DDNavigation.vue';
+import DDNavigation from '@/widgets/DDNavigation';
 
 export default {
-  name: 'LayoutWithNavbar',
-  components: {
-    DDNavigation
+  components: { DDNavigation },
+  data() {
+    return {
+      navConfig: [
+        { title: 'Меню', route: '/' },
+        { title: 'Инвентарь', route: '/inventory' },
+        { title: 'Персонаж', route: '/character' },
+        { title: 'Карта', route: '/map' },
+        { title: 'Репутация', route: '/reputation' },
+        { title: 'Заметки', route: '/notes' },
+        { title: 'Улики', route: '/evidence' },
+        { title: 'Советы', route: '/tips' }
+      ]
+    }
   }
 }
 </script>

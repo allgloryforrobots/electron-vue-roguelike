@@ -11,7 +11,13 @@ export const ROUTES = {
   EXAMPLES: '/examples',
   MAIN_MENU: '/',
   GRID: '/grid',
-  INVENTORY: '/inventory'
+  INVENTORY: '/inventory',
+  CHARACTER: '/character',
+  MAP: '/map',
+  REPUTATION: '/reputation',
+  NOTES: '/notes',
+  EVIDENCE: '/evidence',
+  TIPS: '/tips'
 }
 
 const router = createRouter({
