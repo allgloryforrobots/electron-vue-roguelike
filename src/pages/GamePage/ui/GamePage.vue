@@ -95,7 +95,6 @@
 </script>
 
 <template>
-  <Navbar />
   <Grid v-if="map" :map="map"/>
   <BattlersGrid v-if="map"/>
   <FOVGrid v-if="map" :map="map"/>

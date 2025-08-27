@@ -46,6 +46,7 @@ export default {
   transition: all 0.3s ease;
   border-right: 1px solid rgba(212, 163, 115, 0.3);
   letter-spacing: 1px;
+  font-size: 14px;
 }
 
 .dd-nav-item:last-child {
