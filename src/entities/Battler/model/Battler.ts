@@ -2,6 +2,7 @@ import { EnemiesDecorator, Fraction, PlayerDecorator } from "@/entities/Fraction
 import { generateStats } from "./Stats";
 import { IPosition } from "@/shared/types/types";
 import { Direction } from "@/widgets/FOVGrid";
+import { generateSlots, InventorySlot } from "@/shared/model/equipSlots/equipSlots";
 
 interface IClassOptions {
     name: string;
@@ -23,26 +24,7 @@ export class Battler {
     direction: Direction;
 
     inventory = {
-        slots: {
-            head: null,
-            body: null,
-            legs: null,
-            arms: null,
-
-            quickSlotA: null,
-            quickSlotB: null,
-
-            complect1: {
-                rightHand: null,
-                leftHand: null,
-            },
-
-            complect2: {
-                rightHand: null,
-                leftHand: null,
-            }
-        },
-
+        slots: generateSlots(),
         backpackItems: [],
     }
     
