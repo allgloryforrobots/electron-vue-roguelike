@@ -1,199 +1,170 @@
 <template>
-
-
-<!-- 
-  <div class="inventory-screen">
-    <div class="character-paperdoll">
-
-        <Header>
-            Инвентарь
-        </Header>
-
-        <div>
-            <ListElement class="slot" @click="selectSlot('head')">
-                <div class="slot-label">Голова</div>
-                <div class="slot-item">{{ inventory.slots.head?.name || 'Пусто' }}</div>
-            </ListElement>
-            
-            <ListElement class="slot" @click="selectSlot('body')">
-                <div class="slot-label">Тело</div>
-                <div class="slot-item">{{ inventory.slots.body?.name || 'Пусто' }}</div>
-            </ListElement>
-            
-            <ListElement class="slot" @click="selectSlot('arms')">
-                <div class="slot-label">Руки</div>
-                <div class="slot-item">{{ inventory.slots.arms?.name || 'Пусто' }}</div>
-            </ListElement>
-            
-            <ListElement class="slot" @click="selectSlot('legs')">
-                <div class="slot-label">Ноги</div>
-                <div class="slot-item">{{ inventory.slots.legs?.name || 'Пусто' }}</div>
-            </ListElement>
-        </div>
-
-        <h3>Комплект 1</h3>
-        <div class="weapon-set">
-            <ListElement class="slot" @click="selectWeaponSlot('complect1', 'rightHand')">
-                <div class="slot-label">Правая рука</div>
-                <div class="slot-item">{{ inventory.slots.complect1.rightHand?.name || 'Пусто' }}</div>
-            </ListElement>
-
-            <ListElement class="slot" @click="selectWeaponSlot('complect1', 'leftHand')">
-                <div class="slot-label">Левая рука</div>
-                <div class="slot-item">{{ inventory.slots.complect1.leftHand?.name || 'Пусто' }}</div>
-            </ListElement>
-        </div>
-
-        <h3>Комплект 2</h3>
-        <div class="weapon-set">
-            <ListElement class="slot" @click="selectWeaponSlot('complect2', 'rightHand')">
-                <div class="slot-label">Правая рука</div>
-                <div class="slot-item">{{ inventory.slots.complect2.rightHand?.name || 'Пусто' }}</div>
-            </ListElement>
-
-            <ListElement class="slot" @click="selectWeaponSlot('complect2', 'leftHand')">
-                <div class="slot-label">Левая рука</div>
-                <div class="slot-item">{{ inventory.slots.complect2.leftHand?.name || 'Пусто' }}</div>
-            </ListElement>
-        </div>
-
-        <div class="quick-slots">
-            <h3>Быстрые слоты</h3>
-
-            <div class="quick-slots-grid">
-                <ListElement class="slot" @click="selectSlot('quickSlotA')">
-                    <div class="slot-label">Быстрый слот A</div>
-                    <div class="slot-item">{{ inventory.slots.quickSlotA?.name || 'Пусто' }}</div>
-                </ListElement>
-
-                <ListElement class="slot" @click="selectSlot('quickSlotB')">
-                    <div class="slot-label">Быстрый слот B</div>
-                    <div class="slot-item">{{ inventory.slots.quickSlotB?.name || 'Пусто' }}</div>
-                </ListElement>
+  <div class="inventory-container">
+    <h1>Инвентарь персонажа</h1>
+    
+    <div class="inventory-layout">
+      <!-- Блок экипировки -->
+      <div class="equipment-section">
+        <h2>Экипировка</h2>
+        
+        <!-- Отображение персонажа со слотами -->
+        <div class="character-slots">
+          <div class="slot-row">
+            <div 
+              :slot="playerStore.player.inventory.slots.head" 
+              @item-click="handleSlotClick"
+            />
+          </div>
+          
+          <div class="slot-row">
+            <div 
+              :slot="playerStore.player.inventory.slots.body" 
+              @item-click="handleSlotClick"
+            />
+          </div>
+          
+          <div class="slot-row">
+            <div 
+              :slot="playerStore.player.inventory.slots.arms" 
+              @item-click="handleSlotClick"
+            />
+            <div 
+              :slot="playerStore.player.inventory.slots.legs" 
+              @item-click="handleSlotClick"
+            />
+          </div>
+          
+          <div class="slot-row">
+            <div 
+              :slot="playerStore.player.inventory.slots.accessoryA" 
+              @item-click="handleSlotClick"
+            />
+            <div 
+              :slot="playerStore.player.inventory.slots.accessoryB" 
+              @item-click="handleSlotClick"
+            />
+          </div>
+          
+          <!-- Комплекты оружия -->
+          <div class="weapon-set">
+            <h3>Комплект 1</h3>
+            <div class="slot-row">
+              <div 
+                :slot="playerStore.player.inventory.slots.complect1.rightHand" 
+                @item-click="handleSlotClick"
+              />
+              <div 
+                :slot="playerStore.player.inventory.slots.complect1.leftHand" 
+                @item-click="handleSlotClick"
+              />
             </div>
+          </div>
+          
+          <div class="weapon-set">
+            <h3>Комплект 2</h3>
+            <div class="slot-row">
+              <div 
+                :slot="playerStore.player.inventory.slots.complect2.rightHand" 
+                @item-click="handleSlotClick"
+              />
+              <div 
+                :slot="playerStore.player.inventory.slots.complect2.leftHand" 
+                @item-click="handleSlotClick"
+              />
+            </div>
+          </div>
+          
+          <!-- Быстрые слоты -->
+          <div class="quick-slots">
+            <h3>Быстрые слоты</h3>
+            <div class="slot-row">
+              <div 
+                :slot="playerStore.player.inventory.slots.quickSlotA" 
+                @item-click="handleSlotClick"
+              />
+              <div 
+                :slot="playerStore.player.inventory.slots.quickSlotB" 
+                @item-click="handleSlotClick"
+              />
+            </div>
+          </div>
         </div>
+      </div>
+      
+      <!-- Блок инвентаря -->
+      <div class="backpack-section">
+        <h2>Рюкзак</h2>
+        <div class="backpack-items">
+          <div 
+            v-for="(item, index) in playerStore.player.inventory.backpackItems" 
+            :key="index" 
+            class="backpack-item"
+          >
+            <div class="item-name">{{ item.name }}</div>
+            <div class="item-type">{{ item.itemType }}</div>
+          </div>
         </div>
-
-        <div class="backpack">
-            <h2>Рюкзак</h2>
-            <div class="backpack-items">
-                <!-- <div 
-                    v-for="(item, index) in inventory.backpackItems" 
-                    :key="index" 
-                    class="backpack-item"
-                    @click="selectBackpackItem(index)"
-                    :class="{ 'selected': selectedBackpackIndex === index }"
-                    >
-                    {{ item.name }} ({{ item.constructor.name }})
-                </div> -->
-
-<!-- 
-        </div>
+        
+      </div>
     </div>
-
-    </div> -->
-
-
+  </div>
 </template>
 
 <script setup lang="ts">
-    import { reactive, ref } from 'vue'
+    import { InventorySlotItemType, Item, itemTypes } from '@/entities/Item';
+    import { usePlayerStore } from '@/entities/Player';
+    const playerStore = usePlayerStore();
 
-
-
-    const selectSlot = (slotName: string) => {
-
-    }
-
-    const selectBackpackItem = (slotName: string) => {
+    const handleSlotClick = () => {
 
     }
 
-    const selectWeaponSlot = (slotName: string) => {
-
-    }
-
-    const selectedBackpackIndex = 1;
-
-    // Состояние компонента
-    const inventory = reactive({
-        slots: {
-            head: null,
-            body: null,
-            arms: null,
-            legs: null,
-            smallItems: [],
-            quickSlotA: null,
-            quickSlotB: null,
-            complect1: {
-            rightHand: null,
-            leftHand: null
-            },
-            complect2: {
-            rightHand: null,
-            leftHand: null
-            }
-        },
-        backpackItems: [
-            { name: "Меч" },
-            { name: "Двуручный меч" },
-        ]
-    })
+    const testItems = [
+        new Item({
+            name: "Стальной шлем",
+            codename: "steel_helmet",
+            slot: InventorySlotItemType.HEAD,
+            lockSlots: [],
+            itemType: itemTypes.helmet
+        }),
+        new Item({
+            name: "Кожаный доспех",
+            codename: "leather_armor",
+            slot: InventorySlotItemType.BODY,
+            lockSlots: [],
+            itemType: itemTypes.armor
+        }),
+        new Item({
+            name: "Стальной меч",
+            codename: "steel_sword",
+            slot: InventorySlotItemType.RIGHT_HAND,
+            lockSlots: [],
+            itemType: itemTypes.sword
+        }),
+        new Item({
+            name: "Деревянный щит",
+            codename: "wooden_shield",
+            slot: InventorySlotItemType.LEFT_HAND,
+            lockSlots: [],
+            itemType: itemTypes.armor
+        }),
+        new Item({
+            name: "Кольцо здоровья",
+            codename: "health_ring",
+            slot: InventorySlotItemType.ACCESSORY,
+            lockSlots: [],
+            itemType: itemTypes.ring
+        }),
+        new Item({
+            name: "Зелье лечения",
+            codename: "health_potion",
+            slot: InventorySlotItemType.QUICK_SLOT,
+            lockSlots: [],
+            itemType: itemTypes.potion
+        })
+    ];
 
 </script>
 
 <style scoped>
-    .inventory-screen {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-    }
-
-    .slots-grid, .weapon-set, .quick-slots-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-
-    .slot:hover {
-        background-color: #e0e0e0;
-    }
-
-    .slot-item {
-     margin-top: 5px;
-    }
-
-    .backpack-items {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 8px;
-    }
-
-
-    .backpack-item:hover, .backpack-item.selected {
-        background-color: #e3f2fd;
-        border-color: #2196f3;
-    }
-
-    .item-actions {
-        grid-column: 1 / -1;
-        border: 2px solid #333;
-        padding: 15px;
-        border-radius: 8px;
-        background-color: #f5f5f5;
-    }
-
-
-    button:hover:not(:disabled) {
-        background-color: #333;
-        color: white;
-    }
-
-    button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
 </style>

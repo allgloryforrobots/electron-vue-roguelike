@@ -3,6 +3,7 @@ import { generateStats } from "./Stats";
 import { IPosition } from "@/shared/types/types";
 import { Direction } from "@/widgets/FOVGrid";
 import { generateSlots } from "@/entities/Item/lib/equipSlots/equipSlots";
+import { Item } from "@/entities/Item";
 
 interface IClassOptions {
     name: string;
@@ -23,10 +24,7 @@ export class Battler {
     position: IPosition = { x: 0, y: 0 };
     direction: Direction;
 
-    inventory = {
-        slots: generateSlots(),
-        backpackItems: [],
-    }
+    inventory = generateSlots();
     
     constructor(options: IClassOptions) {
         this.name = options.name;

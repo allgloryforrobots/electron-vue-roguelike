@@ -36,7 +36,7 @@ class ItemType {
     }
 }
 
-const itemTypes = {
+export const itemTypes = {
     // Ближний бой
     // кастет, тактическая перчатка, кастет с клинком, кольцо с шипом, палочка в руке
     brassKnuckles: new ItemType("Кастет", "brassKnuckles"),
