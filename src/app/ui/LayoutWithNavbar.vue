@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import DDNavigation from '@/widgets/DDNavigation';
+import { DDNavigation } from '@/widgets/DDNavigation';
 
 export default {
   components: { DDNavigation },

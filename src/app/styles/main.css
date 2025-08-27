@@ -31,14 +31,28 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Shobhika';
+  src: url('@/shared/assets/fonts/shobhika_regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Shobhika';
+  src: url('@/shared/assets/fonts/shobhika_bold.otf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
+  font-family: Shobhika, 'Times New Roman', Times, serif;
   background-color: var(--background-color);
   color: var(--text-color);
-  line-height: 1.6;
   user-select: none;
   ::selection {
     background: var(--border-color)
