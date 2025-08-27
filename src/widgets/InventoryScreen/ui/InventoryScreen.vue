@@ -1,4 +1,6 @@
 <template>
+
+
 <!-- 
   <div class="inventory-screen">
     <div class="character-paperdoll">
@@ -95,7 +97,9 @@
 </template>
 
 <script setup lang="ts">
-    import { reactive } from 'vue'
+    import { reactive, ref } from 'vue'
+
+
 
     const selectSlot = (slotName: string) => {
 
