@@ -25,7 +25,7 @@
         border-bottom: 1px solid var(--border-color);
 
         &__title {
-            font-size: 24px;
+            font-size: 20px;
             color: var(--accent-color-2);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             letter-spacing: 2px;

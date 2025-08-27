@@ -16,7 +16,7 @@ $border-color: #382F27;
   background-color: var(--accent-color-8);
   color: #fff;
   padding: 10px 15px;
-  font-size: 16px;
+  font-size: 14px;
   transition: all 0.3s;
   text-align: center;
   word-wrap: break-word;
