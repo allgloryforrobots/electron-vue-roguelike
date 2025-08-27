@@ -2,7 +2,7 @@ import { EnemiesDecorator, Fraction, PlayerDecorator } from "@/entities/Fraction
 import { generateStats } from "./Stats";
 import { IPosition } from "@/shared/types/types";
 import { Direction } from "@/widgets/FOVGrid";
-import { generateSlots, InventorySlot } from "@/shared/model/equipSlots/equipSlots";
+import { generateSlots } from "@/entities/Item/lib/equipSlots/equipSlots";
 
 interface IClassOptions {
     name: string;

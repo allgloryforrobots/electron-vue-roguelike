@@ -122,7 +122,8 @@ export function generateStats() {
     const light_armor = new Skill({ name: "Легкая броня", codename: "light_armor" });
     const heavy_armor = new Skill({ name: "Тяжелая броня", codename: "heavy_armor" });
     const unarmored_combat = new Skill({ name: "Бездоспешный бой", codename: "unarmored_combat" });
-
+    const wand = new Skill({ name: "Бездоспешный бой", codename: "wand" });
+    
     // Физические навыки
     const swimming = new Skill({ name: "Плавание", codename: "swimming" });
     const climbing = new Skill({ name: "Скалолазание", codename: "climbing" });
@@ -265,6 +266,7 @@ export function generateStats() {
         light_armor, 
         heavy_armor, 
         unarmored_combat,
+        wand,
         
         // Физические навыки
         swimming, 
