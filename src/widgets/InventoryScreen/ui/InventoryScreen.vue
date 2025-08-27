@@ -114,8 +114,10 @@
             class="backpack-item"
           >
             <div class="item-name">
-				{{ item.marker }}
-				<i class="fa-solid" :class="item.icon"></i> 
+				<span class="item-icons">
+					{{ item.marker }}
+					<i class="fa-solid" :class="item.icon"></i> 
+				</span>
 				{{ item.name }}
 			</div>
           </div>
@@ -257,6 +259,10 @@
 	/* gap: 10px; */
 	height: 600px;
 	place-items: center; 
+  }
+
+  .item-icons {
+	opacity: 0.4;
   }
 
   .slot {

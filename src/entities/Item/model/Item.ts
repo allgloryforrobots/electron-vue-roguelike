@@ -56,13 +56,13 @@ export const itemIconsByType = {
         helmet: "fa-hat-cowboy",
         chest: "fa-vest",
         shield: "fa-shield-alt",
-        marker: "○"
+        marker: "🛡"
     },
     light: {
         helmet: "fa-graduation-cap",
         chest: "fa-shirt",
         gloves: "fa-hand",
-        marker: "△"
+        marker: "◎"
     }
 };
 
