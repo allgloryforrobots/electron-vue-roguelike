@@ -30,6 +30,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             letter-spacing: 2px;
             font-variant: small-caps;
+            margin: 4px;
         }
 
         &__subtitle {

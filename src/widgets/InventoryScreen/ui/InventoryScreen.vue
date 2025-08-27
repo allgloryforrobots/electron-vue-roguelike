@@ -1,11 +1,10 @@
 <template>
   <div class="inventory-container">
-    <h1>Инвентарь персонажа</h1>
     
     <div class="inventory-layout">
       <!-- Блок экипировки -->
       <div class="equipment-section">
-        <h2>Экипировка</h2>
+        <DDHeader title="Экипировка" />
         
         <!-- Отображение персонажа со слотами -->
         <div class="character-slots">
@@ -93,7 +92,7 @@
       
       <!-- Блок инвентаря -->
       <div class="backpack-section">
-        <h2>Рюкзак</h2>
+        <DDHeader title="Рюкзак" />
         <div class="backpack-items">
           <div 
             v-for="(item, index) in playerStore.player.inventory.backpackItems" 
@@ -106,6 +105,11 @@
         </div>
         
       </div>
+
+	<div class="all-items">
+		<DDHeader title="Схрон" />
+	</div>
+
     </div>
   </div>
 </template>
@@ -113,6 +117,7 @@
 <script setup lang="ts">
     import { InventorySlotItemType, Item, itemTypes } from '@/entities/Item';
     import { usePlayerStore } from '@/entities/Player';
+	import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';
     const playerStore = usePlayerStore();
 
     const handleSlotClick = () => {
@@ -163,8 +168,13 @@
             itemType: itemTypes.potion
         })
     ];
-
 </script>
 
 <style scoped>
+.inventory-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+}
 </style>
