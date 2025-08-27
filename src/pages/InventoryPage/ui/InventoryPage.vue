@@ -6,7 +6,7 @@ import { InventoryScreen } from '@/widgets/InventoryScreen';
 
 <template>
 	<DDNavigation />
-  <InventoryScreen />
+  	<InventoryScreen />
 </template>
 
 <style scoped lang="scss">

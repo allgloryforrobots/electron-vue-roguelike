@@ -19,11 +19,14 @@ export default {
   data() {
     return {
       navItems: [
-        { title: 'Главная', active: true },
+        { title: 'Меню', active: true },
         { title: 'Инвентарь', active: false },
         { title: 'Персонаж', active: false },
         { title: 'Карта', active: false },
-        { title: 'Настройки', active: false }
+        { title: 'Репутация', active: false },
+        { title: 'Заметки', active: false },
+        { title: 'Улики', active: false },
+        { title: 'Советы', active: false },
       ]
     }
   }
