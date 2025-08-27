@@ -1,6 +1,5 @@
 <template>
   <div class="component-card">
-    <h2 class="component-title"><i class="fas fa-bars"></i> Навигационная панель</h2>
     <div class="dd-navbar">
       <a 
         v-for="(item, index) in navItems" 
@@ -38,17 +37,19 @@ export default {
   border: 1px solid var(--accent-color-1);
   border-radius: 4px;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin: 0 auto;
+  width: fit-content;
 }
 
 .dd-nav-item {
-  padding: 15px 20px;
+  padding: 0 10px;
   color: var(--accent-color-2);
   text-decoration: none;
   flex-grow: 1;
   text-align: center;
   transition: all 0.3s ease;
   border-right: 1px solid rgba(212, 163, 115, 0.3);
+  letter-spacing: 1px;
 }
 
 .dd-nav-item:last-child {
