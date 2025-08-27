@@ -8,48 +8,48 @@
         
         <!-- Отображение персонажа со слотами -->
         <div class="character-slots">
-          <DDSubstrate class="head-slot" :width="50" square>
-			<span>head-slot</span>
+          <DDSubstrate class="head-slot slot" :width="50" square>
+			<i class="fa-solid fa-helmet-safety"></i>
             <div 
               :slot="playerStore.player.inventory.slots.head" 
               @item-click="handleSlotClick"
             />
           </DDSubstrate>
           
-          <DDSubstrate class="body-slot" :width="50" square>
-			<span>body-slot</span>
+          <DDSubstrate class="body-slot slot" :width="50" square>
+			<i class="fa-solid fa-shirt"></i>
             <div 
               :slot="playerStore.player.inventory.slots.body" 
               @item-click="handleSlotClick"
             />
           </DDSubstrate>
           
-          <DDSubstrate class="arms-slot" :width="50" square>
-			<span>arms-slot</span>
+          <DDSubstrate class="arms-slot slot" :width="50" square>
+			<i class="fa-solid fa-mitten"></i>
             <div 
               :slot="playerStore.player.inventory.slots.arms" 
               @item-click="handleSlotClick"
             />
 		  </DDSubstrate>
 
-		  <DDSubstrate class="legs-slot" :width="50" square>
-			<span>legs-slot</span>
+		  <DDSubstrate class="legs-slot slot" :width="50" square>
+			<i class="fa-solid fa-shoe-prints"></i>
 			<div 
               :slot="playerStore.player.inventory.slots.legs" 
               @item-click="handleSlotClick"
             />
 		  </DDSubstrate>
             
-          <DDSubstrate class="accessory-a-slot" :width="50" square>
-			<span>accessory-a-slot</span>
+          <DDSubstrate class="accessory-a-slot slot" :width="50" square>
+			<i class="fa-solid fa-ring"></i>
             <div 
               :slot="playerStore.player.inventory.slots.accessoryA" 
               @item-click="handleSlotClick"
             />
 		  </DDSubstrate>
 
-		  <DDSubstrate class="accessory-b-slot" :width="50" square>
-			<span>accessory-b-slot</span>
+		  <DDSubstrate class="accessory-b-slot slot" :width="50" square>
+			<i class="fa-solid fa-ring"></i>
 			<div 
               :slot="playerStore.player.inventory.slots.accessoryB" 
               @item-click="handleSlotClick"
@@ -57,15 +57,15 @@
 		  </DDSubstrate>
 
           <!-- Комплекты оружия -->
-            <DDSubstrate class="right-arm-slot" :width="50" square>
-			  <span>right-arm-slot</span>
+            <DDSubstrate class="right-arm-slot slot" :width="50" square>
+			  <i class="fa-solid fa-hand-fist"></i>
               <div 
                 :slot="playerStore.player.inventory.slots.complect1.rightHand" 
                 @item-click="handleSlotClick"
               />
 			</DDSubstrate>
-			<DDSubstrate class="left-arm-slot"  :width="50" square>
-			  <span>left-arm-slot</span>
+			<DDSubstrate class="left-arm-slot slot"  :width="50" square>
+			  <i class="fa-solid fa-shield"></i>
               <div 
                 :slot="playerStore.player.inventory.slots.complect1.leftHand" 
                 @item-click="handleSlotClick"
@@ -87,15 +87,15 @@
           </div> -->
           
           <!-- Быстрые слоты -->
-            <DDSubstrate class="quick-slot-a" :width="50" square>
-				<span>quick-slot-a</span>
+            <DDSubstrate class="quick-slot-a slot" :width="50" square>
+				<i class="fa-solid fa-scroll"></i>
               <div 
                 :slot="playerStore.player.inventory.slots.quickSlotA" 
                 @item-click="handleSlotClick"
               />
 			</DDSubstrate>
-			<DDSubstrate class="quick-slot-b" :width="50" square>
-				<span>quick-slot-a</span>
+			<DDSubstrate class="quick-slot-b slot" :width="50" square>
+				<i class="fa-solid fa-scroll"></i>
 				<div 
 					:slot="playerStore.player.inventory.slots.quickSlotB" 
 					@item-click="handleSlotClick"
@@ -193,6 +193,7 @@
     gap: 20px;
     padding: 20px;
   }
+
   .character-slots {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
@@ -200,6 +201,17 @@
 	/* gap: 10px; */
 	height: 600px;
 	place-items: center; 
+  }
+
+  .slot {
+	position: relative;
+	display: grid;
+  	place-items: center; 
+
+	i {
+		position: absolute;
+		opacity: 0.1;
+	}
   }
 
   /* Расположение слотов на теле персонажа */
