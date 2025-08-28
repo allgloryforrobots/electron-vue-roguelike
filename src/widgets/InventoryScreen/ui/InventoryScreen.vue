@@ -94,12 +94,15 @@
        <!-- Блок инвентаря -->
       <div class="inventory__section">
         <DDHeader title="Рюкзак" class="inventory__header" />
-        <div class="inventory-grid">
+        <div class="inventory__grid">
           <div 
             v-for="(cell, index) in gridCells" 
             :key="index" 
-            class="grid-cell"
+            class="inventory__grid-cell"
+            :class="{'inventory__grid-cell--highlight': isCellHighlighted(index)}"
             @dragover.prevent
+            @dragenter="handleDragEnter($event, index)"
+            @dragleave="handleDragLeave($event, index)"
             @drop="handleDrop($event, index)"
           ></div>
           
@@ -107,20 +110,20 @@
           <div 
             v-for="(item, index) in inventoryItems" 
             :key="'item-'+index"
-            class="inventory-item"
+            class="inventory__item"
             :class="[
-              `item-size-${item.width}x${item.height}`,
-              { 'item-dragging': draggedItem && draggedItem.id === item.id }
+              `inventory__item--size-${item.width}x${item.height}`,
+              { 'inventory__item--dragging': draggedItem && draggedItem.id === item.id }
             ]"
             :style="getItemPosition(item)"
             draggable="true"
             @dragstart="handleDragStart($event, item)"
             @dragend="handleDragEnd"
           >
-            <div class="item-content">
-              <span class="item-marker">{{ item.marker }}</span>
+            <div class="inventory__item-content">
+              <span class="inventory__item-marker">{{ item.marker }}</span>
               <i class="fa-solid" :class="item.icon"></i>
-              <div class="item-size-badge">{{ item.width }}x{{ item.height }}</div>
+              <div class="inventory__item-size-badge">{{ item.width }}x{{ item.height }}</div>
             </div>
           </div>
         </div>
@@ -138,7 +141,23 @@
     import { usePlayerStore } from '@/entities/Player';
     import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
     import DDSubstrate from '@/shared/ui/DDSubstrate/DDSubstrate.vue';
-    import { computed, ref } from 'vue';
+    import { computed, ref, type CSSProperties } from 'vue';
+    
+    interface InventoryItem {
+      id: number;
+      name: string;
+      width: number;
+      height: number;
+      position: { x: number; y: number };
+      marker: string;
+      icon: string;
+    }
+    
+    interface CellPosition {
+      x: number;
+      y: number;
+      itemId: number;
+    }
     
     const playerStore = usePlayerStore();
 
@@ -148,7 +167,7 @@
     const gridCells = ref(Array(gridColumns * gridRows).fill(0));
     
     // Предметы в инвентаре
-    const inventoryItems = ref([
+    const inventoryItems = ref<InventoryItem[]>([
       // Броня (2x2)
       {
         id: 1,
@@ -182,12 +201,13 @@
     ]);
 
     // Drag and Drop переменные
-    const draggedItem = ref(null);
+    const draggedItem = ref<InventoryItem | null>(null);
     const isDragging = ref(false);
+    const highlightedCells = ref<number[]>([]);
 
     // Вычисляемое свойство для получения всех занятых ячеек
-    const occupiedCells = computed(() => {
-      const cells = [];
+    const occupiedCells = computed((): CellPosition[] => {
+      const cells: CellPosition[] = [];
       inventoryItems.value.forEach(item => {
         for (let dy = 0; dy < item.height; dy++) {
           for (let dx = 0; dx < item.width; dx++) {
@@ -202,11 +222,11 @@
       return cells;
     });
 
-    const handleSlotClick = () => {
+    const handleSlotClick = (): void => {
       console.log("Slot clicked");
     }
 
-     const getItemPosition = (item) => {
+     const getItemPosition = (item: InventoryItem): CSSProperties => {
       // Добавляем отступы между предметами
       const gap = 2;
       return {
@@ -217,28 +237,47 @@
       };
     }
 
-    const handleDragStart = (event, item) => {
+    const handleDragStart = (event: DragEvent, item: InventoryItem): void => {
       draggedItem.value = item;
       isDragging.value = true;
-      event.dataTransfer.setData('text/plain', item.id.toString());
+      event.dataTransfer?.setData('text/plain', item.id.toString());
       console.log("Drag started for item:", item.name);
       
       // Визуальный эффект при начале перетаскивания
-      event.target.style.opacity = '0.7';
+      if (event.target) {
+        (event.target as HTMLElement).style.opacity = '0.7';
+      }
     }
 
-     const handleDragEnd = (event) => {
+     const handleDragEnd = (event: DragEvent): void => {
       isDragging.value = false;
       draggedItem.value = null;
+      highlightedCells.value = [];
       console.log("Drag ended");
       
       // Восстанавливаем прозрачность
       if (event.target) {
-        event.target.style.opacity = '1';
+        (event.target as HTMLElement).style.opacity = '1';
       }
     }
 
-	const handleDrop = (event, cellIndex) => {
+    const handleDragEnter = (event: DragEvent, cellIndex: number): void => {
+      event.preventDefault();
+      if (!draggedItem.value) return;
+      
+      const x = cellIndex % gridColumns;
+      const y = Math.floor(cellIndex / gridColumns);
+      
+      // Подсвечиваем ячейки, куда можно поместить предмет
+      highlightDropZone(x, y);
+    }
+    
+    const handleDragLeave = (event: DragEvent, cellIndex: number): void => {
+      event.preventDefault();
+      highlightedCells.value = [];
+    }
+
+	const handleDrop = (event: DragEvent, cellIndex: number): void => {
       event.preventDefault();
       if (!draggedItem.value) return;
       
@@ -250,7 +289,7 @@
       // Проверяем, можно ли разместить предмет в этой позиции
       if (canPlaceItem(draggedItem.value, x, y)) {
         // Обновляем позицию предмета
-        const itemIndex = inventoryItems.value.findIndex(item => item.id === draggedItem.value.id);
+        const itemIndex = inventoryItems.value.findIndex(item => item.id === draggedItem.value!.id);
         if (itemIndex !== -1) {
           inventoryItems.value[itemIndex].position = { x, y };
           console.log(`Item placed at (${x}, ${y})`);
@@ -258,10 +297,38 @@
       } else {
         console.log("Cannot place item here - collision detected");
       }
+      
+      highlightedCells.value = [];
+    }
+    
+    const highlightDropZone = (targetX: number, targetY: number): void => {
+      if (!draggedItem.value) return;
+      
+      highlightedCells.value = [];
+      
+      // Проверяем, можно ли разместить предмет в этой позиции
+      if (canPlaceItem(draggedItem.value, targetX, targetY)) {
+        // Добавляем все ячейки, которые займет предмет
+        for (let dy = 0; dy < draggedItem.value.height; dy++) {
+          for (let dx = 0; dx < draggedItem.value.width; dx++) {
+            const cellX = targetX + dx;
+            const cellY = targetY + dy;
+            
+            if (cellX < gridColumns && cellY < gridRows) {
+              const cellIndex = cellY * gridColumns + cellX;
+              highlightedCells.value.push(cellIndex);
+            }
+          }
+        }
+      }
+    }
+    
+    const isCellHighlighted = (cellIndex: number): boolean => {
+      return highlightedCells.value.includes(cellIndex);
     }
 
-	    // Функция проверки возможности размещения предмета
-    const canPlaceItem = (item, targetX, targetY) => {
+    // Функция проверки возможности размещения предмета
+    const canPlaceItem = (item: InventoryItem, targetX: number, targetY: number): boolean => {
       // Проверяем, не выходит ли предмет за границы инвентаря
       if (targetX + item.width > gridColumns || targetY + item.height > gridRows) {
         return false;
@@ -467,65 +534,83 @@
   &__item-icons {
     opacity: 0.4;
   }
-}
-
-// Стили для сетки инвентаря
-.inventory-grid {
-  display: grid;
-  grid-template-columns: repeat(v-bind('gridColumns'), 50px);
-  grid-template-rows: repeat(v-bind('gridRows'), 50px);
-  gap: 2px;
-  background-color: #333;
-  padding: 5px;
-  border-radius: 4px;
-  position: relative;
-}
-
-.grid-cell {
-  border: 1px solid #555;
-  background-color: #222;
-  border-radius: 2px;
-}
-
-.inventory-item {
-  position: absolute;
-  border: 1px solid #888;
-  background-color: #444;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: move;
-  z-index: 10;
   
-  .item-content {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(v-bind('gridColumns'), 50px);
+    grid-template-rows: repeat(v-bind('gridRows'), 50px);
+    gap: 2px;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 4px;
+    position: relative;
+  }
+  
+  &__grid-cell {
+    border: 1px solid #555;
+    background-color: #222;
+    border-radius: 2px;
+    
+    &--highlight {
+      background-color: #4a7c59;
+      border-color: #6daa80;
+    }
+  }
+  
+  &__item {
+    position: absolute;
+    border: 1px solid #888;
+    background-color: #444;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+    z-index: 10;
+    
+    &--dragging {
+      opacity: 0.7;
+    }
+    
+    // Размеры предметов
+    &--size-2x2 {
+      width: calc(100px + 2px);
+      height: calc(100px + 2px);
+    }
+    
+    &--size-1x3 {
+      width: calc(50px + 0px);
+      height: calc(150px + 4px);
+    }
+    
+    &--size-1x1 {
+      width: calc(50px + 0px);
+      height: calc(50px + 0px);
+    }
+  }
+  
+  &__item-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    
-    .item-marker {
-      font-size: 12px;
-      margin-bottom: 2px;
-    }
   }
   
-  // Размеры предметов
-  &.item-size-2x2 {
-    width: calc(100px + 2px);
-    height: calc(100px + 2px);
+  &__item-marker {
+    font-size: 12px;
+    margin-bottom: 2px;
   }
   
-  &.item-size-1x3 {
-    width: calc(50px + 0px);
-    height: calc(150px + 4px);
-  }
-  
-  &.item-size-1x1 {
-    width: calc(50px + 0px);
-    height: calc(50px + 0px);
+  &__item-size-badge {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1px 3px;
+    border-radius: 2px;
   }
 }
 </style>
