@@ -36,10 +36,10 @@
             <div 
               :slot="playerStore.player.inventory.slots.legs" 
               @item-click="handleSlotClick"
-            />
+            ></div>
           </DDSubstrate>
             
-          <DDSubstrate class="inventory__slot inventory__slot--accessory" :width="50" square>
+          <DDSubstrate class="inventory__slot inventory__slot--accessory-a" :width="50" square>
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.accessoryA" 
@@ -47,7 +47,7 @@
             />
           </DDSubstrate>
 
-          <DDSubstrate class="inventory__slot inventory__slot--accessory" :width="50" square>
+          <DDSubstrate class="inventory__slot inventory__slot--accessory-b" :width="50" square>
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.accessoryB" 
@@ -56,7 +56,7 @@
           </DDSubstrate>
 
           <!-- Комплекты оружия -->
-          <DDSubstrate class="inventory__slot inventory__slot--weapon" :width="50" square>
+          <DDSubstrate class="inventory__slot inventory__slot--right-hand" :width="50" square>
             <i class="fa-solid fa-hand-fist inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.complect1.rightHand" 
@@ -64,7 +64,7 @@
             />
           </DDSubstrate>
           
-          <DDSubstrate class="inventory__slot inventory__slot--weapon" :width="50" square>
+          <DDSubstrate class="inventory__slot inventory__slot--left-hand" :width="50" square>
             <i class="fa-solid fa-shield inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.complect1.leftHand" 
@@ -73,7 +73,7 @@
           </DDSubstrate>
           
           <!-- Быстрые слоты -->
-          <DDSubstrate class="inventory__slot inventory__slot--quick" :width="50" square>
+          <DDSubstrate class="inventory__slot inventory__slot--quick-a" :width="50" square>
             <i class="fa-solid fa-scroll inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.quickSlotA" 
@@ -81,7 +81,7 @@
             />
           </DDSubstrate>
           
-          <DDSubstrate class="inventory__slot inventory__slot--quick" :width="50" square>
+          <DDSubstrate class="inventory__slot inventory__slot--quick-b" :width="50" square>
             <i class="fa-solid fa-scroll inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.quickSlotB" 
@@ -238,14 +238,6 @@
     padding: 20px;
   }
 
-  &__section {
-    /* Стили для секций инвентаря */
-  }
-
-  &__header {
-    /* Стили для заголовков секций */
-  }
-
   &__slots {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -274,12 +266,12 @@
       grid-row: 3;
     }
 
-    &--weapon:first-of-type {
+    &--right-hand {
       grid-column: 1;
       grid-row: 3;
     }
 
-    &--weapon:last-of-type {
+    &--left-hand {
       grid-column: 5;
       grid-row: 3;
     }
@@ -289,22 +281,22 @@
       grid-row: 5;
     }
 
-    &--accessory:first-of-type {
+    &--accessory-a {
       grid-column: 3;
       grid-row: 3;
     }
 
-    &--accessory:last-of-type {
+    &--accessory-b {
       grid-column: 4;
       grid-row: 3;
     }
 
-    &--quick:first-of-type {
+    &--quick-a {
       grid-column: 3;
       grid-row: 4;
     }
 
-    &--quick:last-of-type {
+    &--quick-b {
       grid-column: 4;
       grid-row: 4;
     }
@@ -313,18 +305,6 @@
   &__slot-icon {
     position: absolute;
     opacity: 0.1;
-  }
-
-  &__items {
-    /* Стили для контейнера предметов */
-  }
-
-  &__item {
-    /* Стили для отдельного предмета */
-  }
-
-  &__item-name {
-    /* Стили для названия предмета */
   }
 
   &__item-icons {
