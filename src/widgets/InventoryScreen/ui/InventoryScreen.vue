@@ -109,7 +109,7 @@
           <!-- Предметы в инвентаре -->
           <div 
             v-for="(item, index) in inventoryItems" 
-            :key="'item-'+index"
+            :key="'item-'+item.id"
             class="inventory__item"
             :class="[
               `inventory__item--size-${item.width}x${item.height}`,
@@ -128,6 +128,7 @@
           </div>
         </div>
       </div>
+
 
       <div class="inventory__section">
         <DDHeader title="Схрон" class="inventory__header" />
@@ -161,14 +162,15 @@
     
     const playerStore = usePlayerStore();
 
-     // Конфигурация сетки инвентаря
+    // Конфигурация сетки инвентаря
     const gridColumns = 8;
     const gridRows = 6;
     const gridCells = ref(Array(gridColumns * gridRows).fill(0));
+    const cellSize = 50; // размер ячейки в пикселях
+    const gap = 2; // отступ между ячейками
     
-    // Предметы в инвентаре
+     // Предметы в инвентаре
     const inventoryItems = ref<InventoryItem[]>([
-      // Броня (2x2)
       {
         id: 1,
         name: "Стальной полный шлем",
@@ -178,7 +180,6 @@
         marker: itemIconsByType.heavy.marker,
         icon: itemIconsByType.heavy.helmet
       },
-      // Оружие (1x3)
       {
         id: 2,
         name: "Длинный меч",
@@ -188,7 +189,6 @@
         marker: "⚔️",
         icon: "fa-sword"
       },
-      // Зелье (1x1)
       {
         id: 3,
         name: "Зелье здоровья",
@@ -200,6 +200,7 @@
       }
     ]);
 
+
     // Drag and Drop переменные
     const draggedItem = ref<InventoryItem | null>(null);
     const isDragging = ref(false);
@@ -209,6 +210,9 @@
     const occupiedCells = computed((): CellPosition[] => {
       const cells: CellPosition[] = [];
       inventoryItems.value.forEach(item => {
+        // Не включаем перемещаемый предмет в проверку коллизий
+        if (draggedItem.value && item.id === draggedItem.value.id) return;
+        
         for (let dy = 0; dy < item.height; dy++) {
           for (let dx = 0; dx < item.width; dx++) {
             const cellX = item.position.x + dx;
@@ -226,34 +230,35 @@
       console.log("Slot clicked");
     }
 
-     const getItemPosition = (item: InventoryItem): CSSProperties => {
-      // Добавляем отступы между предметами
-      const gap = 2;
+    const getItemPosition = (item: InventoryItem): CSSProperties => {
       return {
-        left: `calc(${item.position.x * (50 + gap)}px + ${gap}px)`,
-        top: `calc(${item.position.y * (50 + gap)}px + ${gap}px)`,
-        width: `calc(${item.width * 50}px + ${(item.width - 1) * gap}px)`,
-        height: `calc(${item.height * 50}px + ${(item.height - 1) * gap}px)`,
+        left: `${item.position.x * (cellSize + gap)}px`,
+        top: `${item.position.y * (cellSize + gap)}px`,
+        width: `${item.width * cellSize + (item.width - 1) * gap}px`,
+        height: `${item.height * cellSize + (item.height - 1) * gap}px`,
       };
     }
 
     const handleDragStart = (event: DragEvent, item: InventoryItem): void => {
       draggedItem.value = item;
       isDragging.value = true;
-      event.dataTransfer?.setData('text/plain', item.id.toString());
-      console.log("Drag started for item:", item.name);
+      
+      // Устанавливаем данные для передачи
+      if (event.dataTransfer) {
+        event.dataTransfer.setData('text/plain', item.id.toString());
+        event.dataTransfer.effectAllowed = 'move';
+      }
       
       // Визуальный эффект при начале перетаскивания
       if (event.target) {
-        (event.target as HTMLElement).style.opacity = '0.7';
+        (event.target as HTMLElement).style.opacity = '0.5';
       }
     }
 
-     const handleDragEnd = (event: DragEvent): void => {
+    const handleDragEnd = (event: DragEvent): void => {
       isDragging.value = false;
       draggedItem.value = null;
       highlightedCells.value = [];
-      console.log("Drag ended");
       
       // Восстанавливаем прозрачность
       if (event.target) {
@@ -274,17 +279,19 @@
     
     const handleDragLeave = (event: DragEvent, cellIndex: number): void => {
       event.preventDefault();
-      highlightedCells.value = [];
+      // Очищаем подсветку только если мы покидаем сетку полностью
+      const relatedTarget = event.relatedTarget as HTMLElement;
+      if (!relatedTarget || !event.currentTarget.contains(relatedTarget)) {
+        highlightedCells.value = [];
+      }
     }
 
-	const handleDrop = (event: DragEvent, cellIndex: number): void => {
+    const handleDrop = (event: DragEvent, cellIndex: number): void => {
       event.preventDefault();
       if (!draggedItem.value) return;
       
       const x = cellIndex % gridColumns;
       const y = Math.floor(cellIndex / gridColumns);
-      
-      console.log(`Trying to drop item ${draggedItem.value.name} at position (${x}, ${y})`);
       
       // Проверяем, можно ли разместить предмет в этой позиции
       if (canPlaceItem(draggedItem.value, x, y)) {
@@ -292,10 +299,10 @@
         const itemIndex = inventoryItems.value.findIndex(item => item.id === draggedItem.value!.id);
         if (itemIndex !== -1) {
           inventoryItems.value[itemIndex].position = { x, y };
-          console.log(`Item placed at (${x}, ${y})`);
+          console.log(`Item "${draggedItem.value.name}" placed at (${x}, ${y})`);
         }
       } else {
-        console.log("Cannot place item here - collision detected");
+        console.log("Cannot place item here - collision or out of bounds");
       }
       
       highlightedCells.value = [];
@@ -304,7 +311,7 @@
     const highlightDropZone = (targetX: number, targetY: number): void => {
       if (!draggedItem.value) return;
       
-      highlightedCells.value = [];
+      const newHighlightedCells: number[] = [];
       
       // Проверяем, можно ли разместить предмет в этой позиции
       if (canPlaceItem(draggedItem.value, targetX, targetY)) {
@@ -316,11 +323,13 @@
             
             if (cellX < gridColumns && cellY < gridRows) {
               const cellIndex = cellY * gridColumns + cellX;
-              highlightedCells.value.push(cellIndex);
+              newHighlightedCells.push(cellIndex);
             }
           }
         }
       }
+      
+      highlightedCells.value = newHighlightedCells;
     }
     
     const isCellHighlighted = (cellIndex: number): boolean => {
@@ -330,11 +339,13 @@
     // Функция проверки возможности размещения предмета
     const canPlaceItem = (item: InventoryItem, targetX: number, targetY: number): boolean => {
       // Проверяем, не выходит ли предмет за границы инвентаря
-      if (targetX + item.width > gridColumns || targetY + item.height > gridRows) {
+      if (targetX < 0 || targetY < 0 || 
+          targetX + item.width > gridColumns || 
+          targetY + item.height > gridRows) {
         return false;
       }
       
-      // Проверяем коллизии с другими предметами (исключая текущий перемещаемый предмет)
+      // Проверяем коллизии с другими предметами
       for (let dy = 0; dy < item.height; dy++) {
         for (let dx = 0; dx < item.width; dx++) {
           const checkX = targetX + dx;
@@ -342,7 +353,7 @@
           
           // Проверяем, занята ли эта ячейка другим предметом
           const isOccupied = occupiedCells.value.some(cell => 
-            cell.x === checkX && cell.y === checkY && cell.itemId !== item.id
+            cell.x === checkX && cell.y === checkY
           );
           
           if (isOccupied) {
