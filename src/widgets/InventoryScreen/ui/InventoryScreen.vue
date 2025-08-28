@@ -94,16 +94,18 @@
        <!-- Блок инвентаря -->
       <div class="inventory__section">
         <DDHeader title="Рюкзак" class="inventory__header" />
-        <div class="inventory__grid">
+        <div 
+          class="inventory__grid"
+          ref="gridElement"
+          @dragover.prevent="handleGridDragOver"
+          @dragleave="handleGridDragLeave"
+          @drop="handleGridDrop"
+        >
           <div 
             v-for="(cell, index) in gridCells" 
             :key="index" 
             class="inventory__grid-cell"
             :class="{'inventory__grid-cell--highlight': isCellHighlighted(index)}"
-            @dragover.prevent
-            @dragenter="handleDragEnter($event, index)"
-            @dragleave="handleDragLeave($event, index)"
-            @drop="handleDrop($event, index)"
           ></div>
           
           <!-- Предметы в инвентаре -->
@@ -126,9 +128,22 @@
               <div class="inventory__item-size-badge">{{ item.width }}x{{ item.height }}</div>
             </div>
           </div>
+          
+          <!-- Превью перетаскиваемого предмета -->
+          <div 
+            v-if="isDragging && draggedItem && dragPosition"
+            class="inventory__item inventory__item--preview"
+            :class="`inventory__item--size-${draggedItem.width}x${draggedItem.height}`"
+            :style="getPreviewPosition()"
+          >
+            <div class="inventory__item-content">
+              <span class="inventory__item-marker">{{ draggedItem.marker }}</span>
+              <i class="fa-solid" :class="draggedItem.icon"></i>
+              <div class="inventory__item-size-badge">{{ draggedItem.width }}x{{ draggedItem.height }}</div>
+            </div>
+          </div>
         </div>
       </div>
-
 
       <div class="inventory__section">
         <DDHeader title="Схрон" class="inventory__header" />
@@ -142,7 +157,7 @@
     import { usePlayerStore } from '@/entities/Player';
     import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
     import DDSubstrate from '@/shared/ui/DDSubstrate/DDSubstrate.vue';
-    import { computed, ref, type CSSProperties } from 'vue';
+    import { computed, ref, type CSSProperties, onMounted } from 'vue';
     
     interface InventoryItem {
       id: number;
@@ -161,6 +176,7 @@
     }
     
     const playerStore = usePlayerStore();
+    const gridElement = ref<HTMLElement | null>(null);
 
     // Конфигурация сетки инвентаря
     const gridColumns = 8;
@@ -200,11 +216,12 @@
       }
     ]);
 
-
     // Drag and Drop переменные
     const draggedItem = ref<InventoryItem | null>(null);
     const isDragging = ref(false);
     const highlightedCells = ref<number[]>([]);
+    const dragPosition = ref<{x: number, y: number} | null>(null);
+    const gridRect = ref<DOMRect | null>(null);
 
     // Вычисляемое свойство для получения всех занятых ячеек
     const occupiedCells = computed((): CellPosition[] => {
@@ -226,6 +243,12 @@
       return cells;
     });
 
+    onMounted(() => {
+      if (gridElement.value) {
+        gridRect.value = gridElement.value.getBoundingClientRect();
+      }
+    });
+
     const handleSlotClick = (): void => {
       console.log("Slot clicked");
     }
@@ -236,6 +259,23 @@
         top: `${item.position.y * (cellSize + gap)}px`,
         width: `${item.width * cellSize + (item.width - 1) * gap}px`,
         height: `${item.height * cellSize + (item.height - 1) * gap}px`,
+      };
+    }
+
+    const getPreviewPosition = (): CSSProperties => {
+      if (!dragPosition.value) return {};
+      
+      // Вычисляем позицию для превью предмета
+      const gridX = Math.floor((dragPosition.value.x - gridRect.value!.left) / (cellSize + gap));
+      const gridY = Math.floor((dragPosition.value.y - gridRect.value!.top) / (cellSize + gap));
+      
+      return {
+        left: `${gridX * (cellSize + gap)}px`,
+        top: `${gridY * (cellSize + gap)}px`,
+        width: `${draggedItem.value!.width * cellSize + (draggedItem.value!.width - 1) * gap}px`,
+        height: `${draggedItem.value!.height * cellSize + (draggedItem.value!.height - 1) * gap}px`,
+        opacity: '0.8',
+        pointerEvents: 'none'
       };
     }
 
@@ -259,6 +299,7 @@
       isDragging.value = false;
       draggedItem.value = null;
       highlightedCells.value = [];
+      dragPosition.value = null;
       
       // Восстанавливаем прозрачность
       if (event.target) {
@@ -266,46 +307,56 @@
       }
     }
 
-    const handleDragEnter = (event: DragEvent, cellIndex: number): void => {
+    const handleGridDragOver = (event: DragEvent): void => {
       event.preventDefault();
-      if (!draggedItem.value) return;
+      if (!draggedItem.value || !gridRect.value) return;
       
-      const x = cellIndex % gridColumns;
-      const y = Math.floor(cellIndex / gridColumns);
+      // Обновляем позицию курсора
+      dragPosition.value = {
+        x: event.clientX,
+        y: event.clientY
+      };
+      
+      // Вычисляем координаты сетки
+      const gridX = Math.floor((event.clientX - gridRect.value.left) / (cellSize + gap));
+      const gridY = Math.floor((event.clientY - gridRect.value.top) / (cellSize + gap));
       
       // Подсвечиваем ячейки, куда можно поместить предмет
-      highlightDropZone(x, y);
+      highlightDropZone(gridX, gridY);
     }
     
-    const handleDragLeave = (event: DragEvent, cellIndex: number): void => {
+    const handleGridDragLeave = (event: DragEvent): void => {
       event.preventDefault();
       // Очищаем подсветку только если мы покидаем сетку полностью
       const relatedTarget = event.relatedTarget as HTMLElement;
-      if (!relatedTarget || !event.currentTarget.contains(relatedTarget)) {
+      if (!relatedTarget || !gridElement.value?.contains(relatedTarget)) {
         highlightedCells.value = [];
+        dragPosition.value = null;
       }
     }
 
-    const handleDrop = (event: DragEvent, cellIndex: number): void => {
+    const handleGridDrop = (event: DragEvent): void => {
       event.preventDefault();
-      if (!draggedItem.value) return;
+      if (!draggedItem.value || !dragPosition.value || !gridRect.value) return;
       
-      const x = cellIndex % gridColumns;
-      const y = Math.floor(cellIndex / gridColumns);
+      // Вычисляем координаты сетки
+      const gridX = Math.floor((dragPosition.value.x - gridRect.value.left) / (cellSize + gap));
+      const gridY = Math.floor((dragPosition.value.y - gridRect.value.top) / (cellSize + gap));
       
       // Проверяем, можно ли разместить предмет в этой позиции
-      if (canPlaceItem(draggedItem.value, x, y)) {
+      if (canPlaceItem(draggedItem.value, gridX, gridY)) {
         // Обновляем позицию предмета
         const itemIndex = inventoryItems.value.findIndex(item => item.id === draggedItem.value!.id);
         if (itemIndex !== -1) {
-          inventoryItems.value[itemIndex].position = { x, y };
-          console.log(`Item "${draggedItem.value.name}" placed at (${x}, ${y})`);
+          inventoryItems.value[itemIndex].position = { x: gridX, y: gridY };
+          console.log(`Item "${draggedItem.value.name}" placed at (${gridX}, ${gridY})`);
         }
       } else {
         console.log("Cannot place item here - collision or out of bounds");
       }
       
       highlightedCells.value = [];
+      dragPosition.value = null;
     }
     
     const highlightDropZone = (targetX: number, targetY: number): void => {
@@ -375,7 +426,7 @@
 			itemType: itemTypes.helmet,
 			icon: itemIconsByType.heavy.helmet,
 			armorType: "heavy",
-			marker: itemIconsByType.heavy.marker
+			maker: itemIconsByType.heavy.marker
 		}),
 		new Item({
 			name: "Наплечье дракона",
@@ -385,7 +436,7 @@
 			itemType: itemTypes.boots,
 			icon: itemIconsByType.heavy.shoulders,
 			armorType: "heavy",
-			marker: itemIconsByType.heavy.marker
+			maker: itemIconsByType.heavy.marker
 		}),
 		new Item({
 			name: "Доспех платиновой стражи",
@@ -395,7 +446,7 @@
 			itemType: itemTypes.armor,
 			icon: itemIconsByType.heavy.chest,
 			armorType: "heavy",
-			marker: itemIconsByType.heavy.marker
+			maker: itemIconsByType.heavy.marker
 		}),
 
 		// СРЕДНЯЯ БРОНЯ
@@ -407,7 +458,7 @@
 			itemType: itemTypes.helmet,
 			icon: itemIconsByType.medium.helmet,
 			armorType: "medium",
-			marker: itemIconsByType.medium.marker
+			maker: itemIconsByType.medium.marker
 		}),
 		new Item({
 			name: "Кольчужный доспех",
@@ -417,7 +468,7 @@
 			itemType: itemTypes.armor,
 			icon: itemIconsByType.medium.chest,
 			armorType: "medium",
-			marker: itemIconsByType.medium.marker
+			maker: itemIconsByType.medium.marker
 		}),
 		new Item({
 			name: "Щит кольчужного плетения",
@@ -427,7 +478,7 @@
 			itemType: itemTypes.shield,
 			icon: itemIconsByType.medium.shield,
 			armorType: "medium",
-			marker: itemIconsByType.medium.marker
+			maker: itemIconsByType.medium.marker
 		}),
 
 		// ЛЕГКАЯ БРОНЯ
@@ -439,7 +490,7 @@
 			itemType: itemTypes.helmet,
 			icon: itemIconsByType.light.helmet,
 			armorType: "light",
-			marker: itemIconsByType.light.marker
+			maker: itemIconsByType.light.marker
 		}),
 		new Item({
 			name: "Кожаная куртка",
@@ -449,7 +500,7 @@
 			itemType: itemTypes.armor,
 			icon: itemIconsByType.light.chest,
 			armorType: "light",
-			marker: itemIconsByType.light.marker
+			maker: itemIconsByType.light.marker
 		}),
 		new Item({
 			name: "Перчатки ловкости",
@@ -459,7 +510,7 @@
 			itemType: itemTypes.gloves,
 			icon: itemIconsByType.light.gloves,
 			armorType: "light",
-			marker: itemIconsByType.light.marker
+			maker: itemIconsByType.light.marker
 		}),
     ];
 </script>
@@ -555,6 +606,7 @@
     padding: 5px;
     border-radius: 4px;
     position: relative;
+    min-height: calc(v-bind('gridRows') * 50px + (v-bind('gridRows') - 1) * 2px);
   }
   
   &__grid-cell {
@@ -578,9 +630,16 @@
     justify-content: center;
     cursor: move;
     z-index: 10;
+    transition: opacity 0.2s;
     
     &--dragging {
-      opacity: 0.7;
+      opacity: 0.3;
+    }
+    
+    &--preview {
+      background-color: #666;
+      border: 2px dashed #aaa;
+      z-index: 20;
     }
     
     // Размеры предметов
