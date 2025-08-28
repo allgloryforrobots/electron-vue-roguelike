@@ -282,6 +282,10 @@
     const handleDragStart = (event: DragEvent, item: InventoryItem): void => {
       draggedItem.value = item;
       isDragging.value = true;
+
+	  const dragImage = new Image();
+	  dragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+	  event.dataTransfer.setDragImage(dragImage, 0, 0);
       
       // Устанавливаем данные для передачи
       if (event.dataTransfer) {
