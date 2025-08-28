@@ -254,13 +254,13 @@
     }
 
     const getItemPosition = (item: InventoryItem): CSSProperties => {
-      return {
-        left: `${item.position.x * (cellSize + gap)}px`,
-        top: `${item.position.y * (cellSize + gap)}px`,
-        width: `${item.width * cellSize + (item.width - 1) * gap}px`,
-        height: `${item.height * cellSize + (item.height - 1) * gap}px`,
-      };
-    }
+		return {
+			left: `${item.position.x * (cellSize + gap) + 5}px`, // + padding контейнера
+			top: `${item.position.y * (cellSize + gap) + 5}px`, // + padding контейнера
+			width: `${item.width * cellSize + (item.width - 1) * gap}px`,
+			height: `${item.height * cellSize + (item.height - 1) * gap}px`,
+		};
+	}
 
     const getPreviewPosition = (): CSSProperties => {
       if (!dragPosition.value) return {};
@@ -611,6 +611,7 @@
     border-radius: 4px;
     position: relative;
     min-height: calc(v-bind('gridRows') * 50px + (v-bind('gridRows') - 1) * 2px);
+	position: relative;
   }
   
   &__grid-cell {
