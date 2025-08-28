@@ -91,21 +91,36 @@
         </div>
       </div>
       
-      <!-- Блок инвентаря -->
+       <!-- Блок инвентаря -->
       <div class="inventory__section">
         <DDHeader title="Рюкзак" class="inventory__header" />
-        <div class="inventory__items">
+        <div class="inventory-grid">
           <div 
-            v-for="(item, index) in testItems" 
+            v-for="(cell, index) in gridCells" 
             :key="index" 
-            class="inventory__item"
+            class="grid-cell"
+            @dragover.prevent
+            @drop="handleDrop($event, index)"
+          ></div>
+          
+          <!-- Предметы в инвентаре -->
+          <div 
+            v-for="(item, index) in inventoryItems" 
+            :key="'item-'+index"
+            class="inventory-item"
+            :class="[
+              `item-size-${item.width}x${item.height}`,
+              { 'item-dragging': draggedItem && draggedItem.id === item.id }
+            ]"
+            :style="getItemPosition(item)"
+            draggable="true"
+            @dragstart="handleDragStart($event, item)"
+            @dragend="handleDragEnd"
           >
-            <div class="inventory__item-name">
-              <span class="inventory__item-icons">
-                {{ item.marker }}
-                <i class="fa-solid" :class="item.icon"></i> 
-              </span>
-              {{ item.name }}
+            <div class="item-content">
+              <span class="item-marker">{{ item.marker }}</span>
+              <i class="fa-solid" :class="item.icon"></i>
+              <div class="item-size-badge">{{ item.width }}x{{ item.height }}</div>
             </div>
           </div>
         </div>
@@ -123,11 +138,153 @@
     import { usePlayerStore } from '@/entities/Player';
     import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
     import DDSubstrate from '@/shared/ui/DDSubstrate/DDSubstrate.vue';
+    import { computed, ref } from 'vue';
     
     const playerStore = usePlayerStore();
 
+     // Конфигурация сетки инвентаря
+    const gridColumns = 8;
+    const gridRows = 6;
+    const gridCells = ref(Array(gridColumns * gridRows).fill(0));
+    
+    // Предметы в инвентаре
+    const inventoryItems = ref([
+      // Броня (2x2)
+      {
+        id: 1,
+        name: "Стальной полный шлем",
+        width: 2,
+        height: 2,
+        position: { x: 0, y: 0 },
+        marker: itemIconsByType.heavy.marker,
+        icon: itemIconsByType.heavy.helmet
+      },
+      // Оружие (1x3)
+      {
+        id: 2,
+        name: "Длинный меч",
+        width: 1,
+        height: 3,
+        position: { x: 3, y: 0 },
+        marker: "⚔️",
+        icon: "fa-sword"
+      },
+      // Зелье (1x1)
+      {
+        id: 3,
+        name: "Зелье здоровья",
+        width: 1,
+        height: 1,
+        position: { x: 5, y: 0 },
+        marker: "🧪",
+        icon: "fa-flask"
+      }
+    ]);
+
+    // Drag and Drop переменные
+    const draggedItem = ref(null);
+    const isDragging = ref(false);
+
+    // Вычисляемое свойство для получения всех занятых ячеек
+    const occupiedCells = computed(() => {
+      const cells = [];
+      inventoryItems.value.forEach(item => {
+        for (let dy = 0; dy < item.height; dy++) {
+          for (let dx = 0; dx < item.width; dx++) {
+            const cellX = item.position.x + dx;
+            const cellY = item.position.y + dy;
+            if (cellX < gridColumns && cellY < gridRows) {
+              cells.push({ x: cellX, y: cellY, itemId: item.id });
+            }
+          }
+        }
+      });
+      return cells;
+    });
+
     const handleSlotClick = () => {
-      // Обработчик клика по слоту
+      console.log("Slot clicked");
+    }
+
+     const getItemPosition = (item) => {
+      // Добавляем отступы между предметами
+      const gap = 2;
+      return {
+        left: `calc(${item.position.x * (50 + gap)}px + ${gap}px)`,
+        top: `calc(${item.position.y * (50 + gap)}px + ${gap}px)`,
+        width: `calc(${item.width * 50}px + ${(item.width - 1) * gap}px)`,
+        height: `calc(${item.height * 50}px + ${(item.height - 1) * gap}px)`,
+      };
+    }
+
+    const handleDragStart = (event, item) => {
+      draggedItem.value = item;
+      isDragging.value = true;
+      event.dataTransfer.setData('text/plain', item.id.toString());
+      console.log("Drag started for item:", item.name);
+      
+      // Визуальный эффект при начале перетаскивания
+      event.target.style.opacity = '0.7';
+    }
+
+     const handleDragEnd = (event) => {
+      isDragging.value = false;
+      draggedItem.value = null;
+      console.log("Drag ended");
+      
+      // Восстанавливаем прозрачность
+      if (event.target) {
+        event.target.style.opacity = '1';
+      }
+    }
+
+	const handleDrop = (event, cellIndex) => {
+      event.preventDefault();
+      if (!draggedItem.value) return;
+      
+      const x = cellIndex % gridColumns;
+      const y = Math.floor(cellIndex / gridColumns);
+      
+      console.log(`Trying to drop item ${draggedItem.value.name} at position (${x}, ${y})`);
+      
+      // Проверяем, можно ли разместить предмет в этой позиции
+      if (canPlaceItem(draggedItem.value, x, y)) {
+        // Обновляем позицию предмета
+        const itemIndex = inventoryItems.value.findIndex(item => item.id === draggedItem.value.id);
+        if (itemIndex !== -1) {
+          inventoryItems.value[itemIndex].position = { x, y };
+          console.log(`Item placed at (${x}, ${y})`);
+        }
+      } else {
+        console.log("Cannot place item here - collision detected");
+      }
+    }
+
+	    // Функция проверки возможности размещения предмета
+    const canPlaceItem = (item, targetX, targetY) => {
+      // Проверяем, не выходит ли предмет за границы инвентаря
+      if (targetX + item.width > gridColumns || targetY + item.height > gridRows) {
+        return false;
+      }
+      
+      // Проверяем коллизии с другими предметами (исключая текущий перемещаемый предмет)
+      for (let dy = 0; dy < item.height; dy++) {
+        for (let dx = 0; dx < item.width; dx++) {
+          const checkX = targetX + dx;
+          const checkY = targetY + dy;
+          
+          // Проверяем, занята ли эта ячейка другим предметом
+          const isOccupied = occupiedCells.value.some(cell => 
+            cell.x === checkX && cell.y === checkY && cell.itemId !== item.id
+          );
+          
+          if (isOccupied) {
+            return false;
+          }
+        }
+      }
+      
+      return true;
     }
 
     const testItems = [
@@ -309,6 +466,66 @@
 
   &__item-icons {
     opacity: 0.4;
+  }
+}
+
+// Стили для сетки инвентаря
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(v-bind('gridColumns'), 50px);
+  grid-template-rows: repeat(v-bind('gridRows'), 50px);
+  gap: 2px;
+  background-color: #333;
+  padding: 5px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.grid-cell {
+  border: 1px solid #555;
+  background-color: #222;
+  border-radius: 2px;
+}
+
+.inventory-item {
+  position: absolute;
+  border: 1px solid #888;
+  background-color: #444;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  z-index: 10;
+  
+  .item-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    
+    .item-marker {
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+  }
+  
+  // Размеры предметов
+  &.item-size-2x2 {
+    width: calc(100px + 2px);
+    height: calc(100px + 2px);
+  }
+  
+  &.item-size-1x3 {
+    width: calc(50px + 0px);
+    height: calc(150px + 4px);
+  }
+  
+  &.item-size-1x1 {
+    width: calc(50px + 0px);
+    height: calc(50px + 0px);
   }
 }
 </style>
