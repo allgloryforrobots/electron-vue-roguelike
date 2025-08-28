@@ -285,7 +285,7 @@
 
 	  const dragImage = new Image();
 	  dragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-	  event.dataTransfer.setDragImage(dragImage, 0, 0);
+	  event?.dataTransfer?.setDragImage(dragImage, 0, 0);
       
       // Устанавливаем данные для передачи
       if (event.dataTransfer) {
@@ -430,7 +430,7 @@
 			itemType: itemTypes.helmet,
 			icon: itemIconsByType.heavy.helmet,
 			armorType: "heavy",
-			maker: itemIconsByType.heavy.marker
+			marker: itemIconsByType.heavy.marker
 		}),
 		new Item({
 			name: "Наплечье дракона",
@@ -440,7 +440,7 @@
 			itemType: itemTypes.boots,
 			icon: itemIconsByType.heavy.shoulders,
 			armorType: "heavy",
-			maker: itemIconsByType.heavy.marker
+			marker: itemIconsByType.heavy.marker
 		}),
 		new Item({
 			name: "Доспех платиновой стражи",
@@ -450,7 +450,7 @@
 			itemType: itemTypes.armor,
 			icon: itemIconsByType.heavy.chest,
 			armorType: "heavy",
-			maker: itemIconsByType.heavy.marker
+			marker: itemIconsByType.heavy.marker
 		}),
 
 		// СРЕДНЯЯ БРОНЯ
@@ -462,7 +462,7 @@
 			itemType: itemTypes.helmet,
 			icon: itemIconsByType.medium.helmet,
 			armorType: "medium",
-			maker: itemIconsByType.medium.marker
+			marker: itemIconsByType.medium.marker
 		}),
 		new Item({
 			name: "Кольчужный доспех",
@@ -472,7 +472,7 @@
 			itemType: itemTypes.armor,
 			icon: itemIconsByType.medium.chest,
 			armorType: "medium",
-			maker: itemIconsByType.medium.marker
+			marker: itemIconsByType.medium.marker
 		}),
 		new Item({
 			name: "Щит кольчужного плетения",
@@ -482,7 +482,7 @@
 			itemType: itemTypes.shield,
 			icon: itemIconsByType.medium.shield,
 			armorType: "medium",
-			maker: itemIconsByType.medium.marker
+			marker: itemIconsByType.medium.marker
 		}),
 
 		// ЛЕГКАЯ БРОНЯ
@@ -494,7 +494,7 @@
 			itemType: itemTypes.helmet,
 			icon: itemIconsByType.light.helmet,
 			armorType: "light",
-			maker: itemIconsByType.light.marker
+			marker: itemIconsByType.light.marker
 		}),
 		new Item({
 			name: "Кожаная куртка",
@@ -504,7 +504,7 @@
 			itemType: itemTypes.armor,
 			icon: itemIconsByType.light.chest,
 			armorType: "light",
-			maker: itemIconsByType.light.marker
+			marker: itemIconsByType.light.marker
 		}),
 		new Item({
 			name: "Перчатки ловкости",
@@ -514,7 +514,7 @@
 			itemType: itemTypes.gloves,
 			icon: itemIconsByType.light.gloves,
 			armorType: "light",
-			maker: itemIconsByType.light.marker
+			marker: itemIconsByType.light.marker
 		}),
     ];
 </script>
