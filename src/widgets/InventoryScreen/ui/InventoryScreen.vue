@@ -7,87 +7,87 @@
         
         <!-- Отображение персонажа со слотами -->
         <div class="inventory__slots">
-          <DDSubstrate class="inventory__slot inventory__slot--head" :width="50" square>
+          <div class="inventory__slot inventory__slot--head" :width="50" square>
             <i class="fa-solid fa-helmet-safety inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.head" 
               @item-click="handleSlotClick"
             />
-          </DDSubstrate>
+          </div>
           
-          <DDSubstrate class="inventory__slot inventory__slot--body" :width="50" square>
+          <div class="inventory__slot inventory__slot--body" :width="50" square>
             <i class="fa-solid fa-shirt inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.body" 
               @item-click="handleSlotClick"
             />
-          </DDSubstrate>
+          </div>
           
-          <DDSubstrate class="inventory__slot inventory__slot--arms" :width="50" square>
+          <div class="inventory__slot inventory__slot--arms" :width="50" square>
             <i class="fa-solid fa-mitten inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.arms" 
               @item-click="handleSlotClick"
             />
-          </DDSubstrate>
+          </div>
 
-          <DDSubstrate class="inventory__slot inventory__slot--legs" :width="50" square>
+          <div class="inventory__slot inventory__slot--legs" :width="50" square>
             <i class="fa-solid fa-shoe-prints inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.legs" 
               @item-click="handleSlotClick"
             ></div>
-          </DDSubstrate>
+          </div>
             
-          <DDSubstrate class="inventory__slot inventory__slot--accessory-a" :width="50" square>
+          <div class="inventory__slot inventory__slot--accessory-a" :width="50" square>
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.accessoryA" 
               @item-click="handleSlotClick"
             />
-          </DDSubstrate>
+          </div>
 
-          <DDSubstrate class="inventory__slot inventory__slot--accessory-b" :width="50" square>
+          <div class="inventory__slot inventory__slot--accessory-b" :width="50" square>
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.accessoryB" 
               @item-click="handleSlotClick"
             />
-          </DDSubstrate>
+          </div>
 
           <!-- Комплекты оружия -->
-          <DDSubstrate class="inventory__slot inventory__slot--right-hand" :width="50" square>
+          <div class="inventory__slot inventory__slot--right-hand" :width="50" square>
             <i class="fa-solid fa-hand-fist inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.complect1.rightHand" 
               @item-click="handleSlotClick"
             />
-          </DDSubstrate>
+          </div>
           
-          <DDSubstrate class="inventory__slot inventory__slot--left-hand" :width="50" square>
+          <div class="inventory__slot inventory__slot--left-hand" :width="50" square>
             <i class="fa-solid fa-shield inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.complect1.leftHand" 
               @item-click="handleSlotClick"
             />
-          </DDSubstrate>
+          </div>
           
           <!-- Быстрые слоты -->
-          <DDSubstrate class="inventory__slot inventory__slot--quick-a" :width="50" square>
+          <div class="inventory__slot inventory__slot--quick-a" :width="50" square>
             <i class="fa-solid fa-scroll inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.quickSlotA" 
               @item-click="handleSlotClick"
             />
-          </DDSubstrate>
+          </div>
           
-          <DDSubstrate class="inventory__slot inventory__slot--quick-b" :width="50" square>
+          <div class="inventory__slot inventory__slot--quick-b" :width="50" square>
             <i class="fa-solid fa-scroll inventory__slot-icon"></i>
             <div 
               :slot="playerStore.player.inventory.slots.quickSlotB" 
               @item-click="handleSlotClick"
             />
-          </DDSubstrate>
+          </div>
         </div>
       </div>
       
@@ -156,7 +156,7 @@
     import { InventorySlotItemType, Item, itemIconsByType, itemTypes } from '@/entities/Item';
     import { usePlayerStore } from '@/entities/Player';
     import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
-    import DDSubstrate from '@/shared/ui/DDSubstrate/DDSubstrate.vue';
+    import div from '@/shared/ui/div/div.vue';
     import { computed, ref, type CSSProperties, onMounted } from 'vue';
     
     interface InventoryItem {
@@ -534,12 +534,23 @@
     grid-template-rows: repeat(7, 1fr);
     height: 600px;
     place-items: center;
+    background: linear-gradient(45deg, var(--background-color-medium) 0%, var(--background-color) 100%);
+    margin: 5px;
+    border: 1px solid var(--border-color);
   }
 
   &__slot {
     position: relative;
     display: grid;
     place-items: center;
+
+    border: 1px solid var(--border-color);
+    background: linear-gradient(145deg, rgba(56, 47, 39, 0.7), rgba(25, 21, 20, 0.9));
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    min-height: 50px;
+    min-width: 50px;
 
     &--head {
       grid-column: 3;
