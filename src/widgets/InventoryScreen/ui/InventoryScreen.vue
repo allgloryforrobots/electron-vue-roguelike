@@ -7,83 +7,183 @@
         
         <!-- Отображение персонажа со слотами -->
         <div class="inventory__slots">
-          <div class="inventory__slot inventory__slot--head" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--head" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'head')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'head')"
+            :data-slot-type="'head'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'head' }"
+          >
             <i class="fa-solid fa-helmet-safety inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.head"
               :slot="playerStore.player.inventory.slots.head" 
               @item-click="handleSlotClick"
             />
           </div>
           
-          <div class="inventory__slot inventory__slot--body" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--body" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'body')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'body')"
+            :data-slot-type="'body'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'body' }"
+          >
             <i class="fa-solid fa-shirt inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.body"
               :slot="playerStore.player.inventory.slots.body" 
               @item-click="handleSlotClick"
             />
           </div>
           
-          <div class="inventory__slot inventory__slot--arms" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--arms" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'arms')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'arms')"
+            :data-slot-type="'arms'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'arms' }"
+          >
             <i class="fa-solid fa-mitten inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.arms"
               :slot="playerStore.player.inventory.slots.arms" 
               @item-click="handleSlotClick"
             />
           </div>
 
-          <div class="inventory__slot inventory__slot--legs" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--legs" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'legs')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'legs')"
+            :data-slot-type="'legs'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'legs' }"
+          >
             <i class="fa-solid fa-shoe-prints inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.legs"
               :slot="playerStore.player.inventory.slots.legs" 
               @item-click="handleSlotClick"
             ></div>
           </div>
             
-          <div class="inventory__slot inventory__slot--accessory-a" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--accessory-a" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'accessoryA')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'accessoryA')"
+            :data-slot-type="'accessoryA'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'accessoryA' }"
+          >
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.accessoryA"
               :slot="playerStore.player.inventory.slots.accessoryA" 
               @item-click="handleSlotClick"
             />
           </div>
 
-          <div class="inventory__slot inventory__slot--accessory-b" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--accessory-b" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'accessoryB')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'accessoryB')"
+            :data-slot-type="'accessoryB'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'accessoryB' }"
+          >
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.accessoryB"
               :slot="playerStore.player.inventory.slots.accessoryB" 
               @item-click="handleSlotClick"
             />
           </div>
 
           <!-- Комплекты оружия -->
-          <div class="inventory__slot inventory__slot--right-hand" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--right-hand" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'rightHand')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'rightHand')"
+            :data-slot-type="'rightHand'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'rightHand' }"
+          >
             <i class="fa-solid fa-hand-fist inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.complect1.rightHand"
               :slot="playerStore.player.inventory.slots.complect1.rightHand" 
               @item-click="handleSlotClick"
             />
           </div>
           
-          <div class="inventory__slot inventory__slot--left-hand" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--left-hand" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'leftHand')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'leftHand')"
+            :data-slot-type="'leftHand'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'leftHand' }"
+          >
             <i class="fa-solid fa-shield inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.complect1.leftHand"
               :slot="playerStore.player.inventory.slots.complect1.leftHand" 
               @item-click="handleSlotClick"
             />
           </div>
           
           <!-- Быстрые слоты -->
-          <div class="inventory__slot inventory__slot--quick-a" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--quick-a" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'quickSlotA')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'quickSlotA')"
+            :data-slot-type="'quickSlotA'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'quickSlotA' }"
+          >
             <i class="fa-solid fa-scroll inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.quickSlotA"
               :slot="playerStore.player.inventory.slots.quickSlotA" 
               @item-click="handleSlotClick"
             />
           </div>
           
-          <div class="inventory__slot inventory__slot--quick-b" :width="50" square>
+          <div 
+            class="inventory__slot inventory__slot--quick-b" 
+            :width="50" 
+            square
+            @dragover.prevent="handleSlotDragOver($event, 'quickSlotB')"
+            @dragleave="handleSlotDragLeave"
+            @drop="handleSlotDrop($event, 'quickSlotB')"
+            :data-slot-type="'quickSlotB'"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'quickSlotB' }"
+          >
             <i class="fa-solid fa-scroll inventory__slot-icon"></i>
             <div 
+              v-if="playerStore.player.inventory.slots.quickSlotB"
               :slot="playerStore.player.inventory.slots.quickSlotB" 
               @item-click="handleSlotClick"
             />
@@ -144,6 +244,7 @@
             :key="index" 
             class="inventory__grid-cell"
             :highlighted="isCellHighlighted(index, 'stash')"
+			:isFirstRow="Math.floor(index / gridColumns) === 0"
           />
           
           <!-- Предметы в схроне -->
@@ -186,6 +287,7 @@
       position: { x: number; y: number };
       marker: string;
       icon: string;
+      type?: string; // Тип предмета для проверки совместимости со слотами
     }
     
     interface CellPosition {
@@ -215,7 +317,8 @@
         height: 2,
         position: { x: 0, y: 0 },
         marker: itemIconsByType.heavy.marker,
-        icon: itemIconsByType.heavy.helmet
+        icon: itemIconsByType.heavy.helmet,
+        type: "head"
       },
       {
         id: 2,
@@ -224,7 +327,8 @@
         height: 1,
         position: { x: 3, y: 2 },
         marker: "⚔️",
-        icon: "fa-sword"
+        icon: "fa-sword",
+        type: "rightHand"
       },
       {
         id: 3,
@@ -233,7 +337,8 @@
         height: 1,
         position: { x: 5, y: 0 },
         marker: "🧪",
-        icon: "fa-flask"
+        icon: "fa-flask",
+        type: "quickSlotA"
       }
     ]);
 
@@ -246,7 +351,8 @@
         height: 1,
         position: { x: 2, y: 2 },
         marker: "💍",
-        icon: "fa-ring"
+        icon: "fa-ring",
+        type: "accessoryA"
       }
     ]);
 
@@ -256,8 +362,23 @@
     const highlightedCells = ref<number[]>([]);
     const dragPosition = ref<{x: number, y: number} | null>(null);
     const gridRect = ref<DOMRect | null>(null);
-    const currentGrid = ref<'inventory' | 'stash' | null>(null);
+    const currentGrid = ref<'inventory' | 'stash' | 'equipment' | null>(null);
     const sourceGrid = ref<'inventory' | 'stash' | null>(null);
+    const highlightedSlot = ref<string | null>(null);
+
+    // Соответствие типов предметов и слотов
+    const slotCompatibility: Record<string, string[]> = {
+      head: ['head'],
+      body: ['body'],
+      arms: ['arms'],
+      legs: ['legs'],
+      accessoryA: ['accessoryA', 'accessoryB'],
+      accessoryB: ['accessoryA', 'accessoryB'],
+      rightHand: ['rightHand', 'leftHand'],
+      leftHand: ['rightHand', 'leftHand'],
+      quickSlotA: ['quickSlotA', 'quickSlotB'],
+      quickSlotB: ['quickSlotA', 'quickSlotB']
+    };
 
     // Вычисляемое свойство для получения всех занятых ячеек в инвентаре
     const occupiedCells = computed((): CellPosition[] => {
@@ -363,6 +484,7 @@
       dragPosition.value = null;
       currentGrid.value = null;
       sourceGrid.value = null;
+      highlightedSlot.value = null;
       
       // Восстанавливаем прозрачность
       if (event.target) {
@@ -375,6 +497,7 @@
       if (!draggedItem.value) return;
       
       currentGrid.value = gridType;
+      highlightedSlot.value = null; // Сбрасываем подсветку слота
       
       // Обновляем позицию курсора
       dragPosition.value = {
@@ -405,6 +528,7 @@
         highlightedCells.value = [];
         dragPosition.value = null;
         currentGrid.value = null;
+        highlightedSlot.value = null;
       }
     }
 
@@ -434,6 +558,52 @@
       
       highlightedCells.value = [];
       dragPosition.value = null;
+      currentGrid.value = null;
+      sourceGrid.value = null;
+      highlightedSlot.value = null;
+    }
+    
+    // Обработчики для слотов экипировки
+    const handleSlotDragOver = (event: DragEvent, slotType: string): void => {
+      event.preventDefault();
+      if (!draggedItem.value) return;
+      
+      currentGrid.value = 'equipment';
+      highlightedCells.value = []; // Сбрасываем подсветку ячеек сетки
+      
+      // Проверяем совместимость предмета и слота
+      if (isItemCompatibleWithSlot(draggedItem.value, slotType)) {
+        highlightedSlot.value = slotType;
+        if (event.dataTransfer) {
+          event.dataTransfer.dropEffect = 'move';
+        }
+      } else {
+        highlightedSlot.value = null;
+        if (event.dataTransfer) {
+          event.dataTransfer.dropEffect = 'none';
+        }
+      }
+    }
+    
+    const handleSlotDragLeave = (event: DragEvent): void => {
+      event.preventDefault();
+      highlightedSlot.value = null;
+    }
+    
+    const handleSlotDrop = (event: DragEvent, slotType: string): void => {
+      event.preventDefault();
+      if (!draggedItem.value || !sourceGrid.value) return;
+      
+      // Проверяем совместимость предмета и слота
+      if (isItemCompatibleWithSlot(draggedItem.value, slotType)) {
+        // Экипируем предмет
+        equipItem(draggedItem.value, slotType, sourceGrid.value);
+        console.log(`Item "${draggedItem.value.name}" equipped to ${slotType}`);
+      } else {
+        console.log("Item is not compatible with this slot");
+      }
+      
+      highlightedSlot.value = null;
       currentGrid.value = null;
       sourceGrid.value = null;
     }
@@ -498,6 +668,14 @@
       return true;
     }
 
+    // Функция проверки совместимости предмета и слота
+    const isItemCompatibleWithSlot = (item: InventoryItem, slotType: string): boolean => {
+      if (!item.type) return false;
+      
+      // Проверяем, совместим ли тип предмета с типом слота
+      return slotCompatibility[item.type]?.includes(slotType) || false;
+    }
+
     // Функция перемещения предмета между сетками
     const moveItem = (item: InventoryItem, targetX: number, targetY: number, source: 'inventory' | 'stash', target: 'inventory' | 'stash'): void => {
       // Удаляем предмет из исходной сетки
@@ -522,6 +700,28 @@
       } else {
         stashItems.value.push(updatedItem);
       }
+    }
+    
+    // Функция экипировки предмета
+    const equipItem = (item: InventoryItem, slotType: string, source: 'inventory' | 'stash'): void => {
+      // Удаляем предмет из исходной сетки
+      if (source === 'inventory') {
+        const sourceIndex = inventoryItems.value.findIndex(i => i.id === item.id);
+        if (sourceIndex !== -1) {
+          inventoryItems.value.splice(sourceIndex, 1);
+        }
+      } else {
+        const sourceIndex = stashItems.value.findIndex(i => i.id === item.id);
+        if (sourceIndex !== -1) {
+          stashItems.value.splice(sourceIndex, 1);
+        }
+      }
+      
+      // Экипируем предмет (здесь должна быть логика добавления в слоты персонажа)
+      // В данном примере просто добавляем в хранилище игрока
+      playerStore.player.inventory.slots[slotType as keyof typeof playerStore.player.inventory.slots] = item;
+      
+      console.log(`Item "${item.name}" equipped to ${slotType}`);
     }
   
 </script>
@@ -558,6 +758,12 @@
 
     min-height: 50px;
     min-width: 50px;
+
+    &--highlighted {
+      border: 2px solid gold;
+      box-shadow: 0 0 10px gold;
+      background: linear-gradient(145deg, rgba(255, 215, 0, 0.3), rgba(25, 21, 20, 0.9));
+    }
 
     &--head {
       grid-column: 3;
