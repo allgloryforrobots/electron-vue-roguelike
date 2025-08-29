@@ -7,10 +7,9 @@
         
         <!-- Отображение персонажа со слотами -->
         <div class="inventory__slots">
+          <!-- Слот головы -->
           <div 
             class="inventory__slot inventory__slot--head" 
-            :width="50" 
-            square
             @dragover.prevent="handleSlotDragOver($event, 'head')"
             @dragleave="handleSlotDragLeave"
             @drop="handleSlotDrop($event, 'head')"
@@ -21,13 +20,15 @@
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.head.item" 
               :item="playerStore.player.inventory.slots.head.item"
+              draggable="true"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.head.item, 'head')"
+              @dragend="handleDragEnd"
             />
           </div>
           
+          <!-- Слот тела -->
           <div 
             class="inventory__slot inventory__slot--body" 
-            :width="50" 
-            square
             @dragover.prevent="handleSlotDragOver($event, 'body')"
             @dragleave="handleSlotDragLeave"
             @drop="handleSlotDrop($event, 'body')"
@@ -38,13 +39,15 @@
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.body.item"
               :item="playerStore.player.inventory.slots.body.item" 
+              draggable="true"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.body.item, 'body')"
+              @dragend="handleDragEnd"
             />
           </div>
           
+          <!-- Слот рук -->
           <div 
             class="inventory__slot inventory__slot--arms" 
-            :width="50" 
-            square
             @dragover.prevent="handleSlotDragOver($event, 'arms')"
             @dragleave="handleSlotDragLeave"
             @drop="handleSlotDrop($event, 'arms')"
@@ -55,13 +58,15 @@
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.arms.item"
               :item="playerStore.player.inventory.slots.arms.item" 
+              draggable="true"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.arms.item, 'arms')"
+              @dragend="handleDragEnd"
             />
           </div>
 
+          <!-- Слот ног -->
           <div 
             class="inventory__slot inventory__slot--legs" 
-            :width="50" 
-            square
             @dragover.prevent="handleSlotDragOver($event, 'legs')"
             @dragleave="handleSlotDragLeave"
             @drop="handleSlotDrop($event, 'legs')"
@@ -72,13 +77,15 @@
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.legs.item"
               :item="playerStore.player.inventory.slots.legs.item" 
+              draggable="true"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.legs.item, 'legs')"
+              @dragend="handleDragEnd"
             />
           </div>
             
+          <!-- Слот аксессуара A -->
           <div 
             class="inventory__slot inventory__slot--accessory-a" 
-            :width="50" 
-            square
             @dragover.prevent="handleSlotDragOver($event, 'accessoryA')"
             @dragleave="handleSlotDragLeave"
             @drop="handleSlotDrop($event, 'accessoryA')"
@@ -89,13 +96,15 @@
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.accessoryA.item"
               :item="playerStore.player.inventory.slots.accessoryA.item" 
+              draggable="true"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.accessoryA.item, 'accessoryA')"
+              @dragend="handleDragEnd"
             />
           </div>
 
+          <!-- Слот аксессуара B -->
           <div 
             class="inventory__slot inventory__slot--accessory-b" 
-            :width="50" 
-            square
             @dragover.prevent="handleSlotDragOver($event, 'accessoryB')"
             @dragleave="handleSlotDragLeave"
             @drop="handleSlotDrop($event, 'accessoryB')"
@@ -106,14 +115,15 @@
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.accessoryB.item"
               :item="playerStore.player.inventory.slots.accessoryB.item" 
+              draggable="true"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.accessoryB.item, 'accessoryB')"
+              @dragend="handleDragEnd"
             />
           </div>
 
           <!-- Комплекты оружия -->
           <div 
             class="inventory__slot inventory__slot--right-hand" 
-            :width="50" 
-            square
             @dragover.prevent="handleSlotDragOver($event, 'rightHand')"
             @dragleave="handleSlotDragLeave"
             @drop="handleSlotDrop($event, 'rightHand')"
@@ -124,13 +134,14 @@
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.complect1.rightHand.item"
               :item="playerStore.player.inventory.slots.complect1.rightHand.item" 
+              draggable="true"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.complect1.rightHand.item, 'rightHand')"
+              @dragend="handleDragEnd"
             />
           </div>
           
           <div 
             class="inventory__slot inventory__slot--left-hand" 
-            :width="50" 
-            square
             @dragover.prevent="handleSlotDragOver($event, 'leftHand')"
             @dragleave="handleSlotDragLeave"
             @drop="handleSlotDrop($event, 'leftHand')"
@@ -141,6 +152,9 @@
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.complect1.leftHand.item"
               :item="playerStore.player.inventory.slots.complect1.leftHand.item" 
+              draggable="true"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.complect1.leftHand.item, 'leftHand')"
+              @dragend="handleDragEnd"
             />
           </div>
 
@@ -305,12 +319,13 @@
 
     // Drag and Drop переменные
     const draggedItem = ref<InventoryItem | null>(null);
+    const draggedFromSlot = ref<string | null>(null); // Добавляем для отслеживания слота экипировки
     const isDragging = ref(false);
     const highlightedCells = ref<number[]>([]);
     const dragPosition = ref<{x: number, y: number} | null>(null);
     const gridRect = ref<DOMRect | null>(null);
     const currentGrid = ref<'inventory' | 'stash' | 'equipment' | null>(null);
-    const sourceGrid = ref<'inventory' | 'stash' | null>(null);
+    const sourceGrid = ref<'inventory' | 'stash' | 'equipment' | null>(null); // Добавляем equipment как источник
     const highlightedSlot = ref<string | null>(null);
 
     // Соответствие типов предметов и слотов
@@ -379,8 +394,8 @@
 
     const getItemPosition = (item: InventoryItem, gridType: 'inventory' | 'stash'): CSSProperties => {
 		return {
-			left: `${item.position.x * (cellSize + gap) + 5}px`, // + padding контейнера
-			top: `${item.position.y * (cellSize + gap) + 5}px`, // + padding контейнера
+			left: `${item.position.x * (cellSize + gap) + 5}px`,
+			top: `${item.position.y * (cellSize + gap) + 5}px`,
 			width: `${item.width * cellSize + (item.width - 1) * gap}px`,
 			height: `${item.height * cellSize + (item.height - 1) * gap}px`,
 		};
@@ -389,7 +404,6 @@
     const getPreviewPosition = (): CSSProperties => {
       if (!dragPosition.value || !gridRect.value) return {};
       
-      // Вычисляем позицию для превью предмета
       const gridX = Math.floor((dragPosition.value.x - gridRect.value.left) / (cellSize + gap));
       const gridY = Math.floor((dragPosition.value.y - gridRect.value.top) / (cellSize + gap));
       
@@ -407,18 +421,44 @@
       draggedItem.value = item;
       isDragging.value = true;
       sourceGrid.value = source;
+      draggedFromSlot.value = null;
 
-      // const dragImage = new Image();
-      // dragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-      // event?.dataTransfer?.setDragImage(dragImage, 0, 0);
-      
-      // Устанавливаем данные для передачи
       if (event.dataTransfer) {
         event.dataTransfer.setData('text/plain', item.id.toString());
         event.dataTransfer.effectAllowed = 'move';
       }
       
-      // Визуальный эффект при начале перетаскивания
+      if (event.target) {
+        (event.target as HTMLElement).style.opacity = '0.5';
+      }
+    }
+
+    // Новый обработчик для перетаскивания из экипировки
+    const handleEquipmentDragStart = (event: DragEvent, item: any, slotType: string): void => {
+      if (!item) return;
+      
+      // Создаем временный объект предмета для перетаскивания
+      const dragItem: InventoryItem = {
+        id: item.id || Date.now(),
+        name: item.name || 'Предмет',
+        width: item.width || 1,
+        height: item.height || 1,
+        position: { x: 0, y: 0 },
+        marker: item.marker || '❓',
+        icon: item.icon || 'fa-question',
+        type: item.type || slotType
+      };
+      
+      draggedItem.value = dragItem;
+      draggedFromSlot.value = slotType;
+      isDragging.value = true;
+      sourceGrid.value = 'equipment';
+
+      if (event.dataTransfer) {
+        event.dataTransfer.setData('text/plain', `equipment-${slotType}`);
+        event.dataTransfer.effectAllowed = 'move';
+      }
+      
       if (event.target) {
         (event.target as HTMLElement).style.opacity = '0.5';
       }
@@ -427,13 +467,13 @@
     const handleDragEnd = (event: DragEvent): void => {
       isDragging.value = false;
       draggedItem.value = null;
+      draggedFromSlot.value = null;
       highlightedCells.value = [];
       dragPosition.value = null;
       currentGrid.value = null;
       sourceGrid.value = null;
       highlightedSlot.value = null;
       
-      // Восстанавливаем прозрачность
       if (event.target) {
         (event.target as HTMLElement).style.opacity = '1';
       }
@@ -444,32 +484,27 @@
       if (!draggedItem.value) return;
       
       currentGrid.value = gridType;
-      highlightedSlot.value = null; // Сбрасываем подсветку слота
+      highlightedSlot.value = null;
       
-      // Обновляем позицию курсора
       dragPosition.value = {
         x: event.clientX,
         y: event.clientY
       };
       
-      // Получаем актуальные размеры сетки
       const currentGridRect = gridType === 'inventory' 
         ? gridElement.value?.getBoundingClientRect() 
         : stashGridElement.value?.getBoundingClientRect();
       
       if (!currentGridRect) return;
       
-      // Вычисляем координаты сетки
       const gridX = Math.floor((event.clientX - currentGridRect.left) / (cellSize + gap));
       const gridY = Math.floor((event.clientY - currentGridRect.top) / (cellSize + gap));
       
-      // Подсвечиваем ячейки, куда можно поместить предмет
       highlightDropZone(gridX, gridY, gridType);
     }
     
     const handleGridDragLeave = (event: DragEvent): void => {
       event.preventDefault();
-      // Очищаем подсветку только если мы покидаем сетку полностью
       const relatedTarget = event.relatedTarget as HTMLElement;
       if (!relatedTarget || !gridElement.value?.contains(relatedTarget)) {
         highlightedCells.value = [];
@@ -483,21 +518,23 @@
       event.preventDefault();
       if (!draggedItem.value || !dragPosition.value || !sourceGrid.value) return;
       
-      // Получаем актуальные размеры целевой сетки
       const targetGridRect = targetGrid === 'inventory' 
         ? gridElement.value?.getBoundingClientRect() 
         : stashGridElement.value?.getBoundingClientRect();
       
       if (!targetGridRect) return;
       
-      // Вычисляем координаты сетки
       const gridX = Math.floor((dragPosition.value.x - targetGridRect.left) / (cellSize + gap));
       const gridY = Math.floor((dragPosition.value.y - targetGridRect.top) / (cellSize + gap));
       
-      // Проверяем, можно ли разместить предмет в этой позиции
       if (canPlaceItem(draggedItem.value, gridX, gridY, targetGrid)) {
-        // Перемещаем предмет между сетками или внутри одной сетки
-        moveItem(draggedItem.value, gridX, gridY, sourceGrid.value, targetGrid);
+        // Если предмет перетаскивается из экипировки
+        if (sourceGrid.value === 'equipment' && draggedFromSlot.value) {
+          unequipItem(draggedFromSlot.value, gridX, gridY, targetGrid);
+        } else {
+          // Обычное перемещение между инвентарем и схроном
+          moveItem(draggedItem.value, gridX, gridY, sourceGrid.value as 'inventory' | 'stash', targetGrid);
+        }
         console.log(`Item "${draggedItem.value.name}" moved to ${targetGrid} at (${gridX}, ${gridY})`);
       } else {
         console.log("Cannot place item here - collision or out of bounds");
@@ -508,17 +545,16 @@
       currentGrid.value = null;
       sourceGrid.value = null;
       highlightedSlot.value = null;
+      draggedFromSlot.value = null;
     }
     
-    // Обработчики для слотов экипировки
     const handleSlotDragOver = (event: DragEvent, slotType: string): void => {
       event.preventDefault();
       if (!draggedItem.value) return;
       
       currentGrid.value = 'equipment';
-      highlightedCells.value = []; // Сбрасываем подсветку ячеек сетки
+      highlightedCells.value = [];
       
-      // Проверяем совместимость предмета и слота
       if (isItemCompatibleWithSlot(draggedItem.value, slotType)) {
         highlightedSlot.value = slotType;
         if (event.dataTransfer) {
@@ -541,10 +577,8 @@
       event.preventDefault();
       if (!draggedItem.value || !sourceGrid.value) return;
       
-      // Проверяем совместимость предмета и слота
       if (isItemCompatibleWithSlot(draggedItem.value, slotType)) {
-        // Экипируем предмет
-        equipItem(draggedItem.value, slotType, sourceGrid.value);
+        equipItem(draggedItem.value, slotType, sourceGrid.value as 'inventory' | 'stash' | 'equipment');
         console.log(`Item "${draggedItem.value.name}" equipped to ${slotType}`);
       } else {
         console.log("Item is not compatible with this slot");
@@ -553,6 +587,7 @@
       highlightedSlot.value = null;
       currentGrid.value = null;
       sourceGrid.value = null;
+      draggedFromSlot.value = null;
     }
     
     const highlightDropZone = (targetX: number, targetY: number, gridType: 'inventory' | 'stash'): void => {
@@ -560,9 +595,7 @@
       
       const newHighlightedCells: number[] = [];
       
-      // Проверяем, можно ли разместить предмет в этой позиции
       if (canPlaceItem(draggedItem.value, targetX, targetY, gridType)) {
-        // Добавляем все ячейки, которые займет предмет
         for (let dy = 0; dy < draggedItem.value.height; dy++) {
           for (let dx = 0; dx < draggedItem.value.width; dx++) {
             const cellX = targetX + dx;
@@ -583,25 +616,20 @@
       return currentGrid.value === gridType && highlightedCells.value.includes(cellIndex);
     }
 
-    // Функция проверки возможности размещения предмета
     const canPlaceItem = (item: InventoryItem, targetX: number, targetY: number, gridType: 'inventory' | 'stash'): boolean => {
-      // Проверяем, не выходит ли предмет за границы инвентаря
       if (targetX < 0 || targetY < 0 || 
           targetX + item.width > gridColumns || 
           targetY + item.height > gridRows) {
         return false;
       }
       
-      // Получаем занятые ячейки в зависимости от типа сетки
       const occupied = gridType === 'inventory' ? occupiedCells.value : occupiedStashCells.value;
       
-      // Проверяем коллизии с другими предметами
       for (let dy = 0; dy < item.height; dy++) {
         for (let dx = 0; dx < item.width; dx++) {
           const checkX = targetX + dx;
           const checkY = targetY + dy;
           
-          // Проверяем, занята ли эта ячейка другим предметом
           const isOccupied = occupied.some(cell => 
             cell.x === checkX && cell.y === checkY
           );
@@ -615,17 +643,12 @@
       return true;
     }
 
-    // Функция проверки совместимости предмета и слота
     const isItemCompatibleWithSlot = (item: InventoryItem, slotType: string): boolean => {
       if (!item.type) return false;
-      
-      // Проверяем, совместим ли тип предмета с типом слота
       return slotCompatibility[item.type]?.includes(slotType) || false;
     }
 
-    // Функция перемещения предмета между сетками
     const moveItem = (item: InventoryItem, targetX: number, targetY: number, source: 'inventory' | 'stash', target: 'inventory' | 'stash'): void => {
-      // Удаляем предмет из исходной сетки
       if (source === 'inventory') {
         const sourceIndex = inventoryItems.value.findIndex(i => i.id === item.id);
         if (sourceIndex !== -1) {
@@ -638,10 +661,8 @@
         }
       }
       
-      // Обновляем позицию предмета
       const updatedItem = { ...item, position: { x: targetX, y: targetY } };
       
-      // Добавляем предмет в целевую сетку
       if (target === 'inventory') {
         inventoryItems.value.push(updatedItem);
       } else {
@@ -649,23 +670,52 @@
       }
     }
     
-    // Функция экипировки предмета
-    const equipItem = (item: InventoryItem, slotType: string, source: 'inventory' | 'stash'): void => {
-      // Удаляем предмет из исходной сетки
+    // Новая функция для снятия предмета с экипировки
+    const unequipItem = (slotType: string, targetX: number, targetY: number, targetGrid: 'inventory' | 'stash'): void => {
+      const slot = playerStore.player.inventory.slots[slotType as keyof typeof playerStore.player.inventory.slots];
+      if (!slot.item) return;
+      
+      // Создаем объект предмета для инвентаря
+      const item: InventoryItem = {
+        id: slot.item.id || Date.now(),
+        name: slot.item.name || 'Предмет',
+        width: slot.item.width || 1,
+        height: slot.item.height || 1,
+        position: { x: targetX, y: targetY },
+        marker: slot.item.marker || '❓',
+        icon: slot.item.icon || 'fa-question',
+        type: slot.item.type || slotType
+      };
+      
+      // Добавляем предмет в целевую сетку
+      if (targetGrid === 'inventory') {
+        inventoryItems.value.push(item);
+      } else {
+        stashItems.value.push(item);
+      }
+      
+      // Удаляем предмет из слота экипировки
+      slot.item = null;
+      
+      console.log(`Item "${item.name}" unequipped from ${slotType} to ${targetGrid}`);
+    }
+    
+    const equipItem = (item: InventoryItem, slotType: string, source: 'inventory' | 'stash' | 'equipment'): void => {
+      // Если предмет из инвентаря или схрона, удаляем его оттуда
       if (source === 'inventory') {
         const sourceIndex = inventoryItems.value.findIndex(i => i.id === item.id);
         if (sourceIndex !== -1) {
           inventoryItems.value.splice(sourceIndex, 1);
         }
-      } else {
+      } else if (source === 'stash') {
         const sourceIndex = stashItems.value.findIndex(i => i.id === item.id);
         if (sourceIndex !== -1) {
           stashItems.value.splice(sourceIndex, 1);
         }
       }
+      // Если предмет из другого слота экипировки, не нужно удалять - он уже в слоте
       
-      // Экипируем предмет (здесь должна быть логика добавления в слоты персонажа)
-      // В данном примере просто добавляем в хранилище игрока
+      // Экипируем предмет
       playerStore.player.inventory.slots[slotType as keyof typeof playerStore.player.inventory.slots].item = item;
       
       console.log(`Item "${item.name}" equipped to ${slotType}`);
