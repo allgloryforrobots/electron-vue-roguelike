@@ -151,43 +151,7 @@
               @item-click="handleSlotClick"
             />
           </div>
-          
-          <!-- Быстрые слоты -->
-          <div 
-            class="inventory__slot inventory__slot--quick-a" 
-            :width="50" 
-            square
-            @dragover.prevent="handleSlotDragOver($event, 'quickSlotA')"
-            @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'quickSlotA')"
-            :data-slot-type="'quickSlotA'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'quickSlotA' }"
-          >
-            <i class="fa-solid fa-scroll inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.quickSlotA"
-              :slot="playerStore.player.inventory.slots.quickSlotA" 
-              @item-click="handleSlotClick"
-            />
-          </div>
-          
-          <div 
-            class="inventory__slot inventory__slot--quick-b" 
-            :width="50" 
-            square
-            @dragover.prevent="handleSlotDragOver($event, 'quickSlotB')"
-            @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'quickSlotB')"
-            :data-slot-type="'quickSlotB'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'quickSlotB' }"
-          >
-            <i class="fa-solid fa-scroll inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.quickSlotB"
-              :slot="playerStore.player.inventory.slots.quickSlotB" 
-              @item-click="handleSlotClick"
-            />
-          </div>
+
         </div>
       </div>
       
@@ -206,6 +170,7 @@
             :key="index" 
             class="inventory__grid-cell"
             :highlighted="isCellHighlighted(index, 'inventory')"
+            :isFirstRow="Math.floor(index / gridColumns) === 0"
           />
           
           <!-- Предметы в инвентаре -->
@@ -235,7 +200,6 @@
             :key="index" 
             class="inventory__grid-cell"
             :highlighted="isCellHighlighted(index, 'stash')"
-			:isFirstRow="Math.floor(index / gridColumns) === 0"
           />
           
           <!-- Предметы в схроне -->
@@ -730,13 +694,14 @@
 
   &__slots {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(7, 1fr);
-    height: 600px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     place-items: center;
     background: linear-gradient(45deg, var(--background-color-medium) 0%, var(--background-color) 100%);
     margin: 5px;
     border: 1px solid var(--border-color);
+    padding: 0 10px;
+    gap: 0;
   }
 
   &__slot {
@@ -759,53 +724,48 @@
     }
 
     &--head {
-      grid-column: 3;
+      grid-column: 2;
       grid-row: 1;
     }
 
     &--body {
-      grid-column: 3;
+      grid-column: 2;
       grid-row: 2;
+      width: 100px;
+      height: 100px;
     }
 
     &--arms {
-      grid-column: 2;
-      grid-row: 3;
+      grid-column: 1;
+      grid-row: 1;
     }
 
     &--right-hand {
       grid-column: 1;
-      grid-row: 3;
+      grid-row: 2;
+      width: 150px;
     }
 
     &--left-hand {
-      grid-column: 5;
-      grid-row: 3;
+      grid-column: 3;
+      grid-row: 2;
+      width: 100px;
+      height: 100px;
     }
 
     &--legs {
-      grid-column: 3;
-      grid-row: 5;
+      grid-column: 2;
+      grid-row: 3;
     }
 
     &--accessory-a {
-      grid-column: 3;
+      grid-column: 1;
       grid-row: 3;
     }
 
     &--accessory-b {
-      grid-column: 4;
-      grid-row: 3;
-    }
-
-    &--quick-a {
       grid-column: 3;
-      grid-row: 4;
-    }
-
-    &--quick-b {
-      grid-column: 4;
-      grid-row: 4;
+      grid-row: 1;
     }
   }
 
