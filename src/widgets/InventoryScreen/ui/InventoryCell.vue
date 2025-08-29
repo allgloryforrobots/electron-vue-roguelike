@@ -36,9 +36,9 @@
         }
         
         &--highlight {
-            background: linear-gradient(135deg, var(--accent-color-5) 0%, var(--accent-color-6) 100%);
-            border-color: var(--accent-color-1);
-            box-shadow: 0 0 8px rgba(212, 163, 115, 0.4);
+            border: 1px solid var(--accent-color-gold);
+            box-shadow: 0 0 10px var(--accent-color-gold);
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.3), rgba(25, 21, 20, 0.9));
         }
     }
 </style>
