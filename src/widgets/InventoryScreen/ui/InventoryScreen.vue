@@ -18,10 +18,9 @@
             :class="{ 'inventory__slot--highlighted': highlightedSlot === 'head' }"
           >
             <i class="fa-solid fa-helmet-safety inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.head"
-              :slot="playerStore.player.inventory.slots.head" 
-              @item-click="handleSlotClick"
+            <InventoryItem 
+              v-if="playerStore.player.inventory.slots.head.item" 
+              :item="playerStore.player.inventory.slots.head.item"
             />
           </div>
           
@@ -36,10 +35,9 @@
             :class="{ 'inventory__slot--highlighted': highlightedSlot === 'body' }"
           >
             <i class="fa-solid fa-shirt inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.body"
-              :slot="playerStore.player.inventory.slots.body" 
-              @item-click="handleSlotClick"
+            <InventoryItem 
+              v-if="playerStore.player.inventory.slots.body.item"
+              :item="playerStore.player.inventory.slots.body.item" 
             />
           </div>
           
@@ -54,10 +52,9 @@
             :class="{ 'inventory__slot--highlighted': highlightedSlot === 'arms' }"
           >
             <i class="fa-solid fa-mitten inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.arms"
-              :slot="playerStore.player.inventory.slots.arms" 
-              @item-click="handleSlotClick"
+            <InventoryItem 
+              v-if="playerStore.player.inventory.slots.arms.item"
+              :item="playerStore.player.inventory.slots.arms.item" 
             />
           </div>
 
@@ -72,11 +69,10 @@
             :class="{ 'inventory__slot--highlighted': highlightedSlot === 'legs' }"
           >
             <i class="fa-solid fa-shoe-prints inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.legs"
-              :slot="playerStore.player.inventory.slots.legs" 
-              @item-click="handleSlotClick"
-            ></div>
+            <InventoryItem 
+              v-if="playerStore.player.inventory.slots.legs.item"
+              :item="playerStore.player.inventory.slots.legs.item" 
+            />
           </div>
             
           <div 
@@ -90,10 +86,9 @@
             :class="{ 'inventory__slot--highlighted': highlightedSlot === 'accessoryA' }"
           >
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.accessoryA"
-              :slot="playerStore.player.inventory.slots.accessoryA" 
-              @item-click="handleSlotClick"
+            <InventoryItem 
+              v-if="playerStore.player.inventory.slots.accessoryA.item"
+              :item="playerStore.player.inventory.slots.accessoryA.item" 
             />
           </div>
 
@@ -108,10 +103,9 @@
             :class="{ 'inventory__slot--highlighted': highlightedSlot === 'accessoryB' }"
           >
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.accessoryB"
-              :slot="playerStore.player.inventory.slots.accessoryB" 
-              @item-click="handleSlotClick"
+            <InventoryItem 
+              v-if="playerStore.player.inventory.slots.accessoryB.item"
+              :item="playerStore.player.inventory.slots.accessoryB.item" 
             />
           </div>
 
@@ -127,10 +121,9 @@
             :class="{ 'inventory__slot--highlighted': highlightedSlot === 'rightHand' }"
           >
             <i class="fa-solid fa-hand-fist inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.complect1.rightHand"
-              :slot="playerStore.player.inventory.slots.complect1.rightHand" 
-              @item-click="handleSlotClick"
+            <InventoryItem 
+              v-if="playerStore.player.inventory.slots.complect1.rightHand.item"
+              :item="playerStore.player.inventory.slots.complect1.rightHand.item" 
             />
           </div>
           
@@ -145,10 +138,9 @@
             :class="{ 'inventory__slot--highlighted': highlightedSlot === 'leftHand' }"
           >
             <i class="fa-solid fa-shield inventory__slot-icon"></i>
-            <div 
-              v-if="playerStore.player.inventory.slots.complect1.leftHand"
-              :slot="playerStore.player.inventory.slots.complect1.leftHand" 
-              @item-click="handleSlotClick"
+            <InventoryItem 
+              v-if="playerStore.player.inventory.slots.complect1.leftHand.item"
+              :item="playerStore.player.inventory.slots.complect1.leftHand.item" 
             />
           </div>
 
@@ -674,7 +666,7 @@
       
       // Экипируем предмет (здесь должна быть логика добавления в слоты персонажа)
       // В данном примере просто добавляем в хранилище игрока
-      playerStore.player.inventory.slots[slotType as keyof typeof playerStore.player.inventory.slots] = item;
+      playerStore.player.inventory.slots[slotType as keyof typeof playerStore.player.inventory.slots].item = item;
       
       console.log(`Item "${item.name}" equipped to ${slotType}`);
     }
