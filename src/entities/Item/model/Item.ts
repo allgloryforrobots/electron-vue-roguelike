@@ -3,7 +3,7 @@ import { InventorySlotItemType } from "../types/types";
 export interface IItemOptions {
     name: string;
     codename: string;
-    slot: InventorySlotItemType;
+    slot: InventorySlotItemType[];
     // двуручный чем блокирует второй слот руки
     // броня рыцаря занимает слоты на все тело
     lockSlots: InventorySlotItemType[];
@@ -27,7 +27,7 @@ export class Item {
     codename: string;
     itemType: ItemType;
     lockSlots: InventorySlotItemType[];
-    slot: InventorySlotItemType;
+    slot: InventorySlotItemType[];
     icon?: string;
     armorType?: string;
     marker?: string;

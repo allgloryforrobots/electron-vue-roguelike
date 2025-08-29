@@ -30,7 +30,7 @@
             class="inventory__slot inventory__slot--body" 
             @dragover.prevent="handleSlotDragOver($event, InventorySlotItemType.BODY)"
             @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'body')"
+            @drop="handleSlotDrop($event, InventorySlotItemType.BODY)"
             :class="{ 'inventory__slot--highlighted': highlightedSlot === InventorySlotItemType.BODY }"
           >
             <i class="fa-solid fa-shirt inventory__slot-icon"></i>
@@ -241,7 +241,7 @@
         marker: itemIconsByType.heavy.marker,
         icon: itemIconsByType.heavy.helmet,
         codename: "steel_great_helmet",
-        slot: InventorySlotItemType.HEAD,
+        slot: [InventorySlotItemType.HEAD],
         lockSlots: [],
         itemType: itemTypes.helmet,
         armorType: "heavy",
@@ -254,7 +254,7 @@
         marker: "⚔️",
         icon: "fa-sword",
         codename: "long_sword",
-        slot: InventorySlotItemType.RIGHT_HAND,
+        slot: [InventorySlotItemType.RIGHT_HAND, InventorySlotItemType.LEFT_HAND],
         lockSlots: [],
         itemType: itemTypes.sword,
       }),
@@ -266,7 +266,7 @@
         marker: "🧪",
         icon: "fa-flask",
         codename: "potion",
-        slot: InventorySlotItemType.ACCESSORY,
+        slot: [InventorySlotItemType.ACCESSORY],
         lockSlots: [],
         itemType: itemTypes.amulet,
       })
@@ -282,7 +282,7 @@
         marker: "💍",
         icon: "fa-ring",
         codename: "potion",
-        slot: InventorySlotItemType.ACCESSORY,
+        slot: [InventorySlotItemType.ACCESSORY],
         lockSlots: [],
         itemType: itemTypes.amulet,
       })
@@ -487,7 +487,7 @@
       draggedFromSlot.value = null;
     }
     
-    const handleSlotDragOver = (event: DragEvent, slotType: string): void => {
+    const handleSlotDragOver = (event: DragEvent, slotType: InventorySlotItemType): void => {
       event.preventDefault();
       if (!draggedItem.value) return;
       
@@ -512,7 +512,7 @@
       highlightedSlot.value = null;
     }
     
-    const handleSlotDrop = (event: DragEvent, slotType: string): void => {
+    const handleSlotDrop = (event: DragEvent, slotType: InventorySlotItemType): void => {
       event.preventDefault();
       if (!draggedItem.value || !sourceGrid.value) return;
       
@@ -579,8 +579,8 @@
       return true;
     }
 
-    const isItemCompatibleWithSlot = (item: Item, slotType: string): boolean => {
-      return item.slot === slotType;
+    const isItemCompatibleWithSlot = (item: Item, slotType: InventorySlotItemType): boolean => {
+      return item.slot.includes(slotType);
     }
 
     const moveItem = (item: Item, targetX: number, targetY: number, source: 'inventory' | 'stash', target: 'inventory' | 'stash'): void => {
