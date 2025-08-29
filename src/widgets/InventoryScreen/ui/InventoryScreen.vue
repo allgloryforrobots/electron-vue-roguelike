@@ -437,19 +437,7 @@
     const handleEquipmentDragStart = (event: DragEvent, item: any, slotType: string): void => {
       if (!item) return;
       
-      // Создаем временный объект предмета для перетаскивания
-      const dragItem: InventoryItem = {
-        id: item.id || Date.now(),
-        name: item.name || 'Предмет',
-        width: item.width || 1,
-        height: item.height || 1,
-        position: { x: 0, y: 0 },
-        marker: item.marker || '❓',
-        icon: item.icon || 'fa-question',
-        type: item.type || slotType
-      };
-      
-      draggedItem.value = dragItem;
+      draggedItem.value = item;
       draggedFromSlot.value = slotType;
       isDragging.value = true;
       sourceGrid.value = 'equipment';
@@ -675,29 +663,15 @@
       const slot = playerStore.player.inventory.slots[slotType as keyof typeof playerStore.player.inventory.slots];
       if (!slot.item) return;
       
-      // Создаем объект предмета для инвентаря
-      const item: InventoryItem = {
-        id: slot.item.id || Date.now(),
-        name: slot.item.name || 'Предмет',
-        width: slot.item.width || 1,
-        height: slot.item.height || 1,
-        position: { x: targetX, y: targetY },
-        marker: slot.item.marker || '❓',
-        icon: slot.item.icon || 'fa-question',
-        type: slot.item.type || slotType
-      };
-      
       // Добавляем предмет в целевую сетку
       if (targetGrid === 'inventory') {
-        inventoryItems.value.push(item);
+        inventoryItems.value.push(slot.item);
       } else {
-        stashItems.value.push(item);
+        stashItems.value.push(slot.item);
       }
       
       // Удаляем предмет из слота экипировки
       slot.item = null;
-      
-      console.log(`Item "${item.name}" unequipped from ${slotType} to ${targetGrid}`);
     }
     
     const equipItem = (item: InventoryItem, slotType: string, source: 'inventory' | 'stash' | 'equipment'): void => {
