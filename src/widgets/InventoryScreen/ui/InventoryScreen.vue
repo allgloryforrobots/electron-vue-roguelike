@@ -601,49 +601,57 @@
     opacity: 0.4;
   }
   
-  &__grid {
+ &__grid {
+    margin: 5px;
     display: grid;
     grid-template-columns: repeat(v-bind('gridColumns'), 50px);
     grid-template-rows: repeat(v-bind('gridRows'), 50px);
     gap: 2px;
-    background-color: #333;
-    padding: 5px;
-    border-radius: 4px;
+    background: linear-gradient(45deg, var(--background-color-medium) 0%, var(--background-color) 100%);
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
     position: relative;
     min-height: calc(v-bind('gridRows') * 50px + (v-bind('gridRows') - 1) * 2px);
-	position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
   }
   
   &__grid-cell {
-    border: 1px solid #555;
-    background-color: #222;
-    border-radius: 2px;
+    border: 1px solid var(--border-color);
+    background: linear-gradient(145deg, rgba(56, 47, 39, 0.7), rgba(25, 21, 20, 0.9));
+    border-radius: 4px;
+    transition: all 0.3s ease;
     
     &--highlight {
-      background-color: #4a7c59;
-      border-color: #6daa80;
+      background: linear-gradient(135deg, var(--accent-color-5) 0%, var(--accent-color-6) 100%);
+      border-color: var(--accent-color-1);
+      box-shadow: 0 0 8px rgba(212, 163, 115, 0.4);
     }
   }
   
   &__item {
     position: absolute;
-    border: 1px solid #888;
-    background-color: #444;
-    border-radius: 4px;
+    border: 2px solid var(--accent-color-8);
+    background: linear-gradient(135deg, var(--background-color-medium) 0%, #2a231e 100%);
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: move;
     z-index: 10;
-    transition: opacity 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     
     &--dragging {
-      opacity: 0.3;
+      opacity: 0.4;
+      transform: scale(0.95);
+      border: 2px dashed var(--accent-color-1);
     }
     
     &--preview {
-      background-color: #666;
-      border: 2px dashed #aaa;
+      background: linear-gradient(135deg, rgba(140, 109, 73, 0.3) 0%, rgba(212, 163, 115, 0.2) 100%);
+      border: 2px dashed var(--accent-color-1);
       z-index: 20;
     }
     
@@ -671,21 +679,29 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+    padding: 4px;
   }
   
   &__item-marker {
     font-size: 12px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    color: var(--accent-color-2);
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   }
   
   &__item-size-badge {
     position: absolute;
-    bottom: 2px;
-    right: 2px;
+    bottom: 4px;
+    right: 4px;
     font-size: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 1px 3px;
-    border-radius: 2px;
+    background: linear-gradient(135deg, var(--accent-color-8) 0%, var(--accent-color-1) 100%);
+    color: var(--accent-color-7);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    border: 1px solid var(--accent-color-2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   }
 }
 </style>
