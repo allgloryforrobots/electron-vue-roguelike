@@ -10,11 +10,10 @@
           <!-- Слот головы -->
           <div 
             class="inventory__slot inventory__slot--head" 
-            @dragover.prevent="handleSlotDragOver($event, 'head')"
+            @dragover.prevent="handleSlotDragOver($event, InventorySlotKeys.HEAD)"
             @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'head')"
-            :data-slot-type="'head'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'head' }"
+            @drop="handleSlotDrop($event, InventorySlotKeys.HEAD)"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === InventorySlotKeys.HEAD }"
           >
             <i class="fa-solid fa-helmet-safety inventory__slot-icon"></i>
             <InventoryItem 
@@ -29,18 +28,17 @@
           <!-- Слот тела -->
           <div 
             class="inventory__slot inventory__slot--body" 
-            @dragover.prevent="handleSlotDragOver($event, 'body')"
+            @dragover.prevent="handleSlotDragOver($event, InventorySlotKeys.BODY)"
             @dragleave="handleSlotDragLeave"
             @drop="handleSlotDrop($event, 'body')"
-            :data-slot-type="'body'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'body' }"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === InventorySlotKeys.BODY }"
           >
             <i class="fa-solid fa-shirt inventory__slot-icon"></i>
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.body.item"
               :item="playerStore.player.inventory.slots.body.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.body.item, 'body')"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.body.item, InventorySlotKeys.BODY)"
               @dragend="handleDragEnd"
             />
           </div>
@@ -48,18 +46,17 @@
           <!-- Слот рук -->
           <div 
             class="inventory__slot inventory__slot--arms" 
-            @dragover.prevent="handleSlotDragOver($event, 'arms')"
+            @dragover.prevent="handleSlotDragOver($event,InventorySlotKeys.ARMS)"
             @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'arms')"
-            :data-slot-type="'arms'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'arms' }"
+            @drop="handleSlotDrop($event, InventorySlotKeys.ARMS)"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === InventorySlotKeys.ARMS }"
           >
             <i class="fa-solid fa-mitten inventory__slot-icon"></i>
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.arms.item"
               :item="playerStore.player.inventory.slots.arms.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.arms.item, 'arms')"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.arms.item, InventorySlotKeys.ARMS)"
               @dragend="handleDragEnd"
             />
           </div>
@@ -67,18 +64,17 @@
           <!-- Слот ног -->
           <div 
             class="inventory__slot inventory__slot--legs" 
-            @dragover.prevent="handleSlotDragOver($event, 'legs')"
+            @dragover.prevent="handleSlotDragOver($event, InventorySlotKeys.LEGS)"
             @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'legs')"
-            :data-slot-type="'legs'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'legs' }"
+            @drop="handleSlotDrop($event, InventorySlotKeys.LEGS)"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === InventorySlotKeys.LEGS }"
           >
             <i class="fa-solid fa-shoe-prints inventory__slot-icon"></i>
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.legs.item"
               :item="playerStore.player.inventory.slots.legs.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.legs.item, 'legs')"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.legs.item, InventorySlotKeys.LEGS)"
               @dragend="handleDragEnd"
             />
           </div>
@@ -86,18 +82,17 @@
           <!-- Слот аксессуара A -->
           <div 
             class="inventory__slot inventory__slot--accessory-a" 
-            @dragover.prevent="handleSlotDragOver($event, 'accessoryA')"
+            @dragover.prevent="handleSlotDragOver($event, InventorySlotKeys.ACCESSORY_A)"
             @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'accessoryA')"
-            :data-slot-type="'accessoryA'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'accessoryA' }"
+            @drop="handleSlotDrop($event, InventorySlotKeys.ACCESSORY_A)"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === InventorySlotKeys.ACCESSORY_A }"
           >
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.accessoryA.item"
               :item="playerStore.player.inventory.slots.accessoryA.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.accessoryA.item, 'accessoryA')"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.accessoryA.item, InventorySlotKeys.ACCESSORY_A)"
               @dragend="handleDragEnd"
             />
           </div>
@@ -105,18 +100,17 @@
           <!-- Слот аксессуара B -->
           <div 
             class="inventory__slot inventory__slot--accessory-b" 
-            @dragover.prevent="handleSlotDragOver($event, 'accessoryB')"
+            @dragover.prevent="handleSlotDragOver($event, InventorySlotKeys.ACCESSORY_B)"
             @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'accessoryB')"
-            :data-slot-type="'accessoryB'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'accessoryB' }"
+            @drop="handleSlotDrop($event, InventorySlotKeys.ACCESSORY_B)"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === InventorySlotKeys.ACCESSORY_B }"
           >
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.accessoryB.item"
               :item="playerStore.player.inventory.slots.accessoryB.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.accessoryB.item, 'accessoryB')"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.accessoryB.item, InventorySlotKeys.ACCESSORY_B)"
               @dragend="handleDragEnd"
             />
           </div>
@@ -124,36 +118,34 @@
           <!-- Комплекты оружия -->
           <div 
             class="inventory__slot inventory__slot--right-hand" 
-            @dragover.prevent="handleSlotDragOver($event, 'rightHand')"
+            @dragover.prevent="handleSlotDragOver($event, InventorySlotKeys.RIGHT_HAND)"
             @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'rightHand')"
-            :data-slot-type="'rightHand'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'rightHand' }"
+            @drop="handleSlotDrop($event, InventorySlotKeys.RIGHT_HAND)"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === InventorySlotKeys.RIGHT_HAND }"
           >
             <i class="fa-solid fa-hand-fist inventory__slot-icon"></i>
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.rightHand.item"
               :item="playerStore.player.inventory.slots.rightHand.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.rightHand.item, 'rightHand')"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.rightHand.item, InventorySlotKeys.RIGHT_HAND)"
               @dragend="handleDragEnd"
             />
           </div>
           
           <div 
             class="inventory__slot inventory__slot--left-hand" 
-            @dragover.prevent="handleSlotDragOver($event, 'leftHand')"
+            @dragover.prevent="handleSlotDragOver($event, InventorySlotKeys.LEFT_HAND)"
             @dragleave="handleSlotDragLeave"
-            @drop="handleSlotDrop($event, 'leftHand')"
-            :data-slot-type="'leftHand'"
-            :class="{ 'inventory__slot--highlighted': highlightedSlot === 'leftHand' }"
+            @drop="handleSlotDrop($event, InventorySlotKeys.LEFT_HAND)"
+            :class="{ 'inventory__slot--highlighted': highlightedSlot === InventorySlotKeys.LEFT_HAND}"
           >
             <i class="fa-solid fa-shield inventory__slot-icon"></i>
             <InventoryItem 
               v-if="playerStore.player.inventory.slots.leftHand.item"
               :item="playerStore.player.inventory.slots.leftHand.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.leftHand.item, 'leftHand')"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.leftHand.item, InventorySlotKeys.LEFT_HAND)"
               @dragend="handleDragEnd"
             />
           </div>
@@ -233,7 +225,7 @@
 </template>
 
 <script setup lang="ts">
-    import { InventorySlotItemType, Item, itemIconsByType, itemTypes } from '@/entities/Item';
+    import { InventorySlotItemType, InventorySlotKeys, Item, itemIconsByType, itemTypes } from '@/entities/Item';
     import { usePlayerStore } from '@/entities/Player';
     import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
     import { computed, ref, type CSSProperties, onMounted } from 'vue';
@@ -561,10 +553,7 @@
       
       if (isItemCompatibleWithSlot(draggedItem.value, slotType)) {
         equipItem(draggedItem.value, slotType, sourceGrid.value as 'inventory' | 'stash' | 'equipment');
-        console.log(`Item "${draggedItem.value.name}" equipped to ${slotType}`);
-      } else {
-        console.log("Item is not compatible with this slot");
-      }
+      } 
       
       highlightedSlot.value = null;
       currentGrid.value = null;
