@@ -14,7 +14,7 @@
 <script setup lang="ts">
     interface Props {
         highlighted?: boolean;
-        isFirstRow: boolean;
+        isFirstRow?: boolean;
     }
     defineProps<Props>();
 </script>
