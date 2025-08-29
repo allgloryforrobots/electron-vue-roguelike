@@ -89,10 +89,10 @@
           >
             <i class="fa-solid fa-ring inventory__slot-icon"></i>
             <InventoryItem 
-              v-if="playerStore.player.inventory.slots.accessoryA.item"
-              :item="playerStore.player.inventory.slots.accessoryA.item" 
+              v-if="playerStore.player.inventory.slots.accessory.item"
+              :item="playerStore.player.inventory.slots.accessory.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.accessoryA.item, InventorySlotItemType.ACCESSORY)"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.accessory.item, InventorySlotItemType.ACCESSORY)"
               @dragend="handleDragEnd"
             />
           </div>
