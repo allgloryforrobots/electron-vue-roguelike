@@ -760,8 +760,8 @@
     min-width: 50px;
 
     &--highlighted {
-      border: 2px solid gold;
-      box-shadow: 0 0 10px gold;
+      border: 2px solid var(--accent-color-gold);
+      box-shadow: 0 0 10px var(--accent-color-gold);
       background: linear-gradient(145deg, rgba(255, 215, 0, 0.3), rgba(25, 21, 20, 0.9));
     }
 
