@@ -240,21 +240,9 @@
     import InventoryCell from './InventoryCell.vue';
     import InventoryItem from './InventoryItem.vue';
     
-    interface InventoryItem {
-      id: number;
-      name: string;
-      width: number;
-      height: number;
-      position: { x: number; y: number };
-      marker: string;
-      icon: string;
-      type?: string; // Тип предмета для проверки совместимости со слотами
-    }
-    
     interface CellPosition {
       x: number;
       y: number;
-      itemId: number;
     }
     
     const playerStore = usePlayerStore();
@@ -269,56 +257,65 @@
     const cellSize = 50; // размер ячейки в пикселях
     const gap = 2; // отступ между ячейками
     
-     // Предметы в инвентаре
-    const inventoryItems = ref<InventoryItem[]>([
-      {
-        id: 1,
+    // Предметы в инвентаре
+    const inventoryItems = ref<Item[]>([
+      new Item({
         name: "Стальной полный шлем",
         width: 2,
         height: 2,
         position: { x: 0, y: 0 },
         marker: itemIconsByType.heavy.marker,
         icon: itemIconsByType.heavy.helmet,
-        type: "head"
-      },
-      {
-        id: 2,
+        codename: "steel_great_helmet",
+        slot: InventorySlotItemType.HEAD,
+        lockSlots: [],
+        itemType: itemTypes.helmet,
+        armorType: "heavy",
+      }),
+      new Item({
         name: "Длинный меч",
         width: 3,
         height: 1,
         position: { x: 3, y: 2 },
         marker: "⚔️",
         icon: "fa-sword",
-        type: "rightHand"
-      },
-      {
-        id: 3,
+        codename: "long_sword",
+        slot: InventorySlotItemType.RIGHT_HAND,
+        lockSlots: [],
+        itemType: itemTypes.sword,
+      }),
+      new Item({
         name: "Зелье здоровья",
         width: 1,
         height: 1,
         position: { x: 5, y: 0 },
         marker: "🧪",
         icon: "fa-flask",
-        type: "quickSlotA"
-      }
+        codename: "potion",
+        slot: InventorySlotItemType.ACCESSORY,
+        lockSlots: [],
+        itemType: itemTypes.amulet,
+      })
     ]);
 
     // Предметы в схроне
-    const stashItems = ref<InventoryItem[]>([
-      {
-        id: 4,
+    const stashItems = ref<Item[]>([
+      new Item({
         name: "Кольцо маны",
         width: 1,
         height: 1,
         position: { x: 2, y: 2 },
         marker: "💍",
         icon: "fa-ring",
-        type: "accessoryA"
-      }
+        codename: "potion",
+        slot: InventorySlotItemType.ACCESSORY,
+        lockSlots: [],
+        itemType: itemTypes.amulet,
+      })
     ]);
 
     // Drag and Drop переменные
-    const draggedItem = ref<InventoryItem | null>(null);
+    const draggedItem = ref<Item | null>(null);
     const draggedFromSlot = ref<string | null>(null); // Добавляем для отслеживания слота экипировки
     const isDragging = ref(false);
     const highlightedCells = ref<number[]>([]);
@@ -354,7 +351,7 @@
             const cellX = item.position.x + dx;
             const cellY = item.position.y + dy;
             if (cellX < gridColumns && cellY < gridRows) {
-              cells.push({ x: cellX, y: cellY, itemId: item.id });
+              cells.push({ x: cellX, y: cellY });
             }
           }
         }
@@ -374,7 +371,7 @@
             const cellX = item.position.x + dx;
             const cellY = item.position.y + dy;
             if (cellX < gridColumns && cellY < gridRows) {
-              cells.push({ x: cellX, y: cellY, itemId: item.id });
+              cells.push({ x: cellX, y: cellY });
             }
           }
         }
@@ -388,11 +385,8 @@
       }
     });
 
-    const handleSlotClick = (): void => {
-      console.log("Slot clicked");
-    }
 
-    const getItemPosition = (item: InventoryItem, gridType: 'inventory' | 'stash'): CSSProperties => {
+    const getItemPosition = (item: Item, gridType: 'inventory' | 'stash'): CSSProperties => {
 		return {
 			left: `${item.position.x * (cellSize + gap) + 5}px`,
 			top: `${item.position.y * (cellSize + gap) + 5}px`,
@@ -417,7 +411,7 @@
       };
     }
 
-    const handleDragStart = (event: DragEvent, item: InventoryItem, source: 'inventory' | 'stash'): void => {
+    const handleDragStart = (event: DragEvent, item: Item, source: 'inventory' | 'stash'): void => {
       draggedItem.value = item;
       isDragging.value = true;
       sourceGrid.value = source;
@@ -604,7 +598,7 @@
       return currentGrid.value === gridType && highlightedCells.value.includes(cellIndex);
     }
 
-    const canPlaceItem = (item: InventoryItem, targetX: number, targetY: number, gridType: 'inventory' | 'stash'): boolean => {
+    const canPlaceItem = (item: Item, targetX: number, targetY: number, gridType: 'inventory' | 'stash'): boolean => {
       if (targetX < 0 || targetY < 0 || 
           targetX + item.width > gridColumns || 
           targetY + item.height > gridRows) {
@@ -631,12 +625,13 @@
       return true;
     }
 
-    const isItemCompatibleWithSlot = (item: InventoryItem, slotType: string): boolean => {
+    const isItemCompatibleWithSlot = (item: Item, slotType: string): boolean => {
+      debugger
       if (!item.type) return false;
-      return slotCompatibility[item.type]?.includes(slotType) || false;
+      return slotCompatibility[item.itemType.codename]?.includes(slotType) || false;
     }
 
-    const moveItem = (item: InventoryItem, targetX: number, targetY: number, source: 'inventory' | 'stash', target: 'inventory' | 'stash'): void => {
+    const moveItem = (item: Item, targetX: number, targetY: number, source: 'inventory' | 'stash', target: 'inventory' | 'stash'): void => {
       if (source === 'inventory') {
         const sourceIndex = inventoryItems.value.findIndex(i => i.id === item.id);
         if (sourceIndex !== -1) {
@@ -674,7 +669,7 @@
       slot.item = null;
     }
     
-    const equipItem = (item: InventoryItem, slotType: string, source: 'inventory' | 'stash' | 'equipment'): void => {
+    const equipItem = (item: Item, slotType: string, source: 'inventory' | 'stash' | 'equipment'): void => {
       // Если предмет из инвентаря или схрона, удаляем его оттуда
       if (source === 'inventory') {
         const sourceIndex = inventoryItems.value.findIndex(i => i.id === item.id);

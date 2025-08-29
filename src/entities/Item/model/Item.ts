@@ -11,9 +11,18 @@ export interface IItemOptions {
     icon?: string;
     armorType?: string;
     marker?: string;
+    width: number;
+    height: number;
+    position: IItemPos;
+}
+
+export interface IItemPos {
+    x: number;
+    y: number;
 }
 
 export class Item {
+    id = crypto.randomUUID();
     name: string;
     codename: string;
     itemType: ItemType;
@@ -22,6 +31,9 @@ export class Item {
     icon?: string;
     armorType?: string;
     marker?: string;
+    width: number;
+    height: number;
+    position: IItemPos = { x: -1, y: -1 };
 
     constructor(options: IItemOptions) {
         this.name = options.name;
@@ -31,7 +43,10 @@ export class Item {
         this.lockSlots = options.lockSlots;
         this.icon= options.icon;
         this.armorType = options.armorType;
-        this.marker= options.marker;
+        this.marker = options.marker;
+        this.width = options.width;
+        this.height = options.height;
+        this.position = options.position;
     }
 }
 

@@ -1,15 +1,9 @@
 export enum InventorySlotItemType {
-    // Основные слоты экипировки
     HEAD = "head",
     BODY = "body",
     LEGS = "legs",
     ARMS = "arms",
-
     ACCESSORY = "accessory",
-    
-    // Быстрые слоты
-    QUICK_SLOT = "quickSlot",
-    
     RIGHT_HAND = "rightHand",
     LEFT_HAND = "leftHand",
 }

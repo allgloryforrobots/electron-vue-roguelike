@@ -18,13 +18,9 @@
 </template>
 
 <script setup lang="ts">
+	import { Item } from '@/entities/Item';
     interface Props {
-        item: {
-            marker?: string,
-            icon: string;
-            width: number;
-            height: number;
-        }
+        item: Item
         dragging?: boolean;
 		preview?: boolean;
     }
