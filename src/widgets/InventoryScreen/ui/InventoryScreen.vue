@@ -101,12 +101,12 @@
           @dragleave="handleGridDragLeave"
           @drop="handleGridDrop"
         >
-          <div 
+          <InventoryCell 
             v-for="(cell, index) in gridCells" 
             :key="index" 
             class="inventory__grid-cell"
-            :class="{'inventory__grid-cell--highlight': isCellHighlighted(index)}"
-          ></div>
+            :highlighted="isCellHighlighted(index)"
+          />
           
           <!-- Предметы в инвентаре -->
           <div 
@@ -156,8 +156,8 @@
     import { InventorySlotItemType, Item, itemIconsByType, itemTypes } from '@/entities/Item';
     import { usePlayerStore } from '@/entities/Player';
     import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
-    import div from '@/shared/ui/div/div.vue';
     import { computed, ref, type CSSProperties, onMounted } from 'vue';
+import InventoryCell from './InventoryCell.vue';
     
     interface InventoryItem {
       id: number;
@@ -420,103 +420,7 @@
       return true;
     }
 
-    const testItems = [
-		// ТЯЖЕЛАЯ БРОНЯ
-		new Item({
-			name: "Стальной полный шлем",
-			codename: "steel_great_helmet",
-			slot: InventorySlotItemType.HEAD,
-			lockSlots: [],
-			itemType: itemTypes.helmet,
-			icon: itemIconsByType.heavy.helmet,
-			armorType: "heavy",
-			marker: itemIconsByType.heavy.marker
-		}),
-		new Item({
-			name: "Наплечье дракона",
-			codename: "dragon_pauldrons",
-			slot: InventorySlotItemType.LEGS,
-			lockSlots: [],
-			itemType: itemTypes.boots,
-			icon: itemIconsByType.heavy.shoulders,
-			armorType: "heavy",
-			marker: itemIconsByType.heavy.marker
-		}),
-		new Item({
-			name: "Доспех платиновой стражи",
-			codename: "platinum_guard_armor",
-			slot: InventorySlotItemType.BODY,
-			lockSlots: [],
-			itemType: itemTypes.armor,
-			icon: itemIconsByType.heavy.chest,
-			armorType: "heavy",
-			marker: itemIconsByType.heavy.marker
-		}),
-
-		// СРЕДНЯЯ БРОНЯ
-		new Item({
-			name: "Кожаная шляпа следопыта",
-			codename: "ranger_leather_hat",
-			slot: InventorySlotItemType.HEAD,
-			lockSlots: [],
-			itemType: itemTypes.helmet,
-			icon: itemIconsByType.medium.helmet,
-			armorType: "medium",
-			marker: itemIconsByType.medium.marker
-		}),
-		new Item({
-			name: "Кольчужный доспех",
-			codename: "chainmail_armor",
-			slot: InventorySlotItemType.BODY,
-			lockSlots: [],
-			itemType: itemTypes.armor,
-			icon: itemIconsByType.medium.chest,
-			armorType: "medium",
-			marker: itemIconsByType.medium.marker
-		}),
-		new Item({
-			name: "Щит кольчужного плетения",
-			codename: "chainmail_shield",
-			slot: InventorySlotItemType.LEFT_HAND,
-			lockSlots: [],
-			itemType: itemTypes.shield,
-			icon: itemIconsByType.medium.shield,
-			armorType: "medium",
-			marker: itemIconsByType.medium.marker
-		}),
-
-		// ЛЕГКАЯ БРОНЯ
-		new Item({
-			name: "Кожаный клобук",
-			codename: "leather_cap",
-			slot: InventorySlotItemType.HEAD,
-			lockSlots: [],
-			itemType: itemTypes.helmet,
-			icon: itemIconsByType.light.helmet,
-			armorType: "light",
-			marker: itemIconsByType.light.marker
-		}),
-		new Item({
-			name: "Кожаная куртка",
-			codename: "leather_jacket",
-			slot: InventorySlotItemType.BODY,
-			lockSlots: [],
-			itemType: itemTypes.armor,
-			icon: itemIconsByType.light.chest,
-			armorType: "light",
-			marker: itemIconsByType.light.marker
-		}),
-		new Item({
-			name: "Перчатки ловкости",
-			codename: "agility_gloves",
-			slot: InventorySlotItemType.ARMS,
-			lockSlots: [],
-			itemType: itemTypes.gloves,
-			icon: itemIconsByType.light.gloves,
-			armorType: "light",
-			marker: itemIconsByType.light.marker
-		}),
-    ];
+  
 </script>
 
 <style scoped lang="scss">
@@ -628,18 +532,6 @@
     position: relative;
   }
   
-  &__grid-cell {
-    border: 1px solid var(--border-color);
-    background: linear-gradient(145deg, rgba(56, 47, 39, 0.7), rgba(25, 21, 20, 0.9));
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    
-    &--highlight {
-      background: linear-gradient(135deg, var(--accent-color-5) 0%, var(--accent-color-6) 100%);
-      border-color: var(--accent-color-1);
-      box-shadow: 0 0 8px rgba(212, 163, 115, 0.4);
-    }
-  }
   
   &__item {
     position: absolute;
