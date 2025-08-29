@@ -206,7 +206,6 @@
             :key="index" 
             class="inventory__grid-cell"
             :highlighted="isCellHighlighted(index, 'inventory')"
-			:isFirstRow="Math.floor(index / gridColumns) === 0"
           />
           
           <!-- Предметы в инвентаре -->
@@ -218,14 +217,6 @@
             draggable="true"
             @dragstart="handleDragStart($event, item, 'inventory')"
             @dragend="handleDragEnd"
-          />
-          
-          <!-- Превью перетаскиваемого предмета -->
-          <InventoryItem 
-            v-if="isDragging && draggedItem && dragPosition && currentGrid === 'inventory'"
-            :style="getPreviewPosition()"
-            :item="draggedItem"
-            preview
           />
         </div>
       </div>
@@ -461,9 +452,9 @@
       isDragging.value = true;
       sourceGrid.value = source;
 
-	  const dragImage = new Image();
-	  dragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-	  event?.dataTransfer?.setDragImage(dragImage, 0, 0);
+      // const dragImage = new Image();
+      // dragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+      // event?.dataTransfer?.setDragImage(dragImage, 0, 0);
       
       // Устанавливаем данные для передачи
       if (event.dataTransfer) {
@@ -728,6 +719,8 @@
 
 <style scoped lang="scss">
 .inventory {
+  overflow: hidden;
+
   &__layout {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
