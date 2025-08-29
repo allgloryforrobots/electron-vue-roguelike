@@ -496,7 +496,7 @@
 
   &__slot-icon {
     position: absolute;
-    opacity: 0.1;
+    opacity: 0.4;
   }
 
   &__item-icons {
