@@ -95,3 +95,4 @@
 		marker: itemIconsByType.light.marker
 	}),
 ];
+

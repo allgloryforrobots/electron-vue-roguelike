@@ -142,8 +142,8 @@
     import { usePlayerStore } from '@/entities/Player';
     import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
     import { computed, ref, type CSSProperties, onMounted } from 'vue';
-import InventoryCell from './InventoryCell.vue';
-import InventoryItem from './InventoryItem.vue';
+    import InventoryCell from './InventoryCell.vue';
+    import InventoryItem from './InventoryItem.vue';
     
     interface InventoryItem {
       id: number;
@@ -185,9 +185,9 @@ import InventoryItem from './InventoryItem.vue';
       {
         id: 2,
         name: "Длинный меч",
-        width: 1,
-        height: 3,
-        position: { x: 3, y: 0 },
+        width: 3,
+        height: 1,
+        position: { x: 3, y: 2 },
         marker: "⚔️",
         icon: "fa-sword"
       },

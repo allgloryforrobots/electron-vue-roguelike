@@ -59,19 +59,20 @@
 		}
 		
 		// Размеры предметов
-		&--size-2x2 {
-			width: calc(100px + 2px);
-			height: calc(100px + 2px);
-		}
-		
-		&--size-1x3 {
-			width: calc(50px + 0px);
-			height: calc(150px + 4px);
-		}
-		
-		&--size-1x1 {
-			width: calc(50px + 0px);
-			height: calc(50px + 0px);
+		// Базовые настройки
+		$base-size: 50px;
+		$grid-gap: 2px;
+
+		// Генерация размеров через цикл
+		$sizes: 1, 2, 3, 4;
+
+		@each $width in $sizes {
+			@each $height in $sizes {
+				&--size-#{$width}x#{$height} {
+					width: calc(#{$base-size * $width} + #{$grid-gap * ($width - 1)});
+					height: calc(#{$base-size * $height} + #{$grid-gap * ($height - 1)});
+				}
+			}
 		}
 	}
 	
