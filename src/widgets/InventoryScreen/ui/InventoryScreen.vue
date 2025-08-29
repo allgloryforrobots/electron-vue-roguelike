@@ -235,8 +235,8 @@
     const inventoryItems = ref<Item[]>([
       new Item({
         name: "Стальной полный шлем",
-        width: 2,
-        height: 2,
+        width: 1,
+        height: 1,
         position: { x: 0, y: 0 },
         marker: itemIconsByType.heavy.marker,
         icon: itemIconsByType.heavy.helmet,
@@ -477,9 +477,6 @@
           // Обычное перемещение между инвентарем и схроном
           moveItem(draggedItem.value, gridX, gridY, sourceGrid.value as 'inventory' | 'stash', targetGrid);
         }
-        console.log(`Item "${draggedItem.value.name}" moved to ${targetGrid} at (${gridX}, ${gridY})`);
-      } else {
-        console.log("Cannot place item here - collision or out of bounds");
       }
       
       highlightedCells.value = [];
