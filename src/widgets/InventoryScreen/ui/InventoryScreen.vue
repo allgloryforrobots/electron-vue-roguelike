@@ -317,20 +317,6 @@
     const sourceGrid = ref<'inventory' | 'stash' | 'equipment' | null>(null); // Добавляем equipment как источник
     const highlightedSlot = ref<string | null>(null);
 
-    // Соответствие типов предметов и слотов
-    const slotCompatibility: Record<string, string[]> = {
-      head: ['head'],
-      body: ['body'],
-      arms: ['arms'],
-      legs: ['legs'],
-      accessoryA: ['accessoryA', 'accessoryB'],
-      accessoryB: ['accessoryA', 'accessoryB'],
-      rightHand: ['rightHand', 'leftHand'],
-      leftHand: ['rightHand', 'leftHand'],
-      quickSlotA: ['quickSlotA', 'quickSlotB'],
-      quickSlotB: ['quickSlotA', 'quickSlotB']
-    };
-
     // Вычисляемое свойство для получения всех занятых ячеек в инвентаре
     const occupiedCells = computed((): CellPosition[] => {
       const cells: CellPosition[] = [];
@@ -615,9 +601,8 @@
     }
 
     const isItemCompatibleWithSlot = (item: Item, slotType: string): boolean => {
-      debugger
       if (!item.type) return false;
-      return slotCompatibility[item.itemType.codename]?.includes(slotType) || false;
+      return true;
     }
 
     const moveItem = (item: Item, targetX: number, targetY: number, source: 'inventory' | 'stash', target: 'inventory' | 'stash'): void => {
