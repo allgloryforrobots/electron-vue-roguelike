@@ -132,10 +132,10 @@
           >
             <i class="fa-solid fa-hand-fist inventory__slot-icon"></i>
             <InventoryItem 
-              v-if="playerStore.player.inventory.slots.complect1.rightHand.item"
-              :item="playerStore.player.inventory.slots.complect1.rightHand.item" 
+              v-if="playerStore.player.inventory.slots.rightHand.item"
+              :item="playerStore.player.inventory.slots.rightHand.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.complect1.rightHand.item, 'rightHand')"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.rightHand.item, 'rightHand')"
               @dragend="handleDragEnd"
             />
           </div>
@@ -150,10 +150,10 @@
           >
             <i class="fa-solid fa-shield inventory__slot-icon"></i>
             <InventoryItem 
-              v-if="playerStore.player.inventory.slots.complect1.leftHand.item"
-              :item="playerStore.player.inventory.slots.complect1.leftHand.item" 
+              v-if="playerStore.player.inventory.slots.leftHand.item"
+              :item="playerStore.player.inventory.slots.leftHand.item" 
               draggable="true"
-              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.complect1.leftHand.item, 'leftHand')"
+              @dragstart="handleEquipmentDragStart($event, playerStore.player.inventory.slots.leftHand.item, 'leftHand')"
               @dragend="handleDragEnd"
             />
           </div>
