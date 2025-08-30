@@ -1,67 +1,97 @@
 <template>
   <div class="character-stats">
-    
-    <div class="stats-grid">
-      <!-- 1 ряд 1 колонка - Основные характеристики -->
-      <DDCard class="stats-section main-stats">
-        <h4>Основные характеристики</h4>
-        <div class="stats-list">
-          <div v-for="(stat, key) in props.stats.characteristics" :key="key" class="stat-item">
-            <span class="stat-name">{{ stat.name }}: </span>
-            <span class="stat-value">{{ stat.getValue() }}</span>
-            <div class="stat-modifiers">
-              <span class="modifier" v-if="stat.self_value > 0">Базовое: +{{ stat.self_value }}</span>
-              <span class="modifier" v-if="stat.temp_modifiers !== 0">Временные: {{ stat.temp_modifiers }}</span>
-              <span class="modifier" v-if="stat.equip_modifiers !== 0">Экипировка: {{ stat.equip_modifiers }}</span>
+    <div class="character-stats__grid">
+      <!-- Основные характеристики -->
+      <DDCard class="character-stats__section character-stats__section--main">
+        <h4 class="character-stats__title">Основные характеристики</h4>
+        <div class="character-stats__list">
+          <div 
+            v-for="(stat, key) in props.stats.characteristics" 
+            :key="key" 
+            class="character-stats__item"
+          >
+            <span class="character-stats__name">{{ stat.name }}: </span>
+            <span class="character-stats__value">{{ stat.getValue() }}</span>
+            <div class="character-stats__modifiers">
+              <span 
+                class="character-stats__modifier" 
+                v-if="stat.self_value > 0"
+              >
+                Базовое: +{{ stat.self_value }}
+              </span>
+              <span 
+                class="character-stats__modifier" 
+                v-if="stat.temp_modifiers !== 0"
+              >
+                Временные: {{ stat.temp_modifiers }}
+              </span>
+              <span 
+                class="character-stats__modifier" 
+                v-if="stat.equip_modifiers !== 0"
+              >
+                Экипировка: {{ stat.equip_modifiers }}
+              </span>
             </div>
           </div>
         </div>
       </DDCard>
 
-      <!-- 1 ряд 2 колонка - Второстепенные характеристики -->
-      <DDCard class="stats-section secondary-stats">
-        <h4>Второстепенные характеристики</h4>
-        <div class="stats-list">
-          <div v-for="(stat, key) in props.stats.secondaryCharacteristics" :key="key" class="stat-item">
-            <span class="stat-name">{{ stat.name }}: </span>
-            <span class="stat-value">{{ stat.getValue() }}</span>
+      <!-- Второстепенные характеристики -->
+      <DDCard class="character-stats__section character-stats__section--secondary">
+        <h4 class="character-stats__title">Второстепенные характеристики</h4>
+        <div class="character-stats__list">
+          <div 
+            v-for="(stat, key) in props.stats.secondaryCharacteristics" 
+            :key="key" 
+            class="character-stats__item"
+          >
+            <span class="character-stats__name">{{ stat.name }}: </span>
+            <span class="character-stats__value">{{ stat.getValue() }}</span>
           </div>
         </div>
       </DDCard>
 
-      <!-- 1 ряд 3-4 колонки - Сопротивления -->
-      <DDCard class="stats-section resists">
-        <h4>Сопротивления</h4>
-        <div class="stats-list">
-          <div v-for="(stat, key) in props.stats.resists" :key="key" class="stat-item">
-            <span class="stat-name">{{ stat.name }}: </span>
-            <span class="stat-value">{{ stat.getValue() }}</span>
+      <!-- Сопротивления -->
+      <DDCard class="character-stats__section character-stats__section--resists">
+        <h4 class="character-stats__title">Сопротивления</h4>
+        <div class="character-stats__list">
+          <div 
+            v-for="(stat, key) in props.stats.resists" 
+            :key="key" 
+            class="character-stats__item"
+          >
+            <span class="character-stats__name">{{ stat.name }}: </span>
+            <span class="character-stats__value">{{ stat.getValue() }}</span>
           </div>
         </div>
       </DDCard>
 
-	  <DDCard class="stats-section skills-filters">
-			<!-- Компонент фильтра для групп навыков -->
-			<Filter 
-			:active-filter="activeSkillFilter" 
-			:filters="skillFilters"
-			@filter-change="handleSkillFilterChange" 
-			/>
-	  </DDCard>
+      <!-- Фильтры навыков -->
+      <DDCard class="character-stats__section character-stats__section--filters">
+        <Filter 
+          :active-filter="activeSkillFilter" 
+          :filters="skillFilters"
+          @filter-change="handleSkillFilterChange" 
+        />
+      </DDCard>
 
-      <!-- 2 ряд - Навыки по всей ширине -->
-      <DDCard class="stats-section skills">
-        <h4>Навыки</h4>
-        <div class="skills-grid">
+      <!-- Навыки -->
+      <DDCard class="character-stats__section character-stats__section--skills">
+        <h4 class="character-stats__title">Навыки</h4>
+        <div class="character-stats__skills-grid">
           <div 
             v-for="(group, groupKey) in filteredSkillGroups" 
             :key="groupKey" 
-            class="skill-group"
+            class="character-stats__skill-group"
           >
-			<div v-for="(stat, skillKey) in group.skills" :key="skillKey" class="stat-item">
-			<span class="stat-name">{{ (stat as Skill).name }}: </span>
-			<span class="stat-value">{{ (stat as Skill).getValue() }}</span>
-			</div>
+            <div 
+              v-for="(stat, skillKey) in group.skills" 
+              :key="skillKey" 
+              class="character-stats__item"
+            >
+              <span class="character-stats__name">{{ (stat as Skill).name }}: </span>
+              <span class="character-stats__value">{{ (stat as Skill).getValue() }}</span>
+            </div>
           </div>
         </div>
       </DDCard>
@@ -82,7 +112,6 @@
   const props = defineProps<Props>();
   const activeSkillFilter = ref('closeCombat');
 
-  // Фильтры для групп навыков на основе структуры skillsByGroups
   const skillFilters = [
     { id: 'special', label: 'Специальные' },
     { id: 'closeCombat', label: 'Ближний бой' },
@@ -99,7 +128,6 @@
     { id: 'technical', label: 'Технические' }
   ];
 
-  // Получаем все группы навыков
   const skillGroups = computed(() => {
     return Object.entries(props.stats.skillsByGroups).map(([key, group]) => ({
       id: key,
@@ -108,7 +136,6 @@
     }));
   });
 
-  // Фильтруем группы навыков в зависимости от выбранного фильтра
   const filteredSkillGroups = computed(() => {
     return skillGroups.value.filter(group => group.id === activeSkillFilter.value);
   });
@@ -119,50 +146,44 @@
 </script>
 
 <style scoped>
+.character-stats {
+  margin: 10px;
+}
 
-	.character-stats {
-		margin: 10px;
-	}
-  .stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
-  }
+.character-stats__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 16px;
+}
 
-  /* 1 ряд 1 колонка - Основные характеристики */
-  .main-stats {
-    grid-column: 1;
-    grid-row: 1;
-  }
+.character-stats__section {
+  padding: 16px;
+}
 
-  /* 1 ряд 2 колонка - Второстепенные характеристики */
-  .secondary-stats {
-    grid-column: 2;
-    grid-row: 1;
-  }
+.character-stats__section--main {
+  grid-column: 1;
+  grid-row: 1;
+}
 
-  /* 1 ряд 3-4 колонки - Сопротивления (занимает обе колонки) */
-  .resists {
-    grid-column: 3; /* Занимает от 1 до 3 колонки (две колонки) */
-    grid-row: 1;
-  }
+.character-stats__section--secondary {
+  grid-column: 2;
+  grid-row: 1;
+}
 
-  /* 2 ряд - Навыки по всей ширине */
-  .skills {
-    grid-column: 2;
-    grid-row: 2;
-  }
+.character-stats__section--resists {
+  grid-column: 3;
+  grid-row: 1;
+}
 
-  .skills-grid {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
+.character-stats__section--skills {
+  grid-column: 2;
+  grid-row: 2;
+}
 
-  .skills-filters {
-	grid-column: 1;
-    grid-row: 2;
-  }
+.character-stats__section--filters {
+  grid-column: 1;
+  grid-row: 2;
+}
 
 </style>
