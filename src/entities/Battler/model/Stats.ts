@@ -83,7 +83,7 @@ export function generateStats() {
     const appearance = new Characteristic({ name: "Внешность", codename: "appearance", icon: "fa-face-smile" });
 
     // Второстепенные характеристики
-    const combat_capability = new Characteristic({ name: "Боеспособность", codename: "combat_capability", icon: "fa-crosshairs" });
+    const combat_capability = new Characteristic({ name: "Боеспособность", codename: "combat_capability", icon: "fa-boxing-glove" });
     const sanity = new Characteristic({ name: "Рассудок", codename: "sanity", icon: "fa-head-side-virus" });
     const energy = new Characteristic({ name: "Энергия", codename: "energy", icon: "fa-bolt" });
     const mana = new Characteristic({ name: "Мана", codename: "mana", icon: "fa-fire-flame-curved" });
@@ -94,20 +94,20 @@ export function generateStats() {
     // Сопротивления
     const fire_resistance = new Resist({ name: "Сопротивление огню", codename: "fire_resistance", icon: "fa-fire" });
     const cold_resistance = new Resist({ name: "Сопротивление холоду", codename: "cold_resistance", icon: "fa-snowflake" });
-    const electricity_resistance = new Resist({ name: "Сопротивление электричеству", codename: "electricity_resistance", icon: "fa-bolt" });
+    const electricity_resistance = new Resist({ name: "Сопротивление электричеству", codename: "electricity_resistance", icon: "fa-bolt-lightning" });
     const poison_resistance = new Resist({ name: "Сопротивление яду", codename: "poison_resistance", icon: "fa-skull-crossbones" });
     const acid_resistance = new Resist({ name: "Сопротивление кислоте", codename: "acid_resistance", icon: "fa-flask" });
     const crushing_resistance = new Resist({ name: "Сопротивление дробящему", codename: "crushing_resistance", icon: "fa-hammer" });
     const piercing_resistance = new Resist({ name: "Сопротивление колющему", codename: "piercing_resistance", icon: "fa-arrow-right" });
     const cutting_resistance = new Resist({ name: "Сопротивление режущему", codename: "cutting_resistance", icon: "fa-scissors" });
-    const magic_resistance = new Resist({ name: "Сопротивление магии", codename: "magic_resistance", icon: "fa-shield-halved" });
+    const magic_resistance = new Resist({ name: "Сопротивление магии", codename: "magic_resistance", icon: "fa-hand-sparkles" });
     const psi_resistance = new Resist({ name: "Сопротивление ментальным эффектам", codename: "psi_resistance", icon: "fa-mind-share" });
-    const phis_resistance = new Resist({ name: "Сопротивление физическим эффектам", codename: "phis_resistance", icon: "fa-shield" });
+    const phis_resistance = new Resist({ name: "Сопротивление физическим эффектам", codename: "phis_resistance", icon: "fa-shield-halved" });
 
     // Боевые навыки
     const martial_arts = new Skill({ name: "Боевые искусства", codename: "martial_arts", icon: "fa-hand-fist" });
     const knife = new Skill({ name: "Ножевой бой", codename: "knife", icon: "fa-knife" });
-    const short_blades = new Skill({ name: "Короткие клинки", codename: "short_blades", icon: "fa-sword" });
+    const short_blades = new Skill({ name: "Короткие клинки", codename: "short_blades", icon: "fa-sword-laser" });
     const long_blades = new Skill({ name: "Длинные клинки", codename: "long_blades", icon: "fa-sword" });
     const mace_and_flail = new Skill({ name: "Булава и цеп", codename: "mace_and_flail", icon: "fa-mace" });
     const axes = new Skill({ name: "Секиры", codename: "axes", icon: "fa-axe" });
@@ -120,7 +120,7 @@ export function generateStats() {
     const attack_in_flight = new Skill({ name: "Атака в полете", codename: "attack_in_flight", icon: "fa-dove" });
     const ninjutsu = new Skill({ name: "Ниндзюцу", codename: "ninjutsu", icon: "fa-user-ninja" });
     const bow = new Skill({ name: "Лук", codename: "bow", icon: "fa-bow-arrow" });
-    const crossbow = new Skill({ name: "Арбалет", codename: "crossbow", icon: "fa-bow-arrow" });
+    const crossbow = new Skill({ name: "Арбалет", codename: "crossbow", icon: "fa-crosshairs" });
     const firearm = new Skill({ name: "Огнестрельное", codename: "firearm", icon: "fa-gun" });
     const heavy_weapons = new Skill({ name: "Тяжелое оружие", codename: "heavy_weapons", icon: "fa-explosion" });
     const shield = new Skill({ name: "Щит", codename: "shield", icon: "fa-shield" });
