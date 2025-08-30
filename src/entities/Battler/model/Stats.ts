@@ -85,6 +85,7 @@ export function generateStats() {
     const mana = new Characteristic({ name: "Мана", codename: "mana" });
     const actionPoints = new Characteristic({ name: "Очки действия", codename: "actionPoints" });
     const rangeOfVision = new Characteristic({ name: "Дальность зрения", codename: "rangeOfVision" });
+    const hearingRange = new Characteristic({ name: "Дальность слуха", codename: "hearingRange" });
 
     // Сопротивления
     const fire_resistance = new Resist({ name: "Сопротивление огню", codename: "fire_resistance" });
@@ -532,7 +533,8 @@ export function generateStats() {
         energy,
         mana,
         actionPoints,
-        rangeOfVision
+        rangeOfVision,
+        hearingRange,
     }
 
     return {
