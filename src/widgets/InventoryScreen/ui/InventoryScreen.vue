@@ -89,14 +89,6 @@
             @dragstart="handleDragStart($event, item, 'stash')"
             @dragend="handleDragEnd"
           />
-          
-          <!-- Превью перетаскиваемого предмета -->
-          <InventoryItem 
-            v-if="isDragging && draggedItem && dragPosition && currentGrid === 'stash'"
-            :style="getPreviewPosition()"
-            :item="draggedItem"
-            preview
-          />
         </div>
       </div>
     </div>
@@ -127,6 +119,9 @@
     const stashGridCells = ref(Array(gridColumns * gridRows).fill(0));
     const cellSize = 50; // размер ячейки в пикселях
     const gap = 2; // отступ между ячейками
+
+    // куда тянем в сетку
+    const targetPosition = ref<{x: number, y: number} | null>(null);
     
     // Предметы в инвентаре
     const inventoryItems = ref<Item[]>([
@@ -244,27 +239,11 @@
 
 
     const getItemPosition = (item: Item, gridType: 'inventory' | 'stash'): CSSProperties => {
-		return {
-			left: `${item.position.x * (cellSize + gap) + 5}px`,
-			top: `${item.position.y * (cellSize + gap) + 5}px`,
-			width: `${item.width * cellSize + (item.width - 1) * gap}px`,
-			height: `${item.height * cellSize + (item.height - 1) * gap}px`,
-		};
-	}
-
-    const getPreviewPosition = (): CSSProperties => {
-      if (!dragPosition.value || !gridRect.value) return {};
-      
-      const gridX = Math.floor((dragPosition.value.x - gridRect.value.left) / (cellSize + gap));
-      const gridY = Math.floor((dragPosition.value.y - gridRect.value.top) / (cellSize + gap));
-      
       return {
-        left: `${gridX * (cellSize + gap)}px`,
-        top: `${gridY * (cellSize + gap)}px`,
-        width: `${draggedItem.value!.width * cellSize + (draggedItem.value!.width - 1) * gap}px`,
-        height: `${draggedItem.value!.height * cellSize + (draggedItem.value!.height - 1) * gap}px`,
-        opacity: '0.8',
-        pointerEvents: 'none'
+        left: `${item.position.x * (cellSize + gap) + 5}px`,
+        top: `${item.position.y * (cellSize + gap) + 5}px`,
+        width: `${item.width * cellSize + (item.width - 1) * gap}px`,
+        height: `${item.height * cellSize + (item.height - 1) * gap}px`,
       };
     }
 
@@ -338,6 +317,8 @@
       
       const gridX = Math.floor((event.clientX - currentGridRect.left) / (cellSize + gap));
       const gridY = Math.floor((event.clientY - currentGridRect.top) / (cellSize + gap));
+
+      targetPosition.value = { x: gridX, y: gridY };
       
       highlightDropZone(gridX, gridY, gridType);
     }
@@ -355,29 +336,21 @@
 
     const handleGridDrop = (event: DragEvent, targetGrid: 'inventory' | 'stash'): void => {
       event.preventDefault();
-      if (!draggedItem.value || !dragPosition.value || !sourceGrid.value) return;
+      if (!draggedItem.value || !targetPosition.value || !sourceGrid.value) return;
       
-      const targetGridRect = targetGrid === 'inventory' 
-        ? gridElement.value?.getBoundingClientRect() 
-        : stashGridElement.value?.getBoundingClientRect();
-      
-      if (!targetGridRect) return;
-      
-      const gridX = Math.floor((dragPosition.value.x - targetGridRect.left) / (cellSize + gap));
-      const gridY = Math.floor((dragPosition.value.y - targetGridRect.top) / (cellSize + gap));
-      
-      if (canPlaceItem(draggedItem.value, gridX, gridY, targetGrid)) {
+      if (canPlaceItem(draggedItem.value, targetPosition.value.x, targetPosition.value.y, targetGrid)) {
         // Если предмет перетаскивается из экипировки
         if (sourceGrid.value === 'equipment' && draggedFromSlot.value) {
-          unequipItem(draggedFromSlot.value, gridX, gridY, targetGrid);
+          unequipItem(draggedFromSlot.value, targetPosition.value.x, targetPosition.value.y, targetGrid);
         } else {
           // Обычное перемещение между инвентарем и схроном
-          moveItem(draggedItem.value, gridX, gridY, sourceGrid.value as 'inventory' | 'stash', targetGrid);
+          moveItem(draggedItem.value, targetPosition.value.x, targetPosition.value.y, sourceGrid.value as 'inventory' | 'stash', targetGrid);
         }
       }
       
       highlightedCells.value = [];
       dragPosition.value = null;
+      targetPosition.value = null;
       currentGrid.value = null;
       sourceGrid.value = null;
       highlightedSlot.value = null;
@@ -481,6 +454,7 @@
     }
 
     const moveItem = (item: Item, targetX: number, targetY: number, source: 'inventory' | 'stash', target: 'inventory' | 'stash'): void => {
+
       if (source === 'inventory') {
         const sourceIndex = inventoryItems.value.findIndex(i => i.id === item.id);
         if (sourceIndex !== -1) {
@@ -492,13 +466,13 @@
           stashItems.value.splice(sourceIndex, 1);
         }
       }
-      
-      const updatedItem = { ...item, position: { x: targetX, y: targetY } };
-      
+
+      item.position = { x: targetX, y: targetY };
+    
       if (target === 'inventory') {
-        inventoryItems.value.push(updatedItem);
+        inventoryItems.value.push(item);
       } else {
-        stashItems.value.push(updatedItem);
+        stashItems.value.push(item);
       }
     }
     
@@ -506,11 +480,13 @@
     const unequipItem = (slotType: string, targetX: number, targetY: number, targetGrid: 'inventory' | 'stash'): void => {
       const slot = playerStore.player.inventory.slots[slotType as keyof typeof playerStore.player.inventory.slots];
       if (!slot.item) return;
+
+	  slot.item.position = { x: targetPosition.value.x, y: targetPosition.value.y };
       
       // Добавляем предмет в целевую сетку
       if (targetGrid === 'inventory') {
         inventoryItems.value.push(slot.item);
-      } else {
+      } else if (targetGrid === 'stash') {
         stashItems.value.push(slot.item);
       }
       
