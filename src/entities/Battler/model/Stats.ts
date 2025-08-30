@@ -88,7 +88,7 @@ export function generateStats() {
     const energy = new Characteristic({ name: "Энергия", codename: "energy", icon: "fa-bolt" });
     const mana = new Characteristic({ name: "Мана", codename: "mana", icon: "fa-fire-flame-curved" });
     const actionPoints = new Characteristic({ name: "Очки действия", codename: "actionPoints", icon: "fa-hourglass-half" });
-    const rangeOfVision = new Characteristic({ name: "Дальность зрения", codename: "rangeOfVision", icon: "fa-binoculars" });
+    const rangeOfVision = new Characteristic({ name: "Дальность зрения", codename: "rangeOfVision", icon: "fa-telescope" });
     const hearingRange = new Characteristic({ name: "Дальность слуха", codename: "hearingRange", icon: "fa-ear-listen" });
 
     // Сопротивления
@@ -120,7 +120,7 @@ export function generateStats() {
     const attack_in_flight = new Skill({ name: "Атака в полете", codename: "attack_in_flight", icon: "fa-dove" });
     const ninjutsu = new Skill({ name: "Ниндзюцу", codename: "ninjutsu", icon: "fa-user-ninja" });
     const bow = new Skill({ name: "Лук", codename: "bow", icon: "fa-bow-arrow" });
-    const crossbow = new Skill({ name: "Арбалет", codename: "crossbow", icon: "fa-crosshairs" });
+    const crossbow = new Skill({ name: "Арбалет", codename: "crossbow", icon: "fa-crosshairs-simple" });
     const firearm = new Skill({ name: "Огнестрельное", codename: "firearm", icon: "fa-gun" });
     const heavy_weapons = new Skill({ name: "Тяжелое оружие", codename: "heavy_weapons", icon: "fa-explosion" });
     const shield = new Skill({ name: "Щит", codename: "shield", icon: "fa-shield" });
@@ -169,7 +169,7 @@ export function generateStats() {
     // Ремесленные навыки
     const enchantment = new Skill({ name: "Зачарование", codename: "enchantment", icon: "fa-wand-sparkles" });
     const blacksmithing = new Skill({ name: "Кузнечное дело", codename: "blacksmithing", icon: "fa-hammer" });
-    const leatherworking = new Skill({ name: "Кожевничество", codename: "leatherworking", icon: "fa-leather" });
+    const leatherworking = new Skill({ name: "Кожевничество", codename: "leatherworking", icon: "fa-vest-patches" });
     const woodworking = new Skill({ name: "Столярное дело", codename: "woodworking", icon: "fa-tree" });
     const jewelry_making = new Skill({ name: "Ювелирное дело", codename: "jewelry_making", icon: "fa-gem" });
     const cooking = new Skill({ name: "Поварское дело", codename: "cooking", icon: "fa-utensils" });
@@ -178,12 +178,12 @@ export function generateStats() {
     const sex = new Skill({ name: "Секс", codename: "sex", icon: "fa-heart" });
 
     // Специализированные навыки
-    const traps = new Skill({ name: "Ловушки", codename: "traps", icon: "fa-trap" });
+    const traps = new Skill({ name: "Ловушки", codename: "traps", icon: "fa-sensor-triangle-exclamation" });
     const alchemy = new Skill({ name: "Алхимия", codename: "alchemy", icon: "fa-flask-potion" });
     const rewriting_the_scrolls = new Skill({ name: "Переписывание свитков", codename: "rewriting_the_scrolls", icon: "fa-scroll" });
     const herbology = new Skill({ name: "Гербология", codename: "herbology", icon: "fa-leaf" });
     const resource_extraction = new Skill({ name: "Добыча ресурсов", codename: "resource_extraction", icon: "fa-pickaxe" });
-    const hunting = new Skill({ name: "Охота", codename: "hunting", icon: "fa-crosshairs" });
+    const hunting = new Skill({ name: "Охота", codename: "hunting", icon: "fa-paw" });
     const cartography = new Skill({ name: "Картография", codename: "cartography", icon: "fa-map" });
 
     // Магические навыки
@@ -197,14 +197,14 @@ export function generateStats() {
     // Технические навыки
     const gunsmith = new Skill({ name: "Оружейник", codename: "gunsmith", icon: "fa-screwdriver-wrench" });
     const mechanics = new Skill({ name: "Механика", codename: "mechanics", icon: "fa-gears" });
-    const electrics = new Skill({ name: "Электрика", codename: "electrics", icon: "fa-bolt" });
+    const electrics = new Skill({ name: "Электрика", codename: "electrics", icon: "fa-plug" });
     const metallurgy = new Skill({ name: "Металлургия", codename: "metallurgy", icon: "fa-industry" });
     const implants = new Skill({ name: "Импланты", codename: "implants", icon: "fa-microchip" });
 
     // Специальные навыки (спецнавыки)
     const tough_skin = new Skill({ name: "Прочная шкура", codename: "tough_skin", icon: "fa-shield-alt" });
     const quick_reaction = new Skill({ name: "Быстрая реакция", codename: "quick_reaction", icon: "fa-bolt" });
-    const sharp_eye = new Skill({ name: "Острый глаз", codename: "sharp_eye", icon: "fa-eye" });
+    const sharp_eye = new Skill({ name: "Острый глаз", codename: "sharp_eye", icon: "" });
     const powerful_magic = new Skill({ name: "Мощная магия", codename: "powerful_magic", icon: "fa-fire-flame" });
     const power_of_the_mind = new Skill({ name: "Сила Разума", codename: "power_of_the_mind", icon: "fa-brain" });
     const power_of_charisma = new Skill({ name: "Сила харизмы", codename: "power_of_charisma", icon: "fa-crown" });
