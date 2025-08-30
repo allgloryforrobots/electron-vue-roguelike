@@ -5,34 +5,15 @@
 			<DDCard class="character-stats__section character-stats__section--main">
 				<h4 class="character-stats__title">Основные характеристики</h4>
 				<div class="character-stats__list">
-				<div 
-					v-for="(stat, key) in props.stats.characteristics" 
-					:key="key" 
-					class="character-stats__item"
-				>
-					<span class="character-stats__name">{{ stat.name }}: </span>
-					<span class="character-stats__value">{{ stat.getValue() }}</span>
-					<div class="character-stats__modifiers">
-					<span 
-						class="character-stats__modifier" 
-						v-if="stat.self_value > 0"
+					<div 
+						v-for="(stat, key) in props.stats.characteristics" 
+						:key="key" 
+						class="character-stats__item"
 					>
-						Базовое: +{{ stat.self_value }}
-					</span>
-					<span 
-						class="character-stats__modifier" 
-						v-if="stat.temp_modifiers !== 0"
-					>
-						Временные: {{ stat.temp_modifiers }}
-					</span>
-					<span 
-						class="character-stats__modifier" 
-						v-if="stat.equip_modifiers !== 0"
-					>
-						Экипировка: {{ stat.equip_modifiers }}
-					</span>
+						<DDIcon :icon="stat.icon"/>
+						<span class="character-stats__name">{{ stat.name }}: </span>
+						<span class="character-stats__value">{{ stat.getValue() }}</span>
 					</div>
-				</div>
 				</div>
 			</DDCard>
 
@@ -40,14 +21,15 @@
 			<DDCard class="character-stats__section character-stats__section--secondary">
 				<h4 class="character-stats__title">Второстепенные характеристики</h4>
 				<div class="character-stats__list">
-				<div 
-					v-for="(stat, key) in props.stats.secondaryCharacteristics" 
-					:key="key" 
-					class="character-stats__item"
-				>
-					<span class="character-stats__name">{{ stat.name }}: </span>
-					<span class="character-stats__value">{{ stat.getValue() }}</span>
-				</div>
+					<div 
+						v-for="(stat, key) in props.stats.secondaryCharacteristics" 
+						:key="key" 
+						class="character-stats__item"
+					>
+						<DDIcon :icon="stat.icon"/>
+						<span class="character-stats__name">{{ stat.name }}: </span>
+						<span class="character-stats__value">{{ stat.getValue() }}</span>
+					</div>
 				</div>
 			</DDCard>
 
@@ -55,14 +37,15 @@
 			<DDCard class="character-stats__section character-stats__section--resists">
 				<h4 class="character-stats__title">Сопротивления</h4>
 				<div class="character-stats__list">
-				<div 
-					v-for="(stat, key) in props.stats.resists" 
-					:key="key" 
-					class="character-stats__item"
-				>
-					<span class="character-stats__name">{{ stat.name }}: </span>
-					<span class="character-stats__value">{{ stat.getValue() }}</span>
-				</div>
+					<div 
+						v-for="(stat, key) in props.stats.resists" 
+						:key="key" 
+						class="character-stats__item"
+					>	
+						<DDIcon :icon="stat.icon"/>
+						<span class="character-stats__name">{{ stat.name }}: </span>
+						<span class="character-stats__value">{{ stat.getValue() }}</span>
+					</div>
 				</div>
 			</DDCard>
 
@@ -85,12 +68,13 @@
 					class="character-stats__skill-group"
 				>
 					<div 
-					v-for="(stat, skillKey) in group.skills" 
-					:key="skillKey" 
-					class="character-stats__item"
+						v-for="(stat, skillKey) in group.skills" 
+						:key="skillKey" 
+						class="character-stats__item"
 					>
-					<span class="character-stats__name">{{ (stat as Skill).name }}: </span>
-					<span class="character-stats__value">{{ (stat as Skill).getValue() }}</span>
+						<DDIcon :icon="(stat as Skill).icon"/>
+						<span class="character-stats__name">{{ (stat as Skill).name }}: </span>
+						<span class="character-stats__value">{{ (stat as Skill).getValue() }}</span>
 					</div>
 				</div>
 				</div>
@@ -104,6 +88,7 @@
 	import { GenerateStatsReturnType, Skill } from '@/entities/Battler';
 	import DDCard from '@/shared/ui/DDCard/DDCard.vue';
 	import Filter from '@/shared/ui/Filters/Filters.vue';
+	import DDIcon from '@/shared/ui/DDIcon/DDIcon.vue';
 	
 	interface Props {
 		stats: GenerateStatsReturnType; 
@@ -148,6 +133,12 @@
 <style scoped lang="scss">
 	.character-stats {
 		margin: 10px;
+
+		&__item {
+			display: flex;
+			gap: 10px;
+			align-items: baseline;
+		}
 
 		&__grid {
 			display: grid;
