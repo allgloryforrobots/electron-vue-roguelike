@@ -1,7 +1,7 @@
 <template>
-  <div class="dd-card">
-    <slot />
-  </div>
+	<div class="dd-card">
+		<slot />
+	</div>
 </template>
 
 <!-- <DDCard>
@@ -18,6 +18,8 @@
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
+        width: fit-content;
+        margin: 10px;
     }
 
     .dd-card::before {

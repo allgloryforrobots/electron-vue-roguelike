@@ -355,8 +355,8 @@ export function generateStats() {
                 style_icon
             }
         },
-        combat: {
-            name: "Боевые навыки",
+        closeCombat: {
+            name: "Ближний бой",
             skills: {
                 martial_arts,
                 knife,
@@ -366,23 +366,43 @@ export function generateStats() {
                 axes,
                 pole,
                 throws_and_slings,
-                exotic_weapons,
+                bow,
+                crossbow,
+                firearm,
+                wand
+            }
+        },
+        rangeCombat: {
+            name: "Дальний бой",
+            skills: {
+                throws_and_slings,
+                bow,
+                crossbow,
+                firearm,
+                wand
+            }
+        },
+        finesse: {
+            name: "Искусность",
+            skills: {
                 horse_fight,
                 critical_hit,
                 dual_wield,
                 attack_in_flight,
                 ninjutsu,
-                bow,
-                crossbow,
-                firearm,
                 heavy_weapons,
+                exotic_weapons
+            }
+        },
+        defence: {
+            name: "Защита",
+            skills: {
                 shield,
                 parry,
                 evasion,
                 light_armor,
                 heavy_armor,
                 unarmored_combat,
-                wand
             }
         },
         physical: {
