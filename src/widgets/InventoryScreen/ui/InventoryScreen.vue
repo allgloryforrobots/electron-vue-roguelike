@@ -506,8 +506,11 @@
         if (sourceIndex !== -1) {
           stashItems.value.splice(sourceIndex, 1);
         }
-      }
-      // Если предмет из другого слота экипировки, не нужно удалять - он уже в слоте
+      } else if (source === 'equipment' && draggedFromSlot.value) {
+		// если тянем из одного слота экипировки в другой, то зачищаем слот, откуда тянули
+		playerStore.player.inventory.slots[draggedFromSlot.value].item = null;
+	  }
+      
       
       // Экипируем предмет
       playerStore.player.inventory.slots[slotType].item = item;
