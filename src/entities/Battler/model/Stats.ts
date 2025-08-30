@@ -53,7 +53,7 @@ class Characteristic extends Stat {
     }
 }
 
-class Skill extends Stat {
+export class Skill extends Stat {
     constructor(options: IStatOptions) {
         super(options);
     }
@@ -64,6 +64,8 @@ class Resist extends Stat {
         super(options);
     }
 }
+
+export type GenerateStatsReturnType = ReturnType<typeof generateStats>;
 
 export function generateStats() {
     // Характеристики
@@ -122,7 +124,7 @@ export function generateStats() {
     const light_armor = new Skill({ name: "Легкая броня", codename: "light_armor" });
     const heavy_armor = new Skill({ name: "Тяжелая броня", codename: "heavy_armor" });
     const unarmored_combat = new Skill({ name: "Бездоспешный бой", codename: "unarmored_combat" });
-    const wand = new Skill({ name: "Бездоспешный бой", codename: "wand" });
+    const wand = new Skill({ name: "Волшебные палочки", codename: "wand" });
     
     // Физические навыки
     const swimming = new Skill({ name: "Плавание", codename: "swimming" });
@@ -339,6 +341,146 @@ export function generateStats() {
         implants 
     };
 
+    const skillsByGroups = {
+        special: {
+            name: "Специальные навыки",
+            skills: {
+                tough_skin,
+                quick_reaction,
+                sharp_eye,
+                powerful_magic,
+                power_of_the_mind,
+                power_of_charisma,
+                steel_fortitude,
+                style_icon
+            }
+        },
+        combat: {
+            name: "Боевые навыки",
+            skills: {
+                martial_arts,
+                knife,
+                short_blades,
+                long_blades,
+                mace_and_flail,
+                axes,
+                pole,
+                throws_and_slings,
+                exotic_weapons,
+                horse_fight,
+                critical_hit,
+                dual_wield,
+                attack_in_flight,
+                ninjutsu,
+                bow,
+                crossbow,
+                firearm,
+                heavy_weapons,
+                shield,
+                parry,
+                evasion,
+                light_armor,
+                heavy_armor,
+                unarmored_combat,
+                wand
+            }
+        },
+        physical: {
+            name: "Физические навыки",
+            skills: {
+                swimming,
+                climbing,
+                acrobatics,
+                athletics,
+                stealth,
+                scouting,
+                augmentations
+            }
+        },
+        social: {
+            name: "Социальные навыки",
+            skills: {
+                resolve,
+                intimidation,
+                bluff,
+                diplomacy,
+                manipulation,
+                seduction,
+                psychology
+            }
+        },
+        intellectual: {
+            name: "Интеллектуальные навыки",
+            skills: {
+                performance,
+                investigation,
+                medicine,
+                knowledge,
+                trade,
+                concentration,
+                artifacts,
+                tactics
+            }
+        },
+        thieving: {
+            name: "Воровские навыки",
+            skills: {
+                safecracker,
+                steal,
+                infomantia,
+                gambling,
+                piloting
+            }
+        },
+        crafting: {
+            name: "Ремесленные навыки",
+            skills: {
+                enchantment,
+                blacksmithing,
+                leatherworking,
+                woodworking,
+                jewelry_making,
+                cooking,
+                animal_training,
+                farming,
+                sex
+            }
+        },
+        specialized: {
+            name: "Специализированные навыки",
+            skills: {
+                traps,
+                alchemy,
+                rewriting_the_scrolls,
+                herbology,
+                resource_extraction,
+                hunting,
+                cartography
+            }
+        },
+        magical: {
+            name: "Магические навыки",
+            skills: {
+                biomancy,
+                cryptomagic,
+                white_magic,
+                psionics,
+                black_magic,
+                wild_magic
+            }
+        },
+        technical: {
+            name: "Технические навыки",
+            skills: {
+                gunsmith,
+                mechanics,
+                electrics,
+                metallurgy,
+                implants
+            }
+        }
+    };
+
     const constants = {
         // базовый шанс попадания
         attackBase: 60,
@@ -378,6 +520,7 @@ export function generateStats() {
         secondaryCharacteristics,
         resists,
         skills,
-        constants
+        constants,
+        skillsByGroups
     };
 }

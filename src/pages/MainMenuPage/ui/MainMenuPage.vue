@@ -7,7 +7,7 @@
 	const router = useRouter()
 
 	function newGame() {
-		router.push(ROUTES.INVENTORY)
+		router.push(ROUTES.CHARACTER)
 	}
 
   function continueGame() {
@@ -51,7 +51,7 @@
 
 <style scoped lang="scss">
   .center-block {
-    margin: 20% auto 25% auto;
+    margin: 15% auto 25% auto;
     width: 700px;
     display: flex;
     flex-direction: column;

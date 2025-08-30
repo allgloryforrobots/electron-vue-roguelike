@@ -5,6 +5,7 @@ import { MainMenuPage } from '@/pages/MainMenuPage';
 import GamePage from '@/pages/GamePage/ui/GamePage.vue';
 import { InventoryPage } from '@/pages/InventoryPage';
 import LayoutWithNavbar from '../ui/LayoutWithNavbar.vue'
+import { CharacterStatsPage } from '@/pages/CharacterStatsPage';
 
 export const ROUTES = {
   WELCOME: '/welcome',
@@ -36,7 +37,7 @@ const router = createRouter({
     // Layout с navbar для этих страниц
     {
       path: '/',
-      component: LayoutWithNavbar, // Основной layout
+      component: LayoutWithNavbar,
       children: [
         {
           path: ROUTES.EXAMPLES,
@@ -50,8 +51,13 @@ const router = createRouter({
         },
         {
           path: ROUTES.INVENTORY,
-          name: 'inventory', // Исправил имя (было дублирование 'grid')
+          name: 'inventory',
           component: InventoryPage,
+        },
+        {
+          path: ROUTES.CHARACTER,
+          name: 'character',
+          component: CharacterStatsPage,
         },
       ]
     },
