@@ -10,9 +10,9 @@ interface ISlotInventoryOptions {
 
 export class InventorySlot {
     name: string;
-    codename: string;
+    codename: InventorySlotItemType;
     locked: boolean = false;
-    item = null;
+    item: Item | null = null;
     inventoryOptions: ISlotInventoryOptions;
 
     constructor(name: string, codename: InventorySlotItemType, inventoryOptions: ISlotInventoryOptions) {

@@ -182,7 +182,7 @@
 
     // Drag and Drop переменные
     const draggedItem = ref<Item | null>(null);
-    const draggedFromSlot = ref<string | null>(null); // Добавляем для отслеживания слота экипировки
+    const draggedFromSlot = ref<InventorySlotKeys | null>(null); // Добавляем для отслеживания слота экипировки
     const isDragging = ref(false);
     const highlightedCells = ref<number[]>([]);
     const dragPosition = ref<{x: number, y: number} | null>(null);
@@ -264,7 +264,7 @@
     }
 
     // Новый обработчик для перетаскивания из экипировки
-    const handleEquipmentDragStart = (event: DragEvent, item: any, slotType: string): void => {
+    const handleEquipmentDragStart = (event: DragEvent, item: any, slotType: InventorySlotKeys): void => {
       if (!item) return;
       
       draggedItem.value = item;
@@ -477,11 +477,11 @@
     }
     
     // Новая функция для снятия предмета с экипировки
-    const unequipItem = (slotType: string, targetX: number, targetY: number, targetGrid: 'inventory' | 'stash'): void => {
-      const slot = playerStore.player.inventory.slots[slotType as keyof typeof playerStore.player.inventory.slots];
+    const unequipItem = (slotType: InventorySlotKeys, targetX: number, targetY: number, targetGrid: 'inventory' | 'stash'): void => {
+      const slot = playerStore.player.inventory.slots[slotType];
       if (!slot.item) return;
 
-	  slot.item.position = { x: targetPosition.value.x, y: targetPosition.value.y };
+	  slot.item.position = { x: targetX, y: targetY };
       
       // Добавляем предмет в целевую сетку
       if (targetGrid === 'inventory') {
@@ -494,7 +494,7 @@
       slot.item = null;
     }
     
-    const equipItem = (item: Item, slotType: string, source: 'inventory' | 'stash' | 'equipment'): void => {
+    const equipItem = (item: Item, slotType: InventorySlotItemType, source: 'inventory' | 'stash' | 'equipment'): void => {
       // Если предмет из инвентаря или схрона, удаляем его оттуда
       if (source === 'inventory') {
         const sourceIndex = inventoryItems.value.findIndex(i => i.id === item.id);
@@ -510,9 +510,8 @@
       // Если предмет из другого слота экипировки, не нужно удалять - он уже в слоте
       
       // Экипируем предмет
-      playerStore.player.inventory.slots[slotType as keyof typeof playerStore.player.inventory.slots].item = item;
+      playerStore.player.inventory.slots[slotType].item = item;
       
-      console.log(`Item "${item.name}" equipped to ${slotType}`);
     }
   
 </script>
