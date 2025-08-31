@@ -27,10 +27,8 @@ export const tooltips = {
         cutting_resistance: { text: "Сопротивление режущим атакам и клинкам." },
         magic_resistance: { text: "Общая защита от магического воздействия и заклинаний." },
         psi_resistance: { text: "Защита от ментальных атак и псионических способностей." },
-        phis_resistance: { text: "Сопротивление физическим эффектам (оглушение, отталкивание)." }
-    },
-    
-    skills: {
+        phis_resistance: { text: "Сопротивление физическим эффектам (оглушение, отталкивание)." },
+
         martial_arts: { text: "Владение техниками рукопашного боя без оружия." },
         knife: { text: "Искусство боя ножами и кинжалами. Точные и быстрые атаки." },
         short_blades: { text: "Владение короткими мечами и клинками. Идеально для ближнего боя." },
@@ -131,6 +129,7 @@ export const tooltips = {
 };
 
 export const getStatTooltipByName = (name: string) => {
+    console.log(name, tooltips.stats[name as keyof typeof tooltips.stats])
     if (name in tooltips.stats) {
         return tooltips.stats[name as keyof typeof tooltips.stats];
     }

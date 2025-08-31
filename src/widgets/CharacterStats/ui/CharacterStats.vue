@@ -27,10 +27,11 @@
 						v-for="(stat, key) in props.stats.secondaryCharacteristics" 
 						:key="key" 
 						class="character-stats__item"
-					>
-						<DDIcon :icon="stat.icon"/>
-						<span class="character-stats__name">{{ stat.name }}: </span>
-						<span class="character-stats__value">{{ stat.getValue() }}</span>
+					>	<DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
+							<DDIcon :icon="stat.icon"/>
+							<span class="character-stats__name">{{ stat.name }}: </span>
+							<span class="character-stats__value">{{ stat.getValue() }}</span>
+						</DDTooltip>
 					</div>
 				</div>
 			</DDCard>
@@ -45,7 +46,7 @@
 							:key="key" 
 							class="character-stats__item"
 						>	
-							<DDTooltip text="Тултип">
+							<DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
 								<DDIcon :icon="stat.icon"/>
 								<span class="character-stats__name">{{ stat.name }}: </span>
 								<span class="character-stats__value">{{ stat.getValue() }}</span>
@@ -77,9 +78,11 @@
 						:key="skillKey" 
 						class="character-stats__item"
 					>
-						<DDIcon :icon="(stat as Skill).icon"/>
-						<span class="character-stats__name">{{ (stat as Skill).name }}: </span>
-						<span class="character-stats__value">{{ (stat as Skill).getValue() }}</span>
+						<DDTooltip :tooltip="getStatTooltipByName((stat as Skill).codename)">
+							<DDIcon :icon="(stat as Skill).icon"/>
+							<span class="character-stats__name">{{ (stat as Skill).name }}: </span>
+							<span class="character-stats__value">{{ (stat as Skill).getValue() }}</span>
+						</DDTooltip>
 					</div>
 				</div>
 				</div>
