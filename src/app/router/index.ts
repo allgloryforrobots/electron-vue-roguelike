@@ -6,6 +6,7 @@ import GamePage from '@/pages/GamePage/ui/GamePage.vue';
 import { InventoryPage } from '@/pages/InventoryPage';
 import LayoutWithNavbar from '../ui/LayoutWithNavbar.vue'
 import { CharacterStatsPage } from '@/pages/CharacterStatsPage';
+import { DisarmTrapsPage } from '@/pages/DisarmTrapsPage';
 
 export const ROUTES = {
   WELCOME: '/welcome',
@@ -18,7 +19,8 @@ export const ROUTES = {
   REPUTATION: '/reputation',
   NOTES: '/notes',
   EVIDENCE: '/evidence',
-  TIPS: '/tips'
+  TIPS: '/tips',
+  DISARM_TRAPS: '/disarm_traps'
 }
 
 const router = createRouter({
@@ -33,6 +35,11 @@ const router = createRouter({
       path: ROUTES.WELCOME,
       name: 'welcome',
       component: WelcomePage,
+    },
+    {
+      path: ROUTES.DISARM_TRAPS,
+      name: 'disarm_traps',
+      component: DisarmTrapsPage,
     },
     // Layout с navbar для этих страниц
     {
