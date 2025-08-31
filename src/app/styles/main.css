@@ -27,6 +27,52 @@
   --z-tooltip: 10;
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color-medium);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    135deg,
+    var(--accent-color-8) 0%,
+    var(--accent-color-1) 50%,
+    var(--accent-color-8) 100%
+  );
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    135deg,
+    var(--accent-color-1) 0%,
+    var(--accent-color-gold) 50%,
+    var(--accent-color-1) 100%
+  );
+  box-shadow: 0 0 4px var(--accent-color-gold);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    135deg,
+    var(--accent-color-gold) 0%,
+    var(--accent-color-2) 50%,
+    var(--accent-color-gold) 100%
+  );
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--background-color-medium);
+}
+
+
 @font-face {
   font-family: 'Skyhook';
   src: url('@/shared/assets/fonts/Skyhook.otf') format('truetype');

@@ -129,7 +129,6 @@ export const tooltips = {
 };
 
 export const getStatTooltipByName = (name: string) => {
-    console.log(name, tooltips.stats[name as keyof typeof tooltips.stats])
     if (name in tooltips.stats) {
         return tooltips.stats[name as keyof typeof tooltips.stats];
     }
