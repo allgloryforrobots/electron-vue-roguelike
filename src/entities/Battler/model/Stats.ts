@@ -113,22 +113,22 @@ export function generateStats() {
     const axes = new Skill({ name: "Секиры", codename: "axes", icon: "fa-axe" });
     const pole = new Skill({ name: "Древковое", codename: "pole", icon: "fa-staff" });
     const throws_and_slings = new Skill({ name: "Броски и праща", codename: "throws_and_slings", icon: "fa-baseball" });
-    const exotic_weapons = new Skill({ name: "Экзотическое оружие", codename: "exotic_weapons", icon: "fa-star" });
+    const exotic_weapons = new Skill({ name: "Экзотическое оружие", codename: "exotic_weapons", icon: "fa-khanda" });
     const horse_fight = new Skill({ name: "Конный бой", codename: "horse_fight", icon: "fa-horse" });
     const critical_hit = new Skill({ name: "Критический удар", codename: "critical_hit", icon: "fa-crosshairs" });
     const dual_wield = new Skill({ name: "Два оружия", codename: "dual_wield", icon: "fa-swords" });
     const attack_in_flight = new Skill({ name: "Атака в полете", codename: "attack_in_flight", icon: "fa-dove" });
     const ninjutsu = new Skill({ name: "Ниндзюцу", codename: "ninjutsu", icon: "fa-user-ninja" });
     const bow = new Skill({ name: "Лук", codename: "bow", icon: "fa-bow-arrow" });
-    const crossbow = new Skill({ name: "Арбалет", codename: "crossbow", icon: "fa-crosshairs-simple" });
+    const crossbow = new Skill({ name: "Арбалет", codename: "crossbow", icon: "fa-bullseye-arrow" });
     const firearm = new Skill({ name: "Огнестрельное", codename: "firearm", icon: "fa-gun" });
     const heavy_weapons = new Skill({ name: "Тяжелое оружие", codename: "heavy_weapons", icon: "fa-explosion" });
-    const shield = new Skill({ name: "Щит", codename: "shield", icon: "fa-shield" });
-    const parry = new Skill({ name: "Парирование", codename: "parry", icon: "fa-shield-blank" });
-    const evasion = new Skill({ name: "Уклонение", codename: "evasion", icon: "fa-person-running" });
+    const shield = new Skill({ name: "Щит", codename: "shield", icon: "fa-shield-cross" });
+    const parry = new Skill({ name: "Парирование", codename: "parry", icon: "fa-arrow-up-to-arc" });
+    const evasion = new Skill({ name: "Уклонение", codename: "evasion", icon: "fa-person-running-fast" });
     const light_armor = new Skill({ name: "Легкая броня", codename: "light_armor", icon: "fa-vest" });
     const heavy_armor = new Skill({ name: "Тяжелая броня", codename: "heavy_armor", icon: "fa-helmet-battle" });
-    const unarmored_combat = new Skill({ name: "Бездоспешный бой", codename: "unarmored_combat", icon: "fa-hand-fist" });
+    const unarmored_combat = new Skill({ name: "Бездоспешный бой", codename: "unarmored_combat", icon: "fa-transporter-1" });
     const wand = new Skill({ name: "Волшебные палочки", codename: "wand", icon: "fa-wand-magic" });
 
     // Физические навыки
@@ -183,7 +183,7 @@ export function generateStats() {
     const rewriting_the_scrolls = new Skill({ name: "Переписывание свитков", codename: "rewriting_the_scrolls", icon: "fa-scroll" });
     const herbology = new Skill({ name: "Гербология", codename: "herbology", icon: "fa-leaf" });
     const resource_extraction = new Skill({ name: "Добыча ресурсов", codename: "resource_extraction", icon: "fa-pickaxe" });
-    const hunting = new Skill({ name: "Охота", codename: "hunting", icon: "fa-paw" });
+    const hunting = new Skill({ name: "Охота", codename: "hunting", icon: "fa-democrat" });
     const cartography = new Skill({ name: "Картография", codename: "cartography", icon: "fa-map" });
 
     // Магические навыки
@@ -199,14 +199,14 @@ export function generateStats() {
     const mechanics = new Skill({ name: "Механика", codename: "mechanics", icon: "fa-gears" });
     const electrics = new Skill({ name: "Электрика", codename: "electrics", icon: "fa-plug" });
     const metallurgy = new Skill({ name: "Металлургия", codename: "metallurgy", icon: "fa-industry" });
-    const implants = new Skill({ name: "Импланты", codename: "implants", icon: "fa-microchip" });
+    const implants = new Skill({ name: "Импланты", codename: "implants", icon: "fa-microchip-ai" });
 
     // Специальные навыки (спецнавыки)
     const tough_skin = new Skill({ name: "Прочная шкура", codename: "tough_skin", icon: "fa-shield-alt" });
-    const quick_reaction = new Skill({ name: "Быстрая реакция", codename: "quick_reaction", icon: "fa-bolt" });
-    const sharp_eye = new Skill({ name: "Острый глаз", codename: "sharp_eye", icon: "" });
+    const quick_reaction = new Skill({ name: "Быстрая реакция", codename: "quick_reaction", icon: "fa-cat" });
+    const sharp_eye = new Skill({ name: "Острый глаз", codename: "sharp_eye", icon: "fa-arrows-to-eye" });
     const powerful_magic = new Skill({ name: "Мощная магия", codename: "powerful_magic", icon: "fa-fire-flame" });
-    const power_of_the_mind = new Skill({ name: "Сила Разума", codename: "power_of_the_mind", icon: "fa-brain" });
+    const power_of_the_mind = new Skill({ name: "Сила Разума", codename: "power_of_the_mind", icon: "fa-head-side" });
     const power_of_charisma = new Skill({ name: "Сила харизмы", codename: "power_of_charisma", icon: "fa-crown" });
     const steel_fortitude = new Skill({ name: "Стальная стойкость", codename: "steel_fortitude", icon: "fa-shield-virus" });
     const style_icon = new Skill({ name: "Икона стиля", codename: "style_icon", icon: "fa-star" });
@@ -370,11 +370,6 @@ export function generateStats() {
                 mace_and_flail,
                 axes,
                 pole,
-                throws_and_slings,
-                bow,
-                crossbow,
-                firearm,
-                wand
             }
         },
         rangeCombat: {
