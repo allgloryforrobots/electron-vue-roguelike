@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="dd-tooltip-container" 
+    class="tooltip" 
     ref="containerRef"
     @mouseenter="showTooltip"
     @mouseleave="hideTooltip"
@@ -10,7 +10,7 @@
 
   <Teleport to="body" v-if="isVisible && tooltip">
     <div 
-      class="dd-tooltip-bubble" 
+      class="tooltip__bubble" 
       :class="bubbleClass"
       ref="bubbleRef"
       :style="bubbleStyle"
@@ -37,7 +37,7 @@ const isVisible = ref(false)
 const bubblePosition = ref({ top: 0, left: 0 })
 
 // Определяем класс для позиции
-const bubbleClass = computed(() => `dd-tooltip-${position.value}`)
+const bubbleClass = computed(() => `tooltip__bubble--${position.value}`)
 
 // Стили для позиционирования через портал
 const bubbleStyle = computed(() => ({
@@ -147,7 +147,7 @@ const hideTooltip = () => {
 </script>
 
 <style>
-.dd-tooltip-container {
+.tooltip {
   position: relative;
   display: flex;
   align-items: baseline;
@@ -155,7 +155,7 @@ const hideTooltip = () => {
   isolation: isolate;
 }
 
-.dd-tooltip-bubble {
+.tooltip__bubble {
   position: fixed;
   width: 300px;
   height: fit-content;
@@ -167,10 +167,10 @@ const hideTooltip = () => {
   z-index: var(--z-tooltip);
   pointer-events: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  animation: tooltipFadeIn 0.3s ease;
+  animation: tooltip-fade-in 0.3s ease;
 }
 
-@keyframes tooltipFadeIn {
+@keyframes tooltip-fade-in {
   from {
     opacity: 0;
     transform: translateY(-5px);
@@ -182,7 +182,7 @@ const hideTooltip = () => {
 }
 
 /* Стрелочки для тултипа */
-.dd-tooltip-bubble::before {
+.tooltip__bubble::before {
   content: '';
   position: absolute;
   width: 0;
@@ -190,28 +190,28 @@ const hideTooltip = () => {
   border: 6px solid transparent;
 }
 
-.dd-tooltip-right::before {
+.tooltip__bubble--right::before {
   left: -12px;
   top: 50%;
   transform: translateY(-50%);
   border-right-color: var(--border-color);
 }
 
-.dd-tooltip-left::before {
+.tooltip__bubble--left::before {
   right: -12px;
   top: 50%;
   transform: translateY(-50%);
   border-left-color: var(--border-color);
 }
 
-.dd-tooltip-top::before {
+.tooltip__bubble--top::before {
   bottom: -12px;
   left: 50%;
   transform: translateX(-50%);
   border-top-color: var(--border-color);
 }
 
-.dd-tooltip-bottom::before {
+.tooltip__bubble--bottom::before {
   top: -12px;
   left: 50%;
   transform: translateX(-50%);

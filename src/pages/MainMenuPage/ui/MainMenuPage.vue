@@ -7,7 +7,7 @@
 	const router = useRouter()
 
 	function newGame() {
-		router.push(ROUTES.DISARM_TRAPS)
+		router.push(ROUTES.CHARACTER)
 	}
 
   function continueGame() {
