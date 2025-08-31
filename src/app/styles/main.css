@@ -24,6 +24,7 @@
   --grid-row-length: 50;
 
   --z-battlers: 1;
+  --z-tooltip: 10;
 }
 
 @font-face {

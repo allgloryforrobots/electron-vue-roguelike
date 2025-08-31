@@ -17,7 +17,6 @@
         border-radius: 4px;
         transition: all 0.3s ease;
         position: relative;
-        overflow: hidden;
         width: fit-content;
         margin: 10px;
     }

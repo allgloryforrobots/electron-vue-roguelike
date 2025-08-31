@@ -10,9 +10,11 @@
 						:key="key" 
 						class="character-stats__item"
 					>
-						<DDIcon :icon="stat.icon"/>
-						<span class="character-stats__name">{{ stat.name }}: </span>
-						<span class="character-stats__value">{{ stat.getValue() }}</span>
+						<DDTooltip text="Тултип">
+							<DDIcon :icon="stat.icon"/>
+							<span class="character-stats__name">{{ stat.name }}: </span>
+							<span class="character-stats__value">{{ stat.getValue() }}</span>
+						</DDTooltip>
 					</div>
 				</div>
 			</DDCard>
@@ -37,15 +39,18 @@
 			<DDCard class="character-stats__section character-stats__section--resists">
 				<h4 class="character-stats__title">Сопротивления</h4>
 				<div class="character-stats__list">
-					<div 
-						v-for="(stat, key) in props.stats.resists" 
-						:key="key" 
-						class="character-stats__item"
-					>	
-						<DDIcon :icon="stat.icon"/>
-						<span class="character-stats__name">{{ stat.name }}: </span>
-						<span class="character-stats__value">{{ stat.getValue() }}</span>
-					</div>
+					
+						<div 
+							v-for="(stat, key) in props.stats.resists" 
+							:key="key" 
+							class="character-stats__item"
+						>	
+							<DDTooltip text="Тултип">
+								<DDIcon :icon="stat.icon"/>
+								<span class="character-stats__name">{{ stat.name }}: </span>
+								<span class="character-stats__value">{{ stat.getValue() }}</span>
+							</DDTooltip>
+						</div>
 				</div>
 			</DDCard>
 
@@ -89,6 +94,7 @@
 	import DDCard from '@/shared/ui/DDCard/DDCard.vue';
 	import Filter from '@/shared/ui/Filters/Filters.vue';
 	import DDIcon from '@/shared/ui/DDIcon/DDIcon.vue';
+import DDTooltip from '@/shared/ui/DDTooltip/DDTooltip.vue';
 	
 	interface Props {
 		stats: GenerateStatsReturnType; 
