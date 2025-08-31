@@ -1,4 +1,4 @@
-const tooltips = {
+export const tooltips = {
     stats: {
         constitution: { text: "Физическая выносливость и здоровье. Влияет на HP и сопротивление болезням." },
         agility: { text: "Ловкость, скорость реакции и координация. Определяет инициативу и уклонение." },
@@ -129,3 +129,10 @@ const tooltips = {
         style_icon: { text: "Врожденное чувство стиля, привлекающее внимание и вызывающее восхищение." }
     }
 };
+
+export const getStatTooltipByName = (name: string) => {
+    if (name in tooltips.stats) {
+        return tooltips.stats[name as keyof typeof tooltips.stats];
+    }
+    return null;
+}

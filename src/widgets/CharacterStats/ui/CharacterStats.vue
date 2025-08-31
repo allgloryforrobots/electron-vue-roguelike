@@ -10,7 +10,7 @@
 						:key="key" 
 						class="character-stats__item"
 					>
-						<DDTooltip text="Тултип">
+						<DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
 							<DDIcon :icon="stat.icon"/>
 							<span class="character-stats__name">{{ stat.name }}: </span>
 							<span class="character-stats__value">{{ stat.getValue() }}</span>
@@ -94,7 +94,8 @@
 	import DDCard from '@/shared/ui/DDCard/DDCard.vue';
 	import Filter from '@/shared/ui/Filters/Filters.vue';
 	import DDIcon from '@/shared/ui/DDIcon/DDIcon.vue';
-import DDTooltip from '@/shared/ui/DDTooltip/DDTooltip.vue';
+	import DDTooltip from '@/shared/ui/DDTooltip/DDTooltip.vue';
+	import { getStatTooltipByName } from '@/shared/config/tooltips/tooltips';
 	
 	interface Props {
 		stats: GenerateStatsReturnType; 

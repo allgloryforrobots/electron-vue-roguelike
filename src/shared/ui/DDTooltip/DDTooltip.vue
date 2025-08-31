@@ -1,21 +1,32 @@
 <template>
-  <div class="dd-tooltip-container" ref="containerRef">
+  <div 
+    class="dd-tooltip-container" 
+    ref="containerRef"
+    @mouseenter="showTooltip"
+    @mouseleave="hideTooltip"
+  >
     <slot />
+  </div>
+
+  <Teleport to="body" v-if="isVisible && tooltip">
     <div 
       class="dd-tooltip-bubble" 
       :class="bubbleClass"
       ref="bubbleRef"
+      :style="bubbleStyle"
     >
-      {{ text }}
+      {{ tooltip.text }}
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 
 const props = defineProps<{
-  text: string
+  tooltip: {
+    text: string
+  } | null
 }>()
 
 const containerRef = ref<HTMLElement | null>(null)
@@ -23,9 +34,16 @@ const bubbleRef = ref<HTMLElement | null>(null)
 
 const position = ref<'right' | 'left' | 'top' | 'bottom'>('right')
 const isVisible = ref(false)
+const bubblePosition = ref({ top: 0, left: 0 })
 
 // Определяем класс для позиции
 const bubbleClass = computed(() => `dd-tooltip-${position.value}`)
+
+// Стили для позиционирования через портал
+const bubbleStyle = computed(() => ({
+  top: `${bubblePosition.value.top}px`,
+  left: `${bubblePosition.value.left}px`,
+}))
 
 // Функция для расчета позиции
 const calculatePosition = async () => {
@@ -37,8 +55,13 @@ const calculatePosition = async () => {
   const containerRect = containerRef.value.getBoundingClientRect()
   const bubbleRect = bubbleRef.value.getBoundingClientRect()
   
+  // Добавляем scroll offset для абсолютного позиционирования
+  const scrollX = window.scrollX || window.pageXOffset
+  const scrollY = window.scrollY || window.pageYOffset
+  
   // Пробуем разные позиции, начиная с правой
   const positions = ['right', 'left', 'top', 'bottom'] as const
+  const offset = 20;
   
   for (const pos of positions) {
     let testLeft = 0
@@ -46,41 +69,46 @@ const calculatePosition = async () => {
     
     switch (pos) {
       case 'right':
-        testLeft = containerRect.right + 10
-        testTop = containerRect.top + (containerRect.height - bubbleRect.height) / 2
+        testLeft = containerRect.right + offset + scrollX
+        testTop = containerRect.top + (containerRect.height - bubbleRect.height) / 2 + scrollY
         break
       case 'left':
-        testLeft = containerRect.left - bubbleRect.width - 10
-        testTop = containerRect.top + (containerRect.height - bubbleRect.height) / 2
+        testLeft = containerRect.left - bubbleRect.width - offset + scrollX
+        testTop = containerRect.top + (containerRect.height - bubbleRect.height) / 2 + scrollY
         break
       case 'top':
-        testLeft = containerRect.left + (containerRect.width - bubbleRect.width) / 2
-        testTop = containerRect.top - bubbleRect.height - 10
+        testLeft = containerRect.left + (containerRect.width - bubbleRect.width) / 2 + scrollX
+        testTop = containerRect.top - bubbleRect.height - offset + scrollY
         break
       case 'bottom':
-        testLeft = containerRect.left + (containerRect.width - bubbleRect.width) / 2
-        testTop = containerRect.bottom + 10
+        testLeft = containerRect.left + (containerRect.width - bubbleRect.width) / 2 + scrollX
+        testTop = containerRect.bottom + offset + scrollY
         break
     }
     
     // Проверяем, будет ли тултип виден в этой позиции
     if (
-      testLeft >= 0 &&
-      testLeft + bubbleRect.width <= window.innerWidth &&
-      testTop >= 0 &&
-      testTop + bubbleRect.height <= window.innerHeight
+      testLeft >= scrollX &&
+      testLeft + bubbleRect.width <= window.innerWidth + scrollX &&
+      testTop >= scrollY &&
+      testTop + bubbleRect.height <= window.innerHeight + scrollY
     ) {
       position.value = pos
+      bubblePosition.value = { top: testTop, left: testLeft }
       return
     }
   }
   
   // Если ни одна позиция не подходит, используем правую с корректировками
   position.value = 'right'
+  bubblePosition.value = {
+    top: containerRect.bottom + 10 + scrollY,
+    left: containerRect.left + scrollX
+  }
 }
 
-// Обработчик для скролла
-const handleScroll = () => {
+// Обработчик для скролла и ресайза
+const handleScrollResize = () => {
   if (isVisible.value) {
     calculatePosition()
   }
@@ -88,101 +116,69 @@ const handleScroll = () => {
 
 // Навешиваем обработчики
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll, true)
-  
-  // Инициализируем позиционирование при монтировании
-  calculatePosition()
+  window.addEventListener('scroll', handleScrollResize, true)
+  window.addEventListener('resize', handleScrollResize)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll, true)
+  window.removeEventListener('scroll', handleScrollResize, true)
+  window.removeEventListener('resize', handleScrollResize)
 })
 
 // Отслеживаем видимость для перерасчета позиции
 watch(isVisible, (newVal) => {
   if (newVal) {
-    calculatePosition()
+    nextTick(() => {
+      calculatePosition()
+    })
   }
 })
 
 // Обработчики для показа/скрытия тултипа
 const showTooltip = () => {
-  isVisible.value = true
-  calculatePosition()
+  if (props.tooltip) {
+    isVisible.value = true
+  }
 }
 
 const hideTooltip = () => {
   isVisible.value = false
 }
-
-// Добавляем обработчики событий
-onMounted(() => {
-  if (containerRef.value) {
-    containerRef.value.addEventListener('mouseenter', showTooltip)
-    containerRef.value.addEventListener('mouseleave', hideTooltip)
-  }
-})
-
-onUnmounted(() => {
-  if (containerRef.value) {
-    containerRef.value.removeEventListener('mouseenter', showTooltip)
-    containerRef.value.removeEventListener('mouseleave', hideTooltip)
-  }
-})
 </script>
 
-<style scoped>
+<style>
 .dd-tooltip-container {
   position: relative;
   display: flex;
   align-items: baseline;
   gap: 10px;
+  isolation: isolate;
 }
 
 .dd-tooltip-bubble {
-  position: absolute;
+  position: fixed;
+  width: 300px;
+  height: fit-content;
   background: var(--background-color-medium);
   color: var(--accent-color-2);
   padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid var(--border-color);
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
   z-index: var(--z-tooltip);
   pointer-events: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: tooltipFadeIn 0.3s ease;
 }
 
-.dd-tooltip-container:hover .dd-tooltip-bubble {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Позиционирование через классы */
-.dd-tooltip-right {
-  left: 100%;
-  top: 50%;
-  transform: translate(10px, -50%);
-}
-
-.dd-tooltip-left {
-  right: 100%;
-  top: 50%;
-  transform: translate(-10px, -50%);
-}
-
-.dd-tooltip-top {
-  left: 50%;
-  bottom: 100%;
-  transform: translate(-50%, -10px);
-}
-
-.dd-tooltip-bottom {
-  left: 50%;
-  top: 100%;
-  transform: translate(-50%, 10px);
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Стрелочки для тултипа */
