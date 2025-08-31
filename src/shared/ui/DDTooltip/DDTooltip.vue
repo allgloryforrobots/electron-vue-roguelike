@@ -4,7 +4,6 @@
     <div 
       class="dd-tooltip-bubble" 
       :class="bubbleClass"
-      :style="bubbleStyle"
       ref="bubbleRef"
     >
       {{ text }}
@@ -13,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 
 const props = defineProps<{
   text: string
@@ -23,27 +22,18 @@ const containerRef = ref<HTMLElement | null>(null)
 const bubbleRef = ref<HTMLElement | null>(null)
 
 const position = ref<'right' | 'left' | 'top' | 'bottom'>('right')
-const bubbleStyle = ref({})
 const isVisible = ref(false)
 
 // Определяем класс для позиции
 const bubbleClass = computed(() => `dd-tooltip-${position.value}`)
 
-// Функция для проверки видимости элемента
-const isElementInViewport = (el: HTMLElement) => {
-  const rect = el.getBoundingClientRect()
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  )
-}
-
 // Функция для расчета позиции
-const calculatePosition = () => {
+const calculatePosition = async () => {
   if (!containerRef.value || !bubbleRef.value) return
-
+  
+  // Ждем обновления DOM
+  await nextTick()
+  
   const containerRect = containerRef.value.getBoundingClientRect()
   const bubbleRect = bubbleRef.value.getBoundingClientRect()
   
@@ -73,75 +63,23 @@ const calculatePosition = () => {
         break
     }
     
-    // Создаем временный элемент для проверки видимости
-    const tempDiv = document.createElement('div')
-    tempDiv.style.position = 'fixed'
-    tempDiv.style.left = `${testLeft}px`
-    tempDiv.style.top = `${testTop}px`
-    tempDiv.style.width = `${bubbleRect.width}px`
-    tempDiv.style.height = `${bubbleRect.height}px`
-    tempDiv.style.visibility = 'hidden'
-    document.body.appendChild(tempDiv)
-    
-    const isVisible = isElementInViewport(tempDiv)
-    document.body.removeChild(tempDiv)
-    
-    if (isVisible) {
+    // Проверяем, будет ли тултип виден в этой позиции
+    if (
+      testLeft >= 0 &&
+      testLeft + bubbleRect.width <= window.innerWidth &&
+      testTop >= 0 &&
+      testTop + bubbleRect.height <= window.innerHeight
+    ) {
       position.value = pos
-      updateBubbleStyle()
       return
     }
   }
   
   // Если ни одна позиция не подходит, используем правую с корректировками
   position.value = 'right'
-  updateBubbleStyle()
 }
 
-const updateBubbleStyle = () => {
-  if (!containerRef.value) return
-
-  const containerRect = containerRef.value.getBoundingClientRect()
-  
-  switch (position.value) {
-    case 'right':
-      bubbleStyle.value = {
-        left: '100%',
-        top: '50%',
-        transform: 'translate(10px, -50%)'
-      }
-      break
-    case 'left':
-      bubbleStyle.value = {
-        right: '100%',
-        top: '50%',
-        transform: 'translate(-10px, -50%)'
-      }
-      break
-    case 'top':
-      bubbleStyle.value = {
-        left: '50%',
-        bottom: '100%',
-        transform: 'translate(-50%, -10px)'
-      }
-      break
-    case 'bottom':
-      bubbleStyle.value = {
-        left: '50%',
-        top: '100%',
-        transform: 'translate(-50%, 10px)'
-      }
-      break
-  }
-}
-
-// Обработчики для респонсивности
-const handleResize = () => {
-  if (isVisible.value) {
-    calculatePosition()
-  }
-}
-
+// Обработчик для скролла
 const handleScroll = () => {
   if (isVisible.value) {
     calculatePosition()
@@ -150,12 +88,13 @@ const handleScroll = () => {
 
 // Навешиваем обработчики
 onMounted(() => {
-  window.addEventListener('resize', handleResize)
   window.addEventListener('scroll', handleScroll, true)
+  
+  // Инициализируем позиционирование при монтировании
+  calculatePosition()
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', handleResize)
   window.removeEventListener('scroll', handleScroll, true)
 })
 
@@ -163,6 +102,31 @@ onUnmounted(() => {
 watch(isVisible, (newVal) => {
   if (newVal) {
     calculatePosition()
+  }
+})
+
+// Обработчики для показа/скрытия тултипа
+const showTooltip = () => {
+  isVisible.value = true
+  calculatePosition()
+}
+
+const hideTooltip = () => {
+  isVisible.value = false
+}
+
+// Добавляем обработчики событий
+onMounted(() => {
+  if (containerRef.value) {
+    containerRef.value.addEventListener('mouseenter', showTooltip)
+    containerRef.value.addEventListener('mouseleave', hideTooltip)
+  }
+})
+
+onUnmounted(() => {
+  if (containerRef.value) {
+    containerRef.value.removeEventListener('mouseenter', showTooltip)
+    containerRef.value.removeEventListener('mouseleave', hideTooltip)
   }
 })
 </script>
@@ -196,7 +160,7 @@ watch(isVisible, (newVal) => {
   visibility: visible;
 }
 
-/* Дополнительные стили для разных позиций */
+/* Позиционирование через классы */
 .dd-tooltip-right {
   left: 100%;
   top: 50%;
@@ -221,7 +185,7 @@ watch(isVisible, (newVal) => {
   transform: translate(-50%, 10px);
 }
 
-/* Стрелочки для тултипа (опционально) */
+/* Стрелочки для тултипа */
 .dd-tooltip-bubble::before {
   content: '';
   position: absolute;
