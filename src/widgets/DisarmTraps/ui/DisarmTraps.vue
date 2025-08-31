@@ -132,43 +132,43 @@ const initGame = () => {
   }
 }
 
-// Заполнение поля минами
 const placeMines = (firstClickIndex: number) => {
-  let minesPlaced = 0
-  const indices: number[] = []
-  
-  // Создаем список всех индексов, кроме первого клика и соседних клеток
+  let minesPlaced = 0;
+  const indices: number[] = [];
+
+  // ПРАВИЛЬНАЯ ЛОГИКА: создаем список всех индексов, КРОМЕ первого клика и соседних клеток
   for (let i = 0; i < width.value * height.value; i++) {
+    // Если это НЕ первый клик И НЕ его сосед, то добавляем в кандидаты на мину
     if (i !== firstClickIndex && !isNeighbor(firstClickIndex, i)) {
-      indices.push(i)
+      indices.push(i);
     }
   }
-  
+
   // Перемешиваем индексы
   for (let i = indices.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [indices[i], indices[j]] = [indices[j], indices[i]]
+    [indices[i], indices[j]] = [indices[j], indices[i]];
   }
-  
+
   // Расставляем мины
   while (minesPlaced < mines.value && minesPlaced < indices.length) {
-    const index = indices[minesPlaced]
-    board.value[index].mine = true
-    minesPlaced++
-    
+    const index = indices[minesPlaced];
+    board.value[index].mine = true;
+    minesPlaced++;
+
     // Обновляем значения соседних клеток
-    updateNeighborValues(index)
+    updateNeighborValues(index);
   }
-  
+
   // Запускаем таймер
   if (!timerInterval.value) {
     timerInterval.value = setInterval(() => {
       if (!gameOver.value && !gameWon.value) {
-        timer.value++
+        timer.value++;
       }
-    }, 1000) as unknown as number
+    }, 1000) as unknown as number;
   }
-}
+};
 
 // Проверка, являются ли клетки соседями
 const isNeighbor = (index1: number, index2: number): boolean => {
