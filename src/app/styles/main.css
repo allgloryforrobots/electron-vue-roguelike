@@ -56,16 +56,6 @@
     var(--accent-color-gold) 50%,
     var(--accent-color-1) 100%
   );
-  box-shadow: 0 0 4px var(--accent-color-gold);
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(
-    135deg,
-    var(--accent-color-gold) 0%,
-    var(--accent-color-2) 50%,
-    var(--accent-color-gold) 100%
-  );
 }
 
 ::-webkit-scrollbar-corner {
