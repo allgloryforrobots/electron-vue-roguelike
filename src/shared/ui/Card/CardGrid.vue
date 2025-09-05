@@ -6,7 +6,7 @@
         filter: string
     }>()
 
-    interface Card {
+    interface TestCard {
         id: number
         icon: string
         name: string
@@ -15,7 +15,7 @@
         description: string
     }
 
-    const items = computed<Card[]>(() => [
+    const items = computed<TestCard[]>(() => [
     {
         id: 1,
         icon: '⚔️',

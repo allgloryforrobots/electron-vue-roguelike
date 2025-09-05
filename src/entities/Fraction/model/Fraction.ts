@@ -22,10 +22,12 @@ export const Enemies = new Fraction("Противники", "enemies"); // аб�
 export const Player = new Fraction("Игрок", "player"); // абстрактные противники для тестов
 
 export function PlayerDecorator() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
             fraction: Fraction = Player;
             
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             constructor(...args: any[]) {
                 super(...args);
             }
@@ -34,10 +36,12 @@ export function PlayerDecorator() {
 }
 
 export function EnemiesDecorator() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
             fraction: Fraction = Enemies;
             
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             constructor(...args: any[]) {
                 super(...args);
             }

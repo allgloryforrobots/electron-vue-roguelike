@@ -55,7 +55,7 @@
             v-for="(item, index) in inventoryItems" 
             :key="item.id"
             :item="item"
-            :style="getItemPosition(item, 'inventory')"
+            :style="getItemPosition(item)"
             draggable="true"
             @dragstart="handleDragStart($event, item, 'inventory')"
             @dragend="handleDragEnd"
@@ -84,7 +84,7 @@
             v-for="(item, index) in stashItems" 
             :key="item.id"
             :item="item"
-            :style="getItemPosition(item, 'stash')"
+            :style="getItemPosition(item)"
             draggable="true"
             @dragstart="handleDragStart($event, item, 'stash')"
             @dragend="handleDragEnd"
@@ -238,7 +238,7 @@
     });
 
 
-    const getItemPosition = (item: Item, gridType: 'inventory' | 'stash'): CSSProperties => {
+    const getItemPosition = (item: Item): CSSProperties => {
       return {
         left: `${item.position.x * (cellSize + gap) + 5}px`,
         top: `${item.position.y * (cellSize + gap) + 5}px`,
@@ -264,7 +264,7 @@
     }
 
     // Новый обработчик для перетаскивания из экипировки
-    const handleEquipmentDragStart = (event: DragEvent, item: any, slotType: InventorySlotKeys): void => {
+    const handleEquipmentDragStart = (event: DragEvent, item: Item, slotType: InventorySlotKeys): void => {
       if (!item) return;
       
       draggedItem.value = item;

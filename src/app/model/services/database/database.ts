@@ -1,10 +1,11 @@
 import { JSONFilePreset  } from 'lowdb/node'
 
 type GameData = {
+  timestamp: Date,
 }
 
 // Указываем путь к JSON-файлу
-const defaultData = { score: 0, } as GameData
+const defaultData = { timestamp: new Date(), } as GameData
 const db = await JSONFilePreset('db.json', defaultData)
 
 // Функция для загрузки данных

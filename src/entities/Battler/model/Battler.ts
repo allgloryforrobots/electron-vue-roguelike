@@ -3,7 +3,6 @@ import { generateStats } from "./Stats";
 import { IPosition } from "@/shared/types/types";
 import { Direction } from "@/widgets/FOVGrid";
 import { generateSlots } from "@/entities/Item/lib/equipSlots/equipSlots";
-import { Item } from "@/entities/Item";
 
 interface IClassOptions {
     name: string;
@@ -91,8 +90,10 @@ export class Battler {
 }
 
 function RaceElfDecorator() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             constructor(...args: any[]) {
                 super(...args);
                 if (this instanceof Battler) {
@@ -106,8 +107,10 @@ function RaceElfDecorator() {
 }
 
 function ClassMageDecorator() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function <T extends new (...args: any[]) => object>(constructor: T) {
         return class extends constructor {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             constructor(...args: any[]) {
                 super(...args);
                 if (this instanceof Battler) {

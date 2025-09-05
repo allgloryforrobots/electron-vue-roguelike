@@ -2,7 +2,6 @@
   import {  Direction, FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
   import { MapGenerator, moveBattler, Pathfinder } from '@/entities/Map';
-  import { Navbar } from '@/widgets/Navbar';
   import { onMounted, onUnmounted, ref, watch } from 'vue';
   import { usePlayerStore } from '@/entities/Player';
   import { EnemyGenerator } from '@/features/EnemyGenerator';

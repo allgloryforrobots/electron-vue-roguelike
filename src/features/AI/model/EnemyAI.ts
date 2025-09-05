@@ -20,18 +20,10 @@ export class EnemyAI {
     }
 
     findAndDestroy() {
-
         // позиция должна быть всегда
         if (!this.battler.position) {
             return;
         }
-
-        const fovMap = this.fowCalculator.calculateFOV(
-            this.battler.position.x, 
-            this.battler.position.y, 
-            this.battler.rangeOfVision
-        );
-
     }
 
     /** в области видимости определяем противников */

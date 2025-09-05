@@ -12,6 +12,7 @@ export default [
       'node_modules/',
       'dist/',
       'build/',
+      '**/build',
       'out/',
       'coverage/',
       '*.min.js'

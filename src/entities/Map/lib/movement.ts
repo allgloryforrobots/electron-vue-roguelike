@@ -11,7 +11,6 @@ export const moveBattler = (
   
   // Проверяем, что новые координаты валидны
   if (!isValidCoordinate(map, newX, newY)) {
-    console.warn('Invalid coordinates:', newX, newY);
     return;
   }
   
@@ -28,7 +27,7 @@ export const moveBattler = (
 };
 
 // Вспомогательная функция для проверки координат
-const isValidCoordinate = (map: any[][], x: number, y: number): boolean => {
+const isValidCoordinate = (map: MapType, x: number, y: number): boolean => {
   return (
     y >= 0 && 
     y < map.length && 
