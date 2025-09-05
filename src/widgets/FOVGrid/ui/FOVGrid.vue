@@ -16,7 +16,7 @@
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
   import FOVCell from './FOVCell.vue';
-  import { Direction, FOVCalculator } from '../lib/FOV';
+  import { FOVCalculator } from '../lib/FOV';
   import { usePlayerStore } from '@/entities/Player';
   import { MapType } from '@/entities/Map';
 

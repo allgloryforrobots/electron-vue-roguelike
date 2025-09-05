@@ -1,12 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+
 import { WelcomePage } from '@/pages/WelcomePage';
 import { ExamplesPage } from '@/pages/ExamplesPage';
 import { MainMenuPage } from '@/pages/MainMenuPage';
 import GamePage from '@/pages/GamePage/ui/GamePage.vue';
 import { InventoryPage } from '@/pages/InventoryPage';
-import LayoutWithNavbar from '../ui/LayoutWithNavbar.vue'
 import { CharacterStatsPage } from '@/pages/CharacterStatsPage';
-import { DisarmTrapsPage } from '@/pages/DisarmTrapsPage';
+
+import LayoutWithNavbar from '../ui/LayoutWithNavbar.vue'
 
 export const ROUTES = {
   WELCOME: '/welcome',
@@ -35,11 +36,6 @@ const router = createRouter({
       path: ROUTES.WELCOME,
       name: 'welcome',
       component: WelcomePage,
-    },
-    {
-      path: ROUTES.DISARM_TRAPS,
-      name: 'disarm_traps',
-      component: DisarmTrapsPage,
     },
     // Layout с navbar для этих страниц
     {
