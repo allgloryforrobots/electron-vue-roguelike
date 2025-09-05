@@ -43,7 +43,7 @@
           @drop="handleGridDrop($event, 'inventory')"
         >
           <InventoryCell 
-            v-for="(cell, index) in gridCells" 
+            v-for="(_, index) in gridCells" 
             :key="index" 
             class="inventory__grid-cell"
             :highlighted="isCellHighlighted(index, 'inventory')"
@@ -52,7 +52,7 @@
           
           <!-- Предметы в инвентаре -->
           <InventoryItem 
-            v-for="(item, index) in inventoryItems" 
+            v-for="(item) in inventoryItems" 
             :key="item.id"
             :item="item"
             :style="getItemPosition(item)"
@@ -73,7 +73,7 @@
           @drop="handleGridDrop($event, 'stash')"
         >
           <InventoryCell 
-            v-for="(cell, index) in stashGridCells" 
+            v-for="(_, index) in stashGridCells" 
             :key="index" 
             class="inventory__grid-cell"
             :highlighted="isCellHighlighted(index, 'stash')"
@@ -81,7 +81,7 @@
           
           <!-- Предметы в схроне -->
           <InventoryItem 
-            v-for="(item, index) in stashItems" 
+            v-for="(item) in stashItems" 
             :key="item.id"
             :item="item"
             :style="getItemPosition(item)"
