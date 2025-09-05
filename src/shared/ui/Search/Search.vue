@@ -3,9 +3,9 @@
 </script>
 
 <template>
-    <div class="search-box">
-        <input type="text" class="search-input" placeholder="Поиск предметов...">
-    </div>
+  <div class="search-box">
+    <input type="text" class="search-input" placeholder="Поиск предметов...">
+  </div>
 </template>
 
 <style scoped lang="scss">

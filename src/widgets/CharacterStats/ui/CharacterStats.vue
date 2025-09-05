@@ -1,94 +1,102 @@
 <template>
-	<div class="character-stats">
-		<div class="character-stats__grid">
-			<!-- Основные характеристики -->
-			<DDCard class="character-stats__section character-stats__section--main">
-				<h4 class="character-stats__title">Основные характеристики</h4>
-				<div class="character-stats__list">
-					<div 
-						v-for="(stat, key) in props.stats.characteristics" 
-						:key="key" 
-						class="character-stats__item"
-					>
-						<DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
-							<DDIcon :icon="stat.icon"/>
-							<span class="character-stats__name">{{ stat.name }}: </span>
-							<span class="character-stats__value">{{ stat.getValue() }}</span>
-						</DDTooltip>
-					</div>
-				</div>
-			</DDCard>
+  <div class="character-stats">
+    <div class="character-stats__grid">
+      <!-- Основные характеристики -->
+      <DDCard class="character-stats__section character-stats__section--main">
+        <h4 class="character-stats__title">
+          Основные характеристики
+        </h4>
+        <div class="character-stats__list">
+          <div 
+            v-for="(stat, key) in props.stats.characteristics" 
+            :key="key" 
+            class="character-stats__item"
+          >
+            <DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
+              <DDIcon :icon="stat.icon" />
+              <span class="character-stats__name">{{ stat.name }}: </span>
+              <span class="character-stats__value">{{ stat.getValue() }}</span>
+            </DDTooltip>
+          </div>
+        </div>
+      </DDCard>
 
-			<!-- Второстепенные характеристики -->
-			<DDCard class="character-stats__section character-stats__section--secondary">
-				<h4 class="character-stats__title">Второстепенные характеристики</h4>
-				<div class="character-stats__list">
-					<div 
-						v-for="(stat, key) in props.stats.secondaryCharacteristics" 
-						:key="key" 
-						class="character-stats__item"
-					>	<DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
-							<DDIcon :icon="stat.icon"/>
-							<span class="character-stats__name">{{ stat.name }}: </span>
-							<span class="character-stats__value">{{ stat.getValue() }}</span>
-						</DDTooltip>
-					</div>
-				</div>
-			</DDCard>
+      <!-- Второстепенные характеристики -->
+      <DDCard class="character-stats__section character-stats__section--secondary">
+        <h4 class="character-stats__title">
+          Второстепенные характеристики
+        </h4>
+        <div class="character-stats__list">
+          <div 
+            v-for="(stat, key) in props.stats.secondaryCharacteristics" 
+            :key="key" 
+            class="character-stats__item"
+          >
+            <DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
+              <DDIcon :icon="stat.icon" />
+              <span class="character-stats__name">{{ stat.name }}: </span>
+              <span class="character-stats__value">{{ stat.getValue() }}</span>
+            </DDTooltip>
+          </div>
+        </div>
+      </DDCard>
 
-			<!-- Сопротивления -->
-			<DDCard class="character-stats__section character-stats__section--resists">
-				<h4 class="character-stats__title">Сопротивления</h4>
-				<div class="character-stats__list">
-					
-						<div 
-							v-for="(stat, key) in props.stats.resists" 
-							:key="key" 
-							class="character-stats__item"
-						>	
-							<DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
-								<DDIcon :icon="stat.icon"/>
-								<span class="character-stats__name">{{ stat.name }}: </span>
-								<span class="character-stats__value">{{ stat.getValue() }}</span>
-							</DDTooltip>
-						</div>
-				</div>
-			</DDCard>
+      <!-- Сопротивления -->
+      <DDCard class="character-stats__section character-stats__section--resists">
+        <h4 class="character-stats__title">
+          Сопротивления
+        </h4>
+        <div class="character-stats__list">
+          <div 
+            v-for="(stat, key) in props.stats.resists" 
+            :key="key" 
+            class="character-stats__item"
+          >	
+            <DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
+              <DDIcon :icon="stat.icon" />
+              <span class="character-stats__name">{{ stat.name }}: </span>
+              <span class="character-stats__value">{{ stat.getValue() }}</span>
+            </DDTooltip>
+          </div>
+        </div>
+      </DDCard>
 
-			<!-- Фильтры навыков -->
-			<DDCard class="character-stats__section character-stats__section--filters">
-				<Filter 
-				:active-filter="activeSkillFilter" 
-				:filters="skillFilters"
-				@filter-change="handleSkillFilterChange" 
-				/>
-			</DDCard>
+      <!-- Фильтры навыков -->
+      <DDCard class="character-stats__section character-stats__section--filters">
+        <Filter 
+          :active-filter="activeSkillFilter" 
+          :filters="skillFilters"
+          @filter-change="handleSkillFilterChange" 
+        />
+      </DDCard>
 
-			<!-- Навыки -->
-			<DDCard class="character-stats__section character-stats__section--skills">
-				<h4 class="character-stats__title">Навыки</h4>
-				<div class="character-stats__skills-grid">
-				<div 
-					v-for="(group, groupKey) in filteredSkillGroups" 
-					:key="groupKey" 
-					class="character-stats__skill-group"
-				>
-					<div 
-						v-for="(stat, skillKey) in group.skills" 
-						:key="skillKey" 
-						class="character-stats__item"
-					>
-						<DDTooltip :tooltip="getStatTooltipByName((stat as Skill).codename)">
-							<DDIcon :icon="(stat as Skill).icon"/>
-							<span class="character-stats__name">{{ (stat as Skill).name }}: </span>
-							<span class="character-stats__value">{{ (stat as Skill).getValue() }}</span>
-						</DDTooltip>
-					</div>
-				</div>
-				</div>
-			</DDCard>
-		</div>
-	</div>
+      <!-- Навыки -->
+      <DDCard class="character-stats__section character-stats__section--skills">
+        <h4 class="character-stats__title">
+          Навыки
+        </h4>
+        <div class="character-stats__skills-grid">
+          <div 
+            v-for="(group, groupKey) in filteredSkillGroups" 
+            :key="groupKey" 
+            class="character-stats__skill-group"
+          >
+            <div 
+              v-for="(stat, skillKey) in group.skills" 
+              :key="skillKey" 
+              class="character-stats__item"
+            >
+              <DDTooltip :tooltip="getStatTooltipByName((stat as Skill).codename)">
+                <DDIcon :icon="(stat as Skill).icon" />
+                <span class="character-stats__name">{{ (stat as Skill).name }}: </span>
+                <span class="character-stats__value">{{ (stat as Skill).getValue() }}</span>
+              </DDTooltip>
+            </div>
+          </div>
+        </div>
+      </DDCard>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

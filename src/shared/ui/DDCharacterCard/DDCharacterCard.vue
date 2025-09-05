@@ -1,13 +1,17 @@
 <template>
   <div class="component-card">
-    <h2 class="component-title"><i class="fas fa-user"></i> Карточка персонажа</h2>
+    <h2 class="component-title">
+      <i class="fas fa-user"></i> Карточка персонажа
+    </h2>
     <div class="dd-character-card">
       <div class="dd-character-header">
         <h3>{{ character.name }}</h3>
         <span>Уровень {{ character.level }}</span>
       </div>
       <div class="dd-character-body">
-        <div class="dd-character-avatar">{{ character.avatar }}</div>
+        <div class="dd-character-avatar">
+          {{ character.avatar }}
+        </div>
         <div class="dd-character-stats">
           <div v-for="(stat, index) in character.stats" :key="index">
             <strong>{{ stat.name }}</strong>

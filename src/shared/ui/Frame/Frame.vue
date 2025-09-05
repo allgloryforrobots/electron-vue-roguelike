@@ -4,6 +4,9 @@
   </div>
 </template>
 
+<script setup lang="ts">
+</script>
+
 <style scoped lang="scss">
 $border-color: #382F27;
 .frame {
@@ -38,6 +41,3 @@ $border-color: #382F27;
 }
 
 </style>
-
-<script setup lang="ts">
-</script>

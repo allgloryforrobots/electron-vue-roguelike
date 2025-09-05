@@ -19,7 +19,7 @@ onMounted(() => {
 
 <template>
   <div class="header">
-    <slot/>
+    <slot />
 
     <div class="ancient-language">
       {{ translateToKeyboard(slotContent) }}

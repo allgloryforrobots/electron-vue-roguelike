@@ -1,8 +1,8 @@
 <template>
-    <div class="dd-notice">
-        <h3>{{ title }}</h3>
-        <p>{{ content }}</p>
-    </div>
+  <div class="dd-notice">
+    <h3>{{ title }}</h3>
+    <p>{{ content }}</p>
+  </div>
 </template>
 
 <script setup lang="ts">

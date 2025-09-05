@@ -2,10 +2,11 @@
 import js from '@eslint/js';
 import globals from 'globals';
 import ts from 'typescript-eslint';
-import vue from 'eslint-plugin-vue';
+import pluginVue from 'eslint-plugin-vue';
 import vueParser from 'vue-eslint-parser';
 
 export default [
+  ...pluginVue.configs['flat/recommended'],
   // Базовые настройки
   {
     ignores: [
@@ -25,8 +26,6 @@ export default [
   // TypeScript конфиг
   ...ts.configs.recommended,
 
-  // ...vue.configs['flat/vue3-recommended'],
-
   // Vue конфиг
   {
     files: ['**/*.vue'],
@@ -44,7 +43,7 @@ export default [
       }
     },
     plugins: {
-      vue
+      pluginVue
     },
     rules: {
       'vue/multi-word-component-names': 'off',

@@ -1,15 +1,15 @@
 <template>
-    <header class="page-header">
-        <h1 class="page-header__title">
-        {{ title }}
-        </h1>
-        <p 
-        v-if="subtitle" 
-        class="page-header__subtitle"
-        >
-        {{ subtitle }}
-        </p>
-    </header>
+  <header class="page-header">
+    <h1 class="page-header__title">
+      {{ title }}
+    </h1>
+    <p 
+      v-if="subtitle" 
+      class="page-header__subtitle"
+    >
+      {{ subtitle }}
+    </p>
+  </header>
 </template>
 
 <script setup lang="ts">

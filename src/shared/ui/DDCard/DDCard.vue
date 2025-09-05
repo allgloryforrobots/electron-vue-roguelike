@@ -1,7 +1,7 @@
 <template>
-	<div class="dd-card">
-		<slot />
-	</div>
+  <div class="dd-card">
+    <slot />
+  </div>
 </template>
 
 <!-- <DDCard>

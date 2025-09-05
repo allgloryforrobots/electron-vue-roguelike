@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <div class="button" @click="onClick">
-    <slot/>
+    <slot />
   </div>
 </template>
 

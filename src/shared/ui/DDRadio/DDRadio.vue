@@ -1,15 +1,15 @@
 
 <template>
-    <label class="dd-radio-label">
-        <input
-        type="radio"
-        :class="['dd-radio']"
-        :checked="modelValue === value"
-        @change="$emit('update:modelValue', value)"
-        :value="value"
-        >
-        {{ label }}
-    </label>
+  <label class="dd-radio-label">
+    <input
+      type="radio"
+      :class="['dd-radio']"
+      :checked="modelValue === value"
+      :value="value"
+      @change="$emit('update:modelValue', value)"
+    >
+    {{ label }}
+  </label>
 </template>
 
 <script setup lang="ts">

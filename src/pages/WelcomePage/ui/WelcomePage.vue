@@ -23,11 +23,10 @@ function handleButtonClick() {
       Тебе придется много думать и сталкиваться с непреодолимыми трудностями. Все, как в жизни.
     </Frame>
 
-    <Button :onClick="handleButtonClick">
+    <Button :on-click="handleButtonClick">
       Принять вызов
     </Button>
   </div>
-
 </template>
 
 <style scoped lang="scss">

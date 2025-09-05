@@ -1,12 +1,14 @@
 <template>
-    <div class="dd-achievement">
-        <div class="dd-achievement-icon">{{ icon }}</div>
-        <div class="dd-achievement-content">
-        <h3>{{ title }}</h3>
-        <p>{{ description }}</p>
-        <small v-if="date">Получено: {{ date }}</small>
-        </div>
+  <div class="dd-achievement">
+    <div class="dd-achievement-icon">
+      {{ icon }}
     </div>
+    <div class="dd-achievement-content">
+      <h3>{{ title }}</h3>
+      <p>{{ description }}</p>
+      <small v-if="date">Получено: {{ date }}</small>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

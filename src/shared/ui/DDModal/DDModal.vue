@@ -1,20 +1,30 @@
 <template>
   <div class="component-card">
-    <h2 class="component-title"><i class="fas fa-window-restore"></i> Модальное окно</h2>
-    <button class="dd-button" @click="showModal">Показать модальное окно</button>
+    <h2 class="component-title">
+      <i class="fas fa-window-restore"></i> Модальное окно
+    </h2>
+    <button class="dd-button" @click="showModal">
+      Показать модальное окно
+    </button>
     
     <div v-if="modalVisible" class="dd-modal-overlay" @click.self="hideModal">
       <div class="dd-modal">
         <div class="dd-modal-header">
           <h3>Подтверждение действия</h3>
-          <button class="dd-notification-close" @click="hideModal">&times;</button>
+          <button class="dd-notification-close" @click="hideModal">
+            &times;
+          </button>
         </div>
         <div class="dd-modal-body">
           <p>Вы уверены, что хотите покинуть безопасную зону? Враги в окружающих землях очень опасны.</p>
         </div>
         <div class="dd-modal-footer">
-          <button class="dd-button" @click="hideModal">Отмена</button>
-          <button class="dd-button confirm-btn" @click="hideModal">Подтвердить</button>
+          <button class="dd-button" @click="hideModal">
+            Отмена
+          </button>
+          <button class="dd-button confirm-btn" @click="hideModal">
+            Подтвердить
+          </button>
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 <template>
-    <input
-        :class="['dd-input']"
-        :value="modelValue"
-        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-        v-bind="$attrs"
-    >
+  <input
+    :class="['dd-input']"
+    :value="modelValue"
+    v-bind="$attrs"
+    @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+  >
 </template>
 
 <script setup lang="ts">

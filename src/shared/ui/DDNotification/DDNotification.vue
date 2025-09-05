@@ -1,17 +1,23 @@
 <template>
   <div class="component-card">
-    <h2 class="component-title"><i class="fas fa-bell"></i> Уведомления</h2>
+    <h2 class="component-title">
+      <i class="fas fa-bell"></i> Уведомления
+    </h2>
     <div 
       v-for="(notification, index) in notifications" 
       :key="index" 
       :class="['dd-notification', { hidden: notification.hidden }]"
     >
-      <div class="dd-notification-icon"><i :class="notification.icon"></i></div>
+      <div class="dd-notification-icon">
+        <i :class="notification.icon"></i>
+      </div>
       <div class="dd-notification-content">
         <strong>{{ notification.title }}</strong>
         <p>{{ notification.message }}</p>
       </div>
-      <button class="dd-notification-close" @click="hideNotification(index)">&times;</button>
+      <button class="dd-notification-close" @click="hideNotification(index)">
+        &times;
+      </button>
     </div>
   </div>
 </template>

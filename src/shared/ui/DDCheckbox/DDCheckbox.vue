@@ -1,13 +1,13 @@
 <template>
-    <label class="dd-checkbox-label">
-        <input
-        type="checkbox"
-        :class="['dd-checkbox']"
-        :checked="modelValue"
-        @change="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
-        >
-        {{ label }}
-    </label>
+  <label class="dd-checkbox-label">
+    <input
+      type="checkbox"
+      :class="['dd-checkbox']"
+      :checked="modelValue"
+      @change="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
+    >
+    {{ label }}
+  </label>
 </template>
 
 <script setup lang="ts">

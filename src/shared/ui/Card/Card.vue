@@ -26,15 +26,21 @@
 
 <template>
   <div class="item-card">
-    <div class="item-icon">{{ item.icon }}</div>
-    <h3 class="item-name">{{ item.name }}</h3>
+    <div class="item-icon">
+      {{ item.icon }}
+    </div>
+    <h3 class="item-name">
+      {{ item.name }}
+    </h3>
     <div class="item-stats">
       <div v-for="(stat, index) in item.stats" :key="index" class="stat">
         <span>{{ stat.label }}</span>
         <span class="stat-value">{{ stat.value }}</span>
       </div>
     </div>
-    <p class="item-description">{{ item.description }}</p>
+    <p class="item-description">
+      {{ item.description }}
+    </p>
     <span class="item-type" :class="typeClasses[item.type as keyof typeof typeClasses]">
       {{ 
         item.type === 'weapon' ? 'Оружие' :

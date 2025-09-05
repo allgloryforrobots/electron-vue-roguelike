@@ -4,7 +4,7 @@
 
 
 <template>
-  	<InventoryScreen />
+  <InventoryScreen />
 </template>
 
 <style scoped lang="scss">

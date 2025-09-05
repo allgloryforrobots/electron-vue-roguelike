@@ -1,7 +1,7 @@
 <template>
-    <div class="dd-divider">
-        <slot>Или</slot>
-    </div>
+  <div class="dd-divider">
+    <slot>Или</slot>
+  </div>
 </template>
 
 <style scoped lang="scss">

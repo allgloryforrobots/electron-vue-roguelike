@@ -16,7 +16,7 @@ const InputtClass = computed(() => [
 
 <template>
   <div class="Inputt-container">
-    <Inputt type="text" id="Inputt" :class="InputtClass" placeholder="..." />
+    <Inputt id="Inputt" type="text" :class="InputtClass" placeholder="..." />
   </div>
 </template>
 

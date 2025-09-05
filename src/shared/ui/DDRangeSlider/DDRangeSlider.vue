@@ -1,13 +1,15 @@
 <template>
   <div class="component-card">
-    <h2 class="component-title"><i class="fas fa-sliders-h"></i> Ползунки</h2>
+    <h2 class="component-title">
+      <i class="fas fa-sliders-h"></i> Ползунки
+    </h2>
     <div class="slider-container">
       <div v-for="(slider, index) in sliders" :key="index" class="slider-item">
         <label>{{ slider.label }}</label>
         <input 
+          v-model="slider.value" 
           type="range" 
-          class="dd-range" 
-          v-model="slider.value"
+          class="dd-range"
           :min="slider.min" 
           :max="slider.max"
         >

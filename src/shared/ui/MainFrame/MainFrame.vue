@@ -4,11 +4,11 @@
 </script>
 
 <template>
-    <div class="container">
-        <MainFrameHeader />
-        <slot />
-        <MainFrameFooter />
-    </div>
+  <div class="container">
+    <MainFrameHeader />
+    <slot />
+    <MainFrameFooter />
+  </div>
 </template>
 
 <style scoped lang="scss">

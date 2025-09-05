@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <DDNavigation :nav-items="navConfig"/>
+    <DDNavigation :nav-items="navConfig" />
     <main class="main-content">
       <router-view /> <!-- Здесь будут отображаться дочерние компоненты -->
     </main>

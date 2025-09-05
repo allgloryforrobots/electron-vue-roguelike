@@ -1,11 +1,13 @@
 <template>
-      <div 
-        :key="x" 
-        class="map-cell"
-      >
-        <div v-if="cell.battler" class="battler">{{cell.battler.image}}</div>
-        <slot />
-      </div>
+  <div 
+    :key="x" 
+    class="map-cell"
+  >
+    <div v-if="cell.battler" class="battler">
+      {{ cell.battler.image }}
+    </div>
+    <slot />
+  </div>
 </template>
 
 <script lang="ts" setup>

@@ -1,7 +1,7 @@
 <template>
-    <div class="dd-progress">
-        <div class="dd-progress-bar" :style="{ width: `${value}%` }"></div>
-    </div>
+  <div class="dd-progress">
+    <div class="dd-progress-bar" :style="{ width: `${value}%` }"></div>
+  </div>
 </template>
 
 <script setup lang="ts">

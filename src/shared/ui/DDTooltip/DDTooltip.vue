@@ -1,18 +1,18 @@
 <template>
   <div 
-    class="tooltip" 
-    ref="containerRef"
+    ref="containerRef" 
+    class="tooltip"
     @mouseenter="showTooltip"
     @mouseleave="hideTooltip"
   >
     <slot />
   </div>
 
-  <Teleport to="body" v-if="isVisible && tooltip">
+  <Teleport v-if="isVisible && tooltip" to="body">
     <div 
-      class="tooltip__bubble" 
+      ref="bubbleRef" 
+      class="tooltip__bubble"
       :class="bubbleClass"
-      ref="bubbleRef"
       :style="bubbleStyle"
     >
       {{ tooltip.text }}

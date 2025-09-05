@@ -1,11 +1,11 @@
 <template>
-    <div 
-        class="dd-substrate"
-        :style="style"
-        :class="{ 'dd-substrate--square': square }"
-    >
-        <slot />
-    </div>
+  <div 
+    class="dd-substrate"
+    :style="style"
+    :class="{ 'dd-substrate--square': square }"
+  >
+    <slot />
+  </div>
 </template>
 
 <script setup lang="ts">

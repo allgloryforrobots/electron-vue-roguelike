@@ -1,8 +1,10 @@
 <template>
-    <div class="dd-highlight">
-        <h3 v-if="title">{{ title }}</h3>
-        <slot></slot>
-    </div>
+  <div class="dd-highlight">
+    <h3 v-if="title">
+      {{ title }}
+    </h3>
+    <slot></slot>
+  </div>
 </template>
 
 <script setup lang="ts">

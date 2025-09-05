@@ -103,7 +103,7 @@ export class FOVCalculator {
         let x = x0;
         let y = y0;
         
-        // eslint-disable-next-line no-constant-condition
+         
         while (true) {
             // Если достигли цели - видимость есть
             if (x === x1 && y === y1) return true;

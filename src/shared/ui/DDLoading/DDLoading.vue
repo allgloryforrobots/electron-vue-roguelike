@@ -1,8 +1,8 @@
 <template>
-    <div class="dd-loading">
-        <div class="dd-loading-spinner"></div>
-        <span>{{ text }}</span>
-    </div>
+  <div class="dd-loading">
+    <div class="dd-loading-spinner"></div>
+    <span>{{ text }}</span>
+  </div>
 </template>
 
 <script setup lang="ts">

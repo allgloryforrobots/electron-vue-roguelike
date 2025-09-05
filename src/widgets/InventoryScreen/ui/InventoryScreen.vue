@@ -32,12 +32,12 @@
         </div>
       </div>
       
-       <!-- Блок инвентаря -->
+      <!-- Блок инвентаря -->
       <div class="inventory__section">
         <DDHeader title="Рюкзак" class="inventory__header" />
         <div 
-          class="inventory__grid"
           ref="gridElement"
+          class="inventory__grid"
           @dragover.prevent="handleGridDragOver($event, 'inventory')"
           @dragleave="handleGridDragLeave"
           @drop="handleGridDrop($event, 'inventory')"
@@ -47,7 +47,7 @@
             :key="index" 
             class="inventory__grid-cell"
             :highlighted="isCellHighlighted(index, 'inventory')"
-            :isFirstRow="Math.floor(index / gridColumns) === 0"
+            :is-first-row="Math.floor(index / gridColumns) === 0"
           />
           
           <!-- Предметы в инвентаре -->
@@ -66,8 +66,8 @@
       <div class="inventory__section">
         <DDHeader title="Схрон" class="inventory__header" />
         <div 
-          class="inventory__grid"
           ref="stashGridElement"
+          class="inventory__grid"
           @dragover.prevent="handleGridDragOver($event, 'stash')"
           @dragleave="handleGridDragLeave"
           @drop="handleGridDrop($event, 'stash')"

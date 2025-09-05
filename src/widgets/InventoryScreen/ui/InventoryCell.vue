@@ -1,13 +1,13 @@
 <template>
-    <div 
-        class="inventory__grid-cell"
-        :class="{
-            'inventory__grid-cell--highlight': highlighted,
-            'inventory__grid-cell--first-row': isFirstRow,
-        }"
-    >
-        <slot></slot>
-    </div>
+  <div 
+    class="inventory__grid-cell"
+    :class="{
+      'inventory__grid-cell--highlight': highlighted,
+      'inventory__grid-cell--first-row': isFirstRow,
+    }"
+  >
+    <slot></slot>
+  </div>
 </template>
 
 

@@ -45,8 +45,8 @@
       :style="{ top: y + 'px', left: x + 'px' }"
       @click.stop
     >
-      <div class="dd-context-header" v-if="title">
-        <i :class="headerIcon" v-if="headerIcon"></i>
+      <div v-if="title" class="dd-context-header">
+        <i v-if="headerIcon" :class="headerIcon"></i>
         <span>{{ title }}</span>
       </div>
       
@@ -62,10 +62,10 @@
           @click="!item.disabled && !item.separator && selectItem(item)"
         >
           <div v-if="!item.separator" class="dd-context-item-content">
-            <i :class="item.icon" v-if="item.icon"></i>
+            <i v-if="item.icon" :class="item.icon"></i>
             <span>{{ item.label }}</span>
-            <span class="dd-context-shortcut" v-if="item.shortcut">{{ item.shortcut }}</span>
-            <i class="fas fa-chevron-right submenu-arrow" v-if="item.children"></i>
+            <span v-if="item.shortcut" class="dd-context-shortcut">{{ item.shortcut }}</span>
+            <i v-if="item.children" class="fas fa-chevron-right submenu-arrow"></i>
           </div>
         </div>
       </div>
@@ -105,6 +105,14 @@ export default {
       y: 0
     }
   },
+  mounted() {
+    // Закрываем меню при нажатии Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.visible) {
+        this.closeMenu();
+      }
+    });
+  },
   methods: {
     openMenu(event) {
       this.x = event.pageX;
@@ -141,14 +149,6 @@ export default {
       this.$emit('item-selected', item);
       this.closeMenu();
     }
-  },
-  mounted() {
-    // Закрываем меню при нажатии Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.visible) {
-        this.closeMenu();
-      }
-    });
   }
 }
 </script>

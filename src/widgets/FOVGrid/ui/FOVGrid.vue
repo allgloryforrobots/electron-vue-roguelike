@@ -1,6 +1,6 @@
 <template>
   <div class="map-grid">
-    <template v-for="(row, y) in fovMap" >
+    <template v-for="(row, y) in fovMap">
       <FOVCell 
         v-for="(cell, x) in row"
         :key="`${x}-${y}`" 
@@ -10,7 +10,6 @@
       />
     </template>
   </div>
-
 </template>
 
 <script lang="ts" setup>

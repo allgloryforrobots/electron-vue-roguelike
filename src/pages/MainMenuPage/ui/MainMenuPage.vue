@@ -24,29 +24,27 @@
 <template>
   <div class="center-block">
     <Container>
-       <Header>
+      <Header>
         Rise of Underdog: The Chosen One has long been dead
       </Header>
 
-      <Button :onClick="newGame">
+      <Button :on-click="newGame">
         Новая игра
       </Button>
 
-      <Button :onClick="continueGame">
+      <Button :on-click="continueGame">
         Продолжить
       </Button>
 
-      <Button :onClick="newGame">
+      <Button :on-click="newGame">
         Настройки
       </Button>
 
-      <Button :onClick="closeApp">
+      <Button :on-click="closeApp">
         Выйти
       </Button>
     </Container>
-   
   </div>
-
 </template>
 
 <style scoped lang="scss">

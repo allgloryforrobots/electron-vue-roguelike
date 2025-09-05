@@ -1,11 +1,13 @@
 <template>
   <div class="component-card">
-    <h2 class="component-title"><i class="fas fa-toggle-on"></i> Переключатели</h2>
+    <h2 class="component-title">
+      <i class="fas fa-toggle-on"></i> Переключатели
+    </h2>
     <div class="toggle-container">
       <label v-for="(toggle, index) in toggles" :key="index" class="toggle-item">
         <span>{{ toggle.label }}</span>
         <label class="dd-switch">
-          <input type="checkbox" v-model="toggle.checked">
+          <input v-model="toggle.checked" type="checkbox">
           <span class="dd-slider"></span>
         </label>
       </label>

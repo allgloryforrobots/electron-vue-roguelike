@@ -1,10 +1,14 @@
 <template>
-    <div class="dd-quest">
-        <h3>{{ title }}</h3>
-        <p>{{ description }}</p>
-        <p v-if="difficulty"><strong>Сложность:</strong> {{ difficulty }}</p>
-        <p v-if="reward"><strong>Награда:</strong> {{ reward }}</p>
-    </div>
+  <div class="dd-quest">
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
+    <p v-if="difficulty">
+      <strong>Сложность:</strong> {{ difficulty }}
+    </p>
+    <p v-if="reward">
+      <strong>Награда:</strong> {{ reward }}
+    </p>
+  </div>
 </template>
 
 <script setup lang="ts">

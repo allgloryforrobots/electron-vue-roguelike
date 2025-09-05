@@ -19,9 +19,9 @@
 </script>
 
 <template>
-    <div class="container" :class="cls" :style="styles">
-        <slot/>
-    </div>
+  <div class="container" :class="cls" :style="styles">
+    <slot />
+  </div>
 </template>
 
 <style scoped lang="scss">

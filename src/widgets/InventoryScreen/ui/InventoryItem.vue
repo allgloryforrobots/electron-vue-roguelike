@@ -1,20 +1,22 @@
 <template>
-    <div 
-        class="inventory__item"
-        :class="[
-            `inventory__item--size-${item.width}x${item.height}`,
-            { 
-				'inventory__item--dragging': dragging, 
-				'inventory__item--preview': preview, 
-			}
-        ]"
-        >
-        <div class="inventory__item-content">
-            <span class="inventory__item-marker">{{ item.marker }}</span>
-            <i class="fa-solid" :class="item.icon"></i>
-            <div class="inventory__item-size-badge">{{ item.width }}x{{ item.height }}</div>
-        </div>
+  <div 
+    class="inventory__item"
+    :class="[
+      `inventory__item--size-${item.width}x${item.height}`,
+      { 
+        'inventory__item--dragging': dragging, 
+        'inventory__item--preview': preview, 
+      }
+    ]"
+  >
+    <div class="inventory__item-content">
+      <span class="inventory__item-marker">{{ item.marker }}</span>
+      <i class="fa-solid" :class="item.icon"></i>
+      <div class="inventory__item-size-badge">
+        {{ item.width }}x{{ item.height }}
+      </div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -1,12 +1,12 @@
 <template>
-      <div 
-        :key="x" 
-        class="map-cell"
-        :class="{
-          'not-visible': !visible,
-        }"
-        :title="`${x},${y}`"
-      />
+  <div 
+    :key="x" 
+    class="map-cell"
+    :class="{
+      'not-visible': !visible,
+    }"
+    :title="`${x},${y}`"
+  />
 </template>
 
 <script lang="ts" setup>

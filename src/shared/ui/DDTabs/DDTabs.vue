@@ -1,14 +1,14 @@
 <template>
-    <div class="dd-tabs">
-        <div
-        v-for="tab in tabs"
-        :key="tab"
-        :class="['dd-tab', { active: modelValue === tab }]"
-        @click="$emit('update:modelValue', tab)"
-        >
-        {{ tab }}
-        </div>
+  <div class="dd-tabs">
+    <div
+      v-for="tab in tabs"
+      :key="tab"
+      :class="['dd-tab', { active: modelValue === tab }]"
+      @click="$emit('update:modelValue', tab)"
+    >
+      {{ tab }}
     </div>
+  </div>
 </template>
 
 <!-- <DDTabs :tabs="tabs" v-model="activeTab" />

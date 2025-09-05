@@ -94,9 +94,9 @@
 </script>
 
 <template>
-  <Grid v-if="map" :map="map"/>
-  <BattlersGrid v-if="map"/>
-  <FOVGrid v-if="map" :map="map"/>
+  <Grid v-if="map" :map="map" />
+  <BattlersGrid v-if="map" />
+  <FOVGrid v-if="map" :map="map" />
 </template>
 
 <style scoped lang="scss">

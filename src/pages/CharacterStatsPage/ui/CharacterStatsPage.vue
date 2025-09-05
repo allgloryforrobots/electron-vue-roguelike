@@ -5,7 +5,7 @@
 </script>
 
 <template>
-	<CharacterStats v-if="playerStore.player.stats" :stats="playerStore.player.stats" />
+  <CharacterStats v-if="playerStore.player.stats" :stats="playerStore.player.stats" />
 </template>
 
 <style scoped lang="scss">

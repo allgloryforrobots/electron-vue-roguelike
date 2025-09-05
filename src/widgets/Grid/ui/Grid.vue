@@ -1,6 +1,6 @@
 <template>
   <div class="map-grid">
-    <template v-for="(row, y) in map" >
+    <template v-for="(row, y) in map">
       <Cell 
         v-for="(cell, x) in row"
         :key="`${x}-${y}`" 
@@ -15,8 +15,12 @@
           'test-red': cell.isPath
         }"
       >
-        <template v-if="cell.type === TerrainsTypesEnum.SINGLE_TREE">🌲</template>
-        <template v-if="cell.type === TerrainsTypesEnum.CLUSTER_TREE">🌳</template>
+        <template v-if="cell.type === TerrainsTypesEnum.SINGLE_TREE">
+          🌲
+        </template>
+        <template v-if="cell.type === TerrainsTypesEnum.CLUSTER_TREE">
+          🌳
+        </template>
       </Cell>
     </template>
   </div>

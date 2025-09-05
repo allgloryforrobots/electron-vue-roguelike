@@ -1,7 +1,7 @@
 <template>
-    <span :class="['dd-badge', `dd-badge-${type}`]">
-        <slot></slot>
-    </span>
+  <span :class="['dd-badge', `dd-badge-${type}`]">
+    <slot></slot>
+  </span>
 </template>
 
 <script setup lang="ts">

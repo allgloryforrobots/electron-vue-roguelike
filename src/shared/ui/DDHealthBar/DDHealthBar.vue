@@ -1,6 +1,8 @@
 <template>
   <div class="component-card">
-    <h2 class="component-title"><i class="fas fa-heart"></i> Индикатор здоровья</h2>
+    <h2 class="component-title">
+      <i class="fas fa-heart"></i> Индикатор здоровья
+    </h2>
     <div class="health-container">
       <div v-for="(health, index) in healthBars" :key="index" class="health-item">
         <label>{{ health.label }}</label>
