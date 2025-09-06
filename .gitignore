@@ -92,3 +92,6 @@ typings/
 out/
 
 docs/.vitepress/cache
+
+*storybook.log
+storybook-static
