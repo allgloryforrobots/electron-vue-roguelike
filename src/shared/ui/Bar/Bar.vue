@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { computed, defineProps } from "vue"
-const props = defineProps({
-  variant: {
-    type: String,
-    default: "health",
-    validator: (value: string) => ["health", "mana"].includes(value),
-  },
-  percent: {
-    type: Number,
-    default: 100,
-    validator: (value: number) => value >= 0 && value <= 100,
-  },
+import { computed } from "vue"
+
+interface Props {
+  variant?: "health" | "mana"
+  percent?: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: "health",
+  percent: 100
 })
 
 const barClass = computed(() => [
@@ -20,8 +18,7 @@ const barClass = computed(() => [
 
 const barStyle = computed(() => ({
   width: `${props.percent}%`,
-}));
-
+}))
 </script>
 
 <template>
