@@ -1,6 +1,9 @@
 import type { Preview } from "@storybook/vue3-vite";
+import { CssVariablesDecorator } from "../src/shared/config/storybook/CssVariablesDecorator";
 
 const preview: Preview = {
+  decorators: [CssVariablesDecorator],
+  tags: ['autodocs'],
   parameters: {
     controls: {
       matchers: {
