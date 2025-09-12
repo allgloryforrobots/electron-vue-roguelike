@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  onClick?: (event: MouseEvent) => void
+  onClick: (event: MouseEvent) => void
 }>()
 </script>
 

@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from 'storybook/test';
-import Button from './Button.vue';
+import ButtonTemplate from './ButtonTemplate.vue';
 
 
 const meta = {
-  title: 'Example/Button',
-  component: Button,
-  tags: ['autodocs'],
+  title: 'Example/ButtonTemplate',
+  component: ButtonTemplate,
   argTypes: {
     size: { control: 'select', options: ['small', 'medium', 'large'] },
     backgroundColor: { control: 'color' },
@@ -15,7 +14,7 @@ const meta = {
     primary: false,
     onClick: fn(),
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof ButtonTemplate>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -23,27 +22,27 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     primary: true,
-    label: 'Button',
+    label: 'ButtonTemplate',
   },
 };
 
 export const Secondary: Story = {
   args: {
     primary: false,
-    label: 'Button',
+    label: 'ButtonTemplate',
   },
 };
 
 export const Large: Story = {
   args: {
-    label: 'Button',
+    label: 'ButtonTemplate',
     size: 'large',
   },
 };
 
 export const Small: Story = {
   args: {
-    label: 'Button',
+    label: 'ButtonTemplate',
     size: 'small',
   },
 };
