@@ -1,8 +1,8 @@
 import type { Preview } from "@storybook/vue3-vite";
-import { CssVariablesDecorator } from "../src/shared/config/storybook/CssVariablesDecorator";
+import '../src/app/styles/main.css'; 
 
 const preview: Preview = {
-  decorators: [CssVariablesDecorator ],
+  // decorators: [CssVariablesDecorator ],
   tags: ['autodocs'],
   parameters: {
     controls: {
