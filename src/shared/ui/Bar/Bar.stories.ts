@@ -1,4 +1,3 @@
-// Bar.stories.ts
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Bar from './Bar.vue';
 

@@ -6,7 +6,7 @@ const meta: Meta<typeof Button> = {
   title: 'shared/Button',
   component: Button,
   args: {
-      onClick: fn(),
+    onClick: fn(),
   },
 }
 
