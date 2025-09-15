@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Badge from './Badge.vue'; 
 
 const meta: Meta<typeof Badge> = {
-  title: 'Components/Badge',
+  title: 'shared/Badge',
   component: Badge,
   tags: ['autodocs'],
     argTypes: {

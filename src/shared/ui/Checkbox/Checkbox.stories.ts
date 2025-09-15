@@ -1,10 +1,9 @@
-// Checkbox.stories.ts
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
 import Checkbox from './Checkbox.vue';
 
 const meta: Meta<typeof Checkbox> = {
-  title: 'Components/Checkbox',
+  title: 'shared/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
   argTypes: {

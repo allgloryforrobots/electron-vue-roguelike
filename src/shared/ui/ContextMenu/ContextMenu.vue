@@ -7,7 +7,7 @@
 { label: 'Разобрать', icon: 'fas fa-hammer', danger: true, action: () =>  {} }
 ]) -->
 
-<!-- <DDContextMenu
+<!-- <ContextMenu
     :title="'Действия с предметом'"
     :headerIcon="'fas fa-ring'"
     :items="contextItems"
@@ -20,7 +20,7 @@
         <p>Щелкните правой кнопкой мыши для действий с предметом</p>
     </div>
     </template>
-</DDContextMenu> -->
+</ContextMenu> -->
 
 <template>
   <div>
@@ -41,30 +41,30 @@
     <!-- Контекстное меню -->
     <div 
       v-if="visible" 
-      class="dd-context-menu" 
+      class="context-menu" 
       :style="{ top: y + 'px', left: x + 'px' }"
       @click.stop
     >
-      <div v-if="title" class="dd-context-header">
+      <div v-if="title" class="context-header">
         <i v-if="headerIcon" :class="headerIcon"></i>
         <span>{{ title }}</span>
       </div>
       
-      <div class="dd-context-items">
+      <div class="context-items">
         <div 
           v-for="(item, index) in items" 
           :key="index"
-          :class="['dd-context-item', { 
+          :class="['context-item', { 
             'disabled': item.disabled, 
             'separator': item.separator,
             'danger': item.danger
           }]"
           @click="!item.disabled && !item.separator && selectItem(item)"
         >
-          <div v-if="!item.separator" class="dd-context-item-content">
+          <div v-if="!item.separator" class="context-item-content">
             <i v-if="item.icon" :class="item.icon"></i>
             <span>{{ item.label }}</span>
-            <span v-if="item.shortcut" class="dd-context-shortcut">{{ item.shortcut }}</span>
+            <span v-if="item.shortcut" class="context-shortcut">{{ item.shortcut }}</span>
             <i v-if="item.children" class="fas fa-chevron-right submenu-arrow"></i>
           </div>
         </div>
@@ -74,7 +74,7 @@
     <!-- Затемнение фона -->
     <div 
       v-if="visible" 
-      class="dd-context-backdrop" 
+      class="context-backdrop" 
       @click="closeMenu"
       @contextmenu.prevent="closeMenu"
     ></div>
@@ -121,7 +121,7 @@ export default {
       
       // Проверяем, чтобы меню не выходило за границы экрана
       this.$nextTick(() => {
-        const menu = document.querySelector('.dd-context-menu');
+        const menu = document.querySelector('.context-menu');
         if (menu) {
           const rect = menu.getBoundingClientRect();
           const windowWidth = window.innerWidth;
@@ -177,7 +177,7 @@ export default {
   display: block;
 }
 
-.dd-context-menu {
+.context-menu {
   position: fixed;
   background: linear-gradient(145deg, rgba(56, 47, 39, 0.95), rgba(25, 21, 20, 0.98));
   border: 1px solid var(--border-color);
@@ -185,11 +185,11 @@ export default {
   min-width: 200px;
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  animation: dd-context-in 0.15s ease;
+  animation: context-in 0.15s ease;
   overflow: hidden;
 }
 
-@keyframes dd-context-in {
+@keyframes context-in {
   from { 
     opacity: 0; 
     transform: scale(0.95) translateY(-5px); 
@@ -200,7 +200,7 @@ export default {
   }
 }
 
-.dd-context-header {
+.context-header {
   padding: 12px 15px;
   background: linear-gradient(to right, var(--accent-color-8), var(--border-color));
   color: var(--accent-color-2);
@@ -211,11 +211,11 @@ export default {
   border-bottom: 1px solid var(--border-color);
 }
 
-.dd-context-items {
+.context-items {
   padding: 5px 0;
 }
 
-.dd-context-item {
+.context-item {
   padding: 8px 15px;
   color: var(--text-color);
   cursor: pointer;
@@ -223,27 +223,27 @@ export default {
   position: relative;
 }
 
-.dd-context-item:hover {
+.context-item:hover {
   background: linear-gradient(to right, rgba(212, 163, 115, 0.2), transparent);
   color: var(--accent-color-2);
 }
 
-.dd-context-item.danger:hover {
+.context-item.danger:hover {
   background: linear-gradient(to right, rgba(209, 96, 61, 0.2), transparent);
   color: var(--accent-color-3);
 }
 
-.dd-context-item.disabled {
+.context-item.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.dd-context-item.disabled:hover {
+.context-item.disabled:hover {
   background: transparent;
   color: var(--text-color);
 }
 
-.dd-context-item.separator {
+.context-item.separator {
   height: 1px;
   padding: 0;
   margin: 5px 10px;
@@ -251,19 +251,19 @@ export default {
   cursor: default;
 }
 
-.dd-context-item-content {
+.context-item-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
 
-.dd-context-item-content i:first-child {
+.context-item-content i:first-child {
   width: 16px;
   text-align: center;
 }
 
-.dd-context-shortcut {
+.context-shortcut {
   font-size: 0.8rem;
   color: var(--accent-color-6);
   opacity: 0.7;
@@ -274,7 +274,7 @@ export default {
   margin-left: 10px;
 }
 
-.dd-context-backdrop {
+.context-backdrop {
   position: fixed;
   top: 0;
   left: 0;

@@ -1,9 +1,8 @@
-// CharacterCard.stories.ts
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import CharacterCard from './CharacterCard.vue';
 
 const meta: Meta<typeof CharacterCard> = {
-  title: 'Components/CharacterCard',
+  title: 'shared/CharacterCard',
   component: CharacterCard,
   tags: ['autodocs'],
   parameters: {

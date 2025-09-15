@@ -1,6 +1,27 @@
 @import url('fontawesome.css');
 @import url('duotone.css');
 
+@font-face {
+  font-family: 'Skyhook';
+  src: url('./webfonts/Skyhook.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Shobhika';
+  src: url('./webfonts/shobhika_regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Shobhika';
+  src: url('./webfonts/shobhika_bold.otf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 :root {
   --background-color: #1a1a1a;
   --background-color-medium: #191514;
@@ -62,27 +83,6 @@
   background: var(--background-color-medium);
 }
 
-
-@font-face {
-  font-family: 'Skyhook';
-  src: url('@/shared/assets/fonts/Skyhook.otf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Shobhika';
-  src: url('@/shared/assets/fonts/shobhika_regular.otf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Shobhika';
-  src: url('@/shared/assets/fonts/shobhika_bold.otf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
 
 * {
   box-sizing: border-box;

@@ -98,7 +98,7 @@
 <script setup lang="ts">
     import { InventorySlotItemType, InventorySlotKeys, Item, itemIconsByType, itemTypes } from '@/entities/Item';
     import { usePlayerStore } from '@/entities/Player';
-    import DDHeader from '@/shared/ui/DDHeader/DDHeader.vue';	
+    import DDHeader from '@/shared/ui/DDHeader/Header.vue';	
     import { computed, ref, type CSSProperties, onMounted } from 'vue';
     import InventoryCell from './InventoryCell.vue';
     import InventoryItem from './InventoryItem.vue';

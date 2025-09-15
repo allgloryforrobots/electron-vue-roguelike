@@ -12,11 +12,11 @@
             :key="key" 
             class="character-stats__item"
           >
-            <DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
+            <Tooltip :tooltip="getStatTooltipByName(stat.codename)">
               <DDIcon :icon="stat.icon" />
               <span class="character-stats__name">{{ stat.name }}: </span>
               <span class="character-stats__value">{{ stat.getValue() }}</span>
-            </DDTooltip>
+            </Tooltip>
           </div>
         </div>
       </DDCard>
@@ -32,11 +32,11 @@
             :key="key" 
             class="character-stats__item"
           >
-            <DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
+            <Tooltip :tooltip="getStatTooltipByName(stat.codename)">
               <DDIcon :icon="stat.icon" />
               <span class="character-stats__name">{{ stat.name }}: </span>
               <span class="character-stats__value">{{ stat.getValue() }}</span>
-            </DDTooltip>
+            </Tooltip>
           </div>
         </div>
       </DDCard>
@@ -52,11 +52,11 @@
             :key="key" 
             class="character-stats__item"
           >	
-            <DDTooltip :tooltip="getStatTooltipByName(stat.codename)">
+            <Tooltip :tooltip="getStatTooltipByName(stat.codename)">
               <DDIcon :icon="stat.icon" />
               <span class="character-stats__name">{{ stat.name }}: </span>
               <span class="character-stats__value">{{ stat.getValue() }}</span>
-            </DDTooltip>
+            </Tooltip>
           </div>
         </div>
       </DDCard>
@@ -86,11 +86,11 @@
               :key="skillKey" 
               class="character-stats__item"
             >
-              <DDTooltip :tooltip="getStatTooltipByName((stat as Skill).codename)">
+              <Tooltip :tooltip="getStatTooltipByName((stat as Skill).codename)">
                 <DDIcon :icon="(stat as Skill).icon" />
                 <span class="character-stats__name">{{ (stat as Skill).name }}: </span>
                 <span class="character-stats__value">{{ (stat as Skill).getValue() }}</span>
-              </DDTooltip>
+              </Tooltip>
             </div>
           </div>
         </div>
@@ -104,8 +104,8 @@
 	import { GenerateStatsReturnType, Skill } from '@/entities/Battler';
 	import DDCard from '@/shared/ui/DDCard/DDCard.vue';
 	import Filter from '@/shared/ui/Filters/Filters.vue';
-	import DDIcon from '@/shared/ui/DDIcon/DDIcon.vue';
-	import DDTooltip from '@/shared/ui/DDTooltip/DDTooltip.vue';
+	import DDIcon from '@/shared/ui/Icon/Icon.vue';
+	import Tooltip from '@/shared/ui/Tooltip/Tooltip.vue';
 	import { getStatTooltipByName } from '@/shared/config/tooltips/tooltips';
 	
 	interface Props {

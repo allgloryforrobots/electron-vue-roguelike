@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Achievement from './Achievement.vue';
 
 const meta: Meta<typeof Achievement> = {
-  title: 'Components/Achievement',
+  title: 'shared/Achievement',
   component: Achievement,
   tags: ['autodocs'],
   argTypes: {
