@@ -67,7 +67,7 @@ export const Checked: Story = {
 
 export const WithoutLabel: Story = {
   args: {
-    label: undefined,
+    label: "",
     modelValue: false
   },
   render: (args) => ({

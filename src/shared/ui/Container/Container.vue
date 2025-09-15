@@ -1,40 +1,40 @@
-<script setup lang="ts">
-    import { computed } from 'vue';
-
-    const props = withDefaults(defineProps<{
-        direction?: "horizontal" | "vertical",
-        gap?: number,
-    }>(), {
-        direction: "vertical",
-        gap: 50,
-    })
-
-    const styles = computed(() => {
-        return `gap: ${props.gap}px;`;
-    });
-
-    const cls = computed(() => {
-        return `direction-${props.direction}`;
-    });
-</script>
-
 <template>
-  <div class="container" :class="cls" :style="styles">
+  <div class="flex-container" :class="containerClass" :style="containerStyle">
     <slot />
   </div>
 </template>
 
-<style scoped lang="scss">
-    .container {
-        width: fit-content;
-        height: fit-content;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        align-items: center;
-    }
+<script setup lang="ts">
+import { computed } from 'vue';
 
-    .direction-horizontal {
-        flex-direction: row;
-    }
+const props = withDefaults(defineProps<{
+  direction?: "horizontal" | "vertical";
+  gap?: number;
+}>(), {
+  direction: "vertical",
+  gap: 50,
+});
+
+const containerStyle = computed(() => {
+  return `gap: ${props.gap}px;`;
+});
+
+const containerClass = computed(() => {
+  return `flex-container--${props.direction}`;
+});
+</script>
+
+<style scoped lang="scss">
+.flex-container {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
+
+.flex-container--horizontal {
+  flex-direction: row;
+}
 </style>
