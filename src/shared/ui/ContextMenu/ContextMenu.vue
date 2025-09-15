@@ -32,7 +32,7 @@
     >
       <slot name="activator">
         <div class="default-activator">
-          <i class="fas fa-mouse-pointer"></i>
+          <i class="fa-duotone fa-solid fa-mouse-pointer"></i>
           <p>Щелкните правой кнопкой мыши в этой области</p>
         </div>
       </slot>
