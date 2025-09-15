@@ -100,7 +100,7 @@ body {
   ::selection {
     background: var(--border-color)
   }
-  cursor: url('@/shared/assets/cursors/cursor09_gb_20.png'), auto;
+  cursor: url('../../shared/assets/cursors/cursor09_gb_20.png'), auto;
 }
 
 #app {
