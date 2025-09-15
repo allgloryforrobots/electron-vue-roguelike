@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import DdBadge from './DDBadge.vue'; 
+import Badge from './Badge.vue'; 
 
-const meta: Meta<typeof DdBadge> = {
+const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
-  component: DdBadge,
+  component: Badge,
   tags: ['autodocs'],
     argTypes: {
     type: {
@@ -23,16 +23,16 @@ const meta: Meta<typeof DdBadge> = {
 
 export default meta;
 
-type Story = StoryObj<typeof DdBadge>;
+type Story = StoryObj<typeof Badge>;
 
 export const Common: Story = {
   args: {
     type: 'common'
   },
   render: (args) => ({
-    components: { DdBadge },
+    components: { Badge },
     setup() { return { args }; },
-    template: '<dd-badge v-bind="args">Common</dd-badge>'
+    template: '<badge v-bind="args">Common</badge>'
   })
 };
 
@@ -41,9 +41,9 @@ export const Important: Story = {
     type: 'important'
   },
   render: (args) => ({
-    components: { DdBadge },
+    components: { Badge },
     setup() { return { args }; },
-    template: '<dd-badge v-bind="args">Important</dd-badge>'
+    template: '<badge v-bind="args">Important</badge>'
   })
 };
 
@@ -52,8 +52,8 @@ export const Warn: Story = {
     type: 'warn'
   },
   render: (args) => ({
-    components: { DdBadge },
+    components: { Badge },
     setup() { return { args }; },
-    template: '<dd-badge v-bind="args">Warn</dd-badge>'
+    template: '<badge v-bind="args">Warn</badge>'
   })
 };
