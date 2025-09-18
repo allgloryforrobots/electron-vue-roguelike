@@ -6,12 +6,7 @@
       @contextmenu.prevent="openMenu($event)"
       @click="closeMenu"
     >
-      <slot name="activator">
-        <div class="context-menu__default-activator">
-          <i class="fa-duotone fa-solid fa-mouse-pointer context-menu__activator-icon"></i>
-          <p class="context-menu__activator-text">Щелкните правой кнопкой мыши в этой области</p>
-        </div>
-      </slot>
+      <slot name="activator" />
     </div>
 
     <!-- Контекстное меню -->
