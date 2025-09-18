@@ -1,39 +1,15 @@
-<!-- const contextItems = ref([
-{ label: 'Использовать', icon: 'fas fa-potion', action: () => {} },
-{ label: 'Осмотреть', icon: 'fas fa-search', action: () =>  {} },
-{ label: 'Передать', icon: 'fas fa-handshake', action: () =>  {} },
-{ separator: true },
-{ label: 'Выбросить', icon: 'fas fa-trash', danger: true, action: () =>  {} },
-{ label: 'Разобрать', icon: 'fas fa-hammer', danger: true, action: () =>  {} }
-]) -->
-
-<!-- <ContextMenu
-    :title="'Действия с предметом'"
-    :headerIcon="'fas fa-ring'"
-    :items="contextItems"
-    @item-selected="() => {}"
->
-    <template #activator>
-    <div class="context-demo-content">
-        <i class="fas fa-gem"></i>
-        <h3>Драконий самоцвет</h3>
-        <p>Щелкните правой кнопкой мыши для действий с предметом</p>
-    </div>
-    </template>
-</ContextMenu> -->
-
 <template>
-  <div>
+  <div class="context-menu">
     <!-- Область для активации контекстного меню -->
     <div 
-      class="context-activation-area"
+      class="context-menu__activation-area"
       @contextmenu.prevent="openMenu($event)"
       @click="closeMenu"
     >
       <slot name="activator">
-        <div class="default-activator">
-          <i class="fa-duotone fa-solid fa-mouse-pointer"></i>
-          <p>Щелкните правой кнопкой мыши в этой области</p>
+        <div class="context-menu__default-activator">
+          <i class="fa-duotone fa-solid fa-mouse-pointer context-menu__activator-icon"></i>
+          <p class="context-menu__activator-text">Щелкните правой кнопкой мыши в этой области</p>
         </div>
       </slot>
     </div>
@@ -41,31 +17,34 @@
     <!-- Контекстное меню -->
     <div 
       v-if="visible" 
-      class="context-menu" 
+      class="context-menu__menu" 
       :style="{ top: y + 'px', left: x + 'px' }"
       @click.stop
     >
-      <div v-if="title" class="context-header">
-        <i v-if="headerIcon" :class="headerIcon"></i>
-        <span>{{ title }}</span>
+      <div v-if="title" class="context-menu__header">
+        <i v-if="headerIcon" :class="[headerIcon, 'context-menu__header-icon']"></i>
+        <span class="context-menu__header-title">{{ title }}</span>
       </div>
       
-      <div class="context-items">
+      <div class="context-menu__items">
         <div 
           v-for="(item, index) in items" 
           :key="index"
-          :class="['context-item', { 
-            'disabled': item.disabled, 
-            'separator': item.separator,
-            'danger': item.danger
-          }]"
+          :class="[
+            'context-menu__item',
+            {
+              'context-menu__item--disabled': item.disabled, 
+              'context-menu__item--separator': item.separator,
+              'context-menu__item--danger': item.danger
+            }
+          ]"
           @click="!item.disabled && !item.separator && selectItem(item)"
         >
-          <div v-if="!item.separator" class="context-item-content">
-            <i v-if="item.icon" :class="item.icon"></i>
-            <span>{{ item.label }}</span>
-            <span v-if="item.shortcut" class="context-shortcut">{{ item.shortcut }}</span>
-            <i v-if="item.children" class="fas fa-chevron-right submenu-arrow"></i>
+          <div v-if="!item.separator" class="context-menu__item-content">
+            <i v-if="item.icon" :class="[item.icon, 'context-menu__item-icon']"></i>
+            <span class="context-menu__item-label">{{ item.label }}</span>
+            <span v-if="item.shortcut" class="context-menu__item-shortcut">{{ item.shortcut }}</span>
+            <i v-if="item.children" class="fas fa-chevron-right context-menu__submenu-arrow"></i>
           </div>
         </div>
       </div>
@@ -74,7 +53,7 @@
     <!-- Затемнение фона -->
     <div 
       v-if="visible" 
-      class="context-backdrop" 
+      class="context-menu__backdrop" 
       @click="closeMenu"
       @contextmenu.prevent="closeMenu"
     ></div>
@@ -83,7 +62,7 @@
 
 <script>
 export default {
-  name: 'DDContextMenu',
+  name: 'ContextMenu',
   props: {
     items: {
       type: Array,
@@ -106,7 +85,6 @@ export default {
     }
   },
   mounted() {
-    // Закрываем меню при нажатии Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.visible) {
         this.closeMenu();
@@ -119,9 +97,8 @@ export default {
       this.y = event.pageY;
       this.visible = true;
       
-      // Проверяем, чтобы меню не выходило за границы экрана
       this.$nextTick(() => {
-        const menu = document.querySelector('.context-menu');
+        const menu = document.querySelector('.context-menu__menu');
         if (menu) {
           const rect = menu.getBoundingClientRect();
           const windowWidth = window.innerWidth;
@@ -154,7 +131,11 @@ export default {
 </script>
 
 <style scoped>
-.context-activation-area {
+.context-menu {
+  position: relative;
+}
+
+.context-menu__activation-area {
   min-height: 200px;
   display: flex;
   align-items: center;
@@ -167,17 +148,21 @@ export default {
   cursor: inherit;
 }
 
-.default-activator {
+.context-menu__default-activator {
   color: var(--accent-color-6);
 }
 
-.default-activator i {
+.context-menu__activator-icon {
   font-size: 2rem;
   margin-bottom: 10px;
   display: block;
 }
 
-.context-menu {
+.context-menu__activator-text {
+  margin: 0;
+}
+
+.context-menu__menu {
   position: fixed;
   background: linear-gradient(145deg, rgba(56, 47, 39, 0.95), rgba(25, 21, 20, 0.98));
   border: 1px solid var(--border-color);
@@ -185,11 +170,11 @@ export default {
   min-width: 200px;
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  animation: context-in 0.15s ease;
+  animation: context-menu-in 0.15s ease;
   overflow: hidden;
 }
 
-@keyframes context-in {
+@keyframes context-menu-in {
   from { 
     opacity: 0; 
     transform: scale(0.95) translateY(-5px); 
@@ -200,7 +185,7 @@ export default {
   }
 }
 
-.context-header {
+.context-menu__header {
   padding: 12px 15px;
   background: linear-gradient(to right, var(--accent-color-8), var(--border-color));
   color: var(--accent-color-2);
@@ -211,11 +196,19 @@ export default {
   border-bottom: 1px solid var(--border-color);
 }
 
-.context-items {
+.context-menu__header-icon {
+  font-size: 0.9rem;
+}
+
+.context-menu__header-title {
+  font-size: 0.9rem;
+}
+
+.context-menu__items {
   padding: 5px 0;
 }
 
-.context-item {
+.context-menu__item {
   padding: 8px 15px;
   color: var(--text-color);
   cursor: pointer;
@@ -223,27 +216,27 @@ export default {
   position: relative;
 }
 
-.context-item:hover {
+.context-menu__item:hover {
   background: linear-gradient(to right, rgba(212, 163, 115, 0.2), transparent);
   color: var(--accent-color-2);
 }
 
-.context-item.danger:hover {
+.context-menu__item--danger:hover {
   background: linear-gradient(to right, rgba(209, 96, 61, 0.2), transparent);
   color: var(--accent-color-3);
 }
 
-.context-item.disabled {
+.context-menu__item--disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.context-item.disabled:hover {
+.context-menu__item--disabled:hover {
   background: transparent;
   color: var(--text-color);
 }
 
-.context-item.separator {
+.context-menu__item--separator {
   height: 1px;
   padding: 0;
   margin: 5px 10px;
@@ -251,30 +244,37 @@ export default {
   cursor: default;
 }
 
-.context-item-content {
+.context-menu__item-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
 
-.context-item-content i:first-child {
+.context-menu__item-icon {
   width: 16px;
   text-align: center;
+  font-size: 0.9rem;
 }
 
-.context-shortcut {
+.context-menu__item-label {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.context-menu__item-shortcut {
   font-size: 0.8rem;
   color: var(--accent-color-6);
   opacity: 0.7;
 }
 
-.submenu-arrow {
+.context-menu__submenu-arrow {
   font-size: 0.7rem;
   margin-left: 10px;
+  opacity: 0.7;
 }
 
-.context-backdrop {
+.context-menu__backdrop {
   position: fixed;
   top: 0;
   left: 0;
