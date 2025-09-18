@@ -36,8 +36,8 @@
         &__subtitle {
             font-style: italic;
             color: var(--accent-color-6);
-            font-size: 1.2rem;
-            margin: 0;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
     }
 </style>
