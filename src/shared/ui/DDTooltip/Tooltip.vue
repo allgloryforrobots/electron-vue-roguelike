@@ -61,7 +61,7 @@ const calculatePosition = async () => {
   
   // Пробуем разные позиции, начиная с правой
   const positions = ['right', 'left', 'top', 'bottom'] as const
-  const offset = 20;
+  const offset = 10;
   
   for (const pos of positions) {
     let testLeft = 0
@@ -102,8 +102,8 @@ const calculatePosition = async () => {
   // Если ни одна позиция не подходит, используем правую с корректировками
   position.value = 'right'
   bubblePosition.value = {
-    top: containerRect.bottom + 10 + scrollY,
-    left: containerRect.left + scrollX
+    top: Math.max(scrollY, containerRect.bottom + 10 + scrollY),
+    left: Math.max(scrollX, containerRect.left + scrollX)
   }
 }
 
@@ -149,16 +149,12 @@ const hideTooltip = () => {
 <style>
 .tooltip {
   position: relative;
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  isolation: isolate;
+  display: inline-block;
 }
 
 .tooltip__bubble {
   position: fixed;
-  width: 300px;
-  height: fit-content;
+  max-width: 300px;
   background: var(--background-color-medium);
   color: var(--accent-color-2);
   padding: 8px 12px;
