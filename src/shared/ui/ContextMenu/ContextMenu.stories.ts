@@ -15,7 +15,7 @@ const meta: Meta<typeof ContextMenu> = {
   component: ContextMenu,
   tags: ['autodocs'],
     argTypes: {
-        items
+        
     },
 };
 
@@ -25,15 +25,18 @@ type Story = StoryObj<typeof ContextMenu>;
 
 export const Common: Story = {
   args: {
+    items: items,
+    title: 'Действия с предметом',
+    headerIcon: 'fa-duotone fa-solid fa-ring'
   },
   render: (args) => ({
     components: { ContextMenu },
     setup() { return { args }; },
     template: `
-        <ContextMenu
-            :title="'Действия с предметом'"
-            :headerIcon="'fa-duotone fa-solid fa-ring'"
-            :items="contextItems"
+         <ContextMenu
+            :title="args.title"
+            :headerIcon="args.headerIcon"
+            :items="args.items"
             @item-selected="() => {}"
         >
             <template #activator>
