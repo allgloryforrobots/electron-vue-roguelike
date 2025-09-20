@@ -23,16 +23,22 @@ const meta: Meta<typeof Header> = {
 export default meta;
 type Story = StoryObj<typeof Header>;
 
-// Базовая история
 export const Default: Story = {
   args: {
-    default: 'Заголовок страницы',
   },
+  render: (args) => ({
+    components: { Header },
+    setup() { return { args }; },
+    template: '<Header v-bind="args">Текст</Header>'
+  })
 };
 
-// Длинный текст
 export const LongText: Story = {
   args: {
-    default: 'Очень длинный заголовок страницы который может занимать несколько строк',
   },
+  render: (args) => ({
+    components: { Header },
+    setup() { return { args }; },
+    template: '<Header v-bind="args">Очень длинный заголовок</Header>'
+  })
 };
