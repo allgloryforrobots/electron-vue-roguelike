@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Container from './Container.vue';
 
 const meta: Meta<typeof Container> = {
-  title: 'Layout/Container',
+  title: 'shared/Container',
   component: Container,
   tags: ['autodocs'],
   argTypes: {

@@ -40,27 +40,3 @@ export const LongTitle: Story = {
     subtitle: 'И соответствующий длинный подзаголовок для демонстрации поведения компонента'
   }
 };
-
-export const SpecialCharacters: Story = {
-  args: {
-    title: 'Заголовок с символами! @#$%^&*()',
-    subtitle: 'Подзаголовок с числами 123 и спецсимволами ★✨'
-  }
-};
-
-export const WithHtmlContent: Story = {
-  render: (args) => ({
-    components: { PageHeader },
-    setup() { return { args }; },
-    template: `
-      <PageHeader
-        :title="args.title"
-        :subtitle="args.subtitle"
-      />
-    `
-  }),
-  args: {
-    title: 'Заголовок с <i>HTML</i> тегами',
-    subtitle: 'Подзаголовок с <strong>выделением</strong>'
-  }
-};
