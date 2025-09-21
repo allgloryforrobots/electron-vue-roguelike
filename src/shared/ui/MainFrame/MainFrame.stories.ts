@@ -10,7 +10,7 @@ const MockFooter = {
 };
 
 const meta: Meta<typeof MainFrame> = {
-  title: 'Layout/MainFrame',
+  title: 'shared/MainFrame',
   component: MainFrame,
   tags: ['autodocs'],
   parameters: {

@@ -1,30 +1,29 @@
 <template>
-  <div class="component-card">
-    <h2 class="component-title">
-      <i class="fas fa-window-restore"></i> Модальное окно
-    </h2>
-    <button class="dd-button" @click="showModal">
+  <div class="modal-component">
+    <button class="button" @click="showModal">
       Показать модальное окно
     </button>
     
-    <div v-if="modalVisible" class="dd-modal-overlay" @click.self="hideModal">
-      <div class="dd-modal">
-        <div class="dd-modal-header">
-          <h3>Подтверждение действия</h3>
-          <button class="dd-notification-close" @click="hideModal">
+    <div v-if="modalVisible" class="modal-overlay" @click.self="hideModal">
+      <div class="modal">
+        <div class="modal__header">
+          <slot name="header" />
+          <button class="modal__close" @click="hideModal">
             &times;
           </button>
         </div>
-        <div class="dd-modal-body">
-          <p>Вы уверены, что хотите покинуть безопасную зону? Враги в окружающих землях очень опасны.</p>
+        <div class="modal__body">
+          <slot name="body" />
         </div>
-        <div class="dd-modal-footer">
-          <button class="dd-button" @click="hideModal">
-            Отмена
-          </button>
-          <button class="dd-button confirm-btn" @click="hideModal">
-            Подтвердить
-          </button>
+        <div class="modal__footer">
+          <slot name="footer">
+            <button class="button" @click="hideModal">
+              Отмена
+            </button>
+            <button class="button button--confirm" @click="hideModal">
+              Подтвердить
+            </button>
+          </slot>
         </div>
       </div>
     </div>
@@ -33,7 +32,7 @@
 
 <script>
 export default {
-  name: 'DDModal',
+  name: 'ModalComponent',
   data() {
     return {
       modalVisible: false
@@ -51,7 +50,16 @@ export default {
 </script>
 
 <style scoped>
-.dd-button {
+.modal-component {
+  padding: 20px;
+}
+
+.modal-component__title {
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.button {
   background: linear-gradient(to bottom, var(--accent-color-8), var(--border-color));
   color: var(--accent-color-2);
   border: 1px solid var(--accent-color-1);
@@ -65,17 +73,17 @@ export default {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.dd-button:hover {
+.button:hover {
   background: linear-gradient(to bottom, var(--accent-color-1), var(--accent-color-8));
   color: var(--accent-color-7);
   box-shadow: 0 0 8px rgba(212, 163, 115, 0.4);
 }
 
-.confirm-btn {
+.button--confirm {
   background: linear-gradient(to bottom, var(--accent-color-3), var(--accent-color-4)) !important;
 }
 
-.dd-modal-overlay {
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -86,29 +94,29 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  animation: dd-fade-in 0.3s ease;
+  animation: fade-in 0.3s ease;
 }
 
-@keyframes dd-fade-in {
+@keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-.dd-modal {
+.modal {
   background: var(--background-color-medium);
   border: 2px solid var(--border-color);
   border-radius: 4px;
   max-width: 500px;
   width: 90%;
-  animation: dd-modal-in 0.3s ease;
+  animation: modal-in 0.3s ease;
 }
 
-@keyframes dd-modal-in {
+@keyframes modal-in {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
-.dd-modal-header {
+.modal__header {
   background: linear-gradient(to right, var(--accent-color-8), var(--border-color));
   padding: 15px 20px;
   display: flex;
@@ -116,11 +124,24 @@ export default {
   align-items: center;
 }
 
-.dd-modal-body {
+.modal__title {
+  margin: 0;
+  color: var(--text-color);
+}
+
+.modal__close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.modal__body {
   padding: 20px;
 }
 
-.dd-modal-footer {
+.modal__footer {
   padding: 15px 20px;
   display: flex;
   justify-content: flex-end;
