@@ -1,14 +1,14 @@
 
 <template>
-  <label class="dd-radio-label">
+  <label class="radio-label">
     <input
       type="radio"
-      :class="['dd-radio']"
+      class="radio"
       :checked="modelValue === value"
       :value="value"
       @change="$emit('update:modelValue', value)"
     >
-    {{ label }}
+    <span>{{ label }}</span>
   </label>
 </template>
 
@@ -25,13 +25,12 @@
 </script>
 
 <style scoped>
-    .dd-radio-label {
+    .radio-label {
         display: flex;
-        align-items: center;
         cursor: pointer;
     }
 
-    .dd-radio {
+    .radio {
         appearance: none;
         width: 18px;
         height: 18px;
@@ -43,11 +42,11 @@
         margin-right: 8px;
     }
 
-    .dd-radio:checked {
+    .radio:checked {
         border-color: var(--accent-color-1);
     }
 
-    .dd-radio:checked::after {
+    .radio:checked::after {
         content: "";
         position: absolute;
         width: 10px;
