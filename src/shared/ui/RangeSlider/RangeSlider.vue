@@ -1,84 +1,190 @@
 <template>
-  <div class="component-card">
-    <h2 class="component-title">
-      <i class="fas fa-sliders-h"></i> Ползунки
-    </h2>
-    <div class="slider-container">
-      <div v-for="(slider, index) in sliders" :key="index" class="slider-item">
-        <label>{{ slider.label }}</label>
-        <input 
-          v-model="slider.value" 
-          type="range" 
-          class="dd-range"
-          :min="slider.min" 
-          :max="slider.max"
-        >
-        <span class="slider-value">{{ slider.value }}</span>
+  <div class="slider-item">
+    <label v-if="label">{{ label }}</label>
+    <div class="slider-wrapper">
+      <input 
+        ref="sliderInput"
+        :value="modelValue"
+        type="range" 
+        class="range"
+        :min="min" 
+        :max="max"
+        :step="step"
+        @input="handleInput($event)"
+      >
+      <div class="slider-track">
+        <div 
+          class="slider-fill" 
+          :style="{ width: calculateFillWidth() }"
+        ></div>
       </div>
     </div>
+    <span v-if="showValue" class="slider-value">{{ modelValue }}</span>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'DDRangeSlider',
-  data() {
-    return {
-      sliders: [
-        { label: 'Громкость звука', value: 70, min: 0, max: 100 },
-        { label: 'Яркость экрана', value: 80, min: 0, max: 100 },
-        { label: 'Чувствительность мыши', value: 50, min: 0, max: 100 }
-      ]
-    }
+<script setup>
+import { ref, onMounted, watch } from 'vue'
+
+const props = defineProps({
+  modelValue: {
+    type: Number,
+    default: 50
+  },
+  label: {
+    type: String,
+    default: ''
+  },
+  min: {
+    type: Number,
+    default: 0
+  },
+  max: {
+    type: Number,
+    default: 100
+  },
+  step: {
+    type: Number,
+    default: 1
+  },
+  showValue: {
+    type: Boolean,
+    default: true
+  }
+})
+
+const emit = defineEmits(['update:modelValue', 'change'])
+const sliderInput = ref(null)
+
+const calculateFillWidth = () => {
+  return ((props.modelValue - props.min) / (props.max - props.min)) * 100 + '%'
+}
+
+const updateSliderStyle = () => {
+  if (sliderInput.value) {
+    const value = ((props.modelValue - props.min) / (props.max - props.min)) * 100
+    sliderInput.value.style.setProperty('--slider-fill', `${value}%`)
   }
 }
+
+const handleInput = (event) => {
+  const value = Number(event.target.value)
+  emit('update:modelValue', value)
+  emit('change', value)
+  updateSliderStyle()
+}
+
+// Инициализация стилей после монтирования
+onMounted(() => {
+  updateSliderStyle()
+})
+
+// Следим за изменением modelValue и обновляем стили
+watch(() => props.modelValue, () => {
+  updateSliderStyle()
+})
 </script>
 
 <style scoped>
-.slider-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .slider-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  width: 100%;
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.slider-track {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  background: rgba(56, 47, 39, 0.5);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.slider-fill {
+  position: absolute;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-color-8), var(--accent-color-1));
+  border-radius: 4px;
+}
+
+.range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  outline: none;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--accent-color-1);
+  border: 2px solid var(--background-color-medium);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.range::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  background: var(--accent-color-2);
+}
+
+.range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--accent-color-1);
+  border: 2px solid var(--background-color-medium);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.range::-moz-range-thumb:hover {
+  transform: scale(1.1);
+  background: var(--accent-color-2);
+}
+
+.range::-webkit-slider-track {
+  -webkit-appearance: none;
+  background: transparent;
+  height: 8px;
+}
+
+.range::-moz-range-track {
+  background: transparent;
+  height: 8px;
+  border: none;
 }
 
 .slider-value {
   align-self: flex-end;
   font-size: 0.9rem;
   color: var(--accent-color-6);
+  font-weight: 500;
+  min-width: 30px;
+  text-align: right;
 }
 
-.dd-range {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 8px;
-  background: rgba(56, 47, 39, 0.5);
-  border-radius: 4px;
-  outline: none;
-}
-
-.dd-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, var(--accent-color-1), var(--accent-color-8));
-  cursor: pointer;
-  border: 1px solid var(--border-color);
-}
-
-.dd-range::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, var(--accent-color-1), var(--accent-color-8));
-  cursor: pointer;
-  border: 1px solid var(--border-color);
+label {
+  color: var(--text-color);
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 </style>
