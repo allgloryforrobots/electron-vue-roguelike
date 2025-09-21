@@ -1,5 +1,5 @@
 <template>
-  <div class="dd-quest">
+  <div class="quest">
     <h3>{{ title }}</h3>
     <p>{{ description }}</p>
     <p v-if="difficulty">
@@ -21,7 +21,7 @@
 </script>
 
 <style scoped lang="scss">
-    .dd-quest {
+    .quest {
         background: linear-gradient(to right, rgba(73, 122, 120, 0.15), transparent);
         border-left: 4px solid var(--accent-color-5);
         padding: 20px;
@@ -30,7 +30,7 @@
         position: relative;
     }
 
-    .dd-quest::before {
+    .quest::before {
         content: "⚔";
         position: absolute;
         left: -15px;

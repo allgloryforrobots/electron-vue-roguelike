@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Progress from './Progress.vue';
 
 const meta: Meta<typeof Progress> = {
-  title: 'Components/Progress',
+  title: 'shared/Progress',
   component: Progress,
   tags: ['autodocs'],
   parameters: {
