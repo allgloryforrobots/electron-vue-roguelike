@@ -1,27 +1,43 @@
 <script setup lang="ts">
-  defineProps({
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    variant: {
-      type: String,
-      default: 'default',
-    },
-    tooltip: {
-      type: String,
-      default: undefined,
-    },
-  })
+import { computed } from 'vue';
+
+const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  variant: {
+    type: String,
+    default: 'default',
+  },
+  tooltip: {
+    type: String,
+    default: undefined,
+  },
+})
+
+const buttonClass = computed(() => {
+  const classes = ['list-element'];
+  
+  if (props.disabled) {
+    classes.push('list-element--disabled');
+  }
+  
+  if (props.variant && props.variant !== 'default') {
+    classes.push(`list-element--${props.variant}`);
+  }
+  
+  return classes.join(' ');
+});
 </script>
 
 <template>
   <button
-    class="list-element"
+    :class="buttonClass"
     :disabled="disabled"
   >
     <slot />
-    <span v-if="tooltip" class="tooltip">
+    <span v-if="tooltip" class="list-element__tooltip">
       {{ tooltip }}
     </span>
   </button>
@@ -35,7 +51,7 @@ $border-color: #382F27;
   position: relative;
   letter-spacing: 1px;
   transition: all 0.1s;
-  padding: 8px 18px  ;
+  padding: 8px 18px;
   border: 1px solid var(--border-color);
   outline: 1px solid rgba($border-color, 0.3);
   outline-offset: 3px;
@@ -49,15 +65,31 @@ $border-color: #382F27;
   align-items: center;
   gap: 8px;
 
-  &.disabled {
+  &--disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &--square {
+    width: 100px;
+    height: 100px;
+    
+    &::before {
+      opacity: 0.2;
+    }
+
+    &:hover {
+      &::before {
+        opacity: 0.4;
+      }
+    }
   }
 
   &::before {
     position: absolute;
     transform: scale(1.05);
-    background-color:var( --hover-color);
+    background-color: var(--hover-color);
     content: '';
     top: 5px;
     left: 5px;
@@ -68,11 +100,10 @@ $border-color: #382F27;
     opacity: 0.5;
   }
 
-  .tooltip {
+  &__tooltip {
     visibility: hidden;
     position: absolute;
-    bottom: 125%;
-    left: 50%;
+    right: -150%;
     transform: translateX(-50%);
     background-color: var(--border-color);
     color: #fff;
@@ -102,7 +133,7 @@ $border-color: #382F27;
   }
 
   &:hover {
-    .tooltip {
+    .list-element__tooltip {
       visibility: visible;
       opacity: 1;
     }
@@ -112,28 +143,12 @@ $border-color: #382F27;
     }
   }
 
-  &.square {
-    width: 100px;
-    height: 100px;
-    &::before {
-      opacity: 0.2;
-    }
-
-    &:hover {
-      &::before {
-        opacity: 0.4;
-      }
-    }
-  }
-
   &:active {
     box-shadow: 0 0 4px rgba(#79A29E, 0.5);
   }
-
 }
 
 .list-element ::v-deep(i) {
   font-size: 12px;
 }
-
 </style>
