@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { audioLibrary, playAudio } from '@/shared/utils/useAudio/useAudio'
-
-  const props = defineProps({
+  defineProps({
     disabled: {
       type: Boolean,
       default: false,
@@ -15,29 +13,12 @@ import { audioLibrary, playAudio } from '@/shared/utils/useAudio/useAudio'
       default: undefined,
     },
   })
-
-  const emit = defineEmits(['click'])
-
-  const handleClick = (event: MouseEvent) => {
-    if (!props.disabled) {
-      playAudio(audioLibrary.lightSwitch)
-      emit('click', event)
-    }
-  }
-
-const handleMouseEnter = () => {
-  if (!props.disabled) {
-    playAudio(audioLibrary.hover)
-  }
-}
 </script>
 
 <template>
   <button
     class="list-element"
     :disabled="disabled"
-    @click="handleClick"
-    @mouseenter="handleMouseEnter"
   >
     <slot />
     <span v-if="tooltip" class="tooltip">

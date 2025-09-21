@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 
+  const props = defineProps<{
+    iconCls: string;
+  }>()
+
+  const clazz = computed(() => {
+    return  "fa-duotone fa-solid " + props.iconCls;
+  });
 </script>
 
 <template>
   <div class="diamond">
-    <i class="fas fa-heart"></i>
+    <i :class="clazz"></i>
   </div>
 </template>
 

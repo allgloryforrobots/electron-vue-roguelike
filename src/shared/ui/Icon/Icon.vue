@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'DuotoneSolidIcon',
+  name: 'Icon',
   props: {
     icon: {
       type: String,

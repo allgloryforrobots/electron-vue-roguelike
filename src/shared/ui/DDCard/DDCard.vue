@@ -1,11 +1,21 @@
 <template>
-  <div class="card">
+  <div :class="clazz">
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-// Базовый компонент карточки
+    import { computed, withDefaults } from 'vue';
+    interface Props {
+        type?: 'default' | 'outlined';
+    }
+    const props = withDefaults(defineProps<Props>(), {
+        type: 'default'
+    });
+
+    const clazz = computed(() => {
+      return props.type === "default" ? "card" : "card card__outlined"
+    });
 </script>
 
 <style scoped lang="scss">
@@ -29,8 +39,7 @@
     background: linear-gradient(90deg, transparent, var(--accent-color-1), transparent);
   }
 
-  &:hover {
-    transform: translateY(-3px);
+  &.card__outlined {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     border-color: var(--accent-color-8);
   }

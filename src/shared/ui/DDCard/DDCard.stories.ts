@@ -26,6 +26,18 @@ export const Default: Story = {
   })
 };
 
+export const Outlined: Story = {
+  render: () => ({
+    components: { DDCard },
+    template: `
+      <DDCard type="outlined">
+        <h4>Заголовок карточки</h4>
+        <p>Содержимое карточки с описанием или другой информацией.</p>
+      </DDCard>
+    `
+  })
+};
+
 export const MultipleDDCards: Story = {
   render: () => ({
     components: { DDCard },
