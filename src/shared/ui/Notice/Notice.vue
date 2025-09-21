@@ -1,5 +1,5 @@
 <template>
-  <div class="dd-notice">
+  <div class="notice">
     <h3>{{ title }}</h3>
     <p>{{ content }}</p>
   </div>
@@ -13,7 +13,7 @@
 </script>
 
 <style scoped lang="scss">
-    .dd-notice {
+    .notice {
         background: linear-gradient(to right, rgba(212, 163, 115, 0.15), transparent);
         border-left: 4px solid var(--accent-color-1);
         padding: 20px;
@@ -22,7 +22,7 @@
         position: relative;
     }
 
-    .dd-notice::before {
+    .notice::before {
         content: "!";
         position: absolute;
         left: -15px;
