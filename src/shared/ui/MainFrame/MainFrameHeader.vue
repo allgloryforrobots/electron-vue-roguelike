@@ -1,7 +1,6 @@
 <template>
   <div class="header">
-    <h1>Инвентарь</h1>
-    <p>Собрание предметов из вашего путешествия</p>
+    <slot />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <p>Dragon's Dogma 2 © Capcom. Все права защищены.</p>
+    <slot />
   </div>
 </template>
 

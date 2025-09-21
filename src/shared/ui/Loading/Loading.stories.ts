@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Loading from './Loading.vue';
 
 const meta: Meta<typeof Loading> = {
-  title: 'Components/Loading',
+  title: 'shared/Loading',
   component: Loading,
   tags: ['autodocs'],
   argTypes: {

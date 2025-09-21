@@ -1,13 +1,21 @@
 <script setup lang="ts">
-    import MainFrameHeader from './MainFrameHeader.vue'
-    import MainFrameFooter from './MainFrameFooter.vue'
+  import MainFrameHeader from './MainFrameHeader.vue'
+  import MainFrameFooter from './MainFrameFooter.vue'
 </script>
 
 <template>
   <div class="container">
-    <MainFrameHeader />
+    <MainFrameHeader>
+      <slot name="header">
+      </slot>
+    </MainFrameHeader>
+
     <slot />
-    <MainFrameFooter />
+
+    <MainFrameFooter>
+      <slot name="footer">
+      </slot>
+    </MainFrameFooter>
   </div>
 </template>
 
@@ -21,6 +29,7 @@
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         position: relative;
         overflow: hidden;
+		border-radius: 2px;
     }
 
     .container::before {
