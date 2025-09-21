@@ -22,7 +22,6 @@ const meta: Meta<typeof ListElement> = {
 export default meta;
 type Story = StoryObj<typeof ListElement>;
 
-// Default story
 export const Default: Story = {
   args: {
     disabled: false,

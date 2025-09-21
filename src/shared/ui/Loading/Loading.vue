@@ -1,6 +1,6 @@
 <template>
-  <div class="dd-loading">
-    <div class="dd-loading-spinner"></div>
+  <div class="loading">
+    <div class="loading-spinner"></div>
     <span>{{ text }}</span>
   </div>
 </template>
@@ -12,7 +12,7 @@
 </script>
 
 <style scoped lang="scss">
-    .dd-loading {
+    .loading {
         display: inline-flex;
         align-items: center;
         gap: 10px;
@@ -23,16 +23,16 @@
         color: var(--accent-color-2);
     }
 
-    .dd-loading-spinner {
+    .loading-spinner {
         width: 20px;
         height: 20px;
         border: 2px solid transparent;
         border-top: 2px solid var(--accent-color-1);
         border-radius: 50%;
-        animation: dd-spin 1s linear infinite;
+        animation: spin 1s linear infinite;
     }
 
-    @keyframes dd-spin {
+    @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
