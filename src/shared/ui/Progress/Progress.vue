@@ -1,6 +1,6 @@
 <template>
-  <div class="dd-progress">
-    <div class="dd-progress-bar" :style="{ width: `${value}%` }"></div>
+  <div class="progress">
+    <div class="progress-bar" :style="{ width: `${value}%` }"></div>
   </div>
 </template>
 
@@ -11,7 +11,7 @@
 </script>
 
 <style scoped>
-    .dd-progress {
+    .progress {
         width: 100%;
         height: 20px;
         background-color: rgba(25, 21, 20, 0.8);
@@ -20,7 +20,7 @@
         overflow: hidden;
     }
 
-    .dd-progress-bar {
+    .progress-bar {
         height: 100%;
         background: linear-gradient(90deg, var(--accent-color-8), var(--accent-color-1));
         transition: width 0.3s ease;
