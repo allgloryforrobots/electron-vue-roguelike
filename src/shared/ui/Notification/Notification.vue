@@ -1,41 +1,36 @@
 <template>
-  <div class="component-card">
-    <h2 class="component-title">
-      <i class="fas fa-bell"></i> Уведомления
-    </h2>
-    <div 
-      v-for="(notification, index) in notifications" 
-      :key="index" 
-      :class="['dd-notification', { hidden: notification.hidden }]"
-    >
-      <div class="dd-notification-icon">
-        <i :class="notification.icon"></i>
-      </div>
-      <div class="dd-notification-content">
-        <strong>{{ notification.title }}</strong>
-        <p>{{ notification.message }}</p>
-      </div>
-      <button class="dd-notification-close" @click="hideNotification(index)">
-        &times;
-      </button>
+  <div 
+    v-for="(notification, index) in notifications" 
+    :key="index" 
+    :class="['notification', { hidden: notification.hidden }]"
+  >
+    <div class="notification-icon">
+      <i :class="notification.icon"></i>
     </div>
+    <div class="notification-content">
+      <strong>{{ notification.title }}</strong>
+      <p>{{ notification.message }}</p>
+    </div>
+    <button class="notification-close" @click="hideNotification(index)">
+      &times;
+    </button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'DDNotification',
+  name: 'Notification',
   data() {
     return {
       notifications: [
         {
-          icon: 'fas fa-check',
+          icon: 'fa-duotone fa-solid fa-check',
           title: 'Задание выполнено',
           message: 'Вы успешно завершили квест "Потерянная реликвия"',
           hidden: false
         },
         {
-          icon: 'fas fa-exclamation-triangle',
+          icon: 'fa-duotone fa-solid fa-exclamation-triangle',
           title: 'Низкий уровень здоровья',
           message: 'Ваше здоровье ниже 25%. Используйте зелье лечения.',
           hidden: false
@@ -52,7 +47,7 @@ export default {
 </script>
 
 <style scoped>
-.dd-notification {
+.notification {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -64,7 +59,7 @@ export default {
   animation: dd-notification-in 0.3s ease;
 }
 
-.dd-notification.hidden {
+.notification.hidden {
   display: none;
 }
 
@@ -73,7 +68,7 @@ export default {
   to { transform: translateX(0); opacity: 1; }
 }
 
-.dd-notification-icon {
+.notification-icon {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -82,13 +77,14 @@ export default {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--background-color);
 }
 
-.dd-notification-content {
+.notification-content {
   flex-grow: 1;
 }
 
-.dd-notification-close {
+.notification-close {
   background: none;
   border: none;
   color: var(--text-color);

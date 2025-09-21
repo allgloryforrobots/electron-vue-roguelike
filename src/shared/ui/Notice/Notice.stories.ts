@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Notice from './Notice.vue';
 
 const meta: Meta<typeof Notice> = {
-  title: 'Components/Notice',
+  title: 'shared/Notice',
   component: Notice,
   tags: ['autodocs'],
   parameters: {
