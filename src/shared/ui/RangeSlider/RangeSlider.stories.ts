@@ -1,10 +1,9 @@
-
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import RangeSlider from './RangeSlider.vue';
 import { ref } from 'vue';
 
 const meta: Meta<typeof RangeSlider> = {
-  title: 'Forms/RangeSlider',
+  title: 'shared/RangeSlider',
   component: RangeSlider,
   tags: ['autodocs'],
   parameters: {
