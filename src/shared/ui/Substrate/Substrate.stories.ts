@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Substrate from './Substrate.vue';
 
 const meta: Meta<typeof Substrate> = {
-  title: 'Components/Substrate',
+  title: 'shared/Substrate',
   component: Substrate,
   tags: ['autodocs'],
   argTypes: {

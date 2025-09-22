@@ -1,179 +1,115 @@
-<script setup lang="ts">
-</script>
-
 <template>
-  <table class="dd-table">
-    <thead>
-      <tr>
-        <th>Название</th>
-        <th>Тип</th>
-        <th>Редкость</th>
-        <th>Вес</th>
-        <th>Цена</th>
-        <th>Характеристики</th>
+  <table class="table">
+    <thead class="table__header">
+      <tr class="table__row">
+        <th 
+          v-for="(column, index) in columns" 
+          :key="index" 
+          class="table__cell table__cell--header"
+        >
+          {{ column }}
+        </th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>Драконий клинок</td>
-        <td>Оружие</td>
-        <td class="item-rarity-legendary">
-          Легендарный
+    <tbody class="table__body">
+      <tr 
+        v-for="(row, rowIndex) in data" 
+        :key="rowIndex" 
+        class="table__row"
+      >
+        <td 
+          v-for="(cell, cellIndex) in row" 
+          :key="cellIndex" 
+          class="table__cell"
+          :class="getCellClass(cell)"
+        >
+          {{ cell }}
         </td>
-        <td>4.2</td>
-        <td>5,800 G</td>
-        <td>Урон: 145 | Сила: 80</td>
-      </tr>
-      <tr>
-        <td>Щит грифона</td>
-        <td>Броня</td>
-        <td class="item-rarity-epic">
-          Эпический
-        </td>
-        <td>6.8</td>
-        <td>3,200 G</td>
-        <td>Защита: 87 | Сопр. огню: +20</td>
-      </tr>
-      <tr>
-        <td>Эликсир здоровья</td>
-        <td>Зелье</td>
-        <td class="item-rarity-uncommon">
-          Необычный
-        </td>
-        <td>0.5</td>
-        <td>250 G</td>
-        <td>Восст. здоровья: 500</td>
-      </tr>
-      <tr>
-        <td>Кольцо маны</td>
-        <td>Аксессуар</td>
-        <td class="item-rarity-rare">
-          Редкий
-        </td>
-        <td>0.3</td>
-        <td>1,750 G</td>
-        <td>Мана: +100 | Реген. маны: +2/с</td>
-      </tr>
-      <tr>
-        <td>Кожа дракона</td>
-        <td>Материал</td>
-        <td class="item-rarity-epic">
-          Эпический
-        </td>
-        <td>2.5</td>
-        <td>1,200 G</td>
-        <td>Прочность: 95 | Гибкость: 70</td>
-      </tr>
-      <tr>
-        <td>Лук лесного эльфа</td>
-        <td>Оружие</td>
-        <td class="item-rarity-rare">
-          Редкий
-        </td>
-        <td>2.1</td>
-        <td>2,300 G</td>
-        <td>Урон: 92 | Ловкость: 65</td>
-      </tr>
-      <tr>
-        <td>Яд тролля</td>
-        <td>Реагент</td>
-        <td class="item-rarity-uncommon">
-          Необычный
-        </td>
-        <td>0.8</td>
-        <td>450 G</td>
-        <td>Токсичность: 40 | Длит.: 30 сек</td>
-      </tr>
-      <tr>
-        <td>Сапоги скорохода</td>
-        <td>Броня</td>
-        <td class="item-rarity-rare">
-          Редкий
-        </td>
-        <td>1.8</td>
-        <td>1,800 G</td>
-        <td>Защита: 35 | Скорость: +15%</td>
-      </tr>
-      <tr>
-        <td>Свиток телепортации</td>
-        <td>Магия</td>
-        <td class="item-rarity-common">
-          Обычный
-        </td>
-        <td>0.2</td>
-        <td>100 G</td>
-        <td>Расстояние: 500м | Заряды: 1</td>
-      </tr>
-      <tr>
-        <td>Амулет защиты</td>
-        <td>Аксессуар</td>
-        <td class="item-rarity-uncommon">
-          Необычный
-        </td>
-        <td>0.4</td>
-        <td>650 G</td>
-        <td>Сопр. магии: +15 | Защ.: +10</td>
       </tr>
     </tbody>
   </table>
 </template>
 
+<script setup lang="ts">
+interface Props {
+  columns: string[];
+  data: string[][];
+}
+
+defineProps<Props>();
+
+const getCellClass = (value: string) => {
+  if (typeof value === 'string') {
+    if (value.includes('Легендарный')) return 'table__cell--legendary';
+    if (value.includes('Эпический')) return 'table__cell--epic';
+    if (value.includes('Редкий')) return 'table__cell--rare';
+    if (value.includes('Необычный')) return 'table__cell--uncommon';
+    if (value.includes('Обычный')) return 'table__cell--common';
+  }
+  return '';
+};
+</script>
+
 <style scoped lang="scss">
-    .dd-table {
-        width: 100%;
-        border-collapse: collapse;
-        min-width: 600px;
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+
+  &__header {
+    .table__row {
+      background: linear-gradient(to bottom, var(--accent-color-8), var(--border-color));
+    }
+  }
+
+  &__row {
+    &:nth-child(even) {
+      background-color: rgba(56, 47, 39, 0.3);
     }
 
-    .dd-table th {
-        background: linear-gradient(to bottom, var(--accent-color-8), var(--border-color));
-        color: var(--accent-color-2);
-        padding: 10px 10px;
-        text-align: left;
-        font-variant: small-caps;
-        font-weight: bold;
-        border-bottom: 2px solid var(--accent-color-1);
-        position: relative;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    .dd-table td {
-        padding: 12px 10px;
-        border-bottom: 1px solid var(--border-color);
-        transition: all 0.2s ease;
-    }
-
-    .dd-table tr:last-child td {
-        border-bottom: none;
-    }
-
-    .dd-table tr:hover td {
+    &:hover {
+      .table__cell {
         background-color: var(--hover-color);
         color: var(--accent-color-2);
+      }
+    }
+  }
+
+  &__cell {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    text-align: left;
+
+
+    &--header {
+      color: var(--accent-color-2);
+      font-variant: small-caps;
+      font-weight: bold;
+      border-bottom: 2px solid var(--accent-color-1);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
-    .dd-table tr:nth-child(even) {
-        background-color: rgba(56, 47, 39, 0.3);
+    &--common {
+      color: var(--text-color);
     }
 
-    .item-rarity-common {
-        color: var(--text-color);
+    &--uncommon {
+      color: var(--accent-color-6);
     }
 
-    .item-rarity-uncommon {
-        color: var(--accent-color-6);
+    &--rare {
+      color: var(--accent-color-1);
     }
 
-    .item-rarity-rare {
-        color: var(--accent-color-1);
+    &--epic {
+      color: var(--accent-color-3);
     }
 
-    .item-rarity-epic {
-        color: var(--accent-color-3);
+    &--legendary {
+      color: var(--accent-color-4);
+      text-shadow: 0 0 5px rgba(168, 68, 44, 0.5);
     }
-
-    .item-rarity-legendary {
-        color: var(--accent-color-4);
-        text-shadow: 0 0 5px rgba(168, 68, 44, 0.5);
-    }
+  }
+}
 </style>
