@@ -1,8 +1,7 @@
 <template>
   <div 
-    class="dd-substrate"
+    class="substrate"
     :style="style"
-    :class="{ 'dd-substrate--square': square }"
   >
     <slot />
   </div>
@@ -14,13 +13,11 @@
     interface Props {
         width?: string | number;
         height?: string | number;
-        square?: boolean;
     }
 
     const props = withDefaults(defineProps<Props>(), {
-        width: undefined,
-        height: undefined,
-        square: false,
+        width: '500px',
+        height: '500px',
     });
 
     const style = computed(() => {
@@ -28,23 +25,14 @@
         
         if (props.width) {
             styles.width = typeof props.width === 'number' ? `${props.width}px` : props.width;
-            
-            // Если включен square и высота не задана явно, делаем высоту равной ширине
-            if (props.square && !props.height) {
-                styles.height = typeof props.width === 'number' ? `${props.width}px` : props.width;
-            }
         }
-        
-        if (props.height && !(props.square && props.width)) {
-            styles.height = typeof props.height === 'number' ? `${props.height}px` : props.height;
-        }
-        
+
         return styles;
     });
 </script>
 
 <style scoped lang="scss">
-.dd-substrate {
+.substrate {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -54,7 +42,5 @@
     border: 1px solid var(--border-color);
     border-radius: 4px;
     color: var(--accent-color-2);
-    
-    // Сохраняем скругления, square теперь только про соотношение сторон
 }
 </style>
