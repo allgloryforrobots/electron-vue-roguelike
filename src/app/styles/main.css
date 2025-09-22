@@ -103,6 +103,34 @@ body {
   cursor: url('../../shared/assets/cursors/cursor09_gb_20.png'), auto;
 }
 
+select {
+  /* Remove default dropdown arrow and other native UI elements */
+  appearance: none;
+  -webkit-appearance: none; /* For Webkit browsers like Chrome, Safari */
+  -moz-appearance: none;    /* For Firefox */
+
+  /* Set background to transparent to allow custom backgrounds */
+  background-color: transparent;
+
+  /* Remove default border */
+  border: none;
+
+  /* Reset padding and margin */
+  padding: 0;
+  margin: 0;
+
+  /* Inherit font styles for consistency */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+
+  /* Inherit cursor style or set a custom one */
+  cursor: inherit;
+
+  /* Ensure the element takes up the desired width */
+  width: 100%; /* Or a specific width */
+}
+
 #app {
   position: fixed;
   top: 0;

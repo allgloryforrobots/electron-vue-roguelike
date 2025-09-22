@@ -3,8 +3,8 @@
     <select
       class="select__native"
       :value="modelValue"
-      @change="handleChange"
       :class="{ 'select__native--has-value': modelValue }"
+      @change="handleChange"
     >
       <option disabled value="" class="select__option select__option--default">
         {{ defaultText }}
@@ -20,7 +20,7 @@
     </select>
     <div class="select__arrow">
       <svg class="select__arrow-icon" width="12" height="8" viewBox="0 0 12 8" fill="none">
-        <path d="M1 1.5L6 6.5L11 1.5" stroke="var(--accent-color-2)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M1 1.5L6 6.5L11 1.5" stroke="var(--accent-color-2)" stroke-width="2" stroke-linecap="round" />
       </svg>
     </div>
   </div>
@@ -46,7 +46,6 @@ const handleChange = (event: Event) => {
 <style lang="scss" scoped>
 .select {
   position: relative;
-  display: inline-block;
   width: 500px;
 
   &__native {
@@ -87,14 +86,10 @@ const handleChange = (event: Event) => {
   &__option {
     display: block;
     color: var(--accent-color-2);
-
-    &:hover {
-      background-color: red !important;
-    }
-
-    &:not(.select__option--default) {
-      display: block;
-    }
+	&:checked {
+        background-color: var(--accent-color-1);
+        color: #191514;
+	}
   }
 
   &__arrow {
@@ -108,8 +103,5 @@ const handleChange = (event: Event) => {
     justify-content: center;
   }
 
-  &__arrow-icon {
-    /* Стили для иконки стрелки */
-  }
 }
 </style>
