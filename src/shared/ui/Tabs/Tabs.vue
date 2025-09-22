@@ -1,9 +1,9 @@
 <template>
-  <div class="dd-tabs">
+  <div class="tabs">
     <div
       v-for="tab in tabs"
       :key="tab"
-      :class="['dd-tab', { active: modelValue === tab }]"
+      :class="['tab', { active: modelValue === tab }]"
       @click="$emit('update:modelValue', tab)"
     >
       {{ tab }}
@@ -28,13 +28,12 @@ const tabs = ['Вкладка 1', 'Вкладка 2', 'Вкладка 3'] -->
 </script>
 
 <style scoped>
-    .dd-tabs {
+    .tabs {
         display: flex;
         border-bottom: 1px solid var(--border-color);
-        margin-bottom: 20px;
     }
 
-    .dd-tab {
+    .tab {
         padding: 10px 20px;
         cursor: pointer;
         border: 1px solid transparent;
@@ -45,7 +44,7 @@ const tabs = ['Вкладка 1', 'Вкладка 2', 'Вкладка 3'] -->
         transition: all 0.3s ease;
     }
 
-    .dd-tab.active {
+    .tab.active {
         background-color: var(--background-color-medium);
         border-color: var(--border-color);
         border-radius: 4px 4px 0 0;
@@ -53,7 +52,7 @@ const tabs = ['Вкладка 1', 'Вкладка 2', 'Вкладка 3'] -->
         position: relative;
     }
 
-    .dd-tab.active::after {
+    .tab.active::after {
         content: "";
         position: absolute;
         bottom: -1px;
