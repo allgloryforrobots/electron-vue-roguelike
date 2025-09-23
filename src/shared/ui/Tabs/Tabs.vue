@@ -11,11 +11,6 @@
   </div>
 </template>
 
-<!-- <DDTabs :tabs="tabs" v-model="activeTab" />
-<p>Содержимое активной вкладки: {{ activeTab }}</p>
-const activeTab = ref('Вкладка 1')
-const tabs = ['Вкладка 1', 'Вкладка 2', 'Вкладка 3'] -->
-
 <script setup lang="ts">
     defineProps<{
         tabs: string[]

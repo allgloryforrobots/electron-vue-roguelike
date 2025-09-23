@@ -1,32 +1,35 @@
 <template>
-  <div class="component-card">
-    <h2 class="component-title">
-      <i class="fas fa-toggle-on"></i> Переключатели
-    </h2>
-    <div class="toggle-container">
-      <label v-for="(toggle, index) in toggles" :key="index" class="toggle-item">
-        <span>{{ toggle.label }}</span>
-        <label class="dd-switch">
-          <input v-model="toggle.checked" type="checkbox">
-          <span class="dd-slider"></span>
-        </label>
+  <div class="toggle-container">
+    <label v-for="(toggle, index) in toggles" :key="index" class="toggle-item">
+      <span>{{ toggle.label }}</span>
+      <label class="switch">
+        <input 
+          v-model="toggle.checked" 
+          type="checkbox"
+          @change="$emit('toggle-change', { index, value: toggle.checked })"
+        >
+        <span class="slider"></span>
       </label>
-    </div>
+    </label>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'DDToggle',
-  data() {
-    return {
-      toggles: [
-        { label: 'Звуковые эффекты', checked: true },
-        { label: 'Фоновная музыка', checked: true },
-        { label: 'Режим сложности', checked: false }
-      ]
+  name: 'Toggle',
+  props: {
+    toggles: {
+      type: Array,
+      required: true,
+      validator: (value) => {
+        return value.every(item => 
+          typeof item.label === 'string' && 
+          typeof item.checked === 'boolean'
+        )
+      }
     }
-  }
+  },
+  emits: ['toggle-change']
 }
 </script>
 
@@ -41,22 +44,23 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 }
 
-.dd-switch {
+.switch {
   position: relative;
   display: inline-block;
   width: 50px;
   height: 24px;
 }
 
-.dd-switch input {
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.dd-slider {
+.slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -69,7 +73,7 @@ export default {
   border: 1px solid var(--border-color);
 }
 
-.dd-slider:before {
+.slider:before {
   position: absolute;
   content: "";
   height: 18px;
@@ -81,11 +85,11 @@ export default {
   border-radius: 50%;
 }
 
-input:checked + .dd-slider {
+input:checked + .slider {
   background-color: var(--accent-color-5);
 }
 
-input:checked + .dd-slider:before {
+input:checked + .slider:before {
   transform: translateX(26px);
   background: linear-gradient(145deg, var(--accent-color-1), var(--accent-color-8));
 }

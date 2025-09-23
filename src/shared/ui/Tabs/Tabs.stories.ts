@@ -3,7 +3,7 @@ import Tabs from './Tabs.vue';
 import { ref } from 'vue';
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Components/Tabs',
+  title: 'shared/Tabs',
   component: Tabs,
   tags: ['autodocs'],
   argTypes: {
