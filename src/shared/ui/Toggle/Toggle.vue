@@ -1,14 +1,19 @@
 <template>
-  <div class="toggle-container">
-    <label v-for="(toggle, index) in toggles" :key="index" class="toggle-item">
-      <span>{{ toggle.label }}</span>
-      <label class="switch">
+  <div class="toggle">
+    <label 
+      v-for="(toggle, index) in toggles" 
+      :key="index" 
+      class="toggle__item"
+    >
+      <span class="toggle__label">{{ toggle.label }}</span>
+      <label class="toggle__switch">
         <input 
-          v-model="toggle.checked" 
+          v-model="toggle.checked"
+          class="toggle__input" 
           type="checkbox"
           @change="$emit('toggle-change', { index, value: toggle.checked })"
         >
-        <span class="slider"></span>
+        <span class="toggle__slider"></span>
       </label>
     </label>
   </div>
@@ -34,33 +39,38 @@ export default {
 </script>
 
 <style scoped>
-.toggle-container {
+.toggle {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.toggle-item {
+.toggle__item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
 
-.switch {
+.toggle__label {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.toggle__switch {
   position: relative;
   display: inline-block;
   width: 50px;
   height: 24px;
 }
 
-.switch input {
+.toggle__input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.slider {
+.toggle__slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -73,7 +83,7 @@ export default {
   border: 1px solid var(--border-color);
 }
 
-.slider:before {
+.toggle__slider::before {
   position: absolute;
   content: "";
   height: 18px;
@@ -85,12 +95,40 @@ export default {
   border-radius: 50%;
 }
 
-input:checked + .slider {
+.toggle__input:checked + .toggle__slider {
   background-color: var(--accent-color-5);
 }
 
-input:checked + .slider:before {
+.toggle__input:checked + .toggle__slider::before {
   transform: translateX(26px);
   background: linear-gradient(145deg, var(--accent-color-1), var(--accent-color-8));
+}
+
+/* Модификаторы */
+.toggle__item--disabled .toggle__label {
+  color: var(--text-color-disabled);
+}
+
+.toggle__item--disabled .toggle__slider {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.toggle__item--disabled .toggle__input {
+  cursor: not-allowed;
+}
+
+.toggle--horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.toggle--compact {
+  gap: 10px;
+}
+
+.toggle--compact .toggle__item {
+  min-height: 32px;
 }
 </style>

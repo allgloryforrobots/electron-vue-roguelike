@@ -2,6 +2,12 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Toggle from './Toggle.vue';
 import { ref } from 'vue';
 
+// Определяем интерфейс для объекта переключателя
+interface ToggleItem {
+  label: string;
+  checked: boolean;
+}
+
 const meta: Meta<typeof Toggle> = {
   title: 'Components/Toggle',
   component: Toggle,
@@ -31,7 +37,8 @@ export const Multiple: Story = {
   render: (args) => ({
     components: { Toggle },
     setup() {
-      const localToggles = ref([...args.toggles]);
+      // Указываем тип для localToggles
+      const localToggles = ref<ToggleItem[]>([...args.toggles as ToggleItem[]]);
       
       const handleToggleChange = (event: { index: number; value: boolean }) => {
         localToggles.value[event.index].checked = event.value;
@@ -57,7 +64,8 @@ export const SingleToggle: Story = {
   render: (args) => ({
     components: { Toggle },
     setup() {
-      const localToggles = ref([...args.toggles]);
+      // Указываем тип для localToggles
+      const localToggles = ref<ToggleItem[]>([...args.toggles as ToggleItem[]]);
       
       const handleToggleChange = (event: { index: number; value: boolean }) => {
         localToggles.value[event.index].checked = event.value;
