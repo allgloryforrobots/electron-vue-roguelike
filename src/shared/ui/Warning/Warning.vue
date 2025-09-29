@@ -1,5 +1,5 @@
 <template>
-  <div class="dd-warning">
+  <div class="warning">
     <h3>{{ title }}</h3>
     <p>{{ content }}</p>
   </div>
@@ -13,7 +13,7 @@
 </script>
 
 <style scoped lang="scss">
-    .dd-warning {
+    .warning {
         background: linear-gradient(to right, rgba(209, 96, 61, 0.15), transparent);
         border-left: 4px solid var(--accent-color-3);
         padding: 20px;
@@ -22,7 +22,7 @@
         position: relative;
     }
 
-    .dd-warning::before {
+    .warning::before {
         content: "⚠";
         position: absolute;
         left: -15px;

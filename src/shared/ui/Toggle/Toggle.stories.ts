@@ -2,14 +2,13 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Toggle from './Toggle.vue';
 import { ref } from 'vue';
 
-// Определяем интерфейс для объекта переключателя
 interface ToggleItem {
   label: string;
   checked: boolean;
 }
 
 const meta: Meta<typeof Toggle> = {
-  title: 'Components/Toggle',
+  title: 'shared/Toggle',
   component: Toggle,
   tags: ['autodocs'],
   argTypes: {
@@ -37,7 +36,6 @@ export const Multiple: Story = {
   render: (args) => ({
     components: { Toggle },
     setup() {
-      // Указываем тип для localToggles
       const localToggles = ref<ToggleItem[]>([...args.toggles as ToggleItem[]]);
       
       const handleToggleChange = (event: { index: number; value: boolean }) => {
@@ -64,7 +62,6 @@ export const SingleToggle: Story = {
   render: (args) => ({
     components: { Toggle },
     setup() {
-      // Указываем тип для localToggles
       const localToggles = ref<ToggleItem[]>([...args.toggles as ToggleItem[]]);
       
       const handleToggleChange = (event: { index: number; value: boolean }) => {
