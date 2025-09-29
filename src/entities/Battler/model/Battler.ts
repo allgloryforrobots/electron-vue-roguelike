@@ -1,8 +1,12 @@
 import { EnemiesDecorator, Fraction, PlayerDecorator } from "@/entities/Fraction";
 import { generateStats } from "./Stats";
-import { IPosition } from "@/shared/types/types";
 import { Direction } from "@/widgets/FOVGrid";
 import { generateSlots } from "@/entities/Item/lib/equipSlots/equipSlots";
+
+export interface IPosition {
+    x: number;
+    y: number;
+}
 
 interface IClassOptions {
     name: string;
