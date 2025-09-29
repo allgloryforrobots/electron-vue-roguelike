@@ -1,14 +1,12 @@
-export class Stat {
+import { Entity } from "@/shared/model/Entity/Entity";
+
+export class Stat extends Entity {
     // значения без модификаторов, изменяется только прокачкой
     self_value = 0;
     // временные статусы
     temp_modifiers = 0;
     // бонусы или штрафы от экипировки (надеть/снять)
     equip_modifiers = 0;
-    
-
-    constructor() {
-    }
 
     changeSelfValue(modifier: number) {
         this.self_value += modifier;
@@ -211,7 +209,7 @@ export class PsiResistance extends Resist {
   static readonly icon = "fa-mind-share";
 }
 
-export class PhisResistance extends Resist {
+export class PhysResistance extends Resist {
   static readonly name = "Сопротивление физическим эффектам";
   static readonly codename = "phis_resistance";
   static readonly icon = "fa-shield-halved";
@@ -455,7 +453,7 @@ export class Psychology extends Skill {
 }
 
 // Интеллектуальные навыки
-export class Performance extends Skill {
+export class Acting extends Skill {
   static readonly name = "Исполнение";
   static readonly codename = "performance";
   static readonly icon = "fa-masks-theater";
@@ -583,7 +581,7 @@ export class Farming extends Skill {
   static readonly icon = "fa-wheat-alt";
 }
 
-export class Intimacy extends Skill {
+export class Sex extends Skill {
   static readonly name = "Секс";
   static readonly codename = "sex";
   static readonly icon = "fa-heart";
@@ -760,8 +758,6 @@ export class StyleIcon extends Skill {
   static readonly codename = "style_icon";
   static readonly icon = "fa-star";
 }
-
-// export type GenerateStatsReturnType = ReturnType<typeof generateStats>;
 
 // export function generateStats() {
 //     // Характеристики

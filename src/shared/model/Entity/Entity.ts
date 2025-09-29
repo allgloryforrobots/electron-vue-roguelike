@@ -1,8 +1,9 @@
+import { AcidResistance, Acrobatics, ActionPoints, Agility, Alchemy, Analysis, AnimalTraining, Appearance, Artifacts, Artistry, Athletics, AttackInFlight, Augmentations, Axes, Biomancy, BlackMagic, Blacksmithing, Bluff, Bow, Cartography, Climbing, ColdResistance, CombatCapability, Concentration, Constitution, Cooking, CriticalHit, Crossbow, CrushingResistance, Cryptomagic, CuttingResistance, Diplomacy, DualWield, ElectricityResistance, Electrics, Empathy, Enchantment, Energy, Evasion, ExoticWeapons, Farming, Firearm, FireResistance, Gambling, Gift, Gunsmith, HearingRange, HeavyArmor, HeavyWeapons, Herbology, HorseFight, Hunting, Implants, Infomantia, Intelligence, Sex, Intimidation, Investigation, JewelryMaking, Knife, Knowledge, Leatherworking, LightArmor, LongBlades, MaceAndFlail, MagicResistance, Mana, Manipulation, MartialArts, Mechanics, Medicine, Metallurgy, Ninjutsu, Parry, Perception, PhysResistance, PiercingResistance, Piloting, PoisonResistance, Pole, PowerfulMagic, PowerOfCharisma, PowerOfTheMind, Psionics, PsiResistance, Psyche, Psychology, QuickReaction, RangeOfVision, Resolve, ResourceExtraction, RewritingTheScrolls, Safecracker, Sanity, Scouting, Seduction, SharpEye, Shield, ShortBlades, Steal, Stealth, SteelFortitude, StyleIcon, Swimming, Tactics, ThrowsAndSlings, ToughSkin, Trade, Traps, UnarmoredCombat, Wand, WhiteMagic, WildMagic, Woodworking, Acting } from "@/entities/Battler/model/Stats";
+
 /** базовый класс для любой Entity */
 export class Entity {
-    id = crypto.randomUUID();
-}
 
+}
 
 export enum EntityNames {
   // === Основные характеристики ===
@@ -83,7 +84,7 @@ export enum EntityNames {
   Psychology = "psychology",
 
   // === Интеллектуальные навыки ===
-  Performance = "performance",
+  Acting = "performance",
   Investigation = "investigation",
   Medicine = "medicine",
   Knowledge = "knowledge",
@@ -146,3 +147,148 @@ export enum EntityNames {
   SteelFortitude = "steel_fortitude",
   StyleIcon = "style_icon",
 }
+
+export type EntityMapType = Record<EntityNames, Entity>;
+
+export const EntityMap: EntityMapType = {
+  // === Основные характеристики ===
+  [EntityNames.Constitution]: Constitution,
+  [EntityNames.Agility]: Agility,
+  [EntityNames.Perception]: Perception,
+  [EntityNames.Gift]: Gift,
+  [EntityNames.Intelligence]: Intelligence,
+  [EntityNames.Empathy]: Empathy,
+  [EntityNames.Psyche]: Psyche,
+  [EntityNames.Appearance]: Appearance,
+
+  // === Второстепенные характеристики ===
+  [EntityNames.CombatCapability]: CombatCapability,
+  [EntityNames.Sanity]: Sanity,
+  [EntityNames.Energy]: Energy,
+  [EntityNames.Mana]: Mana,
+  [EntityNames.ActionPoints]: ActionPoints,
+  [EntityNames.RangeOfVision]: RangeOfVision,
+  [EntityNames.HearingRange]: HearingRange,
+
+  // === Сопротивления ===
+  [EntityNames.FireResistance]: FireResistance,
+  [EntityNames.ColdResistance]: ColdResistance,
+  [EntityNames.ElectricityResistance]: ElectricityResistance,
+  [EntityNames.PoisonResistance]: PoisonResistance,
+  [EntityNames.AcidResistance]: AcidResistance,
+  [EntityNames.CrushingResistance]: CrushingResistance,
+  [EntityNames.PiercingResistance]: PiercingResistance,
+  [EntityNames.CuttingResistance]: CuttingResistance,
+  [EntityNames.MagicResistance]: MagicResistance,
+  [EntityNames.PsiResistance]: PsiResistance,
+  [EntityNames.PhysResistance]: PhysResistance, // Обрати внимание: в enum ты написал "PhysResistance", а в классе — "PhisResistance"
+
+  // === Боевые навыки ===
+  [EntityNames.MartialArts]: MartialArts,
+  [EntityNames.Knife]: Knife,
+  [EntityNames.ShortBlades]: ShortBlades,
+  [EntityNames.LongBlades]: LongBlades,
+  [EntityNames.MaceAndFlail]: MaceAndFlail,
+  [EntityNames.Axes]: Axes,
+  [EntityNames.Pole]: Pole,
+  [EntityNames.ThrowsAndSlings]: ThrowsAndSlings,
+  [EntityNames.ExoticWeapons]: ExoticWeapons,
+  [EntityNames.HorseFight]: HorseFight,
+  [EntityNames.CriticalHit]: CriticalHit,
+  [EntityNames.DualWield]: DualWield,
+  [EntityNames.AttackInFlight]: AttackInFlight,
+  [EntityNames.Ninjutsu]: Ninjutsu,
+  [EntityNames.Bow]: Bow,
+  [EntityNames.Crossbow]: Crossbow,
+  [EntityNames.Firearm]: Firearm,
+  [EntityNames.HeavyWeapons]: HeavyWeapons,
+  [EntityNames.Shield]: Shield,
+  [EntityNames.Parry]: Parry,
+  [EntityNames.Evasion]: Evasion,
+  [EntityNames.LightArmor]: LightArmor,
+  [EntityNames.HeavyArmor]: HeavyArmor,
+  [EntityNames.UnarmoredCombat]: UnarmoredCombat,
+  [EntityNames.Wand]: Wand,
+
+  // === Физические навыки ===
+  [EntityNames.Swimming]: Swimming,
+  [EntityNames.Climbing]: Climbing,
+  [EntityNames.Acrobatics]: Acrobatics,
+  [EntityNames.Athletics]: Athletics,
+  [EntityNames.Stealth]: Stealth,
+  [EntityNames.Scouting]: Scouting,
+  [EntityNames.Augmentations]: Augmentations,
+
+  // === Социальные навыки ===
+  [EntityNames.Resolve]: Resolve,
+  [EntityNames.Intimidation]: Intimidation,
+  [EntityNames.Bluff]: Bluff,
+  [EntityNames.Diplomacy]: Diplomacy,
+  [EntityNames.Manipulation]: Manipulation,
+  [EntityNames.Seduction]: Seduction,
+  [EntityNames.Psychology]: Psychology,
+
+  // === Интеллектуальные навыки ===
+  [EntityNames.Acting]: Acting,
+  [EntityNames.Investigation]: Investigation,
+  [EntityNames.Medicine]: Medicine,
+  [EntityNames.Knowledge]: Knowledge,
+  [EntityNames.Trade]: Trade,
+  [EntityNames.Concentration]: Concentration,
+  [EntityNames.Artifacts]: Artifacts,
+  [EntityNames.Tactics]: Tactics,
+
+  // === Воровские навыки ===
+  [EntityNames.Safecracker]: Safecracker,
+  [EntityNames.Steal]: Steal,
+  [EntityNames.Infomantia]: Infomantia,
+  [EntityNames.Gambling]: Gambling,
+  [EntityNames.Piloting]: Piloting,
+
+  // === Ремесленные навыки ===
+  [EntityNames.Enchantment]: Enchantment,
+  [EntityNames.Blacksmithing]: Blacksmithing,
+  [EntityNames.Leatherworking]: Leatherworking,
+  [EntityNames.Woodworking]: Woodworking,
+  [EntityNames.JewelryMaking]: JewelryMaking,
+  [EntityNames.Cooking]: Cooking,
+  [EntityNames.AnimalTraining]: AnimalTraining,
+  [EntityNames.Farming]: Farming,
+  [EntityNames.Sex]: Sex,
+
+  // === Специализированные навыки ===
+  [EntityNames.Traps]: Traps,
+  [EntityNames.Alchemy]: Alchemy,
+  [EntityNames.RewritingTheScrolls]: RewritingTheScrolls,
+  [EntityNames.Herbology]: Herbology,
+  [EntityNames.ResourceExtraction]: ResourceExtraction,
+  [EntityNames.Hunting]: Hunting,
+  [EntityNames.Cartography]: Cartography,
+
+  // === Магические навыки ===
+  [EntityNames.Biomancy]: Biomancy,
+  [EntityNames.Cryptomagic]: Cryptomagic,
+  [EntityNames.WhiteMagic]: WhiteMagic,
+  [EntityNames.Psionics]: Psionics,
+  [EntityNames.BlackMagic]: BlackMagic,
+  [EntityNames.WildMagic]: WildMagic,
+
+  // === Технические навыки ===
+  [EntityNames.Gunsmith]: Gunsmith,
+  [EntityNames.Mechanics]: Mechanics,
+  [EntityNames.Electrics]: Electrics,
+  [EntityNames.Metallurgy]: Metallurgy,
+  [EntityNames.Implants]: Implants,
+  [EntityNames.Analysis]: Analysis,
+  [EntityNames.Artistry]: Artistry,
+
+  // === Специальные навыки ===
+  [EntityNames.ToughSkin]: ToughSkin,
+  [EntityNames.QuickReaction]: QuickReaction,
+  [EntityNames.SharpEye]: SharpEye,
+  [EntityNames.PowerfulMagic]: PowerfulMagic,
+  [EntityNames.PowerOfTheMind]: PowerOfTheMind,
+  [EntityNames.PowerOfCharisma]: PowerOfCharisma,
+  [EntityNames.SteelFortitude]: SteelFortitude,
+  [EntityNames.StyleIcon]: StyleIcon,
+};
