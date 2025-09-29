@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Tooltip from './Tooltip.vue';
 
 const meta = {
-  title: 'Components/Tooltip',
+  title: 'shared/TooltipAlt',
   component: Tooltip,
   tags: ['autodocs'],
   parameters: {
