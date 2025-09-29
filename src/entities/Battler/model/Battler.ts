@@ -1,5 +1,4 @@
 import { EnemiesDecorator, Fraction, PlayerDecorator } from "@/entities/Fraction";
-import { generateStats } from "./Stats";
 import { Direction } from "@/widgets/FOVGrid";
 import { generateSlots } from "@/entities/Item/lib/equipSlots/equipSlots";
 
@@ -15,7 +14,6 @@ interface IClassOptions {
 
 export class Battler {
     id = crypto.randomUUID();
-    stats = generateStats();
     name: string;
     codename: string;
     level = 1;

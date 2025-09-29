@@ -1,6 +1,6 @@
-import { Entity } from "@/shared/model/Entity/Entity";
+import { Property } from "@/shared/model/Property/Property";
 
-export class Stat extends Entity {
+export class Stat extends Property {
     // значения без модификаторов, изменяется только прокачкой
     self_value = 0;
     // временные статусы
