@@ -1,4 +1,4 @@
-import { Battler } from "@/entities/Battler";
+import { Battler } from "@/shared/model/Battler";
 import { IMapGeneratorOptions, TerrainsTypesEnum } from "../types/GridTypes";
 import type { ICellOptions, MapType } from "../types/GridTypes";
 

@@ -1,11 +1,6 @@
 import { MapType, TerrainsTypesEnum } from "@/entities/Map";
+import { Direction } from "@/shared/model/Direction/Direction";
 
-export enum Direction {
-    UP = "UP",
-    DOWN = "DOWN",
-    LEFT = "LEFT",
-    RIGHT = "RIGHT"
-}
 
 export class FOVCalculator {
     private map: MapType;

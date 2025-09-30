@@ -1,4 +1,4 @@
-import { Battler } from "@/entities/Battler";
+import { Battler } from "@/shared/model/Battler";
 import { MapType } from "@/entities/Map/types/GridTypes";
 
 export const moveBattler = (

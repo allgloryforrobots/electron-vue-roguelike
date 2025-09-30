@@ -1,6 +1,6 @@
 // EnemyGenerator.ts
-import { Battler } from "@/entities/Battler";
-import { enemy } from "@/entities/Battler/model/Battler";
+import { Battler } from "@/shared/model/Battler";
+import { enemy } from "@/shared/model/Battler/model/Battler";
 import type { MapType } from "@/entities/Map";
 import { TerrainsTypesEnum } from "@/entities/Map";
 

@@ -101,7 +101,7 @@
 
 <script setup lang="ts">
 	import { ref, computed } from 'vue';
-	import { GenerateStatsReturnType, Skill } from '@/entities/Battler';
+	import { GenerateStatsReturnType, Skill } from '@/shared/model/Battler';
 	import DDCard from '@/shared/ui/DDCard/DDCard.vue';
 	import Filter from '@/shared/ui/Filters/Filters.vue';
 	import DDIcon from '@/shared/ui/Icon/Icon.vue';

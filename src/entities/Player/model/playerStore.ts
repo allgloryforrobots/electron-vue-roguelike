@@ -1,4 +1,4 @@
-import { playerCharacter } from "@/entities/Battler";
+import { playerCharacter } from "@/shared/model/Battler";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
