@@ -1,32 +1,22 @@
 import { LANGUAGES } from "@/shared/config/locale/locale";
-import { Property, PropertyMapType, PropertyNames, PropertyMap, PropertyConstructor } from "../Property/Property";
+import { Property, PropertyConstructor } from "../Property/Property";
+import { PropertyMap, PropertyMapType, PropertyNames } from "../Meta/Meta";
 
 export class Group extends Property {
   items: DeepPartial<PropertyMapType> = {};
-  constructor() {
-      super();
-  }
-
-    /** Возвращает массив конструкторов (в порядке добавления) */
   get constructors(): PropertyConstructor[] {
-    return Object.values(this.items).filter((ctor): ctor is PropertyConstructor => !!ctor);
+    const Ctor = this.constructor as typeof Group & { items?: Record<string, PropertyConstructor> };
+    return Ctor.items ? Object.values(Ctor.items).filter(Boolean) : [];
   }
 
-  /** Возвращает массив конструкторов, отсортированных по статическому полю `name` в алфавитном порядке */
   get sortedConstructors(): PropertyConstructor[] {
-    return this.constructors.sort((a, b) => {
-      const nameA = a.name;
-      const nameB = b.name;
-      return nameA.localeCompare(nameB, LANGUAGES.RU);
-    });
+    return [...this.constructors].sort((a, b) => a.name.localeCompare(b.name, LANGUAGES.RU));
   }
 
-  /** Возвращает инстансы (неотсортированные) */
   get list(): Property[] {
     return this.constructors.map(Ctor => new Ctor());
   }
 
-  /** Возвращает инстансы, отсортированные по name */
   get sortedList(): Property[] {
     return this.sortedConstructors.map(Ctor => new Ctor());
   }
