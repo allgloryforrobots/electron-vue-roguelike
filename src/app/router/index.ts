@@ -42,11 +42,6 @@ const router = createRouter({
       component: LayoutWithNavbar,
       children: [
         {
-          path: ROUTES.EXAMPLES,
-          name: 'examples',
-          component: ExamplesPage,
-        },
-        {
           path: ROUTES.GRID,
           name: 'grid',
           component: GamePage,

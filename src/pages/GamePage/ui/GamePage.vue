@@ -1,10 +1,11 @@
 <script setup lang="ts">
-  import {  Direction, FOVGrid } from '@/widgets/FOVGrid';
+  import {  FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
   import { MapGenerator, moveBattler, Pathfinder } from '@/entities/Map';
   import { onMounted, onUnmounted, ref, watch } from 'vue';
   import { usePlayerStore } from '@/entities/Player';
   import { EnemyGenerator } from '@/features/EnemyGenerator';
+import { Direction } from '@/shared/model/Direction/Direction';
 
   const playerStore = usePlayerStore();
 
