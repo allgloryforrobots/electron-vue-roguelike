@@ -1,4 +1,5 @@
-import { Property, PropertyMapType, PropertyNames, PropertyMap } from "../Property/Property";
+import { LANGUAGES } from "@/shared/config/locale/locale";
+import { Property, PropertyMapType, PropertyNames, PropertyMap, PropertyConstructor } from "../Property/Property";
 
 export class Group extends Property {
   items: DeepPartial<PropertyMapType> = {};
@@ -6,8 +7,28 @@ export class Group extends Property {
       super();
   }
 
+    /** Возвращает массив конструкторов (в порядке добавления) */
+  get constructors(): PropertyConstructor[] {
+    return Object.values(this.items).filter((ctor): ctor is PropertyConstructor => !!ctor);
+  }
+
+  /** Возвращает массив конструкторов, отсортированных по статическому полю `name` в алфавитном порядке */
+  get sortedConstructors(): PropertyConstructor[] {
+    return this.constructors.sort((a, b) => {
+      const nameA = a.name;
+      const nameB = b.name;
+      return nameA.localeCompare(nameB, LANGUAGES.RU);
+    });
+  }
+
+  /** Возвращает инстансы (неотсортированные) */
   get list(): Property[] {
-    return Object.values(this.items);
+    return this.constructors.map(Ctor => new Ctor());
+  }
+
+  /** Возвращает инстансы, отсортированные по name */
+  get sortedList(): Property[] {
+    return this.sortedConstructors.map(Ctor => new Ctor());
   }
 }
 

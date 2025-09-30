@@ -17,7 +17,10 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test:unit:watch": "vitest",
+    "test:unit:ui-tool": "vitest --ui",
+    "test:unit": "vitest run"
   },
   "keywords": [],
   "author": {

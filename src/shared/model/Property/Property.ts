@@ -1,8 +1,23 @@
 import { Constitution, Agility, Perception, Gift, Intelligence, Empathy, Psyche, Appearance, CombatCapability, Sanity, Energy, Mana, ActionPoints, RangeOfVision, HearingRange, FireResistance, ColdResistance, ElectricityResistance, PoisonResistance, AcidResistance, CrushingResistance, PiercingResistance, CuttingResistance, MagicResistance, PsiResistance, PhysResistance, MartialArts, Knife, ShortBlades, LongBlades, MaceAndFlail, Axes, Pole, ThrowsAndSlings, ExoticWeapons, HorseFight, CriticalHit, DualWield, AttackInFlight, Ninjutsu, Bow, Crossbow, Firearm, HeavyWeapons, Shield, Parry, Evasion, LightArmor, HeavyArmor, UnarmoredCombat, Wand, Swimming, Climbing, Acrobatics, Athletics, Stealth, Scouting, Augmentations, Resolve, Intimidation, Bluff, Diplomacy, Manipulation, Seduction, Psychology, Acting, Investigation, Medicine, Knowledge, Trade, Concentration, Artifacts, Tactics, Safecracker, Steal, Infomantia, Gambling, Piloting, Enchantment, Blacksmithing, Leatherworking, Woodworking, JewelryMaking, Cooking, AnimalTraining, Farming, Sex, Traps, Alchemy, RewritingTheScrolls, Herbology, ResourceExtraction, Hunting, Cartography, Biomancy, Cryptomagic, WhiteMagic, Psionics, BlackMagic, WildMagic, Gunsmith, Mechanics, Electrics, Metallurgy, Implants, Analysis, Artistry, ToughSkin, QuickReaction, SharpEye, PowerfulMagic, PowerOfTheMind, PowerOfCharisma, SteelFortitude, StyleIcon } from "../Stats/Stats";
 
+interface PropertyStatic {
+  readonly name: string;
+  readonly codename: string;
+  readonly icon?: string;
+}
+
 /** базовый класс для любой Property */
 export class Property {
+  name!: string;
+  codename!: string;
+  icon?: string;
 
+  constructor() {
+    const Ctor = this.constructor as typeof Property & PropertyStatic;
+    this.name = Ctor.name;
+    this.codename = Ctor.codename;
+    this.icon = Ctor.icon || '';
+  }
 }
 
 export enum PropertyNames {
@@ -148,7 +163,8 @@ export enum PropertyNames {
   StyleIcon = "style_icon",
 }
 
-export type PropertyMapType = Record<PropertyNames, Property>;
+export type PropertyConstructor = new () => Property;
+export type PropertyMapType = Record<PropertyNames, PropertyConstructor>;
 
 export const PropertyMap: PropertyMapType = {
   // === Основные характеристики ===
