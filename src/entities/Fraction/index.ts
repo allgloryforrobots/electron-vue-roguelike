@@ -1,1 +1,0 @@
-export { Fraction, PlayerDecorator, EnemiesDecorator } from "./model/Fraction";

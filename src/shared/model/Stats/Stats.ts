@@ -8,7 +8,7 @@ export class Stat extends Property {
 
 export class Characteristic extends Stat {
   constructor() {
-	super();
+	  super();
   }
 }
 
