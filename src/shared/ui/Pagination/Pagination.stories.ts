@@ -92,8 +92,8 @@ export const Interactive: Story = {
     components: { Pagination },
     setup() {
       const handlePageChange = (page: number) => {
+        // eslint-disable-next-line no-console
         console.log('Page changed to:', page);
-        // В реальном приложении здесь может быть загрузка данных
       };
       
       return { args, handlePageChange };

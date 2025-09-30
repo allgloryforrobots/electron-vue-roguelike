@@ -72,6 +72,7 @@ export default {
       default: ''
     }
   },
+  emits: ['item-selected'],
   data() {
     return {
       visible: false,

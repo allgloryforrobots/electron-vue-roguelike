@@ -68,10 +68,12 @@ export const InteractiveExample: Story = {
       const brightness = ref(85);
       
       const handleVolumeChange = (value: number) => {
+        // eslint-disable-next-line no-console
         console.log('Громкость изменена:', value);
       };
       
       const handleBrightnessChange = (value: number) => {
+        // eslint-disable-next-line no-console
         console.log('Яркость изменена:', value);
       };
       

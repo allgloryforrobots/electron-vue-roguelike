@@ -24,8 +24,7 @@ const playAudio = (audio: HTMLAudioElement, loop = false) => {
   audioElement.value.loop = loop
   isPlaying.value = true
 
-  audioElement.value.play().catch((error) => {
-    console.error('Ошибка воспроизведения аудио:', error)
+  audioElement.value.play().catch(() => {
     isPlaying.value = false
   })
 

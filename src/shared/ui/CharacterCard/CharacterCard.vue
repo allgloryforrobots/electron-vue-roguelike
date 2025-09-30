@@ -2,7 +2,9 @@
   <div class="component-card">
     <div class="character-card">
       <div class="character-card__header">
-        <h3 class="character-card__name">{{ character.name }}</h3>
+        <h3 class="character-card__name">
+          {{ character.name }}
+        </h3>
         <span class="character-card__level">Уровень {{ character.level }}</span>
       </div>
       <div class="character-card__body">

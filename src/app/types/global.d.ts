@@ -14,6 +14,11 @@ declare module '*.vue' {
   export default component
 }
 
+declare module '*.wav' {
+  const content: string;
+  export default content;
+}
+
 type DeepPartial<T> = T extends object ? {
   [P in keyof T]?: DeepPartial<T[P]>;
 } : T;
