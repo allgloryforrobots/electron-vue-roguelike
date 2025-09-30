@@ -1,8 +1,6 @@
-// EnemyGenerator.ts
-import { Battler } from "@/shared/model/Battler";
-import { enemy } from "@/shared/model/Battler/model/Battler";
 import type { MapType } from "@/entities/Map";
 import { TerrainsTypesEnum } from "@/entities/Map";
+import { Battler } from "@/shared/model/Battler/Battler";
 
 export interface IEnemyGeneratorOptions {
   singleEnemyDensity?: number;
@@ -189,11 +187,11 @@ export class EnemyGenerator {
   }
 
   private createSingleEnemy(): Battler {
-    return enemy;
+    return new Battler();
   }
 
   private createSquadMember(): Battler {
-    return enemy;
+    return new Battler();
   }
 
   private shuffleArray<T>(array: T[]): T[] {

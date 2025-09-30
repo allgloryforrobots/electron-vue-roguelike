@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { WelcomePage } from '@/pages/WelcomePage';
-import { ExamplesPage } from '@/pages/ExamplesPage';
 import { MainMenuPage } from '@/pages/MainMenuPage';
 import GamePage from '@/pages/GamePage/ui/GamePage.vue';
 import { InventoryPage } from '@/pages/InventoryPage';
