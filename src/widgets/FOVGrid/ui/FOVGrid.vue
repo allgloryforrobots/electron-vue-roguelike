@@ -1,5 +1,5 @@
 <template>
-  <div class="map-grid">
+  <MapContainer>
     <template v-for="(row, y) in fovMap" :key="y">
       <GridCell
         v-for="(isVisible, x) in row"
@@ -9,7 +9,7 @@
         :class="{ 'not-visible': !isVisible }"
       />
     </template>
-  </div>
+  </MapContainer>
 </template>
 
 <script lang="ts" setup>
@@ -18,6 +18,7 @@ import { FOVCalculator } from '../lib/FOV';
 import { usePlayerStore } from '@/entities/Player';
 import { MapType } from '@/entities/Map/types/GridTypes';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
+import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
 
 const playerStore = usePlayerStore();
 

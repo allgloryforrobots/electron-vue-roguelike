@@ -1,5 +1,5 @@
 <template>
-  <div class="map-grid">
+  <MapContainer>
     <template v-for="(row, y) in map" :key="y">
       <GridCell 
         v-for="(cell, x) in row"
@@ -22,33 +22,21 @@
         </template>
       </GridCell>
     </template>
-  </div>
+  </MapContainer>
 </template>
 
 <script lang="ts" setup>
 import { TerrainsTypesEnum } from '@/entities/Map/types/GridTypes';
 import { MapType } from '@/entities/Map/types/GridTypes';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
+import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
 
-defineProps<{
-  map: MapType;
-}>();
+defineProps<{ map: MapType }>();
 </script>
 
 <style scoped>
-.grass {
-  background-color: #8bc34a;
-}
-
-.tree {
-  background-color: #7cb342;
-}
-
-.tree-cluster {
-  background-color: #689f38;
-}
-
-.test-red {
-  outline: 1px solid red;
-}
+.grass { background-color: #8bc34a; }
+.tree { background-color: #7cb342; }
+.tree-cluster { background-color: #689f38; }
+.test-red { outline: 1px solid red; }
 </style>

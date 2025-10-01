@@ -1,5 +1,5 @@
 <template>
-  <div class="map-grid">
+  <MapContainer>
     <GridCell 
       :key="'player'"
       :x="playerStore.player.position.x"
@@ -7,15 +7,13 @@
     >
       🧙
     </GridCell>
-  </div>
+  </MapContainer>
 </template>
 
 <script lang="ts" setup>
 import { usePlayerStore } from '@/entities/Player';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
+import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
+
 const playerStore = usePlayerStore();
-
 </script>
-
-<style>
-</style>
