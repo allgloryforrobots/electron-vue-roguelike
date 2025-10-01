@@ -1,5 +1,5 @@
-import { Battler } from "@/shared/model/Battler";
 import { MapType } from "@/entities/Map/types/GridTypes";
+import { Battler } from "@/shared/model/Battler/Battler";
 
 export const moveBattler = (
   map: MapType,

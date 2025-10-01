@@ -5,7 +5,7 @@
   import { onMounted, onUnmounted, ref, watch } from 'vue';
   import { usePlayerStore } from '@/entities/Player';
   import { EnemyGenerator } from '@/features/EnemyGenerator';
-import { Direction } from '@/shared/model/Direction/Direction';
+  import { Direction } from '@/shared/model/Direction/Direction';
 
   const playerStore = usePlayerStore();
 
