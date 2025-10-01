@@ -1,7 +1,7 @@
 <template>
   <div class="map-grid">
     <template v-for="(row, y) in map" :key="y">
-      <Cell 
+      <GridCell 
         v-for="(cell, x) in row"
         :key="`${x}-${y}`"
         :x="x"
@@ -20,7 +20,7 @@
         <template v-if="cell.type === TerrainsTypesEnum.CLUSTER_TREE">
           🌳
         </template>
-      </Cell>
+      </GridCell>
     </template>
   </div>
 </template>
@@ -28,7 +28,7 @@
 <script lang="ts" setup>
 import { TerrainsTypesEnum } from '@/entities/Map/types/GridTypes';
 import { MapType } from '@/entities/Map/types/GridTypes';
-import Cell from './Cell.vue';
+import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 
 defineProps<{
   map: MapType;
@@ -45,5 +45,21 @@ defineProps<{
   left: 0;
   width: calc(var(--grid-width) * var(--cell-size));
   height: calc(var(--grid-height) * var(--cell-size));
+}
+
+.grass {
+  background-color: #8bc34a;
+}
+
+.tree {
+  background-color: #7cb342;
+}
+
+.tree-cluster {
+  background-color: #689f38;
+}
+
+.test-red {
+  outline: 1px solid red;
 }
 </style>

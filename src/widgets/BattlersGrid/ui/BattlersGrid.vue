@@ -1,18 +1,18 @@
 <template>
   <div class="map-grid">
-    <Cell 
+    <GridCell 
       :key="'player'"
       :x="playerStore.player.position.x"
       :y="playerStore.player.position.y"
     >
       🧙
-    </Cell>
+    </GridCell>
   </div>
 </template>
 
 <script lang="ts" setup>
-import Cell from '@/widgets/Grid/ui/Cell.vue';
 import { usePlayerStore } from '@/entities/Player';
+import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 const playerStore = usePlayerStore();
 
 </script>

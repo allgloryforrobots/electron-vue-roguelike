@@ -1,7 +1,7 @@
 <template>
   <div class="map-grid">
     <template v-for="(row, y) in fovMap" :key="y">
-      <Cell
+      <GridCell
         v-for="(isVisible, x) in row"
         :key="`${x}-${y}`"
         :x="x"
@@ -17,7 +17,7 @@ import { ref, watch, onMounted } from 'vue';
 import { FOVCalculator } from '../lib/FOV';
 import { usePlayerStore } from '@/entities/Player';
 import { MapType } from '@/entities/Map/types/GridTypes';
-import Cell from '@/widgets/Grid/ui/Cell.vue';
+import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 
 const playerStore = usePlayerStore();
 
