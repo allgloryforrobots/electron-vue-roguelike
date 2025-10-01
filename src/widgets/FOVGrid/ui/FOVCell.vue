@@ -25,7 +25,6 @@ defineProps<{
   display: flex;
   align-items: center;
   justify-content: center;
-  /* фон по умолчанию можно оставить прозрачным или задать в родителе */
 }
 
 .not-visible {

@@ -1,4 +1,3 @@
-<!-- Cell.vue -->
 <template>
   <div 
     class="map-cell"
@@ -12,12 +11,9 @@
 </template>
 
 <script lang="ts" setup>
-import { Cell } from '@/entities/Map/lib/MapGenerator';
-
 defineProps<{
   x: number;
   y: number;
-  cell: Cell;
 }>();
 </script>
 

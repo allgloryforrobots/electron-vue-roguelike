@@ -40,9 +40,12 @@
   --accent-color-gold: #D4AF37;
 
   --navbar-height: 75px;
+
   --gap: 10px;
   --cell-size: 20px;
-  --grid-row-length: 50;
+  --grid-width: 50;
+  --grid-height: 50;
+
 
   --z-battlers: 1;
   --z-tooltip: 10;

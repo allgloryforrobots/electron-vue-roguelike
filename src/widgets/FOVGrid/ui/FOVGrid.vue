@@ -28,13 +28,11 @@ const props = defineProps<{
 const fovMap = ref<boolean[][]>([]);
 let fovCalculator: FOVCalculator | null = null;
 
-// Инициализируем FOV после монтирования (или сразу, если map уже есть)
 onMounted(() => {
   fovCalculator = new FOVCalculator(props.map);
   updateFOV();
 });
 
-// Обновляем FOV при изменениях
 watch(
   () => [
     playerStore.player.position.x,
@@ -46,7 +44,7 @@ watch(
       updateFOV();
     }
   },
-  { immediate: false } // immediate не нужен, т.к. вызываем в onMounted
+  { immediate: false }
 );
 
 function updateFOV() {
@@ -56,15 +54,5 @@ function updateFOV() {
 }
 </script>
 
-<style scoped>
-.map-grid {
-  display: grid;
-  grid-template-columns: repeat(var(--grid-width), var(--cell-size));
-  grid-template-rows: repeat(var(--grid-height), var(--cell-size));
-  position: fixed;
-  top: var(--navbar-height);
-  left: 0;
-  width: calc(var(--grid-width) * var(--cell-size));
-  height: calc(var(--grid-height) * var(--cell-size));
-}
+<style>
 </style>

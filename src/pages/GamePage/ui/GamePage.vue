@@ -6,6 +6,8 @@
   import { usePlayerStore } from '@/entities/Player';
   import { EnemyGenerator } from '@/features/EnemyGenerator';
   import { Direction } from '@/shared/model/Direction/Direction';
+  import { BattlersGrid } from '@/widgets/BattlersGrid';
+
 
   const playerStore = usePlayerStore();
 
@@ -96,7 +98,7 @@
 
 <template>
   <Grid v-if="map" :map="map" />
-  <BattlersGrid v-if="map" />
+  <BattlersGrid />
   <FOVGrid v-if="map" :map="map" />
 </template>
 
