@@ -1,12 +1,12 @@
 <template>
   <div class="map-grid">
     <template v-for="(row, y) in fovMap" :key="y">
-      <FOVCell
+      <Cell
         v-for="(isVisible, x) in row"
         :key="`${x}-${y}`"
         :x="x"
         :y="y"
-        :visible="isVisible"
+        :class="{ 'not-visible': !isVisible }"
       />
     </template>
   </div>
@@ -14,10 +14,10 @@
 
 <script lang="ts" setup>
 import { ref, watch, onMounted } from 'vue';
-import FOVCell from './FOVCell.vue';
 import { FOVCalculator } from '../lib/FOV';
 import { usePlayerStore } from '@/entities/Player';
 import { MapType } from '@/entities/Map/types/GridTypes';
+import Cell from '@/widgets/Grid/ui/Cell.vue';
 
 const playerStore = usePlayerStore();
 
@@ -54,5 +54,8 @@ function updateFOV() {
 }
 </script>
 
-<style>
+<style scoped>
+.not-visible {
+  background-color: rgba(0, 0, 0, 0.3);
+}
 </style>
