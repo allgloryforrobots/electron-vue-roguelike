@@ -165,7 +165,7 @@ export class Pathfinder {
     if (!map) return false;
     const cell = map?.[y]?.[x];
     if (!cell) return false;
-    return cell.type === TerrainsTypesEnum.EMPTY && !cell.battler;
+    return cell.type === TerrainsTypesEnum.EMPTY;
   };
 }
 

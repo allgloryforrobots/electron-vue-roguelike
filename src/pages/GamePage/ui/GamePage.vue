@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import {  FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
-  import { MapGenerator, moveBattler, Pathfinder } from '@/entities/Map';
-  import { onMounted, onUnmounted, ref, watch } from 'vue';
+  import { MapGenerator, Pathfinder } from '@/entities/Map';
+  import { onMounted, onUnmounted, ref } from 'vue';
   import { usePlayerStore } from '@/entities/Player';
   import { EnemyGenerator } from '@/features/EnemyGenerator';
   import { Direction } from '@/shared/model/Direction/Direction';
@@ -23,14 +23,6 @@
     maxSquadSize: 7
   });
   enemyGenerator.generateEnemies(map.value, 50, 30);
-
-  watch(
-    () => [playerStore.player.position.x, playerStore.player.position.y],
-    (newCoords, oldCoords) => {
-      moveBattler(map.value, playerStore.player, newCoords, oldCoords);
-    },
-    { immediate: true }
-  );
 
   playerStore.player.position.x = 1; 
   playerStore.player.position.y = 1;
