@@ -1,6 +1,6 @@
-import { Property } from "@/shared/model/Property/Property";
+import { Base } from "@/shared/model/Base/Base";
 
-export class Stat extends Property {
+export class Stat extends Base {
 	constructor() {
 		super();
   }

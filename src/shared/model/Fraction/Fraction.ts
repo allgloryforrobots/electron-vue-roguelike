@@ -1,6 +1,6 @@
-import { Property } from "../Property/Property";
+import { Base } from "../Base/Base";
 
-export class Fraction extends Property {
+export class Fraction extends Base {
   constructor() {
     super();
   }

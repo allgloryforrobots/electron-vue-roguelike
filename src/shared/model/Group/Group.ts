@@ -1,23 +1,23 @@
 import { LANGUAGES } from "@/shared/config/locale/locale";
-import { Property, PropertyConstructor } from "../Property/Property";
-import { PropertyMap, PropertyMapType, PropertyNames } from "../Meta/Meta";
+import { Base, BaseConstructor } from "../Base/Base";
+import { BaseMap, BaseMapType, BaseNames } from "../Meta/Meta";
 
-export class Group extends Property {
-  items: DeepPartial<PropertyMapType> = {};
-  get constructors(): PropertyConstructor[] {
-    const Ctor = this.constructor as typeof Group & { items?: Record<string, PropertyConstructor> };
+export class Group extends Base {
+  items: DeepPartial<BaseMapType> = {};
+  get constructors(): BaseConstructor[] {
+    const Ctor = this.constructor as typeof Group & { items?: Record<string, BaseConstructor> };
     return Ctor.items ? Object.values(Ctor.items).filter(Boolean) : [];
   }
 
-  get sortedConstructors(): PropertyConstructor[] {
+  get sortedConstructors(): BaseConstructor[] {
     return [...this.constructors].sort((a, b) => a.name.localeCompare(b.name, LANGUAGES.RU));
   }
 
-  get list(): Property[] {
+  get list(): Base[] {
     return this.constructors.map(Ctor => new Ctor());
   }
 
-  get sortedList(): Property[] {
+  get sortedList(): Base[] {
     return this.sortedConstructors.map(Ctor => new Ctor());
   }
 }
@@ -28,14 +28,14 @@ export class CharacteristicsGroup extends Group {
   static readonly codename = "characteristics";
   static readonly icon = "fa-user";
   static items = {
-    [PropertyNames.Constitution]: PropertyMap[PropertyNames.Constitution],
-    [PropertyNames.Agility]: PropertyMap[PropertyNames.Agility],
-    [PropertyNames.Perception]: PropertyMap[PropertyNames.Perception],
-    [PropertyNames.Gift]: PropertyMap[PropertyNames.Gift],
-    [PropertyNames.Intelligence]: PropertyMap[PropertyNames.Intelligence],
-    [PropertyNames.Empathy]: PropertyMap[PropertyNames.Empathy],
-    [PropertyNames.Psyche]: PropertyMap[PropertyNames.Psyche],
-    [PropertyNames.Appearance]: PropertyMap[PropertyNames.Appearance],
+    [BaseNames.Constitution]: BaseMap[BaseNames.Constitution],
+    [BaseNames.Agility]: BaseMap[BaseNames.Agility],
+    [BaseNames.Perception]: BaseMap[BaseNames.Perception],
+    [BaseNames.Gift]: BaseMap[BaseNames.Gift],
+    [BaseNames.Intelligence]: BaseMap[BaseNames.Intelligence],
+    [BaseNames.Empathy]: BaseMap[BaseNames.Empathy],
+    [BaseNames.Psyche]: BaseMap[BaseNames.Psyche],
+    [BaseNames.Appearance]: BaseMap[BaseNames.Appearance],
   };
 }
 
@@ -45,13 +45,13 @@ export class SecondaryCharacteristicsGroup extends Group {
   static readonly codename = "secondary_characteristics";
   static readonly icon = "fa-user-clock";
   static items = {
-    [PropertyNames.CombatCapability]: PropertyMap[PropertyNames.CombatCapability],
-    [PropertyNames.Sanity]: PropertyMap[PropertyNames.Sanity],
-    [PropertyNames.Energy]: PropertyMap[PropertyNames.Energy],
-    [PropertyNames.Mana]: PropertyMap[PropertyNames.Mana],
-    [PropertyNames.ActionPoints]: PropertyMap[PropertyNames.ActionPoints],
-    [PropertyNames.RangeOfVision]: PropertyMap[PropertyNames.RangeOfVision],
-    [PropertyNames.HearingRange]: PropertyMap[PropertyNames.HearingRange],
+    [BaseNames.CombatCapability]: BaseMap[BaseNames.CombatCapability],
+    [BaseNames.Sanity]: BaseMap[BaseNames.Sanity],
+    [BaseNames.Energy]: BaseMap[BaseNames.Energy],
+    [BaseNames.Mana]: BaseMap[BaseNames.Mana],
+    [BaseNames.ActionPoints]: BaseMap[BaseNames.ActionPoints],
+    [BaseNames.RangeOfVision]: BaseMap[BaseNames.RangeOfVision],
+    [BaseNames.HearingRange]: BaseMap[BaseNames.HearingRange],
   };
 }
 
@@ -61,17 +61,17 @@ export class ResistancesGroup extends Group {
   static readonly codename = "resistances";
   static readonly icon = "fa-shield-alt";
   static items = {
-    [PropertyNames.FireResistance]: PropertyMap[PropertyNames.FireResistance],
-    [PropertyNames.ColdResistance]: PropertyMap[PropertyNames.ColdResistance],
-    [PropertyNames.ElectricityResistance]: PropertyMap[PropertyNames.ElectricityResistance],
-    [PropertyNames.PoisonResistance]: PropertyMap[PropertyNames.PoisonResistance],
-    [PropertyNames.AcidResistance]: PropertyMap[PropertyNames.AcidResistance],
-    [PropertyNames.CrushingResistance]: PropertyMap[PropertyNames.CrushingResistance],
-    [PropertyNames.PiercingResistance]: PropertyMap[PropertyNames.PiercingResistance],
-    [PropertyNames.CuttingResistance]: PropertyMap[PropertyNames.CuttingResistance],
-    [PropertyNames.MagicResistance]: PropertyMap[PropertyNames.MagicResistance],
-    [PropertyNames.PsiResistance]: PropertyMap[PropertyNames.PsiResistance],
-    [PropertyNames.PhysResistance]: PropertyMap[PropertyNames.PhysResistance],
+    [BaseNames.FireResistance]: BaseMap[BaseNames.FireResistance],
+    [BaseNames.ColdResistance]: BaseMap[BaseNames.ColdResistance],
+    [BaseNames.ElectricityResistance]: BaseMap[BaseNames.ElectricityResistance],
+    [BaseNames.PoisonResistance]: BaseMap[BaseNames.PoisonResistance],
+    [BaseNames.AcidResistance]: BaseMap[BaseNames.AcidResistance],
+    [BaseNames.CrushingResistance]: BaseMap[BaseNames.CrushingResistance],
+    [BaseNames.PiercingResistance]: BaseMap[BaseNames.PiercingResistance],
+    [BaseNames.CuttingResistance]: BaseMap[BaseNames.CuttingResistance],
+    [BaseNames.MagicResistance]: BaseMap[BaseNames.MagicResistance],
+    [BaseNames.PsiResistance]: BaseMap[BaseNames.PsiResistance],
+    [BaseNames.PhysResistance]: BaseMap[BaseNames.PhysResistance],
   };
 }
 
@@ -81,13 +81,13 @@ export class CloseCombatGroup extends Group {
   static readonly codename = "close_combat";
   static readonly icon = "fa-fist-raised";
   static items = {
-    [PropertyNames.MartialArts]: PropertyMap[PropertyNames.MartialArts],
-    [PropertyNames.Knife]: PropertyMap[PropertyNames.Knife],
-    [PropertyNames.ShortBlades]: PropertyMap[PropertyNames.ShortBlades],
-    [PropertyNames.LongBlades]: PropertyMap[PropertyNames.LongBlades],
-    [PropertyNames.MaceAndFlail]: PropertyMap[PropertyNames.MaceAndFlail],
-    [PropertyNames.Axes]: PropertyMap[PropertyNames.Axes],
-    [PropertyNames.Pole]: PropertyMap[PropertyNames.Pole],
+    [BaseNames.MartialArts]: BaseMap[BaseNames.MartialArts],
+    [BaseNames.Knife]: BaseMap[BaseNames.Knife],
+    [BaseNames.ShortBlades]: BaseMap[BaseNames.ShortBlades],
+    [BaseNames.LongBlades]: BaseMap[BaseNames.LongBlades],
+    [BaseNames.MaceAndFlail]: BaseMap[BaseNames.MaceAndFlail],
+    [BaseNames.Axes]: BaseMap[BaseNames.Axes],
+    [BaseNames.Pole]: BaseMap[BaseNames.Pole],
   };
 }
 
@@ -97,11 +97,11 @@ export class RangeCombatGroup extends Group {
   static readonly codename = "range_combat";
   static readonly icon = "fa-bullseye";
   static items = {
-    [PropertyNames.ThrowsAndSlings]: PropertyMap[PropertyNames.ThrowsAndSlings],
-    [PropertyNames.Bow]: PropertyMap[PropertyNames.Bow],
-    [PropertyNames.Crossbow]: PropertyMap[PropertyNames.Crossbow],
-    [PropertyNames.Firearm]: PropertyMap[PropertyNames.Firearm],
-    [PropertyNames.Wand]: PropertyMap[PropertyNames.Wand],
+    [BaseNames.ThrowsAndSlings]: BaseMap[BaseNames.ThrowsAndSlings],
+    [BaseNames.Bow]: BaseMap[BaseNames.Bow],
+    [BaseNames.Crossbow]: BaseMap[BaseNames.Crossbow],
+    [BaseNames.Firearm]: BaseMap[BaseNames.Firearm],
+    [BaseNames.Wand]: BaseMap[BaseNames.Wand],
   };
 }
 
@@ -111,13 +111,13 @@ export class FinesseGroup extends Group {
   static readonly codename = "finesse";
   static readonly icon = "fa-dice-d20";
   static items = {
-    [PropertyNames.HorseFight]: PropertyMap[PropertyNames.HorseFight],
-    [PropertyNames.CriticalHit]: PropertyMap[PropertyNames.CriticalHit],
-    [PropertyNames.DualWield]: PropertyMap[PropertyNames.DualWield],
-    [PropertyNames.AttackInFlight]: PropertyMap[PropertyNames.AttackInFlight],
-    [PropertyNames.Ninjutsu]: PropertyMap[PropertyNames.Ninjutsu],
-    [PropertyNames.HeavyWeapons]: PropertyMap[PropertyNames.HeavyWeapons],
-    [PropertyNames.ExoticWeapons]: PropertyMap[PropertyNames.ExoticWeapons],
+    [BaseNames.HorseFight]: BaseMap[BaseNames.HorseFight],
+    [BaseNames.CriticalHit]: BaseMap[BaseNames.CriticalHit],
+    [BaseNames.DualWield]: BaseMap[BaseNames.DualWield],
+    [BaseNames.AttackInFlight]: BaseMap[BaseNames.AttackInFlight],
+    [BaseNames.Ninjutsu]: BaseMap[BaseNames.Ninjutsu],
+    [BaseNames.HeavyWeapons]: BaseMap[BaseNames.HeavyWeapons],
+    [BaseNames.ExoticWeapons]: BaseMap[BaseNames.ExoticWeapons],
   };
 }
 
@@ -127,12 +127,12 @@ export class DefenceGroup extends Group {
   static readonly codename = "defence";
   static readonly icon = "fa-shield";
   static items = {
-    [PropertyNames.Shield]: PropertyMap[PropertyNames.Shield],
-    [PropertyNames.Parry]: PropertyMap[PropertyNames.Parry],
-    [PropertyNames.Evasion]: PropertyMap[PropertyNames.Evasion],
-    [PropertyNames.LightArmor]: PropertyMap[PropertyNames.LightArmor],
-    [PropertyNames.HeavyArmor]: PropertyMap[PropertyNames.HeavyArmor],
-    [PropertyNames.UnarmoredCombat]: PropertyMap[PropertyNames.UnarmoredCombat],
+    [BaseNames.Shield]: BaseMap[BaseNames.Shield],
+    [BaseNames.Parry]: BaseMap[BaseNames.Parry],
+    [BaseNames.Evasion]: BaseMap[BaseNames.Evasion],
+    [BaseNames.LightArmor]: BaseMap[BaseNames.LightArmor],
+    [BaseNames.HeavyArmor]: BaseMap[BaseNames.HeavyArmor],
+    [BaseNames.UnarmoredCombat]: BaseMap[BaseNames.UnarmoredCombat],
   };
 }
 
@@ -142,13 +142,13 @@ export class PhysicalGroup extends Group {
   static readonly codename = "physical";
   static readonly icon = "fa-running";
   static items = {
-    [PropertyNames.Swimming]: PropertyMap[PropertyNames.Swimming],
-    [PropertyNames.Climbing]: PropertyMap[PropertyNames.Climbing],
-    [PropertyNames.Acrobatics]: PropertyMap[PropertyNames.Acrobatics],
-    [PropertyNames.Athletics]: PropertyMap[PropertyNames.Athletics],
-    [PropertyNames.Stealth]: PropertyMap[PropertyNames.Stealth],
-    [PropertyNames.Scouting]: PropertyMap[PropertyNames.Scouting],
-    [PropertyNames.Augmentations]: PropertyMap[PropertyNames.Augmentations],
+    [BaseNames.Swimming]: BaseMap[BaseNames.Swimming],
+    [BaseNames.Climbing]: BaseMap[BaseNames.Climbing],
+    [BaseNames.Acrobatics]: BaseMap[BaseNames.Acrobatics],
+    [BaseNames.Athletics]: BaseMap[BaseNames.Athletics],
+    [BaseNames.Stealth]: BaseMap[BaseNames.Stealth],
+    [BaseNames.Scouting]: BaseMap[BaseNames.Scouting],
+    [BaseNames.Augmentations]: BaseMap[BaseNames.Augmentations],
   };
 }
 
@@ -158,13 +158,13 @@ export class SocialGroup extends Group {
   static readonly codename = "social";
   static readonly icon = "fa-users";
   static items = {
-    [PropertyNames.Resolve]: PropertyMap[PropertyNames.Resolve],
-    [PropertyNames.Intimidation]: PropertyMap[PropertyNames.Intimidation],
-    [PropertyNames.Bluff]: PropertyMap[PropertyNames.Bluff],
-    [PropertyNames.Diplomacy]: PropertyMap[PropertyNames.Diplomacy],
-    [PropertyNames.Manipulation]: PropertyMap[PropertyNames.Manipulation],
-    [PropertyNames.Seduction]: PropertyMap[PropertyNames.Seduction],
-    [PropertyNames.Psychology]: PropertyMap[PropertyNames.Psychology],
+    [BaseNames.Resolve]: BaseMap[BaseNames.Resolve],
+    [BaseNames.Intimidation]: BaseMap[BaseNames.Intimidation],
+    [BaseNames.Bluff]: BaseMap[BaseNames.Bluff],
+    [BaseNames.Diplomacy]: BaseMap[BaseNames.Diplomacy],
+    [BaseNames.Manipulation]: BaseMap[BaseNames.Manipulation],
+    [BaseNames.Seduction]: BaseMap[BaseNames.Seduction],
+    [BaseNames.Psychology]: BaseMap[BaseNames.Psychology],
   };
 }
 
@@ -174,14 +174,14 @@ export class IntellectualGroup extends Group {
   static readonly codename = "intellectual";
   static readonly icon = "fa-brain";
   static items = {
-    [PropertyNames.Acting]: PropertyMap[PropertyNames.Acting],
-    [PropertyNames.Investigation]: PropertyMap[PropertyNames.Investigation],
-    [PropertyNames.Medicine]: PropertyMap[PropertyNames.Medicine],
-    [PropertyNames.Knowledge]: PropertyMap[PropertyNames.Knowledge],
-    [PropertyNames.Trade]: PropertyMap[PropertyNames.Trade],
-    [PropertyNames.Concentration]: PropertyMap[PropertyNames.Concentration],
-    [PropertyNames.Artifacts]: PropertyMap[PropertyNames.Artifacts],
-    [PropertyNames.Tactics]: PropertyMap[PropertyNames.Tactics],
+    [BaseNames.Acting]: BaseMap[BaseNames.Acting],
+    [BaseNames.Investigation]: BaseMap[BaseNames.Investigation],
+    [BaseNames.Medicine]: BaseMap[BaseNames.Medicine],
+    [BaseNames.Knowledge]: BaseMap[BaseNames.Knowledge],
+    [BaseNames.Trade]: BaseMap[BaseNames.Trade],
+    [BaseNames.Concentration]: BaseMap[BaseNames.Concentration],
+    [BaseNames.Artifacts]: BaseMap[BaseNames.Artifacts],
+    [BaseNames.Tactics]: BaseMap[BaseNames.Tactics],
   };
 }
 
@@ -191,11 +191,11 @@ export class ThievingGroup extends Group {
   static readonly codename = "thieving";
   static readonly icon = "fa-mask";
   static items = {
-    [PropertyNames.Safecracker]: PropertyMap[PropertyNames.Safecracker],
-    [PropertyNames.Steal]: PropertyMap[PropertyNames.Steal],
-    [PropertyNames.Infomantia]: PropertyMap[PropertyNames.Infomantia],
-    [PropertyNames.Gambling]: PropertyMap[PropertyNames.Gambling],
-    [PropertyNames.Piloting]: PropertyMap[PropertyNames.Piloting],
+    [BaseNames.Safecracker]: BaseMap[BaseNames.Safecracker],
+    [BaseNames.Steal]: BaseMap[BaseNames.Steal],
+    [BaseNames.Infomantia]: BaseMap[BaseNames.Infomantia],
+    [BaseNames.Gambling]: BaseMap[BaseNames.Gambling],
+    [BaseNames.Piloting]: BaseMap[BaseNames.Piloting],
   };
 }
 
@@ -205,15 +205,15 @@ export class CraftingGroup extends Group {
   static readonly codename = "crafting";
   static readonly icon = "fa-hammer";
   static items = {
-    [PropertyNames.Enchantment]: PropertyMap[PropertyNames.Enchantment],
-    [PropertyNames.Blacksmithing]: PropertyMap[PropertyNames.Blacksmithing],
-    [PropertyNames.Leatherworking]: PropertyMap[PropertyNames.Leatherworking],
-    [PropertyNames.Woodworking]: PropertyMap[PropertyNames.Woodworking],
-    [PropertyNames.JewelryMaking]: PropertyMap[PropertyNames.JewelryMaking],
-    [PropertyNames.Cooking]: PropertyMap[PropertyNames.Cooking],
-    [PropertyNames.AnimalTraining]: PropertyMap[PropertyNames.AnimalTraining],
-    [PropertyNames.Farming]: PropertyMap[PropertyNames.Farming],
-    [PropertyNames.Sex]: PropertyMap[PropertyNames.Sex],
+    [BaseNames.Enchantment]: BaseMap[BaseNames.Enchantment],
+    [BaseNames.Blacksmithing]: BaseMap[BaseNames.Blacksmithing],
+    [BaseNames.Leatherworking]: BaseMap[BaseNames.Leatherworking],
+    [BaseNames.Woodworking]: BaseMap[BaseNames.Woodworking],
+    [BaseNames.JewelryMaking]: BaseMap[BaseNames.JewelryMaking],
+    [BaseNames.Cooking]: BaseMap[BaseNames.Cooking],
+    [BaseNames.AnimalTraining]: BaseMap[BaseNames.AnimalTraining],
+    [BaseNames.Farming]: BaseMap[BaseNames.Farming],
+    [BaseNames.Sex]: BaseMap[BaseNames.Sex],
   };
 }
 
@@ -223,13 +223,13 @@ export class SpecializedGroup extends Group {
   static readonly codename = "specialized";
   static readonly icon = "fa-tools";
   static items = {
-    [PropertyNames.Traps]: PropertyMap[PropertyNames.Traps],
-    [PropertyNames.Alchemy]: PropertyMap[PropertyNames.Alchemy],
-    [PropertyNames.RewritingTheScrolls]: PropertyMap[PropertyNames.RewritingTheScrolls],
-    [PropertyNames.Herbology]: PropertyMap[PropertyNames.Herbology],
-    [PropertyNames.ResourceExtraction]: PropertyMap[PropertyNames.ResourceExtraction],
-    [PropertyNames.Hunting]: PropertyMap[PropertyNames.Hunting],
-    [PropertyNames.Cartography]: PropertyMap[PropertyNames.Cartography],
+    [BaseNames.Traps]: BaseMap[BaseNames.Traps],
+    [BaseNames.Alchemy]: BaseMap[BaseNames.Alchemy],
+    [BaseNames.RewritingTheScrolls]: BaseMap[BaseNames.RewritingTheScrolls],
+    [BaseNames.Herbology]: BaseMap[BaseNames.Herbology],
+    [BaseNames.ResourceExtraction]: BaseMap[BaseNames.ResourceExtraction],
+    [BaseNames.Hunting]: BaseMap[BaseNames.Hunting],
+    [BaseNames.Cartography]: BaseMap[BaseNames.Cartography],
   };
 }
 
@@ -239,12 +239,12 @@ export class MagicalGroup extends Group {
   static readonly codename = "magical";
   static readonly icon = "fa-magic";
   static items = {
-    [PropertyNames.Biomancy]: PropertyMap[PropertyNames.Biomancy],
-    [PropertyNames.Cryptomagic]: PropertyMap[PropertyNames.Cryptomagic],
-    [PropertyNames.WhiteMagic]: PropertyMap[PropertyNames.WhiteMagic],
-    [PropertyNames.Psionics]: PropertyMap[PropertyNames.Psionics],
-    [PropertyNames.BlackMagic]: PropertyMap[PropertyNames.BlackMagic],
-    [PropertyNames.WildMagic]: PropertyMap[PropertyNames.WildMagic],
+    [BaseNames.Biomancy]: BaseMap[BaseNames.Biomancy],
+    [BaseNames.Cryptomagic]: BaseMap[BaseNames.Cryptomagic],
+    [BaseNames.WhiteMagic]: BaseMap[BaseNames.WhiteMagic],
+    [BaseNames.Psionics]: BaseMap[BaseNames.Psionics],
+    [BaseNames.BlackMagic]: BaseMap[BaseNames.BlackMagic],
+    [BaseNames.WildMagic]: BaseMap[BaseNames.WildMagic],
   };
 }
 
@@ -254,13 +254,13 @@ export class TechnicalGroup extends Group {
   static readonly codename = "technical";
   static readonly icon = "fa-microchip";
   static items = {
-    [PropertyNames.Gunsmith]: PropertyMap[PropertyNames.Gunsmith],
-    [PropertyNames.Mechanics]: PropertyMap[PropertyNames.Mechanics],
-    [PropertyNames.Electrics]: PropertyMap[PropertyNames.Electrics],
-    [PropertyNames.Metallurgy]: PropertyMap[PropertyNames.Metallurgy],
-    [PropertyNames.Implants]: PropertyMap[PropertyNames.Implants],
-    [PropertyNames.Analysis]: PropertyMap[PropertyNames.Analysis],
-    [PropertyNames.Artistry]: PropertyMap[PropertyNames.Artistry],
+    [BaseNames.Gunsmith]: BaseMap[BaseNames.Gunsmith],
+    [BaseNames.Mechanics]: BaseMap[BaseNames.Mechanics],
+    [BaseNames.Electrics]: BaseMap[BaseNames.Electrics],
+    [BaseNames.Metallurgy]: BaseMap[BaseNames.Metallurgy],
+    [BaseNames.Implants]: BaseMap[BaseNames.Implants],
+    [BaseNames.Analysis]: BaseMap[BaseNames.Analysis],
+    [BaseNames.Artistry]: BaseMap[BaseNames.Artistry],
   };
 }
 
@@ -270,13 +270,13 @@ export class SpecialGroup extends Group {
   static readonly codename = "special";
   static readonly icon = "fa-star";
   static items = {
-    [PropertyNames.ToughSkin]: PropertyMap[PropertyNames.ToughSkin],
-    [PropertyNames.QuickReaction]: PropertyMap[PropertyNames.QuickReaction],
-    [PropertyNames.SharpEye]: PropertyMap[PropertyNames.SharpEye],
-    [PropertyNames.PowerfulMagic]: PropertyMap[PropertyNames.PowerfulMagic],
-    [PropertyNames.PowerOfTheMind]: PropertyMap[PropertyNames.PowerOfTheMind],
-    [PropertyNames.PowerOfCharisma]: PropertyMap[PropertyNames.PowerOfCharisma],
-    [PropertyNames.SteelFortitude]: PropertyMap[PropertyNames.SteelFortitude],
-    [PropertyNames.StyleIcon]: PropertyMap[PropertyNames.StyleIcon],
+    [BaseNames.ToughSkin]: BaseMap[BaseNames.ToughSkin],
+    [BaseNames.QuickReaction]: BaseMap[BaseNames.QuickReaction],
+    [BaseNames.SharpEye]: BaseMap[BaseNames.SharpEye],
+    [BaseNames.PowerfulMagic]: BaseMap[BaseNames.PowerfulMagic],
+    [BaseNames.PowerOfTheMind]: BaseMap[BaseNames.PowerOfTheMind],
+    [BaseNames.PowerOfCharisma]: BaseMap[BaseNames.PowerOfCharisma],
+    [BaseNames.SteelFortitude]: BaseMap[BaseNames.SteelFortitude],
+    [BaseNames.StyleIcon]: BaseMap[BaseNames.StyleIcon],
   };
 }
