@@ -1,5 +1,4 @@
 import type { MapType } from "@/entities/Map";
-import { TerrainsTypesEnum } from "@/entities/Map";
 import { Battler } from "@/shared/model/Battler/Battler";
 
 export interface IEnemyGeneratorOptions {
@@ -182,8 +181,7 @@ export class EnemyGenerator {
 
   private isCellEmpty(map: MapType, x: number, y: number): boolean {
     return this.isInBounds(x, y, map[0].length, map.length) && 
-           map[y][x].type === TerrainsTypesEnum.EMPTY && 
-           !map[y][x].battler;
+      map[y][x].isPassable()
   }
 
   private createSingleEnemy(): Battler {

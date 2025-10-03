@@ -9,20 +9,11 @@ export interface IMapGeneratorOptions {
 
 export type MapType = Array<GroundCell[]>;
 
-export interface ICellOptions {
-  type: TerrainsTypesEnum;
-}
-
-export enum TerrainsTypesEnum {
-  EMPTY = 'empty',
-  SINGLE_TREE = 'singleTree',
-  CLUSTER_TREE = 'cluster_tree',
-}
 
 export interface PathfindingCell extends GroundCell {
   x: number;
   y: number;
-  type: TerrainsTypesEnum;
+
   f: number; // f = g + h
   g: number; // стоимость пути от старта
   h: number; // эвристическая оценка до цели

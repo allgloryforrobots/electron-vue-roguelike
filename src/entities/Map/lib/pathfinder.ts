@@ -1,4 +1,4 @@
-import { MapType, PathfindingCell, PathfindingResult, TerrainsTypesEnum } from "../types/GridTypes";
+import { MapType, PathfindingCell, PathfindingResult } from "../types/GridTypes";
 
 export class Pathfinder {
   static findPath(
@@ -38,21 +38,10 @@ export class Pathfinder {
     // Получение стоимости перемещения через клетку
     const getMoveCost = (cell: PathfindingCell): number => {
 
-      // клетка занята юнитом
       if (!cell.isPassable()) {
-        return 10; 
+        return 1000000; 
       }
-
-      switch (cell.type) {
-        case TerrainsTypesEnum.EMPTY:
-          return 1;
-        case TerrainsTypesEnum.SINGLE_TREE:
-          return 10; // Высокая стоимость для деревьев
-        case TerrainsTypesEnum.CLUSTER_TREE:
-          return 20; // Очень высокая стоимость для кластеров
-        default:
-          return 1;
-      }
+      return 1;
     };
 
     // Получение соседних клеток
