@@ -1,6 +1,6 @@
 import { Base } from "../Base/Base";
 import { Battler } from "../Battler/Battler";
-import { CellEffect } from "../Effect/Effect";
+import { Obstacle } from "../Obstacle/Obstacle";
 
 export class Cell extends Base {
     constructor() {
@@ -20,24 +20,20 @@ export enum PassableState {
 }
 
 export class GroundCell extends Cell {
-    passable: PassableState = PassableState.PASSABLE;
-    battlers: Battler[] = [];
-    cellEffects: CellEffect[] = [];
-    /** огонь, кислота, лед */
-    surfaceEffect: CellEffect | null = null;
-    /** песок, камень, вода, лед, лава */
-    baseSurface = null;
-    /** дым, облако яда */
-    cloudEffect: CellEffect | null = null;
     moveCost: MoveCosts = MoveCosts.MEDIUM;
-    obstacle: object | null = null;
+    battler: Battler | null = null;
+    obstacle: Obstacle | null = null;
 
     constructor() {
         super();
     }
 
-    isPassable(): boolean {
-        return this.passable === PassableState.PASSABLE && !this.battlers.length && !this.obstacle;
+    isOpaque() {
+        return Boolean(this.obstacle);
+    }
+
+    isPassable() {
+        return !this.obstacle && !this.battler;
     }
 
 }

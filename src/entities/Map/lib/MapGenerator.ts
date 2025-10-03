@@ -1,35 +1,17 @@
-import { Battler } from "@/shared/model/Battler/Battler";
 import { IMapGeneratorOptions } from "../types/GridTypes";
 import type { MapType } from "../types/GridTypes";
-import { Obstacle, Tree } from "@/shared/model/Obstacle/Obstacle";
+import { Tree } from "@/shared/model/Obstacle/Obstacle";
+import { GroundCell } from "@/shared/model/Cell/Cell";
 
-export class Cell {
-  battler: Battler | null = null;
-  obstacle: Obstacle | null = null;
-
-  // только для тестов алгоритма нахождения пути
-  isPath?: boolean;
-
-  constructor() {
-  }
-
-  isOpaque() {
-    return Boolean(this.obstacle);
-  }
-
-  isPassable() {
-    return !this.obstacle && !this.battler;
-  }
-}
 
 function createCellWithTree() {
-  const newCell = new Cell();
+  const newCell = new GroundCell();
   newCell.obstacle = new Tree();
   return newCell;
 }
 
 function createEmptyCell() {
-  const newCell = new Cell();
+  const newCell = new GroundCell();
   return newCell;
 }
 

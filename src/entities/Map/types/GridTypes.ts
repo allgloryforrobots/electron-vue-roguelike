@@ -1,4 +1,4 @@
-import { Cell } from "../lib/MapGenerator";
+import { GroundCell } from "@/shared/model/Cell/Cell";
 
 export interface IMapGeneratorOptions {
   width: number;
@@ -7,7 +7,7 @@ export interface IMapGeneratorOptions {
   clusterDensity: number;
 }
 
-export type MapType = Array<Cell[]>;
+export type MapType = Array<GroundCell[]>;
 
 export interface ICellOptions {
   type: TerrainsTypesEnum;
@@ -19,7 +19,7 @@ export enum TerrainsTypesEnum {
   CLUSTER_TREE = 'cluster_tree',
 }
 
-export interface PathfindingCell extends Cell {
+export interface PathfindingCell extends GroundCell {
   x: number;
   y: number;
   type: TerrainsTypesEnum;
