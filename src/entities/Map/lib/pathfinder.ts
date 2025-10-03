@@ -37,10 +37,6 @@ export class Pathfinder {
 
     // Получение стоимости перемещения через клетку
     const getMoveCost = (cell: PathfindingCell): number => {
-
-      if (!cell.isPassable()) {
-        return 1000000; 
-      }
       return 1;
     };
 
@@ -57,7 +53,10 @@ export class Pathfinder {
         const ny = cell.y + dy;
 
         if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-          neighbors.push(grid[ny][nx]);
+          const neighbor = grid[ny][nx];
+          if (neighbor.isPassable()) {
+            neighbors.push(neighbor);
+          }
         }
       }
 
@@ -105,7 +104,6 @@ export class Pathfinder {
 
         // Стоимость перемещения
         const moveCost = getMoveCost(neighbor);
-        if (moveCost >= 10) continue; // Пропускаем непроходимые клетки
 
         // Диагональное перемещение дороже
         const isDiagonal = 
