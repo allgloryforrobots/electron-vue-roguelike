@@ -39,7 +39,7 @@ export class Pathfinder {
     const getMoveCost = (cell: PathfindingCell): number => {
 
       // клетка занята юнитом
-      if (cell.battler) {
+      if (!cell.isPassable()) {
         return 10; 
       }
 
@@ -165,7 +165,7 @@ export class Pathfinder {
     if (!map) return false;
     const cell = map?.[y]?.[x];
     if (!cell) return false;
-    return cell.type === TerrainsTypesEnum.EMPTY;
+    return cell.isPassable();
   };
 }
 
