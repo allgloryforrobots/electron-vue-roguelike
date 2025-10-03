@@ -12,6 +12,10 @@ export class Cell {
   constructor(options: ICellOptions) {
     this.type = options.type;
   }
+
+  isOpaque() {
+    return Boolean(this.battler) || this.type === TerrainsTypesEnum.CLUSTER_TREE || this.type === TerrainsTypesEnum.SINGLE_TREE
+  }
 }
 
 export class MapGenerator {

@@ -1,4 +1,4 @@
-import { MapType, TerrainsTypesEnum } from "@/entities/Map";
+import { MapType } from "@/entities/Map";
 import { Direction } from "@/shared/model/Direction/Direction";
 
 
@@ -121,9 +121,8 @@ export class FOVCalculator {
     }
 
     private isOpaque(x: number, y: number): boolean {
-        // Типы 1 и 2 - деревья и другие препятствия
-        const cellType = this.map[y][x].type;
-        return cellType === TerrainsTypesEnum.CLUSTER_TREE || cellType === TerrainsTypesEnum.SINGLE_TREE;
+        const cell = this.map[y][x];
+        return cell.isOpaque();
     }
 
     private isInBounds(x: number, y: number): boolean {
