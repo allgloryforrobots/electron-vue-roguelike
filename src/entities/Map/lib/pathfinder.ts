@@ -1,7 +1,7 @@
 import { Battler } from "@/shared/model/Battler/Battler";
 import { MoveCosts, GroundCell } from "@/shared/model/Cell/Cell";
 import { Obstacle } from "@/shared/model/Obstacle/Obstacle";
-import { MapType } from "../types/GridTypes";
+import { MapType } from "./MapGenerator";
 
 export type PathfindingGridType = boolean[][];
 

@@ -1,8 +1,14 @@
-import { IMapGeneratorOptions } from "../types/GridTypes";
-import type { MapType } from "../types/GridTypes";
 import { Tree } from "@/shared/model/Obstacle/Obstacle";
 import { GroundCell } from "@/shared/model/Cell/Cell";
 
+export interface IMapGeneratorOptions {
+  width: number;
+  height: number;
+  treeDensity: number;
+  clusterDensity: number;
+}
+
+export type MapType = GroundCell[][];
 
 function createCellWithTree() {
   const newCell = new GroundCell();
