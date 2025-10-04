@@ -27,7 +27,7 @@ export const useMapStore = defineStore('map', () => {
 	// Метод генерации карты с врагами
 	function generateMap({
 		width = 50,
-		height = 50,
+		height = 30,
 		treeDensity = 0.05,
 		clusterDensity = 0.008,
 		}: IGenerateMapOptions

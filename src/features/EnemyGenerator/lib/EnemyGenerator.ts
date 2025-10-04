@@ -171,7 +171,7 @@ export class EnemyGenerator {
         const nx = x + dx;
         const ny = y + dy;
         
-        if (this.isInBounds(nx, ny, width, height) && map[ny][nx].battler) {
+        if (this.isInBounds(nx, ny, width, height) && map[nx][ny].battler) {
           return true;
         }
       }
@@ -206,6 +206,6 @@ export class EnemyGenerator {
   }
 
   private isInBounds(x: number, y: number, width: number, height: number): boolean {
-    return x >= 0 && x < width && y >= 0 && y < height;
+    return x >= 0 && x < width - 1 && y >= 0 && y < height -1;
   }
 }
