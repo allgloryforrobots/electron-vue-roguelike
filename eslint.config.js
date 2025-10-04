@@ -43,7 +43,7 @@ js.configs.recommended, // TypeScript конфиг
   rules: {
     'vue/multi-word-component-names': 'off',
     'vue/html-self-closing': 'off',
-    'vue/max-attributes-per-line': 'off'
+    'vue/max-attributes-per-line': 'off',
   }
 }, // Для JS/TS файлов
 {
@@ -61,6 +61,14 @@ js.configs.recommended, // TypeScript конфиг
   },
   rules: {
     'no-console': 'warn',
-    'no-debugger': 'error'
+    'no-debugger': 'error',
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ]
   }
 }, ...storybook.configs["flat/recommended"]];

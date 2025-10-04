@@ -11,22 +11,19 @@ export class Pathfinder {
     const width = map[0].length;
     const height = map.length;
 
-    // Создаем grid для pathfinding
     const grid: PathfindingCell[][] = [];
     for (let y = 0; y < height; y++) {
       grid[y] = [];
+      
       for (let x = 0; x < width; x++) {
-        grid[y][x] = {
+        const mapCell = map[y][x];
+        grid[y][x] = new PathfindingCell({
           x,
           y,
-          f: 0,
-          g: 0,
-          h: 0,
-          parent: null,
-          closed: false,
-          opened: false,
-          ...map[y][x],
-        };
+          moveCost: mapCell.moveCost,
+          battler:  mapCell.battler,
+          obstacle:  mapCell.obstacle,
+        });
       }
     }
 
@@ -36,7 +33,7 @@ export class Pathfinder {
     };
 
     // Получение стоимости перемещения через клетку
-    const getMoveCost = (cell: PathfindingCell): number => {
+    const getMoveCost = (_: PathfindingCell): number => {
       return 1;
     };
 
@@ -131,22 +128,22 @@ export class Pathfinder {
     return { path: [], success: false, steps: 0 };
   }
 
-
   // Визуализация пути на карте (тесты)
-	static visualizePath(map: MapType, path: { x: number; y: number }[]) {
+  static visualizePath(map: MapType, path: { x: number; y: number }[]): boolean[][] {
+    // Создаём двумерный массив булевых значений, изначально все false
+    const result: boolean[][] = map.map(row => row.map(() => false));
 
-		const visualizeMap = JSON.parse(JSON.stringify(map));
-    
-    visualizeMap.flat().forEach((element: { isPath: boolean; }) => {
-      element.isPath = false;
-    });
+    // Отмечаем точки пути как true
+    for (const { x, y } of path) {
+      // Проверка границ для безопасности
+      if (y >= 0 && y < result.length && x >= 0 && x < result[y].length) {
+        result[y][x] = true;
+      }
+    }
 
-		for (const point of path) {
-			visualizeMap[point.y][point.x].isPath = true;
-		}
-		
-		return visualizeMap;
-	}
+    return result;
+  }
+
   // Функция проверки проходимости клетки
   static isPassable = (x: number, y: number, map: MapType): boolean => {
     if (!map) return false;
