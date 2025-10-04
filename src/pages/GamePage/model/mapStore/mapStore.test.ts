@@ -39,20 +39,14 @@ describe('useMapStore', () => {
     it('returns battlers within circular radius', () => {
       const store = useMapStore();
       store.generateMap({ width: 10, height: 10 });
+      expect(store.map!.length).toBe(10);
+      expect(store.map![0].length).toBe(10);
 
-      // Вручную разместим бойцов
       store.map![2][2].battler = new Battler({ id: 'A' });
       store.map![1][1].battler = new Battler({ id: 'B' });
       store.map![5][5].battler = new Battler({ id: 'C' });
 
-      // Ищем вокруг (2,2) с радиусом 2
       const battlers = store.getBattlersInArea(2, 2, 2);
-
-      // Расстояния:
-      // A: (2,2) → 0 ✅
-      // B: (1,1) → √2 ≈ 1.41 ✅
-      // C: (5,5) → √18 ≈ 4.24 ❌
-
       expect(battlers).toHaveLength(2);
       const ids = battlers.map(b => b.id);
       expect(ids).toContain('A');
@@ -63,9 +57,11 @@ describe('useMapStore', () => {
     it('respects map boundaries', () => {
       const store = useMapStore();
       store.generateMap({ width: 3, height: 3 });
-      store.map![0][0].battler = new Battler({ id: 'corner' });
+      expect(store.map!.length).toBe(3);
+      expect(store.map![0].length).toBe(3);
 
-      const battlers = store.getBattlersInArea(0, 0, 5); // большой радиус
+      store.map![0][0].battler = new Battler({ id: 'corner' });
+      const battlers = store.getBattlersInArea(0, 0, 5);
       expect(battlers).toHaveLength(1);
       expect(battlers[0].id).toBe('corner');
     });
@@ -75,35 +71,23 @@ describe('useMapStore', () => {
     it('splits battlers by half-radius correctly', () => {
       const store = useMapStore();
       store.generateMap({ width: 10, height: 10 });
+      expect(store.map!.length).toBe(10);
+      expect(store.map![0].length).toBe(10);
 
-      // Разместим бойцов
-      store.map![3][3].battler = new Battler({ id: 'center' });     // dist = 0
-      store.map![2][2].battler = new Battler({ id: 'near'});         // dist ≈ 1.41
-      store.map![6][6].battler = new Battler({ id: 'far'});           // dist ≈ 4.24
+      store.map![3][3].battler = new Battler({ id: 'center' });
+      store.map![2][2].battler = new Battler({ id: 'near' });
+      store.map![6][6].battler = new Battler({ id: 'far' });
 
-      const radius = 5;
-      const { inner, outer } = store.getBattlersInSplitArea(3, 3, radius);
-    //   const half = radius / 2; // 2.5
-
-      // center: 0 < 2.5 → inner
-      // near: 1.41 < 2.5 → inner
-      // far: 4.24 ≥ 2.5 и ≤ 5 → outer
-
+      const { inner, outer } = store.getBattlersInSplitArea(3, 3, 5);
       expect(inner).toHaveLength(2);
       expect(outer).toHaveLength(1);
-
-      const innerIds = inner.map(b => b.id);
-      const outerIds = outer.map(b => b.id);
-
-      expect(innerIds).toContain('center');
-      expect(innerIds).toContain('near');
-      expect(outerIds).toContain('far');
+      expect(inner.map(b => b.id)).toEqual(expect.arrayContaining(['center', 'near']));
+      expect(outer.map(b => b.id)).toEqual(expect.arrayContaining(['far']));
     });
 
     it('returns empty arrays when radius <= 0', () => {
       const store = useMapStore();
       store.generateMap({ width: 5, height: 5 });
-
       const result = store.getBattlersInSplitArea(2, 2, 0);
       expect(result.inner).toEqual([]);
       expect(result.outer).toEqual([]);
@@ -112,21 +96,94 @@ describe('useMapStore', () => {
     it('includes battler exactly at half-radius in outer zone', () => {
       const store = useMapStore();
       store.generateMap({ width: 10, height: 10 });
+      expect(store.map!.length).toBe(10);
+      expect(store.map![0].length).toBe(10);
 
-      // Поместим бойца ровно на расстоянии = halfRadius
-      const centerX = 5;
-      const centerY = 5;
-      const radius = 4;
-    //   const halfRadius = radius / 2; // 2
+      store.map![7][5].battler = new Battler({ id: 'on-border' }); // (x=5, y=7)
 
-      // Найдём клетку на расстоянии ≈2 от центра: например, (5, 7) → dy=2, dx=0 → dist=2
-      store.map![5][7].battler = new Battler({ id: 'on-border' });
-
-      const { inner, outer } = store.getBattlersInSplitArea(centerX, centerY, radius);
-
+      const { inner, outer } = store.getBattlersInSplitArea(5, 5, 4);
       expect(inner).toHaveLength(0);
       expect(outer).toHaveLength(1);
       expect(outer[0].id).toBe('on-border');
+    });
+  });
+
+  describe('getBattlersOnRay', () => {
+    it('returns battlers on a horizontal ray (left to right)', () => {
+      const store = useMapStore();
+      store.generateMap({ width: 10, height: 5 });
+      expect(store.map!.length).toBe(5);
+      expect(store.map![0].length).toBe(10);
+
+      store.map![2][2].battler = new Battler({ id: 'A' });
+      store.map![2][4].battler = new Battler({ id: 'B' });
+
+      const battlers = store.getBattlersOnRay(1, 2, 5, 2);
+      expect(battlers).toHaveLength(2);
+      expect(battlers.map(b => b.id)).toEqual(['A', 'B']);
+    });
+
+    it('returns battlers on a vertical ray (top to bottom)', () => {
+      const store = useMapStore();
+      store.generateMap({ width: 5, height: 10 });
+      expect(store.map!.length).toBe(10);
+      expect(store.map![0].length).toBe(5);
+
+      store.map![1][3].battler = new Battler({ id: 'top' });   // (x=3, y=1)
+      store.map![3][3].battler = new Battler({ id: 'mid' });   // (x=3, y=3)
+
+      const battlers = store.getBattlersOnRay(3, 0, 3, 4);
+      expect(battlers).toHaveLength(2);
+      expect(battlers.map(b => b.id)).toEqual(['top', 'mid']);
+    });
+
+    it('returns battlers on a diagonal ray', () => {
+      const store = useMapStore();
+      store.generateMap({ width: 8, height: 8 });
+      expect(store.map!.length).toBe(8);
+      expect(store.map![0].length).toBe(8);
+
+      store.map![1][1].battler = new Battler({ id: 'start' });
+      store.map![3][3].battler = new Battler({ id: 'mid' });
+      store.map![5][5].battler = new Battler({ id: 'end' });
+
+      const battlers = store.getBattlersOnRay(1, 1, 5, 5);
+      expect(battlers).toHaveLength(3);
+      expect(battlers.map(b => b.id)).toEqual(['start', 'mid', 'end']);
+    });
+
+    it('returns empty array when no battlers on ray', () => {
+      const store = useMapStore();
+      store.generateMap({ width: 5, height: 5 });
+      const battlers = store.getBattlersOnRay(0, 0, 4, 4);
+      expect(battlers).toEqual([]);
+    });
+
+    it('respects map boundaries (does not crash on out-of-bounds)', () => {
+      const store = useMapStore();
+      store.generateMap({ width: 3, height: 3 });
+      expect(store.map!.length).toBe(3);
+      expect(store.map![0].length).toBe(3);
+
+      store.map![0][0].battler = new Battler({ id: 'corner' });
+      const battlers = store.getBattlersOnRay(-2, -2, 5, 5);
+      expect(battlers).toHaveLength(1);
+      expect(battlers[0].id).toBe('corner');
+    });
+
+    it('includes both start and end points if they have battlers', () => {
+      const store = useMapStore();
+      store.generateMap({ width: 5, height: 5 });
+      expect(store.map!.length).toBe(5);
+      expect(store.map![0].length).toBe(5);
+
+      store.map![1][1].battler = new Battler({ id: 'start' });
+      store.map![4][4].battler = new Battler({ id: 'end' });
+
+      const battlers = store.getBattlersOnRay(1, 1, 4, 4);
+      expect(battlers).toHaveLength(2);
+      expect(battlers[0].id).toBe('start');
+      expect(battlers[1].id).toBe('end');
     });
   });
 });

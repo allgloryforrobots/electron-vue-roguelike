@@ -171,7 +171,7 @@ export class EnemyGenerator {
         const nx = x + dx;
         const ny = y + dy;
         
-        if (this.isInBounds(nx, ny, width, height) && map[nx][ny].battler) {
+        if (this.isInBounds(nx, ny, width, height) && map[ny][nx].battler) {
           return true;
         }
       }
@@ -185,11 +185,11 @@ export class EnemyGenerator {
   }
 
   private createSingleEnemy(): Battler {
-    return new Battler();
+    return new Battler({});
   }
 
   private createSquadMember(): Battler {
-    return new Battler();
+    return new Battler({});
   }
 
   private shuffleArray<T>(array: T[]): T[] {

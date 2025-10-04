@@ -11,7 +11,6 @@ export interface IBaseOptions {
   id?: string;
 }
 
-/** базовый класс для любой Base */
 export class Base {
   name!: string;
   codename!: string;
