@@ -10,7 +10,6 @@
   import { PathfindingGridType } from '@/entities/Map';
   import { PathfindingGrid } from '@/widgets/PathfindingGrid';
 
-
   const playerStore = usePlayerStore();
 
   const mapGenerator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
@@ -105,7 +104,7 @@
 
 <template>
   <Grid v-if="map" :map="map" />
-  <BattlersGrid />
+  <BattlersGrid v-if="map" :map="map" />
   <FOVGrid v-if="map" :map="map" />
   <PathfindingGrid v-if="mapWithPath" :map="mapWithPath" />
 </template>

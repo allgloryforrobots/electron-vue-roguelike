@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { MapType } from '@/entities/Map/types/GridTypes';
+import { MapType } from '@/entities/Map';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
 
