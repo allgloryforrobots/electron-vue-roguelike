@@ -2,11 +2,13 @@
   import {  FOVGrid } from '@/widgets/FOVGrid';
   import { Grid } from '@/widgets/Grid';
   import { MapGenerator, Pathfinder } from '@/entities/Map';
-  import { onMounted, onUnmounted, ref } from 'vue';
+  import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
   import { usePlayerStore } from '@/entities/Player';
   import { EnemyGenerator } from '@/features/EnemyGenerator';
   import { Direction } from '@/shared/model/Direction/Direction';
   import { BattlersGrid } from '@/widgets/BattlersGrid';
+  import { PathfindingGridType } from '@/entities/Map';
+  import { PathfindingGrid } from '@/widgets/PathfindingGrid';
 
 
   const playerStore = usePlayerStore();
@@ -14,6 +16,7 @@
   const mapGenerator = new MapGenerator({ width: 50, height: 30, treeDensity: 0.05, clusterDensity: 0.008 });
   const map = ref();
   map.value = mapGenerator.generateMap();
+  const mapWithPath = ref<PathfindingGridType>();
 
   // Генерация врагов на готовой карте
   const enemyGenerator = new EnemyGenerator({
@@ -86,12 +89,25 @@
   onUnmounted(() => {
     window.removeEventListener('keydown', handleKeyDown);
   });
+
+
+  watchEffect(() => {
+    const result = Pathfinder.findPath(map.value, playerStore.player.position.x, playerStore.player.position.y, 45, 25);
+
+    if (result.success) {
+      // Визуализируем путь
+      mapWithPath.value = Pathfinder.visualizePath(map.value, result.path);
+    } else {
+      console.log('Путь не найден');
+    }
+  });
 </script>
 
 <template>
   <Grid v-if="map" :map="map" />
   <BattlersGrid />
   <FOVGrid v-if="map" :map="map" />
+  <PathfindingGrid v-if="mapWithPath" :map="mapWithPath" />
 </template>
 
 <style>

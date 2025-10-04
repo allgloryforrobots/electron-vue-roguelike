@@ -11,7 +11,6 @@
           'grass': !cell.obstacle,
           'tree': cell.obstacle,
           'tree-cluster': cell.obstacle,
-          'test-red': cell.isPath
         }"
       >
         <template v-if="cell.obstacle">
