@@ -13,7 +13,7 @@ interface IGenerateMapOptions {
 
 export const useMapStore = defineStore('map', () => {
 	const map = ref<MapType>();
-	const isMapLoaded = computed(() => map.value !== null);
+	const isMapLoaded = computed(() => map.value ? true : false);
 
 	const mapWidth = computed((): number => {
 		if (!map.value) return 0;

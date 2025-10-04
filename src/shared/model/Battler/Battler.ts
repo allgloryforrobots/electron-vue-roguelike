@@ -1,10 +1,17 @@
+import { Base, IBaseOptions } from "../Base/Base";
 import { Direction } from "../Direction/Direction";
 import { IPosition } from "../Position/Position";
 
 
-export class Battler {
-    id = crypto.randomUUID();
+interface IBattlerOptions extends IBaseOptions {
+    id: string;
+}
+
+export class Battler extends Base {
     position: IPosition = { x: 0, y: 0 };
     direction: Direction = Direction.DOWN;
-    icon = "🧙‍♂️"
+
+    constructor(options: IBattlerOptions) {
+        super(options);
+    }
 }
