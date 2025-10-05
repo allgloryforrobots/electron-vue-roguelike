@@ -281,6 +281,8 @@ export const useMapStore = defineStore('map', () => {
     setHoverCellPosition,
     clearHoverCellPosition,
     onHoverCellClick,
-	getCellsInCone
+	  getCellsInCone,
+    hoverCellPosition,
+    activeCellPosition
   };
 });

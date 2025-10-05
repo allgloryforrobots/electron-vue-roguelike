@@ -1,11 +1,11 @@
 import { Battler } from "@/shared/model/Battler/Battler";
-import { MoveCosts, GroundCell } from "@/shared/model/Cell/Cell";
+import { MoveCosts, GroundCell, ICellOptions } from "@/shared/model/Cell/Cell";
 import { Obstacle } from "@/shared/model/Obstacle/Obstacle";
 import { MapType } from "./MapGenerator";
 
 export type PathfindingGridType = boolean[][];
 
-interface IPathfindingCellOptions {
+interface IPathfindingCellOptions extends ICellOptions {
   x: number;
   y: number;
   moveCost: MoveCosts;
@@ -14,9 +14,6 @@ interface IPathfindingCellOptions {
 }
 
 export class PathfindingCell extends GroundCell {
-  x: number;
-  y: number;
-
   f: number = 0; // f = g + h
   g: number = 0; // стоимость пути от старта
   h: number = 0; // эвристическая оценка до цели
@@ -25,9 +22,7 @@ export class PathfindingCell extends GroundCell {
   opened: boolean = false;
 
   constructor(options: IPathfindingCellOptions) {
-    super()
-    this.x = options.x;
-    this.y = options.y;
+    super(options)
     this.moveCost = options.moveCost;
     this.battler =  options.battler;
     this.obstacle =  options.obstacle;

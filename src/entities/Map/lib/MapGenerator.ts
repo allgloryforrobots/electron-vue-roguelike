@@ -10,14 +10,9 @@ export interface IMapGeneratorOptions {
 
 export type MapType = GroundCell[][];
 
-function createCellWithTree() {
-  const newCell = new GroundCell();
+function createCellWithTree(x: number, y: number) {
+  const newCell = new GroundCell({x, y});
   newCell.obstacle = new Tree();
-  return newCell;
-}
-
-function createEmptyCell() {
-  const newCell = new GroundCell();
   return newCell;
 }
 
@@ -39,11 +34,15 @@ export class MapGenerator {
       this.clusterDensity = options.clusterDensity || 0.008; // 0.8% карты - кластеры
     }
 
-    // Инициализация пустой карты
     initEmptyMap() {
-      this.map = Array.from({ length: this.height }, () => 
-        Array.from({ length: this.width }, () => createEmptyCell())
-      );
+      this.map = [];
+      for (let y = 0; y < this.height; y++) {
+        const row = [];
+        for (let x = 0; x < this.width; x++) {
+          row.push(new GroundCell({ x, y }));
+        }
+        this.map.push(row);
+      }
     }
 
     // Основной метод генерации карты
@@ -64,7 +63,7 @@ export class MapGenerator {
         const y = this.getRandomInt(0, this.height - 1);
         
         if (this.isCellEmpty(x, y)) {
-          this.map[y][x] = createCellWithTree();
+          this.map[y][x] = createCellWithTree(x, y);
           
           // 30% chance добавить соседние деревья
           if (Math.random() < 0.3) {
@@ -91,7 +90,7 @@ export class MapGenerator {
           const y = Math.round(centerY + Math.sin(angle) * distance);
           
           if (this.isInBounds(x, y) && this.isCellEmpty(x, y)) {
-            this.map[y][x] = createCellWithTree();
+            this.map[y][x] = createCellWithTree(x, y);
           }
         }
         
@@ -111,7 +110,7 @@ export class MapGenerator {
             const ny = y + dy;
             
             if (this.isInBounds(nx, ny) && this.isCellEmpty(nx, ny)) {
-              this.map[ny][nx] = createCellWithTree();
+              this.map[ny][nx] = createCellWithTree(x, y);
             }
           }
         }
@@ -132,7 +131,7 @@ export class MapGenerator {
         const ny = y + dy;
         
         if (this.isInBounds(nx, ny) && this.isCellEmpty(nx, ny)) {
-          this.map[ny][nx] = createCellWithTree();
+          this.map[ny][nx] = createCellWithTree(x, y);
         }
       }
     }
@@ -161,7 +160,7 @@ export class MapGenerator {
         for (let dy = -1; dy <= 1; dy++) {
           for (let dx = -1; dx <= 1; dx++) {
             if (this.isInBounds(x + dx, y + dy)) {
-              this.map[y + dy][x + dx] = createCellWithTree();
+              this.map[y + dy][x + dx] = createCellWithTree(x, y);
             }
           }
         }

@@ -3,8 +3,13 @@ import { Battler } from "../Battler/Battler";
 import { Obstacle } from "../Obstacle/Obstacle";
 
 export class Cell extends Base {
-    constructor() {
+    x: number; 
+    y: number;
+
+    constructor(options: ICellOptions) {
         super();
+        this.x = options.x;
+        this.y = options.y;
     }
 }
 
@@ -19,13 +24,23 @@ export enum PassableState {
     NOT_PASSABLE = 'not_passable',
 }
 
+export interface ICellOptions {
+    x: number; 
+    y: number;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface IGroundCellOptions extends ICellOptions {
+
+}
+
 export class GroundCell extends Cell {
     moveCost: MoveCosts = MoveCosts.MEDIUM;
     battler: Battler | null = null;
     obstacle: Obstacle | null = null;
 
-    constructor() {
-        super();
+    constructor(options: IGroundCellOptions) {
+        super(options);
     }
 
     isOpaque() {
