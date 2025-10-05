@@ -7,7 +7,8 @@ import { usePlayerStore } from '@/entities/Player';
 import { Direction } from '@/shared/model/Direction/Direction';
 import { BattlersGrid } from '@/widgets/BattlersGrid';
 import { PathfindingGrid } from '@/widgets/PathfindingGrid';
-import { useMapStore } from '../model/mapStore/MapStore';
+import { useMapStore } from '../model/mapStore/mapStore';
+import { TargetMaskGrid } from '@/widgets/TargetMaskGrid';
 
 const playerStore = usePlayerStore();
 const mapStore = useMapStore();
@@ -98,6 +99,7 @@ watchEffect(() => {
 <template>
   <Grid v-if="mapStore.map" :map="mapStore.map" />
   <BattlersGrid v-if="mapStore.map" :map="mapStore.map" />
+  <TargetMaskGrid v-if="mapStore.map" :map="mapStore.map" />
   <FOVGrid v-if="mapStore.map" :map="mapStore.map" />
   <PathfindingGrid v-if="mapWithPath" :map="mapWithPath" />
 </template>

@@ -16,9 +16,9 @@
 import { ref, watch, onMounted } from 'vue';
 import { FOVCalculator } from '../lib/FOV';
 import { usePlayerStore } from '@/entities/Player';
-import { MapType } from '@/entities/Map/types/GridTypes';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
+import { MapType } from '@/entities/Map';
 
 const playerStore = usePlayerStore();
 
