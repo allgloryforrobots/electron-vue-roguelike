@@ -99,9 +99,9 @@ watchEffect(() => {
 <template>
   <Grid v-if="mapStore.map" :map="mapStore.map" />
   <BattlersGrid v-if="mapStore.map" :map="mapStore.map" />
-  <TargetMaskGrid v-if="mapStore.map" :map="mapStore.map" />
   <FOVGrid v-if="mapStore.map" :map="mapStore.map" />
   <PathfindingGrid v-if="mapWithPath" :map="mapWithPath" />
+  <TargetMaskGrid v-if="mapStore.map" />
 </template>
 
 <style>

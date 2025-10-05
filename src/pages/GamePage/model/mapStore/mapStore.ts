@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { MapGenerator, MapType } from '@/entities/Map';
 import { EnemyGenerator } from '@/features/EnemyGenerator';
 import { Battler } from '@/shared/model/Battler/Battler';
+import { IPosition } from '@/shared/model/Position/Position';
 
 interface IGenerateMapOptions {
   width?: number;
@@ -26,6 +27,26 @@ export const useMapStore = defineStore('map', () => {
     if (!map.value) return 0;
     return map.value.length;
   });
+
+  const activeBattlerPosition = ref<IPosition | null>(null);
+
+  function setActiveBattlerPosition(position: IPosition) {
+    activeBattlerPosition.value = position;
+  }
+
+  const hoverCellPosition = ref<IPosition | null>(null);
+
+  function setHoverCellPosition(position: IPosition) {
+    hoverCellPosition.value = position;
+  }
+
+  function clearHoverCellPosition() {
+    hoverCellPosition.value = null;
+  }
+
+  function onHoverCellClick() {
+    
+  }
 
   /**
    * Возвращает всех бойцов (Battler), находящихся в круговой области заданного радиуса
@@ -101,27 +122,27 @@ export const useMapStore = defineStore('map', () => {
     const maxY = Math.min(mapHeight.value - 1, Math.ceil(originY + radius));
 
     for (let currX = minX; currX <= maxX; currX++) {
-	for (let currY = minY; currY <= maxY; currY++) {
-		const cell = map.value[currY][currX];
-        if (!cell.battler) continue;
+      for (let currY = minY; currY <= maxY; currY++) {
+        const cell = map.value[currY][currX];
+            if (!cell.battler) continue;
 
-        const toCellX = currX - originX;
-        const toCellY = currY - originY;
-        const distance = Math.sqrt(toCellX * toCellX + toCellY * toCellY);
+            const toCellX = currX - originX;
+            const toCellY = currY - originY;
+            const distance = Math.sqrt(toCellX * toCellX + toCellY * toCellY);
 
-        if (distance > radius) continue;
+            if (distance > radius) continue;
 
-        const dot = toCellX * normDirX + toCellY * normDirY;
-        const cosAngle = dot / distance;
+            const dot = toCellX * normDirX + toCellY * normDirY;
+            const cosAngle = dot / distance;
 
-        if (cosAngle >= cosHalfAngle) {
-          battlers.push(cell.battler);
+            if (cosAngle >= cosHalfAngle) {
+              battlers.push(cell.battler);
+            }
+          }
         }
-      }
-    }
 
-    return battlers;
-  }
+      return battlers;
+    }
 
   /**
    * Возвращает бойцов, разделённых на две группы:
@@ -265,5 +286,9 @@ export const useMapStore = defineStore('map', () => {
     getBattlersInSplitArea,
     getBattlersOnRay,
     getBattlersInCone,
+    setActiveBattlerPosition,
+    setHoverCellPosition,
+    clearHoverCellPosition,
+    onHoverCellClick
   };
 });
