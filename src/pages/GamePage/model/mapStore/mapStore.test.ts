@@ -1,7 +1,7 @@
 import { createPinia, setActivePinia } from 'pinia';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Battler } from '@/shared/model/Battler/Battler';
-import { useMapStore } from './MapStore';
+import { useMapStore } from './mapStore';
 import { GroundCell } from '@/shared/model/Cell/Cell';
 
 describe('useMapStore', () => {

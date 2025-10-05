@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { MapGenerator, MapType } from '@/entities/Map';
 import { EnemyGenerator } from '@/features/EnemyGenerator';
-import { Battler } from '@/shared/model/Battler/Battler';
 import { IPosition } from '@/shared/model/Position/Position';
+import { GroundCell } from '@/shared/model/Cell/Cell';
 
 interface IGenerateMapOptions {
   width?: number;
@@ -28,10 +28,10 @@ export const useMapStore = defineStore('map', () => {
     return map.value.length;
   });
 
-  const activeBattlerPosition = ref<IPosition | null>(null);
+  const activeCellPosition = ref<IPosition | null>(null);
 
-  function setActiveBattlerPosition(position: IPosition) {
-    activeBattlerPosition.value = position;
+  function setActiveCellPosition(position: IPosition) {
+    activeCellPosition.value = position;
   }
 
   const hoverCellPosition = ref<IPosition | null>(null);
@@ -49,18 +49,18 @@ export const useMapStore = defineStore('map', () => {
   }
 
   /**
-   * Возвращает всех бойцов (Battler), находящихся в круговой области заданного радиуса
+   * Возвращает все ячейки, находящихся в круговой области заданного радиуса
    * с центром в указанной точке на карте.
    *
    * @param x - Координата X центра области (столбец на карте).
    * @param y - Координата Y центра области (строка на карте).
    * @param radius - Радиус поиска (в клетках). Должен быть >= 0.
-   * @returns Массив бойцов, находящихся в пределах круга радиуса `radius`.
+   * @returns Массив ячеек, находящихся в пределах круга радиуса `radius`.
    */
-  function getBattlersInArea(x: number, y: number, radius: number): Battler[] {
-    const battlers: Battler[] = [];
+  function getCellsInArea(x: number, y: number, radius: number): GroundCell[] {
+    const cells: GroundCell[] = [];
 
-    if (!map.value || radius < 0) return battlers;
+    if (!map.value || radius < 0) return cells;
 
     const minX = Math.max(0, x - radius);
     const maxX = Math.min(mapWidth.value - 1, x + radius);
@@ -70,20 +70,18 @@ export const useMapStore = defineStore('map', () => {
 	for (let currX = minX; currX <= maxX; currX++) {
 		for (let currY = minY; currY <= maxY; currY++) {
 			const cell = map.value[currY][currX];
-				if (cell.battler) {
 				const distance = Math.sqrt((currX - x) ** 2 + (currY - y) ** 2);
 				if (distance <= radius) {
-					battlers.push(cell.battler);
-				}
+					cells.push(cell);
 				}
 			}
 		}
 
-		return battlers;
+		return cells;
 	}
 
   /**
-   * Возвращает всех бойцов (Battler), находящихся в конусе с углом 60 градусов,
+   * Возвращает все ячейки, находящихся в конусе с углом 60 градусов,
    * направленном от исходной точки к целевой точке, в пределах заданного радиуса.
    *
    * Конус симметричен относительно направления на цель и имеет полный угол 60° (±30°).
@@ -93,24 +91,24 @@ export const useMapStore = defineStore('map', () => {
    * @param targetX - X-координата целевой точки (столбец)
    * @param targetY - Y-координата целевой точки (строка)
    * @param radius - Максимальное расстояние от исходной точки (в клетках)
-   * @returns {Battler[]} Массив бойцов, попавших в конус
+   * @returns  Массив ячеек, попавших в конус
    */
-  function getBattlersInCone(
+  function getCellsInCone(
     originX: number,
     originY: number,
     targetX: number,
     targetY: number,
     radius: number
-  ): Battler[] {
-    const battlers: Battler[] = [];
+  ): GroundCell[] {
+    const cells: GroundCell[] = [];
 
-    if (!map.value || radius <= 0) return battlers;
+    if (!map.value || radius <= 0) return cells;
 
     const dirX = targetX - originX;
     const dirY = targetY - originY;
     const dirLength = Math.sqrt(dirX * dirX + dirY * dirY);
 
-    if (dirLength === 0) return battlers;
+    if (dirLength === 0) return cells;
 
     const normDirX = dirX / dirLength;
     const normDirY = dirY / dirLength;
@@ -124,8 +122,6 @@ export const useMapStore = defineStore('map', () => {
     for (let currX = minX; currX <= maxX; currX++) {
       for (let currY = minY; currY <= maxY; currY++) {
         const cell = map.value[currY][currX];
-            if (!cell.battler) continue;
-
             const toCellX = currX - originX;
             const toCellY = currY - originY;
             const distance = Math.sqrt(toCellX * toCellX + toCellY * toCellY);
@@ -136,16 +132,16 @@ export const useMapStore = defineStore('map', () => {
             const cosAngle = dot / distance;
 
             if (cosAngle >= cosHalfAngle) {
-              battlers.push(cell.battler);
+              cells.push(cell);
             }
           }
         }
 
-      return battlers;
+      return cells;
     }
 
   /**
-   * Возвращает бойцов, разделённых на две группы:
+   * Возвращает ячейки, разделённых на две группы:
    * - **inner**: находятся строго ближе, чем половина заданного радиуса от центра;
    * - **outer**: находятся на расстоянии от половины радиуса (включительно) до полного радиуса.
    *
@@ -155,12 +151,12 @@ export const useMapStore = defineStore('map', () => {
    * @param y - Координата Y центра области (строка на карте).
    * @param radius - Радиус общей области поиска (в клетках). Должен быть > 0.
    * @returns Объект с двумя массивами:
-   *   - `inner`: бойцы внутри внутреннего круга (расстояние < radius / 2);
-   *   - `outer`: бойцы в кольце между половиной и полным радиусом (radius / 2 ≤ расстояние ≤ radius).
+   *   - `inner`: ячейки внутри внутреннего круга (расстояние < radius / 2);
+   *   - `outer`: ячейки в кольце между половиной и полным радиусом (radius / 2 ≤ расстояние ≤ radius).
    */
-  function getBattlersInSplitArea(x: number, y: number, radius: number): { inner: Battler[]; outer: Battler[] } {
-    const inner: Battler[] = [];
-    const outer: Battler[] = [];
+  function getCellsInSplitArea(x: number, y: number, radius: number): { inner: GroundCell[]; outer: GroundCell[] } {
+    const inner: GroundCell[] = [];
+    const outer: GroundCell[] = [];
 
     if (!map.value || radius <= 0) {
       return { inner, outer };
@@ -176,16 +172,14 @@ export const useMapStore = defineStore('map', () => {
     for (let currX = minX; currX <= maxX; currX++) {
 	for (let currY = minY; currY <= maxY; currY++) {
 		const cell = map.value[currY][currX];
-        if (cell.battler) {
           const distance = Math.sqrt((currX - x) ** 2 + (currY - y) ** 2);
           if (distance <= radius) {
             if (distance < halfRadius) {
-              inner.push(cell.battler);
+              inner.push(cell);
             } else {
-              outer.push(cell.battler);
+              outer.push(cell);
             }
           }
-        }
       }
     }
 
@@ -193,7 +187,7 @@ export const useMapStore = defineStore('map', () => {
   }
 
   /**
-   * Возвращает всех бойцов (Battler), находящихся на прямой линии (луче)
+   * Возвращает все ячейки, находящихся на прямой линии (луче)
    * от начальной точки (x1, y1) до конечной точки (x2, y2) включительно.
    *
    * Используется алгоритм Брезенхэма для определения клеток на линии.
@@ -202,12 +196,12 @@ export const useMapStore = defineStore('map', () => {
    * @param y1 - Начальная координата Y (строка)
    * @param x2 - Конечная координата X (столбец)
    * @param y2 - Конечная координата Y (строка)
-   * @returns Массив бойцов на линии от (x1, y1) до (x2, y2), в порядке следования.
+   * @returns Массив ячеек на линии от (x1, y1) до (x2, y2), в порядке следования.
    */
-  function getBattlersOnRay(x1: number, y1: number, x2: number, y2: number): Battler[] {
-    const battlers: Battler[] = [];
+  function getCellsOnRay(x1: number, y1: number, x2: number, y2: number): GroundCell[] {
+    const cells: GroundCell[] = [];
 
-    if (!map.value) return battlers;
+    if (!map.value) return cells;
 
     const dx = Math.abs(x2 - x1);
     const dy = Math.abs(y2 - y1);
@@ -219,10 +213,8 @@ export const useMapStore = defineStore('map', () => {
 
     while (true) {
       if (x >= 0 && x < mapWidth.value && y >= 0 && y < mapHeight.value) {
-  			const cell = map.value[y][x];
-        if (cell.battler) {
-          battlers.push(cell.battler);
-        }
+  		const cell = map.value[y][x];
+        cells.push(cell);
       }
 
       if (x === x2 && y === y2) break;
@@ -238,7 +230,7 @@ export const useMapStore = defineStore('map', () => {
       }
     }
 
-    return battlers;
+    return cells;
   }
 
   // Метод генерации карты
@@ -282,13 +274,13 @@ export const useMapStore = defineStore('map', () => {
     mapHeight,
     generateMap,
     generateEnemies,
-    getBattlersInArea,
-    getBattlersInSplitArea,
-    getBattlersOnRay,
-    getBattlersInCone,
-    setActiveBattlerPosition,
+    getCellsInArea,
+    getCellsInSplitArea,
+    getCellsOnRay,
+    setActiveCellPosition,
     setHoverCellPosition,
     clearHoverCellPosition,
-    onHoverCellClick
+    onHoverCellClick,
+	getCellsInCone
   };
 });
