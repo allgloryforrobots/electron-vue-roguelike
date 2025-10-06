@@ -19,6 +19,8 @@ import { usePlayerStore } from '@/entities/Player';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
 import { MapType } from '@/entities/Map';
+import { getCellsBehindPlayer } from '../lib/getBackCells';
+import { IPosition } from '@/shared/model/Position/Position';
 
 const playerStore = usePlayerStore();
 
@@ -51,12 +53,36 @@ watch(
 function updateFOV() {
   const { x, y } = playerStore.player.position;
   const direction = playerStore.player.direction;
-  fovMap.value = fovCalculator!.calculateFOVWithDirection(x, y, direction, 12);
+  fovMap.value = fovCalculator!.calculateFOVWithDirection(x, y, direction, 15);
+
+  const { 
+    behind, 
+    behindDiagonalLeft, 
+    behindDiagonalRight 
+  } = getCellsBehindPlayer(playerStore.player.position.x, playerStore.player.position.y, playerStore.player.direction);
+
+  function addCell(cell: IPosition) {
+      const  {x, y} = cell;
+      if (
+        y >= 0 &&
+        y < fovMap.value.length &&
+        x >= 0 &&
+        x < fovMap.value[y]?.length
+    ) {
+       fovMap.value[cell.y][cell.x] = true;
+    }
+  }
+
+  addCell(behind);
+  addCell(behindDiagonalLeft);
+  addCell(behindDiagonalRight);
+  
 }
 </script>
 
 <style scoped>
 .not-visible {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 1);
+  box-shadow: 0 0 15px 15px rgba(0, 0, 0, 1);
 }
 </style>
