@@ -80,19 +80,6 @@ export const useMapStore = defineStore('map', () => {
 		return cells;
 	}
 
-  /**
-   * Возвращает все ячейки, находящихся в конусе с углом 60 градусов,
-   * направленном от исходной точки к целевой точке, в пределах заданного радиуса.
-   *
-   * Конус симметричен относительно направления на цель и имеет полный угол 60° (±30°).
-   *
-   * @param originX - X-координата исходной точки (столбец)
-   * @param originY - Y-координата исходной точки (строка)
-   * @param targetX - X-координата целевой точки (столбец)
-   * @param targetY - Y-координата целевой точки (строка)
-   * @param radius - Максимальное расстояние от исходной точки (в клетках)
-   * @returns  Массив ячеек, попавших в конус
-   */
   function getCellsInCone(
     originX: number,
     originY: number,
@@ -121,24 +108,24 @@ export const useMapStore = defineStore('map', () => {
 
     for (let currX = minX; currX <= maxX; currX++) {
       for (let currY = minY; currY <= maxY; currY++) {
-        const cell = map.value[currY][currX];
-            const toCellX = currX - originX;
-            const toCellY = currY - originY;
-            const distance = Math.sqrt(toCellX * toCellX + toCellY * toCellY);
+        const toCellX = currX - originX;
+        const toCellY = currY - originY;
+        const distance = Math.sqrt(toCellX * toCellX + toCellY * toCellY);
 
-            if (distance > radius) continue;
+        if (distance > radius) continue;
 
-            const dot = toCellX * normDirX + toCellY * normDirY;
-            const cosAngle = dot / distance;
+        // Избегаем деления на ноль (хотя distance > 0 из-за условия выше)
+        const dot = toCellX * normDirX + toCellY * normDirY;
+        const cosAngle = dot / distance;
 
-            if (cosAngle >= cosHalfAngle) {
-              cells.push(cell);
-            }
-          }
+        if (cosAngle >= cosHalfAngle) {
+          cells.push(map.value[currY][currX]);
         }
-
-      return cells;
+      }
     }
+
+    return cells;
+  }
 
   /**
    * Возвращает ячейки, разделённых на две группы:
