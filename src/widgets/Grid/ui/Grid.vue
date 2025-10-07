@@ -1,6 +1,9 @@
 <template>
-  <MapContainer :width="width" :height="height">
-    <template v-for="(row, y) in map" :key="y">
+  <MapContainer
+    :width="mapStore.mapWidth" 
+    :height="mapStore.mapHeight"
+  >
+    <template v-for="(row, y) in mapStore.map" :key="y">
       <GridCell 
         v-for="(cell, x) in row"
         :key="`${x}-${y}`"
@@ -22,15 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-import { MapType } from '@/entities/Map';
+import { useMapStore } from '@/pages/GamePage';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
+const mapStore = useMapStore();
 
-defineProps<{ 
-  map: MapType;
-  width: number;
-  height: number;
-}>();
 </script>
 
 <style scoped>
