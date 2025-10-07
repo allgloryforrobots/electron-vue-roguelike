@@ -13,7 +13,7 @@ interface IGenerateMapOptions {
 }
 
 export const useMapStore = defineStore('map', () => {
-  const map = ref<MapType>();
+  const map = ref<MapType>([]);
   const isMapLoaded = computed(() => map.value ? true : false);
 
   // Ширина карты = количество столбцов = x-размер = длина строки

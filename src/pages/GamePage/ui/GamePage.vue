@@ -97,8 +97,8 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Grid v-if="mapStore.map" :map="mapStore.map" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
-  <BattlersGrid v-if="mapStore.map" :map="mapStore.map" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
+  <Grid v-if="mapStore.map" />
+  <BattlersGrid v-if="mapStore.map" />
   <FOVGrid v-if="mapStore.map" :map="mapStore.map" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
   <PathfindingGrid v-if="mapWithPath" :map="mapWithPath" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
   <TargetMaskGrid v-if="mapStore.map" />

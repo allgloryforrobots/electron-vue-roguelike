@@ -36,5 +36,4 @@ const mapStore = useMapStore();
 .grass { background-color: #8bc34a; }
 .tree { background-color: #7cb342; }
 .tree-cluster { background-color: #689f38; }
-.test-red { outline: 1px solid red; }
 </style>

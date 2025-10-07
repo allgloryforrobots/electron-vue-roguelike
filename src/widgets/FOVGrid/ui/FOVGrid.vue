@@ -1,5 +1,9 @@
 <template>
-  <MapContainer class="fov-container" :width="width" :height="height">
+  <MapContainer 
+    class="fov-container" 
+    :width="mapStore.mapWidth" 
+    :height="mapStore.mapHeight"
+  >
     <template v-for="(row, y) in fovMap" :key="y">
       <GridCell
         v-for="(isVisible, x) in row"
@@ -21,23 +25,18 @@ import { FOVCalculator } from '../lib/FOV';
 import { usePlayerStore } from '@/entities/Player';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
-import { MapType } from '@/entities/Map';
 import { getCellsBehindPlayer } from '../lib/getBackCells';
 import { IPosition } from '@/shared/model/Position/Position';
-
+import { useMapStore } from '@/pages/GamePage';
+const mapStore = useMapStore();
 const playerStore = usePlayerStore();
 
-const props = defineProps<{
-  map: MapType;
-  width: number;
-  height: number;
-}>();
 
 const fovMap = ref<boolean[][]>([]);
 let fovCalculator: FOVCalculator | null = null;
 
 onMounted(() => {
-  fovCalculator = new FOVCalculator(props.map);
+  fovCalculator = new FOVCalculator(mapStore.map);
   updateFOV();
 });
 
