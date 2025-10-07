@@ -1,5 +1,5 @@
 <template>
-  <MapContainer>
+  <MapContainer :width="width" :height="height">
     <template v-for="(row, y) in map" :key="y">
       <GridCell 
         v-for="(cell, x) in row"
@@ -26,7 +26,11 @@ import { MapType } from '@/entities/Map';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
 
-defineProps<{ map: MapType }>();
+defineProps<{ 
+  map: MapType;
+  width: number;
+  height: number;
+}>();
 </script>
 
 <style scoped>

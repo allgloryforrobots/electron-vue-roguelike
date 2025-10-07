@@ -1,5 +1,5 @@
 <template>
-  <MapContainer>
+  <MapContainer :width="width" :height="height">
     <GridCell 
       :key="'player'"
       :x="playerStore.player.position.x"
@@ -29,7 +29,11 @@ import { MapType } from '@/entities/Map';
 import { usePlayerStore } from '@/entities/Player';
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
-defineProps<{ map: MapType }>();
+defineProps<{ 
+  map: MapType;
+  width: number;
+  height: number;
+}>();
 
 const playerStore = usePlayerStore();
 </script>

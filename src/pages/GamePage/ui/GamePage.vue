@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {  FOVGrid } from '@/widgets/FOVGrid';
+import { FOVGrid } from '@/widgets/FOVGrid';
 import { Grid } from '@/widgets/Grid';
 import { Pathfinder } from '@/entities/Map';
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
@@ -97,10 +97,10 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Grid v-if="mapStore.map" :map="mapStore.map" />
-  <BattlersGrid v-if="mapStore.map" :map="mapStore.map" />
-  <FOVGrid v-if="mapStore.map" :map="mapStore.map" />
-  <PathfindingGrid v-if="mapWithPath" :map="mapWithPath" />
+  <Grid v-if="mapStore.map" :map="mapStore.map" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
+  <BattlersGrid v-if="mapStore.map" :map="mapStore.map" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
+  <FOVGrid v-if="mapStore.map" :map="mapStore.map" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
+  <PathfindingGrid v-if="mapWithPath" :map="mapWithPath" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
   <TargetMaskGrid v-if="mapStore.map" />
 </template>
 

@@ -1,12 +1,15 @@
 <template>
-  <MapContainer>
+  <MapContainer class="fov-container" :width="width" :height="height">
     <template v-for="(row, y) in fovMap" :key="y">
       <GridCell
         v-for="(isVisible, x) in row"
         :key="`${x}-${y}`"
         :x="x"
         :y="y"
-        :class="{ 'not-visible': !isVisible }"
+        :class="{ 
+          'not-visible': !isVisible,
+          'is-edge': isEdge(x, y) 
+        }"
       />
     </template>
   </MapContainer>
@@ -26,6 +29,8 @@ const playerStore = usePlayerStore();
 
 const props = defineProps<{
   map: MapType;
+  width: number;
+  height: number;
 }>();
 
 const fovMap = ref<boolean[][]>([]);
@@ -50,6 +55,13 @@ watch(
   { immediate: false }
 );
 
+function isEdge(x: number, y: number) {
+  return y === 0 ||
+  y === fovMap.value.length - 1 ||
+  x === 0 ||
+  x === fovMap.value[y]?.length - 1
+}
+
 function updateFOV() {
   const { x, y } = playerStore.player.position;
   const direction = playerStore.player.direction;
@@ -65,9 +77,9 @@ function updateFOV() {
       const  {x, y} = cell;
       if (
         y >= 0 &&
-        y < fovMap.value.length &&
+        y <= fovMap.value.length &&
         x >= 0 &&
-        x < fovMap.value[y]?.length
+        x <= fovMap.value[y]?.length
     ) {
        fovMap.value[cell.y][cell.x] = true;
     }
@@ -82,7 +94,15 @@ function updateFOV() {
 
 <style scoped>
 .not-visible {
-  background-color: rgba(0, 0, 0, 1);
-  box-shadow: 0 0 15px 15px rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 15px 15px rgba(0, 0, 0, 0.5);
+}
+
+.is-edge {
+
+}
+
+.fov-container {
+  overflow: hidden;
 }
 </style>

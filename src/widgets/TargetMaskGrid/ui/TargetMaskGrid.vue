@@ -1,5 +1,5 @@
 <template>
-  <MapContainer ref="mapContainerRef" class="mask_container">
+  <MapContainer ref="mapContainerRef" class="mask_container" :width="mapStore.mapWidth" :height="mapStore.mapHeight">
     <template v-for="(row, y) in mapStore.map" :key="y">
       <GridCell
         v-for="(cell, x) in row"
