@@ -7,7 +7,7 @@ import { usePlayerStore } from '@/entities/Player';
 import { Direction } from '@/shared/model/Direction/Direction';
 import { BattlersGrid } from '@/widgets/BattlersGrid';
 import { PathfindingGrid } from '@/widgets/PathfindingGrid';
-import { useMapStore } from '../model/mapStore/mapStore';
+import { useMapStore } from '@/entities/Map/model/mapStore/mapStore';
 import { TargetMaskGrid } from '@/widgets/TargetMaskGrid';
 
 const playerStore = usePlayerStore();

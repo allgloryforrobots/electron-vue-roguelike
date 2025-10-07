@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import GridCell from '@/shared/ui/GridCell/GridCell.vue';
 import MapContainer from '@/shared/ui/MapContainer/MapContainer.vue';
-import { useMapStore } from '@/pages/GamePage/model/mapStore/mapStore';
+import { useMapStore } from '@/entities/Map/model/mapStore/mapStore';
 import { ref, onBeforeUnmount, ComponentPublicInstance } from 'vue';
 
 const mapStore = useMapStore();
