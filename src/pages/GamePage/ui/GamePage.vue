@@ -2,7 +2,7 @@
 import { FOVGrid } from '@/widgets/FOVGrid';
 import { Grid } from '@/widgets/Grid';
 import { Pathfinder } from '@/entities/Map';
-import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { usePlayerStore } from '@/entities/Player';
 import { Direction } from '@/shared/model/Direction/Direction';
 import { BattlersGrid } from '@/widgets/BattlersGrid';
@@ -16,7 +16,6 @@ mapStore.generateMap({});
 mapStore.generateEnemies({});
 playerStore.player.position.x = 1; 
 playerStore.player.position.y = 1;
-const mapWithPath = ref();
 
 const handleKeyDown = (event: KeyboardEvent) => {
 
@@ -81,26 +80,14 @@ onUnmounted(() => {
 });
 
 
-watchEffect(() => {
-  if (mapStore.map) {
-    const result = Pathfinder.findPath(mapStore.map, playerStore.player.position.x, playerStore.player.position.y, 45, 25);
 
-    if (result.success) {
-      // Визуализируем путь
-      mapWithPath.value = Pathfinder.visualizePath(mapStore.map, result.path);
-    } else {
-      console.log('Путь не найден');
-    }
-  }
-
-});
 </script>
 
 <template>
   <Grid v-if="mapStore.map" />
   <BattlersGrid v-if="mapStore.map" />
-  <FOVGrid v-if="mapStore.map" :map="mapStore.map" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
-  <PathfindingGrid v-if="mapWithPath" :map="mapWithPath" :width="mapStore.mapWidth" :height="mapStore.mapHeight" />
+  <FOVGrid v-if="mapStore.map" />
+  <PathfindingGrid v-if="mapStore.map" />
   <TargetMaskGrid v-if="mapStore.map" />
 </template>
 
